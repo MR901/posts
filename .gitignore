@@ -8,6 +8,11 @@ Gemfile.lock
 .jekyll-metadata
 _site
 
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+
 # RubyGems
 *.gem
 
