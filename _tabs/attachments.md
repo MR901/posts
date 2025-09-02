@@ -1,7 +1,7 @@
 ---
 layout: page
 icon: fas fa-paperclip
-order: 5
+order: 4
 title: Attachments
 ---
 
@@ -304,17 +304,66 @@ Browse and search through all available attachments organized by category.
   })();
   
   function updateResults() {
-    const query = searchInput.value.toLowerCase().trim();
+    const raw = searchInput.value || '';
     const items = document.querySelectorAll('.attachment-item');
-    
+
+    // Helper: normalize text (case, underscores, hyphens, punctuation, diacritics)
+    function normalizeText(s) {
+      if (!s) return '';
+      try { s = s.normalize('NFD').replace(/[\u0300-\u036f]/g, ''); } catch(e) {}
+      return s.toLowerCase()
+        .replace(/[_-]+/g, ' ')
+        .replace(/[^a-z0-9\s]/g, ' ')
+        .replace(/\s+/g, ' ')
+        .trim();
+    }
+
+    // Tokenize into words
+    function tokenize(s) {
+      const n = normalizeText(s);
+      return n ? n.split(' ').filter(Boolean) : [];
+    }
+
+    // Fast edit-distance <= 1 checker
+    function editDistanceLTE1(a, b) {
+      if (a === b) return true;
+      const la = a.length, lb = b.length;
+      if (Math.abs(la - lb) > 1) return false;
+      let i = 0, j = 0, edits = 0;
+      while (i < la && j < lb) {
+        if (a[i] === b[j]) { i++; j++; continue; }
+        edits++; if (edits > 1) return false;
+        if (la > lb) i++; else if (lb > la) j++; else { i++; j++; }
+      }
+      if ((la - i) + (lb - j) > 0) edits++;
+      return edits <= 1;
+    }
+
+    function isFuzzyMatch(hayWord, qWord) {
+      if (!qWord) return true;
+      if (hayWord.indexOf(qWord) !== -1) return true;
+      if (qWord.length >= 3 && qWord.indexOf(hayWord) !== -1) return true;
+      return editDistanceLTE1(hayWord, qWord);
+    }
+
+    function matches(hay, queryRaw) {
+      const qTokens = tokenize(queryRaw);
+      if (qTokens.length === 0) return true;
+      const hTokens = tokenize(hay);
+      if (hTokens.length === 0) return false;
+      return qTokens.every(function(qt) {
+        return hTokens.some(function(hw) { return isFuzzyMatch(hw, qt); });
+      });
+    }
+
     items.forEach(function(item) {
-      const searchText = (item.getAttribute('data-search') || '').toLowerCase();
-      const isVisible = !query || searchText.indexOf(query) !== -1;
-      item.style.display = isVisible ? '' : 'none';
+      const hay = item.getAttribute('data-search') || '';
+      const visible = matches(hay, raw);
+      item.style.display = visible ? '' : 'none';
     });
-    
+
     // Update tab badges with visible counts
-    updateTabBadges(query);
+    updateTabBadges(raw);
   }
   
   function updateTabBadges(query) {

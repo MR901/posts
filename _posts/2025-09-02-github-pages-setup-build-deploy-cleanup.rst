@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "GitHub Pages: Setup, CI/CD, gh CLI, and Cleanup (Generator‑Agnostic)"
+title: "GitHub Pages: Setup, CI/CD, gh CLI, and Cleanup"
 date: 2025-09-02 00:00:00 +0530
 categories: [github, pages]
 tags: [github, pages, actions, deployment, gh-cli]
@@ -9,17 +9,20 @@ toc: true
 comments: false
 math: false
 mermaid: false
-description: "Generator-agnostic guide to GitHub Pages: setup, CI/CD with Actions, gh CLI management, and safe cleanup of stale deployments."
+description: "GitHub Pages setup, CI/CD with Actions, gh CLI management, and safe cleanup of stale deployments."
+image:
+  path: https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png
+  alt: "GitHub Pages: Setup, CI/CD, gh CLI, and Cleanup"
 ---
 
 GitHub Pages, Explained as Scenarios (Situation → Goal → Tasks → Actions)
-=======================================================================
+===================================================================================
 
 Use these scenario cards to quickly map your Situation to the right Actions. Each card includes clear success signals and rollback notes so you stay in control.
 
 
 Scenario A — Publish a Project Site (repo: posts)
--------------------------------------------------
+--------------------------------------------------------------------------------
 
 **Situation**
   You have a project repository (``posts``) and want it live at ``https://mr901.github.io/posts/``.
@@ -104,7 +107,7 @@ Scenario A — Publish a Project Site (repo: posts)
 
 
 Scenario B — Inspect/Manage Deployments with gh CLI
----------------------------------------------------
+--------------------------------------------------------------------------------
 
 **Situation**
   You need visibility into which deployments exist and, if needed, remove one.
@@ -162,7 +165,7 @@ Scenario B — Inspect/Manage Deployments with gh CLI
 
 
 Scenario C — Clear Old Pages Content / Shut Down a Site
--------------------------------------------------------
+--------------------------------------------------------------------------------
 
 **Situation**
   You deleted or plan to delete a repository, but the old Pages site persists.
@@ -199,7 +202,7 @@ Scenario C — Clear Old Pages Content / Shut Down a Site
 
 
 Scenario D — Pages Looks Out of Sync After a Successful Deploy
---------------------------------------------------------------
+--------------------------------------------------------------------------------
 
 **Situation**
   Actions is green, but the live site seems unchanged.
@@ -224,7 +227,7 @@ Scenario D — Pages Looks Out of Sync After a Successful Deploy
 
 
 Scenario E — Authoring Content that Survives baseurl
-----------------------------------------------------
+--------------------------------------------------------------------------------
 
 **Situation**
   Internal links or assets are breaking under ``baseurl: "/posts"``.
@@ -255,7 +258,7 @@ Scenario E — Authoring Content that Survives baseurl
 
 
 Cheat Sheet
------------
+--------------------------------------------------------------------------------
 
 * Project site → ``baseurl: "/<repo>"``; user site → ``baseurl: ""``
 * Actions deploys are the most reliable source for Pages
@@ -264,7 +267,8 @@ Cheat Sheet
 
 
 Visual Walkthrough
-------------------
+--------------------------------------------------------------------------------
+
 
 .. figure:: assets/attachments/images/github_actions_successful_build.png
    :alt: Successful GitHub Actions build steps

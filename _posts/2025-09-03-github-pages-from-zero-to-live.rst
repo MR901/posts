@@ -9,17 +9,20 @@ toc: true
 comments: false
 math: false
 mermaid: false
-description: "A generator‑agnostic, story‑driven guide: understand GitHub Pages, set it up from scratch, add a minimal GitHub Actions deploy, verify, and keep deployments clean with gh CLI."
+description: "Understand GitHub Pages, set it up from scratch, add a minimal GitHub Actions deploy, verify, and keep deployments clean with gh CLI."
+image:
+  path: https://miro.medium.com/v2/resize:fit:720/format:webp/1*_M3PH26KMfxZ2hBpC2I3_A.jpeg
+  alt: "GitHub Pages: From Zero to Live"
 ---
 
 Why this guide (a short story)
-==============================
+===================================================================================
 
-I wanted one lean, repeatable way to publish any static site from any repository—no theme lock‑in, no tool bias. This page is my own checklist, written so a friend could follow it on a fresh repo and be live in minutes. We’ll keep it simple, show the moving parts, and link the places where things go wrong.
+I wanted one lean, repeatable way to publish any static site from any repository—no theme lock‑in, no tool bias. This page is my own checklist, notes to setup on a fresh repo and be live in minutes. I'll keep this simple, show the moving parts, and point the places where things go wrong.
 
 
 What is GitHub Pages?
-=====================
+===================================================================================
 
 GitHub Pages serves static files (HTML, CSS, JS, images) from your repository on a global CDN.
 
@@ -32,7 +35,7 @@ You can deploy either by picking a branch/folder as the source, or (recommended)
 
 
 Five‑minute setup (no build step)
-=================================
+===================================================================================
 
 Goal: put a single page live fast.
 
@@ -56,7 +59,7 @@ Steps:
 
 
 Minimal CI/CD with GitHub Actions (generator‑agnostic)
-=====================================================
+===================================================================================
 
 Goal: build static files (from any tool) and deploy on each push.
 
@@ -128,7 +131,7 @@ Create ``.github/workflows/pages-deploy.yml`` with one build path of your choice
 
 
 Verify and monitor
-==================
+============================================================
 
 1. Actions → latest run → job “Deploy to GitHub Pages” should be green; open the page URL.
 2. Settings → Pages shows the same live URL.
@@ -142,9 +145,17 @@ Verify and monitor
 
 
 Keep deployments tidy with gh CLI
-=================================
+===================================================================================
 
 Sometimes old/failed deployments clutter history. Use the GitHub CLI to list and remove.
+
+Install gh CLI, go to the official site `here <https://cli.github.com/>`_.
+
+Run ``gh auth login`` to authenticate with your GitHub account. Alternatively, gh will respect the ``GITHUB_TOKEN`` environment variable.
+
+List selected fields from all repositories::
+
+    gh api users/<user>/repos --jq '.[] | {name: .name, full_name: .full_name, has_pages: .has_pages, archived: .archived, disabled: .disabled}'
 
 List deployments for a repository::
 
@@ -178,7 +189,7 @@ Reference: GitHub housekeeping approach inspired by `this article <https://dhanu
 
 
 Troubleshooting (fast fixes)
-============================
+===================================================================================
 
 * Green deploy but old content → hard refresh, private window, or push a tiny change and redeploy
 * Wrong live URL → Settings → Pages → confirm Source and Branch/Folder
@@ -187,7 +198,7 @@ Troubleshooting (fast fixes)
 
 
 Appendix: three minimal workflows
-=================================
+===================================================================================
 
 Plain HTML (copy static files)::
 
@@ -210,8 +221,8 @@ Jekyll (one liner)::
     - run: bundle exec jekyll build -d _site && mv _site dist
 
 
-One‑page checklist
-==================
+Checklist
+===================================================================================
 
 * Create repo → add ``index.html`` (or buildable project)
 * Add the CI workflow → ensure your output folder matches the upload step
