@@ -443,7 +443,7 @@ Images
 
 **Basic Image Syntax:**
 
-.. image:: /assets/attachments/images/repo_icon.png
+.. image:: assets/attachments/images/repo_icon.png
    :alt: Description of the image
    :align: center
    :width: 400
@@ -451,7 +451,7 @@ Images
 
 **Image with Caption:**
 
-.. figure:: /assets/attachments/images/screenshot.png
+.. figure:: assets/attachments/images/screenshot.png
    :alt: Application screenshot
    :align: left
    :width: 600
@@ -662,8 +662,8 @@ Common Issues - Quick Fixes
     # Check file exists
     ls assets/images/your-image.jpg
 
-    # Use correct path
-    .. image:: /assets/images/your-image.jpg
+    # Use correct path (relative, not absolute)
+    .. image:: assets/images/your-image.jpg
 
 Formatting Troubleshooting
 ===========================
