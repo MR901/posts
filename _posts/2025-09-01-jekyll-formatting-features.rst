@@ -485,8 +485,8 @@ Internal Links
 
 **Link to Other Posts:**
 
-* `Jekyll Fundamentals Guide </posts/jekyll-fundamentals-setup-and-environment-configuration/>`_
-* `Content Creation Guide </posts/jekyll-content-creation-writing-posts-and-pages/>`_
+* `Jekyll Fundamentals Guide </posts/jekyll-fundamentals-setup/>`_
+* `Content Creation Guide </posts/jekyll-content-creation-guide/>`_
 
 **Link to Sections:**
 
