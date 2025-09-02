@@ -2,8 +2,8 @@
 layout: post
 title: "Jekyll Advanced Formatting: Typography, Media, and Special Features"
 date: 2025-09-01 13:00:00 +0530
-categories: [jekyll, formatting, features]
-tags: [typography, markdown, rst, media, mathematics, mermaid, formatting]
+categories: [jekyll, formatting]
+tags: [jekyll, formatting]
 math: true
 mermaid: true
 ---
@@ -77,7 +77,7 @@ List Types
 1. First item
 2. Second item
 3. Third item
-   
+
    a. Nested sub-item
    b. Another sub-item
 
@@ -86,10 +86,10 @@ List Types
 **Unordered Lists:**
 
 * Main point
-  
+
   * Sub-point
   * Another sub-point
-    
+
     * Deeply nested point
 
 * Another main point
@@ -116,19 +116,19 @@ Complex List Examples
 **Nested Mixed Lists:**
 
 1. **Setup Phase**
-   
+
    * Install dependencies
    * Configure environment
    * Test installation
 
 2. **Development Phase**
-   
+
    * Write code
    * Test functionality
    * Document changes
 
 3. **Deployment Phase**
-   
+
    * Build production version
    * Deploy to server
    * Monitor performance
@@ -147,15 +147,15 @@ Blockquotes
 **Nested Blockquotes:**
 
     This is the first level of quotation.
-    
+
         This is a nested quotation within the first level.
-        
+
     Back to the first level.
 
 **Attribution:**
 
     "The best way to predict the future is to invent it."
-    
+
     — Alan Kay
 
 Prompt Boxes (Theme-Specific)
@@ -216,7 +216,7 @@ Code Blocks
        if n <= 1:
            return n
        return fibonacci(n-1) + fibonacci(n-2)
-   
+
    # Generate first 10 Fibonacci numbers
    for i in range(10):
        print(f"F({i}) = {fibonacci(i)}")
@@ -225,10 +225,10 @@ Code Blocks
 
    # System update and package installation
    sudo apt update && sudo apt upgrade -y
-   
+
    # Install development tools
    sudo apt install build-essential git curl -y
-   
+
    # Check installation
    gcc --version
 
@@ -375,7 +375,7 @@ Mermaid Diagrams
        participant Browser
        participant Server
        participant Database
-       
+
        User->>Browser: Enter URL
        Browser->>Server: HTTP Request
        Server->>Database: Query Data
@@ -390,16 +390,16 @@ Mermaid Diagrams
    gantt
        title Project Timeline
        dateFormat YYYY-MM-DD
-       
+
        section Planning
        Research          :a1, 2025-09-01, 1w
        Requirements      :a2, after a1, 3d
-       
+
        section Development
        Setup             :b1, after a2, 2d
        Core Features     :b2, after b1, 2w
        Testing          :b3, after b2, 1w
-       
+
        section Deployment
        Production Setup  :c1, after b3, 3d
        Go Live          :c2, after c1, 1d
@@ -415,19 +415,19 @@ Mermaid Diagrams
            +makeSound()
            +move()
        }
-       
+
        class Dog {
            +String breed
            +bark()
            +wagTail()
        }
-       
+
        class Cat {
            +String color
            +meow()
            +purr()
        }
-       
+
        Animal <|-- Dog
        Animal <|-- Cat
 
@@ -449,7 +449,7 @@ Images
 .. figure:: /assets/images/screenshot.png
    :alt: Application screenshot
    :width: 800
-   
+
    *Application interface showing the main dashboard with navigation menu*
 
 **Responsive Images:**
@@ -552,8 +552,8 @@ Interactive Elements
 .. raw:: html
 
    <div class="video-container">
-       <iframe width="560" height="315" 
-               src="https://www.youtube.com/embed/VIDEO_ID" 
+       <iframe width="560" height="315"
+               src="https://www.youtube.com/embed/VIDEO_ID"
                frameborder="0" allowfullscreen>
        </iframe>
    </div>

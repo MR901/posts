@@ -3,7 +3,7 @@ layout: post
 title: "Jekyll Customization and Deployment: Themes, Assets, and Publishing"
 date: 2025-09-01 14:00:00 +0530
 categories: [jekyll, customization, deployment]
-tags: [jekyll, themes, deployment, github-pages, customization, favicon, assets]
+tags: [jekyll, customization, deployment]
 ---
 
 Jekyll Customization and Deployment: Themes, Assets, and Publishing
