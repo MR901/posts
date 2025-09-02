@@ -2,8 +2,8 @@
 layout: post
 title: "Jekyll Fundamentals: Setup and Environment Configuration"
 date: 2025-09-01 10:00:00 +0530
-categories: [jekyll, setup, fundamentals]
-tags: [jekyll, getting-started, setup, environment, dev-containers]
+categories: [jekyll, setup]
+tags: [jekyll, setup]
 pin: true
 ---
 
@@ -51,13 +51,13 @@ Repository Setup Options
 This approach simplifies upgrades and focuses on content creation:
 
 1. **Create from Template:**
-   
+
    * Navigate to Jekyll theme starter repository
    * Click "Use this template" → "Create a new repository"
    * Name it ``<username>.github.io`` for GitHub Pages
 
 2. **Benefits:**
-   
+
    * Simplified upgrade process
    * Clean, minimal setup
    * Focus on writing content
@@ -68,13 +68,13 @@ This approach simplifies upgrades and focuses on content creation:
 For users who want to modify the theme extensively:
 
 1. **Fork the Repository:**
-   
+
    * Fork the theme repository on GitHub
    * Name it ``<username>.github.io``
    * Clone to your local machine
 
 2. **Considerations:**
-   
+
    * More control over customization
    * Harder to upgrade theme
    * Requires Jekyll knowledge
@@ -98,22 +98,22 @@ Dev Containers provide isolated, consistent environments using Docker:
 **Setup Steps:**
 
 1. **Install Docker:**
-   
+
    * Windows/macOS: Install Docker Desktop
    * Linux: Install Docker Engine
 
 2. **Install VS Code Extensions:**
-   
+
    * Dev Containers extension
    * Remote development support
 
 3. **Clone and Open:**
-   
+
    * Docker Desktop: Clone in container volume
    * Docker Engine: Clone locally, open in container
 
 4. **Benefits:**
-   
+
    * Isolated environment
    * Consistent across machines
    * No system dependency conflicts
@@ -132,7 +132,7 @@ Direct installation on your system for optimal performance:
 **Setup Steps:**
 
 1. **Install Jekyll:**
-   
+
    Follow Jekyll installation guide for your OS::
 
        # Ubuntu/Debian
@@ -143,26 +143,26 @@ Direct installation on your system for optimal performance:
        brew install ruby
 
 2. **Install Bundler:**
-   
+
    ::
 
        gem install bundler
 
 3. **Clone Repository:**
-   
+
    ::
 
        git clone <your-repo-url>
        cd <your-repo-name>
 
 4. **Install Dependencies:**
-   
+
    ::
 
        bundle install
 
 5. **Initialize (if forked):**
-   
+
    ::
 
        bash tools/init.sh  # For forked themes
@@ -333,7 +333,7 @@ Environment Problems
 
     # Check Ruby version
     ruby --version
-    
+
     # Use Ruby version manager if needed
     rbenv install 3.0.0
     rbenv global 3.0.0
@@ -344,7 +344,7 @@ Environment Problems
 
     # Clean bundle
     bundle clean --force
-    
+
     # Reinstall gems
     bundle install
 
@@ -362,20 +362,20 @@ Build Errors
 **Common Solutions:**
 
 1. **Clean and rebuild:**
-   
+
    ::
 
        bundle exec jekyll clean
        bundle exec jekyll build
 
 2. **Update dependencies:**
-   
+
    ::
 
        bundle update
 
 3. **Check configuration:**
-   
+
    * Validate YAML syntax in ``_config.yml``
    * Check plugin compatibility
    * Verify file permissions

@@ -3,9 +3,10 @@
 vendor
 Gemfile.lock
 
-# Jekyll cache
+# Cache
 .jekyll-cache
 .jekyll-metadata
+.pygments-cache
 _site
 
 # Python cache
@@ -22,7 +23,7 @@ package-lock.json
 
 # IDE configurations
 .idea
-.vscode/*
+# .vscode/*
 !.vscode/settings.json
 !.vscode/extensions.json
 !.vscode/tasks.json
@@ -31,8 +32,3 @@ package-lock.json
 _sass/vendors
 assets/js/dist
 
-
-
-
-.pygments-cache/
-.jekyll-cache/

@@ -3,7 +3,7 @@ layout: post
 title: "Jekyll Content Creation: Writing Posts and Pages"
 date: 2025-09-01 11:00:00 +0530
 categories: [jekyll, content, writing]
-tags: [jekyll, writing, posts, front-matter, content-creation]
+tags: [jekyll, content-creation]
 ---
 
 Jekyll Content Creation: Writing Posts and Pages
