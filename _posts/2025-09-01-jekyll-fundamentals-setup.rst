@@ -1,10 +1,20 @@
 ---
 layout: post
 title: "Jekyll Fundamentals: Setup and Environment Configuration"
-date: 2025-09-01 10:00:00 +0530
+date: 2025-09-01 00:00:00 +0530
 categories: [jekyll, setup]
 tags: [jekyll, setup]
-pin: true
+pin: false
+toc: true
+comments: false
+math: false
+mermaid: false
+description: "This post covers the fundamentals of Jekyll, from creating your first repository to setting up development environments."
+author: "Mohit Rajput"
+image:
+  path: https://jekyllrb.com/img/logo-2x.png
+  alt: "Jekyll Fundamentals: Setup and Environment Configuration"
+.. media_subpath: '/assets/images/2025-09-01/'
 ---
 
 Jekyll Fundamentals: Setup and Environment Configuration

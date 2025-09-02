@@ -1,11 +1,20 @@
 ---
 layout: post
 title: "Jekyll Advanced Formatting: Typography, Media, and Special Features"
-date: 2025-09-01 13:00:00 +0530
+date: 2025-09-01 00:00:00 +0530
 categories: [jekyll, formatting]
 tags: [jekyll, formatting]
+pin: false
+toc: true
+comments: false
 math: true
 mermaid: true
+description: "This post covers the advanced formatting capabilities of Jekyll, from typography and text styling to media integration, mathematical equations, and interactive diagrams."
+author: "Mohit Rajput"
+image:
+  path: https://jekyllrb.com/img/logo-2x.png
+  alt: "Jekyll Advanced Formatting: Typography, Media, and Special Features"
+.. media_subpath: '/assets/images/2025-09-01/'
 ---
 
 Jekyll Advanced Formatting: Typography, Media, and Special Features
