@@ -144,9 +144,11 @@ assets:
     env: # [development | production]
 
 pwa:
-  enabled: true # The option for PWA feature (installable)
+  # enabled: true # The option for PWA feature (installable)
+  enabled: false # Disable PWA to avoid referencing non-existent app.min.js during tests
   cache:
-    enabled: true # The option for PWA offline cache
+    enabled: false
+    # enabled: true # The option for PWA offline cache
     # Paths defined here will be excluded from the PWA cache.
     # Usually its value is the `baseurl` of another website that
     # shares the same domain name as the current website.
