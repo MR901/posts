@@ -390,4 +390,176 @@ Once your Jekyll environment is set up:
 3. **Add features** - Plugins and advanced functionality
 4. **Deploy your site** - GitHub Pages, Netlify, or other hosts
 
-This foundation provides everything needed to start building with Jekyll. The modular nature of Jekyll makes it easy to grow your site as you learn more advanced features.
+Jekyll Quick Recovery Guide
+===========================
+
+Server Management
+-----------------
+
+**Start Server:**
+
+::
+
+    bundle exec jekyll serve --host 0.0.0.0 --port 4000
+
+**Stop Server:**
+
+::
+
+    # In terminal: Ctrl+C
+    # Or kill process:
+    pkill -f jekyll
+
+**Check Running Processes:**
+
+::
+
+    ps aux | grep jekyll
+
+**Force Kill All Jekyll Processes:**
+
+::
+
+    pkill -9 -f jekyll
+
+Reset and Cleanup
+-----------------
+
+**Full Reset (when things break):**
+
+::
+
+    # 1. Kill any running Jekyll
+    pkill -f jekyll
+
+    # 2. Clean build artifacts
+    bundle exec jekyll clean
+
+    # 3. Fresh build
+    bundle exec jekyll build
+
+    # 4. Start server
+    bundle exec jekyll serve --host 0.0.0.0
+
+**Clean Build Cache:**
+
+::
+
+    bundle exec jekyll clean
+    rm -rf .jekyll-cache
+    rm -rf _site
+
+**Reset Ruby Dependencies:**
+
+::
+
+    bundle clean --force
+    bundle install
+
+Common Issues - Quick Fixes
+============================
+
+**Issue: "No such file or directory - getcwd"**
+
+::
+
+    # You're in a deleted directory
+    cd /workspaces/mr9
+    bundle exec jekyll serve --host 0.0.0.0
+
+**Issue: Port Already in Use**
+
+::
+
+    # Kill process on port 4000
+    lsof -ti:4000 | xargs kill -9
+
+    # Or use different port
+    bundle exec jekyll serve --port 4001
+
+**Issue: RST Warnings (Safe to Ignore)**
+
+::
+
+    <string>:895: (ERROR/3) Unexpected indentation.
+    # Site still builds - warnings don't break functionality
+
+**Issue: Changes Not Appearing**
+
+::
+
+    # Force rebuild
+    bundle exec jekyll clean
+    bundle exec jekyll serve --host 0.0.0.0
+
+**Issue: Python/RST Not Working**
+
+::
+
+    # Check Python symlink
+    python --version
+
+    # Fix if needed
+    sudo ln -s /usr/bin/python3 /usr/bin/python
+
+Build Process Essentials
+========================
+
+**Development Workflow:**
+
+::
+
+    # 1. Start server (auto-rebuilds on changes)
+    bundle exec jekyll serve --host 0.0.0.0
+
+    # 2. Edit files in _posts/, assets/, etc.
+    # 3. Check browser - changes appear automatically
+    # 4. Stop server: Ctrl+C
+
+**Production Build:**
+
+::
+
+    JEKYLL_ENV=production bundle exec jekyll build
+
+**Debug Build Issues:**
+
+::
+
+    bundle exec jekyll build --trace --verbose
+
+**Test Specific RST File:**
+
+::
+
+    python _plugins/jekyll-rst/rst2html.py _posts/your-file.rst
+
+Best Practices
+==============
+
+**Daily Workflow:**
+
+1. ``cd /workspaces/mr9`` - Always start in correct directory
+2. ``bundle exec jekyll serve --host 0.0.0.0`` - Start server
+3. Edit content files
+4. ``Ctrl+C`` - Stop server when done
+
+**When Things Break:**
+
+1. ``pkill -f jekyll`` - Kill any hanging processes
+2. ``bundle exec jekyll clean`` - Clean build cache
+3. ``cd /workspaces/mr9`` - Ensure correct directory
+4. ``bundle exec jekyll serve --host 0.0.0.0`` - Restart fresh
+
+**Before Deploying:**
+
+::
+
+    # Test production build
+    JEKYLL_ENV=production bundle exec jekyll build --trace
+
+**File Organization:**
+
+- Edit source files in ``_posts/``, ``assets/``, ``_config.yml``
+- Never edit files in ``_site/`` (gets overwritten)
+- Use version control: ``git add .`` → ``git commit`` → ``git push``

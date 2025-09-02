@@ -78,7 +78,9 @@ Layout Customization
 
 **Override Default Layouts:**
 
-Create custom layouts in ``_layouts/`` directory::
+Create custom layouts in ``_layouts/`` directory:
+
+.. code-block:: html
 
     <!-- _layouts/custom-post.html -->
     ---
@@ -87,34 +89,36 @@ Create custom layouts in ``_layouts/`` directory::
 
     <article class="custom-post">
         <header class="post-header">
-            <h1 class="post-title">{{ page.title }}</h1>
-            <time class="post-date">{{ page.date | date: "%B %d, %Y" }}</time>
+            <h1 class="post-title">{% raw %}{{ page.title }}{% endraw %}</h1>
+            <time class="post-date">{% raw %}{{ page.date | date: "%B %d, %Y" }}{% endraw %}</time>
         </header>
 
         <div class="post-content">
-            {{ content }}
+            {% raw %}{{ content }}{% endraw %}
         </div>
 
         <footer class="post-footer">
             <div class="post-tags">
-                {% for tag in page.tags %}
-                    <span class="tag">{{ tag }}</span>
-                {% endfor %}
+                {% raw %}{% for tag in page.tags %}{% endraw %}
+                    <span class="tag">{% raw %}{{ tag }}{% endraw %}</span>
+                {% raw %}{% endfor %}{% endraw %}
             </div>
         </footer>
     </article>
 
 **Custom Includes:**
 
-Create reusable components in ``_includes/``::
+Create reusable components in ``_includes/``:
+
+.. code-block:: html
 
     <!-- _includes/custom-navigation.html -->
     <nav class="custom-nav">
         <ul>
-            <li><a href="{{ '/' | relative_url }}">Home</a></li>
-            <li><a href="{{ '/about' | relative_url }}">About</a></li>
-            <li><a href="{{ '/posts' | relative_url }}">Posts</a></li>
-            <li><a href="{{ '/contact' | relative_url }}">Contact</a></li>
+            <li><a href="{% raw %}{{ '/' | relative_url }}{% endraw %}">Home</a></li>
+            <li><a href="{% raw %}{{ '/about' | relative_url }}{% endraw %}">About</a></li>
+            <li><a href="{% raw %}{{ '/posts' | relative_url }}{% endraw %}">Posts</a></li>
+            <li><a href="{% raw %}{{ '/contact' | relative_url }}{% endraw %}">Contact</a></li>
         </ul>
     </nav>
 
@@ -283,14 +287,16 @@ Use online tools like Real Favicon Generator:
 
 **Step 4: Update HTML Head**
 
-Include favicon links in your site's ``<head>`` section::
+Include favicon links in your site's ``<head>`` section:
+
+.. code-block:: html
 
     <!-- In _includes/head.html or _layouts/default.html -->
-    <link rel="apple-touch-icon" sizes="180x180" href="{{ '/assets/img/favicons/apple-touch-icon.png' | relative_url }}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{{ '/assets/img/favicons/favicon-32x32.png' | relative_url }}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ '/assets/img/favicons/favicon-16x16.png' | relative_url }}">
-    <link rel="manifest" href="{{ '/assets/img/favicons/site.webmanifest' | relative_url }}">
-    <link rel="shortcut icon" href="{{ '/assets/img/favicons/favicon.ico' | relative_url }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{% raw %}{{ '/assets/img/favicons/apple-touch-icon.png' | relative_url }}{% endraw %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% raw %}{{ '/assets/img/favicons/favicon-32x32.png' | relative_url }}{% endraw %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% raw %}{{ '/assets/img/favicons/favicon-16x16.png' | relative_url }}{% endraw %}">
+    <link rel="manifest" href="{% raw %}{{ '/assets/img/favicons/site.webmanifest' | relative_url }}{% endraw %}">
+    <link rel="shortcut icon" href="{% raw %}{{ '/assets/img/favicons/favicon.ico' | relative_url }}{% endraw %}">
 
 Configuration and Settings
 ==========================
@@ -380,14 +386,14 @@ Create ``_data/navigation.yml``::
 
 **Use in Templates:**
 
-::
+.. code-block:: html
 
     <!-- _includes/navigation.html -->
     <nav>
         <ul>
-        {% for item in site.data.navigation.main %}
-            <li><a href="{{ item.url | relative_url }}">{{ item.title }}</a></li>
-        {% endfor %}
+        {% raw %}{% for item in site.data.navigation.main %}{% endraw %}
+            <li><a href="{% raw %}{{ item.url | relative_url }}{% endraw %}">{% raw %}{{ item.title }}{% endraw %}</a></li>
+        {% raw %}{% endfor %}{% endraw %}
         </ul>
     </nav>
 
@@ -630,7 +636,7 @@ SEO Optimization
     ---
 
 Maintenance and Updates
-======================
+=======================
 
 Regular Maintenance Tasks
 -------------------------
@@ -659,4 +665,157 @@ Regular Maintenance Tasks
 * **Custom assets** - Backup important media files
 * **Configuration** - Document custom settings
 
-This comprehensive guide covers Jekyll customization and deployment essentials. Use these techniques to create a unique, performant website that reflects your brand and serves your audience effectively.
+Deployment Quick Fixes
+======================
+
+GitHub Pages Issues
+-------------------
+
+**Build Failed:**
+
+::
+
+    # Check Actions tab in GitHub repository
+    # Look for specific error messages
+
+    # Common fix - update platform
+    bundle lock --add-platform x86_64-linux
+    git add Gemfile.lock && git commit -m "Add Linux platform" && git push
+
+**Assets Not Loading (404 errors):**
+
+::
+
+    # Check _config.yml
+    baseurl: "/repository-name"  # For project sites
+    baseurl: ""                  # For user sites (username.github.io)
+
+    # Test production build locally
+    JEKYLL_ENV=production bundle exec jekyll build
+
+**Custom Domain Not Working:**
+
+::
+
+    # Check CNAME file contains only domain name
+    echo "yourdomain.com" > CNAME
+
+    # Check DNS (wait 24-48 hours for propagation)
+    nslookup yourdomain.com
+
+Local vs Production Differences
+-------------------------------
+
+**Test Production Build Locally:**
+
+::
+
+    # Build like GitHub Pages does
+    JEKYLL_ENV=production bundle exec jekyll build --trace
+
+    # Serve production build
+    cd _site && python -m http.server 8000
+
+**Environment-Specific Config:**
+
+::
+
+    # _config.yml (base)
+    url: "http://localhost:4000"
+
+    # _config_production.yml (override)
+    url: "https://yourdomain.com"
+
+    # Build with both configs
+    bundle exec jekyll build --config _config.yml,_config_production.yml
+
+Quick Deployment Workflow
+==========================
+
+**Standard GitHub Pages:**
+
+1. Push to ``main`` branch
+2. Check Actions tab for build status
+3. Fix any errors and push again
+
+**Manual Build and Deploy:**
+
+::
+
+    # Build for production
+    JEKYLL_ENV=production bundle exec jekyll build
+
+    # Upload _site/ contents to your server
+    rsync -av _site/ user@server:/var/www/html/
+
+**Draft Posts (Don't Deploy):**
+
+::
+
+    # Add to front matter
+    published: false
+
+    # Test locally with drafts
+    bundle exec jekyll serve --drafts
+
+Performance Quick Wins
+======================
+
+**Speed Up Builds:**
+
+::
+
+    # Exclude unnecessary files in _config.yml
+    exclude:
+      - README.md
+      - node_modules
+      - .git
+      - .github
+
+    # Use incremental builds for development
+    bundle exec jekyll serve --incremental
+
+**Optimize Images:**
+
+::
+
+    # Compress before adding to repo
+    mogrify -resize 1200x1200> -quality 85 assets/images/*.jpg
+
+**Check Build Performance:**
+
+::
+
+    # Time your builds
+    time bundle exec jekyll build
+
+    # Profile slow builds
+    bundle exec jekyll build --profile
+
+Security Essentials
+===================
+
+**Dependency Updates:**
+
+::
+
+    # Check for vulnerabilities
+    bundle audit
+
+    # Update gems
+    bundle update
+
+    # Commit updated Gemfile.lock
+    git add Gemfile.lock && git commit -m "Update dependencies"
+
+**Never Commit Secrets:**
+
+- API keys, passwords, tokens
+- Use environment variables instead
+- Check ``.gitignore`` includes sensitive files
+
+**Content Security:**
+
+- Review any user-contributed content
+- Keep Jekyll and plugins updated
+- Use HTTPS for custom domains

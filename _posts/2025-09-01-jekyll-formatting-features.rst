@@ -212,6 +212,7 @@ Code Blocks
 
 .. code-block:: python
 
+   # Python code block
    def fibonacci(n):
        if n <= 1:
            return n
@@ -221,8 +222,10 @@ Code Blocks
    for i in range(10):
        print(f"F({i}) = {fibonacci(i)}")
 
+
 .. code-block:: bash
 
+   # Bash code block
    # System update and package installation
    sudo apt update && sudo apt upgrade -y
 
@@ -234,6 +237,7 @@ Code Blocks
 
 .. code-block:: javascript
 
+   // JavaScript code block
    // Modern JavaScript example with async/await
    async function fetchUserData(userId) {
        try {
@@ -271,15 +275,7 @@ Basic Tables
 | Magazzini Alimentari      | Giovanni Rovelli | Italy     |
 +---------------------------+------------------+-----------+
 
-**Alignment Options:**
 
-+-----------------+:----------------:+----------------:+
-| Left Aligned    | Center Aligned   | Right Aligned  |
-+=================+==================+================+
-| Content         | Content          |        Content |
-+-----------------+------------------+----------------+
-| More content    | More content     |   More content |
-+-----------------+------------------+----------------+
 
 Complex Tables
 --------------
@@ -319,11 +315,10 @@ Block Mathematics
 **Equation with Numbering:**
 
 .. math::
-   :label: quadratic
 
    x = \frac{-b \pm \sqrt{b^2-4ac}}{2a}
 
-The quadratic formula shown in equation :eq:`quadratic` is fundamental in algebra.
+The quadratic formula shown in equation is fundamental in algebra.
 
 **Matrix Examples:**
 
@@ -439,18 +434,20 @@ Images
 
 **Basic Image Syntax:**
 
-.. image:: /assets/images/example.jpg
+.. image:: /assets/attachments/images/repo_icon.png
    :alt: Description of the image
-   :width: 600
+   :align: center
+   :width: 400
    :height: 400
 
 **Image with Caption:**
 
-.. figure:: /assets/images/screenshot.png
+.. figure:: /assets/attachments/images/screenshot.png
    :alt: Application screenshot
-   :width: 800
+   :align: left
+   :width: 600
 
-   *Application interface showing the main dashboard with navigation menu*
+   *From the about section of this website*
 
 **Responsive Images:**
 
@@ -553,7 +550,7 @@ Interactive Elements
 
    <div class="video-container">
        <iframe width="560" height="315"
-               src="https://www.youtube.com/embed/VIDEO_ID"
+               src="https://www.youtube.com/embed/Y7LCiZbOmNQ"
                frameborder="0" allowfullscreen>
        </iframe>
    </div>
@@ -593,4 +590,103 @@ Accessibility Best Practices
 * **Skip links** for keyboard navigation
 * **Descriptive page titles** and meta descriptions
 
-This comprehensive guide covers Jekyll's advanced formatting capabilities. Use these features strategically to create engaging, accessible, and professional content that serves your readers effectively.
+Formatting Quick Reference
+==========================
+
+Common Issues - Quick Fixes
+----------------------------
+
+**Math Not Rendering:**
+
+::
+
+    # Add to front matter
+    math: true
+
+    # Use this format
+    .. math::
+
+       E = mc^2
+
+**Mermaid Diagrams Broken:**
+
+::
+
+    # Add to front matter
+    mermaid: true
+
+    # Test syntax at mermaid.live first
+
+**RST Warnings (Usually Safe to Ignore):**
+
+::
+
+    <string>:311: (ERROR/3) Error in "math" directive:
+    <string>:1278: (ERROR/3) Unexpected indentation.
+    # Site still builds and works
+
+**Table Formatting Issues:**
+
+- Keep tables simple
+- Use consistent spacing
+- Test with minimal content first
+
+**Code Block Problems:**
+
+::
+
+    # Wrong
+    Here's code::
+    def function():
+        return True
+
+    # Right
+    Here's code::
+
+        def function():
+            return True
+
+**Image Not Loading:**
+
+::
+
+    # Check file exists
+    ls assets/images/your-image.jpg
+
+    # Use correct path
+    .. image:: /assets/images/your-image.jpg
+
+Formatting Troubleshooting
+===========================
+
+**Quick Debug Process:**
+
+1. **Test with minimal content** - Start simple
+2. **Add complexity gradually** - One feature at a time
+3. **Check build output** - ``bundle exec jekyll build --trace``
+4. **View generated HTML** - ``cat _site/posts/your-post/index.html``
+
+**Content Not Rendering:**
+
+::
+
+    # Clean and rebuild
+    bundle exec jekyll clean
+    bundle exec jekyll build --trace
+
+**Advanced Features Not Working:**
+
+::
+
+    # Check front matter
+    math: true        # For equations
+    mermaid: true     # For diagrams
+
+    # Verify syntax in online editors first
+
+**Performance Issues:**
+
+- Keep images under 1MB
+- Use simple tables for complex data
+- Break up very long documents
+- Test build time: ``time bundle exec jekyll build``
