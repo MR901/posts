@@ -1,9 +1,20 @@
 ---
 layout: post
 title: "Jekyll Content Creation: Writing Posts and Pages"
-date: 2025-09-01 11:00:00 +0530
+date: 2025-09-01 00:00:00 +0530
 categories: [jekyll, content, writing]
 tags: [jekyll, content-creation]
+pin: false
+toc: true
+comments: false
+math: false
+mermaid: false
+description: "This post covers everything you need to know about creating content in Jekyll, from basic post structure to advanced content organization and front matter configuration."
+author: "Mohit Rajput"
+image:
+  path: https://jekyllrb.com/img/logo-2x.png
+  alt: "Jekyll Content Creation: Writing Posts and Pages"
+.. media_subpath: '/assets/images/2025-09-01/'
 ---
 
 Jekyll Content Creation: Writing Posts and Pages

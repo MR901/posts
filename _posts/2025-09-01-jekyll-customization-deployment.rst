@@ -1,9 +1,20 @@
 ---
 layout: post
 title: "Jekyll Customization and Deployment: Themes, Assets, and Publishing"
-date: 2025-09-01 14:00:00 +0530
+date: 2025-09-01 00:00:00 +0530
 categories: [jekyll, customization, deployment]
 tags: [jekyll, customization, deployment]
+pin: false
+toc: true
+comments: false
+math: false
+mermaid: false
+description: "This post covers the customization and deployment of Jekyll, from theme modification and asset management to deployment strategies."
+author: "Mohit Rajput"
+image:
+  path: https://jekyllrb.com/img/logo-2x.png
+  alt: "Jekyll Customization and Deployment: Themes, Assets, and Publishing"
+.. media_subpath: '/assets/images/2025-09-01/'
 ---
 
 Jekyll Customization and Deployment: Themes, Assets, and Publishing
