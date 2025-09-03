@@ -121,16 +121,91 @@ document.addEventListener('DOMContentLoaded', function () {
   })();
 
   function updateResults() {
-    var raw = (
-      searchInput && searchInput.value ? searchInput.value : ''
-    ).toLowerCase();
+    var rawInput = searchInput && searchInput.value ? searchInput.value : '';
+
+    function normalizeText(s) {
+      if (!s) return '';
+      try {
+        s = s.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+      } catch (e) {}
+      return s
+        .toLowerCase()
+        .replace(/[_-]+/g, ' ')
+        .replace(/[^a-z0-9\s]/g, ' ')
+        .replace(/\s+/g, ' ')
+        .trim();
+    }
+
+    function tokenize(s) {
+      var n = normalizeText(s);
+      return n
+        ? n.split(' ').filter(function (w) {
+            return !!w;
+          })
+        : [];
+    }
+
+    function editDistanceLTE1(a, b) {
+      if (a === b) return true;
+      var la = a.length,
+        lb = b.length;
+      if (Math.abs(la - lb) > 1) return false;
+      var i = 0,
+        j = 0,
+        edits = 0;
+      while (i < la && j < lb) {
+        if (a.charAt(i) === b.charAt(j)) {
+          i++;
+          j++;
+          continue;
+        }
+        edits++;
+        if (edits > 1) return false;
+        if (la > lb) i++;
+        else if (lb > la) j++;
+        else {
+          i++;
+          j++;
+        }
+      }
+      if (la - i + (lb - j) > 0) edits++;
+      return edits <= 1;
+    }
+
+    function isFuzzyMatch(hayWord, qWord) {
+      if (!qWord) return true;
+      if (hayWord.indexOf(qWord) !== -1) return true;
+      if (qWord.length >= 3 && qWord.indexOf(hayWord) !== -1) return true;
+      return editDistanceLTE1(hayWord, qWord);
+    }
+
+    function matches(hay, queryRaw) {
+      var qTokens = tokenize(queryRaw);
+      if (qTokens.length === 0) return true;
+      var hTokens = tokenize(hay);
+      if (hTokens.length === 0) return false;
+      for (var i = 0; i < qTokens.length; i++) {
+        var qt = qTokens[i];
+        var found = false;
+        for (var j = 0; j < hTokens.length; j++) {
+          if (isFuzzyMatch(hTokens[j], qt)) {
+            found = true;
+            break;
+          }
+        }
+        if (!found) return false;
+      }
+      return true;
+    }
+
     var items = document.querySelectorAll('.attachment-item');
     items.forEach(function (item) {
-      var hay = (item.getAttribute('data-search') || '').toLowerCase();
-      var visible = !raw || hay.indexOf(raw) !== -1;
+      var hay = item.getAttribute('data-search') || '';
+      var visible = matches(hay, rawInput);
       item.style.display = visible ? '' : 'none';
     });
-    updateTabBadges(raw);
+
+    updateTabBadges(normalizeText(rawInput));
   }
 
   function updateTabBadges(query) {

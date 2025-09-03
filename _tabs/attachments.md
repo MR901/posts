@@ -57,12 +57,13 @@ Browse and search through all available attachments organized by category.
       {% for file in images_files %}
       {% assign file_url = file.path | remove_first: site.baseurl | relative_url %}
       {% assign file_rel = file.path | remove_first: '/' %}
+      {% assign file_abs = file.path | absolute_url %}
       <div class="col-sm-6 col-md-4 col-lg-3 mb-3">
         <div class="card attachment-item" data-search="images {{ file.name }} {{ file.extname }}" data-category="images">
           <div class="card-body p-2">
             <div class="text-center mb-2">
-              <button type="button" class="btn p-0 border-0 bg-transparent" onclick="showImageModal('{{ file_rel }}', '{{ file.name }}', event)">
-                <img src="{{ file_rel }}" alt="{{ file.name }}" class="img-fluid rounded attachment-thumbnail no-lightbox" style="max-height: 120px; object-fit: cover; cursor: pointer;" loading="lazy" />
+              <button type="button" class="btn p-0 border-0 bg-transparent" onclick="showImageModal('{{ file_abs }}', '{{ file.name }}', event)">
+                <img src="{{ file_abs }}" alt="{{ file.name }}" class="img-fluid rounded attachment-thumbnail no-lightbox" style="max-height: 120px; object-fit: cover; cursor: pointer;" loading="lazy" />
               </button>
             </div>
             <div class="text-center">
@@ -211,8 +212,24 @@ Browse and search through all available attachments organized by category.
   border: none;
   border-bottom: 3px solid transparent;
   color: var(--text-muted-color);
-  font-weight: 500;
-  padding: 12px 20px;
+  font-weight: 600;
+  padding: 14px 22px;
+  line-height: 1.2;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.02rem;
+}
+
+.attachment-tabs .nav-link i {
+  font-size: 1.05em;
+}
+
+.attachment-tabs .nav-link .badge {
+  margin-left: 6px;
+  padding: 0.25em 0.5em;
+  font-size: 0.78em;
+  border-radius: 10px;
 }
 
 .attachment-tabs .nav-link.active {
@@ -229,7 +246,6 @@ Browse and search through all available attachments organized by category.
 
 .attachment-tabs .badge {
   background-color: var(--text-muted-color);
-  font-size: 0.75em;
 }
 
 .attachment-thumbnail:hover {
@@ -259,12 +275,13 @@ Browse and search through all available attachments organized by category.
 
 @media (max-width: 768px) {
   .attachment-tabs .nav-link {
-    padding: 8px 12px;
-    font-size: 0.9em;
+    padding: 10px 14px;
+    font-size: 0.95rem;
+    gap: 6px;
   }
   
   .btn-group .btn {
-    font-size: 0.8em;
+    font-size: 0.85em;
     padding: 0.25rem 0.5rem;
   }
 }
