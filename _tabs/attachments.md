@@ -147,7 +147,7 @@ Browse and search through all available attachments organized by category.
 {% endif %}
 
 <!-- Image Modal -->
-<div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+<div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true" style="display: none;">
   <div class="modal-dialog modal-lg modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
@@ -170,7 +170,7 @@ Browse and search through all available attachments organized by category.
 </div>
 
 <!-- PDF Modal -->
-<div class="modal fade" id="pdfModal" tabindex="-1" aria-labelledby="pdfModalLabel" aria-hidden="true">
+<div class="modal fade" id="pdfModal" tabindex="-1" aria-labelledby="pdfModalLabel" aria-hidden="true" style="display: none;">
   <div class="modal-dialog modal-xl modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
@@ -201,8 +201,8 @@ Browse and search through all available attachments organized by category.
 </div>
 
 <style>
-.tab-pane { display: none; }
-.tab-pane.active.show { display: block; }
+#attachmentTabContent > .tab-pane { display: none !important; }
+#attachmentTabContent > .tab-pane.active.show { display: block !important; }
 .attachment-tabs .nav-tabs {
   border-bottom: 2px solid var(--border-color);
 }
@@ -286,10 +286,8 @@ document.addEventListener('DOMContentLoaded', function() {
       if (!targetPane) return;
       panes.forEach(function(p) {
         p.classList.remove('active', 'show');
-        p.style.display = 'none';
       });
       targetPane.classList.add('active', 'show');
-      targetPane.style.display = '';
     }
 
     // Initialize display state based on active tab or default to first
@@ -303,7 +301,9 @@ document.addEventListener('DOMContentLoaded', function() {
         l.setAttribute('aria-selected', 'false');
       }
     });
-    showPane(activeLink ? activeLink.getAttribute('href') : null);
+    // Ensure exactly one pane is visible on load
+    panes.forEach(function(p){ p.classList.remove('active','show'); });
+    showPane(activeLink ? activeLink.getAttribute('href') : panes[0] ? '#' + panes[0].id : null);
 
     // Click handlers
     tabLinks.forEach(function(link) {
