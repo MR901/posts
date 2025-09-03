@@ -390,101 +390,42 @@ document.addEventListener('DOMContentLoaded', function() {
   })();
   
   function updateResults() {
-    const raw = searchInput.value || '';
-    const items = document.querySelectorAll('.attachment-item');
-
-    // Helper: normalize text (case, underscores, hyphens, punctuation, diacritics)
-    function normalizeText(s) {
-      if (!s) return '';
-      try { s = s.normalize('NFD').replace(/[\u0300-\u036f]/g, ''); } catch(e) {}
-      return s.toLowerCase()
-        .replace(/[_-]+/g, ' ')
-        .replace(/[^a-z0-9\s]/g, ' ')
-        .replace(/\s+/g, ' ')
-        .trim();
-    }
-
-    // Tokenize into words
-    function tokenize(s) {
-      const n = normalizeText(s);
-      return n ? n.split(' ').filter(Boolean) : [];
-    }
-
-    // Fast edit-distance <= 1 checker
-    function editDistanceLTE1(a, b) {
-      if (a === b) return true;
-      const la = a.length, lb = b.length;
-      if (Math.abs(la - lb) > 1) return false;
-      let i = 0, j = 0, edits = 0;
-      while (i < la && j < lb) {
-        if (a[i] === b[j]) { i++; j++; continue; }
-        edits++; if (edits > 1) return false;
-        if (la > lb) i++; else if (lb > la) j++; else { i++; j++; }
-      }
-      if ((la - i) + (lb - j) > 0) edits++;
-      return edits <= 1;
-    }
-
-    function isFuzzyMatch(hayWord, qWord) {
-      if (!qWord) return true;
-      if (hayWord.indexOf(qWord) !== -1) return true;
-      if (qWord.length >= 3 && qWord.indexOf(hayWord) !== -1) return true;
-      return editDistanceLTE1(hayWord, qWord);
-    }
-
-    function matches(hay, queryRaw) {
-      const qTokens = tokenize(queryRaw);
-      if (qTokens.length === 0) return true;
-      const hTokens = tokenize(hay);
-      if (hTokens.length === 0) return false;
-      
-      for (var i = 0; i < qTokens.length; i++) {
-        var qt = qTokens[i];
-        var found = false;
-        for (var j = 0; j < hTokens.length; j++) {
-          if (isFuzzyMatch(hTokens[j], qt)) {
-            found = true;
-            break;
-          }
-        }
-        if (!found) return false;
-      }
-      return true;
-    }
+    var raw = (searchInput.value || '').toLowerCase();
+    var items = document.querySelectorAll('.attachment-item');
 
     items.forEach(function(item) {
-      const hay = item.getAttribute('data-search') || '';
-      const visible = matches(hay, raw);
+      var hay = (item.getAttribute('data-search') || '').toLowerCase();
+      var visible = !raw || hay.indexOf(raw) !== -1;
       item.style.display = visible ? '' : 'none';
     });
 
-    // Update tab badges with visible counts
     updateTabBadges(raw);
   }
   
   function updateTabBadges(query) {
-    const categories = ['images', 'articles', 'research'];
+    var categories = ['images', 'articles', 'research'];
     
-    categories.forEach(function(category) {
-      const tab = document.getElementById(category + '-tab');
-      if (!tab) return;
+    for (var c = 0; c < categories.length; c++) {
+      var category = categories[c];
+      var tab = document.getElementById(category + '-tab');
+      if (!tab) continue;
       
-      const items = document.querySelectorAll('.attachment-item[data-category="' + category + '"]');
-      let visibleCount = 0;
+      var items = document.querySelectorAll('.attachment-item[data-category="' + category + '"]');
+      var visibleCount = 0;
       
-      items.forEach(function(item) {
-        if (item.style.display !== 'none') {
+      for (var i = 0; i < items.length; i++) {
+        if (items[i].style.display !== 'none') {
           visibleCount++;
         }
-      });
+      }
       
-      const badge = tab.querySelector('.badge');
+      var badge = tab.querySelector('.badge');
       if (badge) {
-        const totalCount = items.length;
+        var totalCount = items.length;
         badge.textContent = query ? visibleCount + '/' + totalCount : totalCount;
         badge.style.opacity = query && visibleCount === 0 ? '0.5' : '1';
       }
-    });
+    }
   }
   
   if (searchInput) {
