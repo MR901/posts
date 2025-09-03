@@ -157,7 +157,7 @@ Browse and search through all available attachments organized by category.
         </button>
       </div>
       <div class="modal-body text-center">
-        <img id="modalImage" src="" alt="" class="img-fluid" />
+        <div id="modalImage" class="img-fluid"></div>
       </div>
       <div class="modal-footer">
         <button id="modalImageDownload" type="button" class="btn btn-primary">
@@ -259,14 +259,17 @@ Browse and search through all available attachments organized by category.
   if (!searchInput) return;
 
   // Undo theme auto-wrap for modal image (prevents bogus anchors in HTML checks)
-  (function unwrapModalImageAnchor(){
-    var img = document.getElementById('modalImage');
-    if (!img) return;
-    var p = img.parentElement;
-    if (p && p.tagName && p.tagName.toLowerCase() === 'a') {
-      var href = p.getAttribute('href') || '';
+  // Ensure modal image container has no auto-wrapped anchor
+  (function sanitizeModalImageContainer(){
+    var el = document.getElementById('modalImage');
+    if (!el) return;
+    if (el.tagName && el.tagName.toLowerCase() === 'a') {
+      var href = el.getAttribute('href') || '';
       if (!href || href === '/posts/src') {
-        p.replaceWith(img);
+        var div = document.createElement('div');
+        div.id = 'modalImage';
+        div.className = 'img-fluid';
+        el.replaceWith(div);
       }
     }
   })();
@@ -413,8 +416,15 @@ Browse and search through all available attachments organized by category.
     const modalLabel = document.getElementById('imageModalLabel');
     const modalDownload = document.getElementById('modalImageDownload');
     
-    if (modalImage) modalImage.src = src;
-    if (modalImage) modalImage.alt = name;
+    if (modalImage) {
+      modalImage.innerHTML = '';
+      var imgEl = document.createElement('img');
+      imgEl.src = src;
+      imgEl.alt = name || '';
+      imgEl.className = 'img-fluid';
+      imgEl.loading = 'lazy';
+      modalImage.appendChild(imgEl);
+    }
     if (modalLabel) modalLabel.textContent = name;
     if (modalDownload) {
       modalDownload.onclick = function(){ window.open(src, '_blank'); };
