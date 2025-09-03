@@ -18,35 +18,30 @@ image:
 GitHub Pages, Explained as Scenarios (Situation → Goal → Tasks → Actions)
 ===================================================================================
 
-Use these scenario cards to quickly map your Situation to the right Actions. Each card includes clear success signals and rollback notes so you stay in control.
+Use these scenario cards to quickly map your situation to the right actions. Each card focuses on outcomes and concise steps.
 
 
-Scenario A — Publish a Project Site (repo: posts)
+Scenario A — CI/CD pipeline setup (generator‑agnostic)
 --------------------------------------------------------------------------------
 
 **Situation**
-  You have a project repository (``posts``) and want it live at ``https://mr901.github.io/posts/``.
+  You want to automatically build and deploy a static site (any generator) to GitHub Pages.
 
 **Goal**
-  Serve the site reliably via GitHub Pages with correct URLs and a repeatable CI/CD build.
+  Establish a minimal, repeatable CI/CD workflow that builds your site and deploys it on every push.
 
 **Tasks**
-  1. Configure ``_config.yml`` with proper ``url``/``baseurl``
-  2. Add a GitHub Actions workflow to build and deploy
+  1. Decide your build step so it outputs a single folder (e.g., ``dist``)
+  2. Add a GitHub Actions workflow to build and upload that folder as the Pages artifact
   3. Enable Pages → Source = GitHub Actions
 
 **Actions**
-  ``_config.yml`` (project site)::
-
-      url: "https://mr901.github.io"
-      baseurl: "/posts"
-
-  ``.github/workflows/pages-deploy.yml`` (core steps)::
+  ``.github/workflows/pages-deploy.yml`` (generic)::
 
       name: "Build and Deploy"
       on:
         push:
-          branches: [ develop ]
+          branches: [ main ]   # adjust as needed
         workflow_dispatch:
 
       permissions:
@@ -65,26 +60,30 @@ Scenario A — Publish a Project Site (repo: posts)
             - uses: actions/checkout@v4
             - id: pages
               uses: actions/configure-pages@v4
-            - uses: ruby/setup-ruby@v1
-              with:
-                ruby-version: 3.4
-                bundler-cache: true
-            # If you use RST in Jekyll
-            - uses: actions/setup-python@v4
-              with:
-                python-version: '3.x'
-            - run: |
-                pip install docutils pygments
-            - name: Build site
-              env:
-                JEKYLL_ENV: "production"
-              run: |
-                bundle exec jekyll clean
-                bundle exec jekyll b -d "_site"
+
+            # Choose ONE build path below
+
+            # A) Plain static content already in repo root
+            # - name: Prepare static folder
+            #   run: mkdir -p dist && cp -r * dist/
+
+            # B) Node-based static site (Vite, Next export, Astro, etc.)
+            # - uses: actions/setup-node@v4
+            #   with:
+            #     node-version: '20'
+            # - run: npm ci && npm run build   # ensure output is ./dist
+
+            # C) Jekyll (example)
+            # - uses: ruby/setup-ruby@v1
+            #   with:
+            #     ruby-version: '3.2'
+            #     bundler-cache: true
+            # - run: bundle exec jekyll build -d _site && mv _site dist
+
             - name: Upload artifact
               uses: actions/upload-pages-artifact@v3
               with:
-                path: "_site"
+                path: "dist"   # change if your output folder differs
 
         deploy:
           runs-on: ubuntu-latest
@@ -97,13 +96,13 @@ Scenario A — Publish a Project Site (repo: posts)
               uses: actions/deploy-pages@v4
 
 **Signals of success**
-  - Actions tab shows a green Deploy to GitHub Pages
-  - Pages (Settings → Pages) shows “Your site is live at …”
-  - Opening ``https://mr901.github.io/posts/`` shows current content
+  - Actions run is green; the job has a “View deployment”/page URL
+  - Settings → Pages shows “Your site is live at …”
+  - Opening the live URL shows the new content
 
 **Rollback/Notes**
-  - Revert a bad change by pushing a previous commit; Pages re-deploys
-  - Use incognito or hard refresh to bypass CDN/browser cache
+  - Revert a change by pushing a previous commit; Pages re-deploys
+  - If content looks cached, try a private window or a hard refresh
 
 
 Scenario B — Inspect/Manage Deployments with gh CLI
@@ -123,7 +122,7 @@ Scenario B — Inspect/Manage Deployments with gh CLI
 **Actions**
   List repositories (selected fields)::
 
-      gh api users/MR901/repos --jq '.[] | {name: .name, full_name: .full_name, has_pages: .has_pages, archived: .archived, disabled: .disabled}'
+      gh api users/<USER>/repos --jq '.[] | {name: .name, full_name: .full_name, has_pages: .has_pages, archived: .archived, disabled: .disabled}'
 
   List deployments per repo::
 
@@ -131,7 +130,7 @@ Scenario B — Inspect/Manage Deployments with gh CLI
         --method GET \
         -H "Accept: application/vnd.github+json" \
         -H "X-GitHub-Api-Version: 2022-11-28" \
-        "/users/MR901/repos?per_page=70&type=all" | jq -r '.[].full_name' | while read repo; do
+        "/users/<USER>/repos?per_page=70&type=all" | jq -r '.[].full_name' | while read repo; do
           echo "=== $repo ==="
           gh api \
             --method GET \
@@ -147,7 +146,7 @@ Scenario B — Inspect/Manage Deployments with gh CLI
         --method GET \
         -H "Accept: application/vnd.github+json" \
         -H "X-GitHub-Api-Version: 2022-11-28" \
-        /repos/mr901/posts/deployments | jq -r '.[] | "\(.id) - \(.environment) - \(.ref)"'
+        /repos/<USER>/<REPO>/deployments | jq -r '.[] | "\(.id) - \(.environment) - \(.ref)"'
 
   Delete by deployment ID (use sparingly)::
 
@@ -155,13 +154,13 @@ Scenario B — Inspect/Manage Deployments with gh CLI
         --method DELETE \
         -H "Accept: application/vnd.github+json" \
         -H "X-GitHub-Api-Version: 2022-11-28" \
-        /repos/MR901/posts/deployments/2944368246
+        /repos/<USER>/<REPO>/deployments/<ID>
 
 **Signals of success**
-  - ``gh`` returns expected JSON; deployment removed when deleted
+  - ``gh`` returns expected JSON; the listed item is removed after delete
 
 **Rollback/Notes**
-  - Deleting a deployment does not delete the site; redeploy via Actions
+  - Deleting a deployment does not delete the site; re-run your deployment workflow to publish again
 
 
 Scenario C — Clear Old Pages Content / Shut Down a Site
@@ -181,24 +180,31 @@ Scenario C — Clear Old Pages Content / Shut Down a Site
 **Actions**
   Push a minimal site to force a fresh deploy::
 
-      git clone https://github.com/mr901/mr901.github.io.git
-      cd mr901.github.io
+      # User site variant (served from <USER>.github.io)
+      git clone https://github.com/<USER>/<USER>.github.io.git
+      cd <USER>.github.io
       echo '<!DOCTYPE html><html><head><meta charset="utf-8"><title>Reset</title></head><body><h1>Site reset</h1></body></html>' > index.html
       git add index.html && git commit -m "reset site" && git push origin main
+
+      # Project site variant (served from <USER>.github.io/<REPO>/)
+      # git clone https://github.com/<USER>/<REPO>.git
+      # cd <REPO>
+      # echo '<!DOCTYPE html><html><head><meta charset="utf-8"><title>Reset</title></head><body><h1>Site reset</h1></body></html>' > index.html
+      # git add index.html && git commit -m "reset site" && git push origin main
 
   Then disable Pages (UI) or via API::
 
       gh api -X DELETE \
         -H "Accept: application/vnd.github+json" \
         -H "X-GitHub-Api-Version: 2022-11-28" \
-        /repos/mr901/mr901.github.io/pages
+        /repos/<USER>/<REPO>/pages
 
 **Signals of success**
   - Live site shows new dummy page, then becomes unavailable after disable
 
 **Rollback/Notes**
-  - Re-enable Pages anytime; push real content again
-  - CDN/browser caching can delay; hard refresh or incognito helps
+  - Re-enable Pages anytime and push real content again
+  - CDN/browser caching can delay visibility; hard refresh or incognito helps
 
 
 Scenario D — Pages Looks Out of Sync After a Successful Deploy
@@ -230,14 +236,14 @@ Scenario E — Authoring Content that Survives baseurl
 --------------------------------------------------------------------------------
 
 **Situation**
-  Internal links or assets are breaking under ``baseurl: "/posts"``.
+  Internal links or assets are breaking under a project site's base path (e.g., ``baseurl: "/<repo>"``).
 
 **Goal**
   Write paths that work both locally and in production.
 
 **Tasks**
-  1. Use relative paths for images inside posts (e.g., ``assets/attachments/...``)
-  2. Link to posts using their live slugs under ``/posts/slug/``
+  1. Prefer relative paths for images/assets inside posts (e.g., ``assets/attachments/...``)
+  2. Use live URLs that include the base path when linking between pages
 
 **Actions**
   RST image in a post::
@@ -247,42 +253,161 @@ Scenario E — Authoring Content that Survives baseurl
 
   Internal post links (examples)::
 
-      * `Fundamentals </posts/jekyll-fundamentals-setup/>`_
-      * `Content Creation </posts/jekyll-content-creation-guide/>`_
+      # User site (https://<user>.github.io):
+      * `Home </>`_
+      * `Post A </post-a/>`_
+
+      # Project site (https://<user>.github.io/<repo>/):
+      * `Home </<repo>/>`_
+      * `Post A </<repo>/post-a/>`_
 
 **Signals of success**
-  - ``htmlproofer`` passes, images and links resolve on the live site
+  - ``htmlproofer`` (or your checks) pass; images and links resolve on the live site
 
 **Rollback/Notes**
   - Avoid absolute ``/assets/...`` in content; prefer relative paths within posts
 
 
-Cheat Sheet
+Scenario F — User vs Project site quick reference
 --------------------------------------------------------------------------------
 
-* Project site → ``baseurl: "/<repo>"``; user site → ``baseurl: ""``
-* Actions deploys are the most reliable source for Pages
-* ``gh api`` helps list and manage deployments and disable Pages if needed
-* When in doubt: change content, redeploy, hard refresh, confirm “View deployment” URL
+**User site**
+  - Live base URL: ``https://<user>.github.io``
+  - Typically no base path (``baseurl: ""``)
+  - Link root is ``/``
 
+**Project site**
+  - Live base URL: ``https://<user>.github.io/<repo>/``
+  - Base path is usually the repo name (``baseurl: "/<repo>"``)
+  - Link root is ``/<repo>/``
 
-Visual Walkthrough
+Scenario G — Custom domain and HTTPS
 --------------------------------------------------------------------------------
 
+**Situation**
+  You want your site served at a custom domain with HTTPS.
 
-.. figure:: assets/attachments/images/github_actions_successful_build.png
-   :alt: Successful GitHub Actions build steps
+**Goal**
+  Connect a custom domain, validate DNS, and enforce HTTPS in Pages settings.
 
-.. figure:: assets/attachments/images/github_actions_successful_deploy.png
-   :alt: Successful GitHub Actions deploy with page URL
+**Tasks**
+  1. Add a ``CNAME`` file to the site output with your domain (e.g., ``www.example.com``)
+  2. Configure DNS: CNAME for ``www``; ALIAS/ANAME (or A records) for apex
+  3. In Settings → Pages, set the custom domain and enable “Enforce HTTPS”
 
-.. figure:: assets/attachments/images/github_settings_page.png
-   :alt: GitHub Pages settings showing source and live URL
+**Actions**
+  Add ``CNAME`` to your site source (copied to output)::
 
-.. figure:: assets/attachments/images/github_code_successful_deployment.png
-   :alt: Repository deployments view showing github-pages environment
+      echo 'www.example.com' > CNAME
 
-.. figure:: assets/attachments/images/github_page_active_live.png
-   :alt: Live site rendering after deployment
+  DNS guidance::
+
+      # Subdomain (www):
+      #   CNAME www → <user>.github.io
+      # Apex (example.com):
+      #   Prefer ALIAS/ANAME example.com → <user>.github.io
+      #   Or A records to GitHub Pages IPs (check GitHub docs for current list)
+
+**Signals of success**
+  - Pages shows your custom domain and HTTPS status is “Enforced”
+
+**Rollback/Notes**
+  - DNS changes may take time; re-validate domain in Pages settings if needed
 
 
+Scenario H — PR preview builds (artifacts & Job Summary)
+--------------------------------------------------------------------------------
+
+**Situation**
+  Reviewers want to preview a PR build without merging.
+
+**Goal**
+  Build the site on pull_request, upload the output as an artifact, and link it in the job summary.
+
+**Actions**
+  ``.github/workflows/preview.yml`` (excerpt)::
+
+      name: "PR Preview"
+      on:
+        pull_request:
+          branches: [ main ]
+
+      jobs:
+        preview:
+          runs-on: ubuntu-latest
+          steps:
+            - uses: actions/checkout@v4
+            # build your site to ./dist
+            # - uses: actions/setup-node@v4
+            # - run: npm ci && npm run build
+            - uses: actions/upload-artifact@v4
+              with:
+                name: site-preview
+                path: dist
+            - name: Add summary
+              run: |
+                echo "PR preview artifact: site-preview" >> "$GITHUB_STEP_SUMMARY"
+
+**Notes**
+  - Artifacts can be downloaded from the workflow run; they’re ephemeral
+
+
+Scenario I — Monorepo subdirectory deployments
+--------------------------------------------------------------------------------
+
+**Situation**
+  Your site lives under a subdirectory in a monorepo (e.g., ``apps/docs``).
+
+**Goal**
+  Build from a subdirectory and upload only that output folder as the Pages artifact.
+
+**Actions**
+  ``.github/workflows/pages-deploy.yml`` (excerpt)::
+
+      jobs:
+        build:
+          runs-on: ubuntu-latest
+          defaults:
+            run:
+              working-directory: apps/docs
+          steps:
+            - uses: actions/checkout@v4
+            # build in apps/docs → outputs to apps/docs/dist
+            # - uses: actions/setup-node@v4
+            # - run: npm ci && npm run build
+            - name: Upload artifact
+              uses: actions/upload-pages-artifact@v3
+              with:
+                path: apps/docs/dist
+
+**Notes**
+  - Alternatively, ``cd apps/docs`` per step; ensure the artifact path points to the built folder
+
+
+Scenario J — Cache‑busting and version stamping
+--------------------------------------------------------------------------------
+
+**Situation**
+  Browsers cache your static assets aggressively.
+
+**Goal**
+  Add a short revision id to asset URLs to force cache refresh on deploys.
+
+**Actions**
+  Generic approach in CI::
+
+      - name: Compute short rev
+        id: rev
+        run: echo "rev=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+
+      - name: Inject rev into HTML
+        run: |
+          find dist -name '*.html' -print0 | xargs -0 sed -i "s/\[REV\]/${{ steps.rev.outputs.rev }}/g"
+
+  Then author asset URLs like::
+
+      <link rel="stylesheet" href="/assets/site.css?[REV]">
+      <script src="/assets/site.js?[REV]"></script>
+
+**Notes**
+  - Many frameworks offer built‑in hashing; prefer those when available
