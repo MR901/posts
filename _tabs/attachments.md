@@ -160,9 +160,9 @@ Browse and search through all available attachments organized by category.
         <img id="modalImage" src="" alt="" class="img-fluid" />
       </div>
       <div class="modal-footer">
-        <a id="modalImageDownload" href="" target="_blank" class="btn btn-primary">
+        <button id="modalImageDownload" type="button" class="btn btn-primary">
           <i class="fas fa-download mr-1"></i>Download
-        </a>
+        </button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
       </div>
     </div>
@@ -184,16 +184,16 @@ Browse and search through all available attachments organized by category.
             <div class="p-4 text-center">
               <i class="fas fa-file-pdf text-muted mb-3" style="font-size: 3rem;"></i>
               <p class="mb-3">PDF preview unavailable in this browser.</p>
-              <a id="pdfFallbackLink" href="" target="_blank" class="btn btn-primary">
+              <button id="pdfFallbackLink" type="button" class="btn btn-primary">
                 <i class="fas fa-external-link-alt mr-2"></i>Open PDF in New Tab
-              </a>
+              </button>
             </div>
           </object>
         </div>
       <div class="modal-footer">
-        <a id="modalPdfDownload" href="" target="_blank" class="btn btn-primary">
+        <button id="modalPdfDownload" type="button" class="btn btn-primary">
           <i class="fas fa-external-link-alt mr-1"></i>Open in New Tab
-        </a>
+        </button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
       </div>
     </div>
@@ -257,6 +257,19 @@ Browse and search through all available attachments organized by category.
   // Search functionality
   const searchInput = document.getElementById('attachment-search');
   if (!searchInput) return;
+
+  // Undo theme auto-wrap for modal image (prevents bogus anchors in HTML checks)
+  (function unwrapModalImageAnchor(){
+    var img = document.getElementById('modalImage');
+    if (!img) return;
+    var p = img.parentElement;
+    if (p && p.tagName && p.tagName.toLowerCase() === 'a') {
+      var href = p.getAttribute('href') || '';
+      if (!href || href === '/posts/src') {
+        p.replaceWith(img);
+      }
+    }
+  })();
   
   // Vanilla JS tab switching (no Bootstrap JS dependency)
   (function initTabs() {
@@ -403,7 +416,9 @@ Browse and search through all available attachments organized by category.
     if (modalImage) modalImage.src = src;
     if (modalImage) modalImage.alt = name;
     if (modalLabel) modalLabel.textContent = name;
-    if (modalDownload) modalDownload.href = src;
+    if (modalDownload) {
+      modalDownload.onclick = function(){ window.open(src, '_blank'); };
+    }
     // Show the modal (jQuery if available, else vanilla fallback)
     if (typeof $ !== 'undefined') {
       $('#imageModal').modal('show');
@@ -426,8 +441,12 @@ Browse and search through all available attachments organized by category.
     
     // Set modal title and links
     if (modalLabel) modalLabel.textContent = name;
-    if (modalDownload) modalDownload.href = src;
-    if (pdfFallbackLink) pdfFallbackLink.href = src;
+    if (modalDownload) {
+      modalDownload.onclick = function(){ window.open(src, '_blank'); };
+    }
+    if (pdfFallbackLink) {
+      pdfFallbackLink.onclick = function(){ window.open(src, '_blank'); };
+    }
     
     // Set PDF source using object tag (like the working example)
     if (modalPdf) {
