@@ -201,6 +201,8 @@ Browse and search through all available attachments organized by category.
 </div>
 
 <style>
+.tab-pane { display: none; }
+.tab-pane.active.show { display: block; }
 .attachment-tabs .nav-tabs {
   border-bottom: 2px solid var(--border-color);
 }
@@ -253,10 +255,9 @@ Browse and search through all available attachments organized by category.
 </style>
 
 <script>
-(function() {
+document.addEventListener('DOMContentLoaded', function() {
   // Search functionality
   const searchInput = document.getElementById('attachment-search');
-  if (!searchInput) return;
 
   // Undo theme auto-wrap for modal image (prevents bogus anchors in HTML checks)
   // Ensure modal image container has no auto-wrapped anchor
@@ -407,7 +408,9 @@ Browse and search through all available attachments organized by category.
     });
   }
   
-  searchInput.addEventListener('input', updateResults);
+  if (searchInput) {
+    searchInput.addEventListener('input', updateResults);
+  }
   
   // Modal functions - make them global
   window.showImageModal = function(src, name, ev) {
@@ -474,7 +477,7 @@ Browse and search through all available attachments organized by category.
     // Prevent default link behavior
     if (ev) ev.preventDefault();
   };
-})();
+});
 
 // Vanilla modal fallback helpers (used when Bootstrap JS/jQuery isn't present)
 function openModal(id) {
