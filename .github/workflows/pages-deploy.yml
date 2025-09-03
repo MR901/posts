@@ -74,17 +74,27 @@ jobs:
         env:
           JEKYLL_ENV: "production"
 
-      - name: Test site
+      - name: Mirror site under baseurl for tests
         run: |
           BASE_PATH="${{ steps.pages.outputs.base_path }}"
-          SWAP_OPT=""
           if [ -n "$BASE_PATH" ] && [ "$BASE_PATH" != "/" ]; then
-            # Map /<base>/... to /
-            SWAP_OPT="--url-swap ^${BASE_PATH}/:/"
+            BASE_DIR="${BASE_PATH#/}"
+            mkdir -p "_site$BASE_PATH"
+            shopt -s dotglob
+            for entry in _site/*; do
+              name="$(basename "$entry")"
+              if [ "$name" = "$BASE_DIR" ]; then
+                continue
+              fi
+              cp -a "$entry" "_site$BASE_PATH/"
+            done
+            shopt -u dotglob
           fi
+
+      - name: Test site
+        run: |
           bundle exec htmlproofer _site \
             --disable-external \
-            $SWAP_OPT \
             --ignore-urls "/^http:\/\/127.0.0.1/,/^http:\/\/0.0.0.0/,/^http:\/\/localhost/"
 
       - name: Upload site artifact
