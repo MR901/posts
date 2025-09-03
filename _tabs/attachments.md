@@ -25,21 +25,21 @@ Browse and search through all available attachments organized by category.
   <ul class="nav nav-tabs" id="attachmentTabs" role="tablist">
     {% if images_files.size > 0 %}
     <li class="nav-item" role="presentation">
-      <a class="nav-link active" id="images-tab" data-toggle="tab" href="#images-content" role="tab" aria-controls="images-content" aria-selected="true">
+      <a class="nav-link active" id="images-tab" href="#images-content" role="tab" aria-controls="images-content" aria-selected="true">
         <i class="fas fa-image mr-2"></i>Images <span class="badge badge-secondary ml-1">{{ images_files.size }}</span>
       </a>
     </li>
     {% endif %}
     {% if articles_files.size > 0 %}
     <li class="nav-item" role="presentation">
-      <a class="nav-link{% unless images_files.size > 0 %} active{% endunless %}" id="articles-tab" data-toggle="tab" href="#articles-content" role="tab" aria-controls="articles-content" aria-selected="{% if images_files.size > 0 %}false{% else %}true{% endif %}">
+      <a class="nav-link{% unless images_files.size > 0 %} active{% endunless %}" id="articles-tab" href="#articles-content" role="tab" aria-controls="articles-content" aria-selected="{% if images_files.size > 0 %}false{% else %}true{% endif %}">
         <i class="fas fa-file-alt mr-2"></i>Articles <span class="badge badge-secondary ml-1">{{ articles_files.size }}</span>
       </a>
     </li>
     {% endif %}
     {% if research_files.size > 0 %}
     <li class="nav-item" role="presentation">
-      <a class="nav-link{% unless images_files.size > 0 or articles_files.size > 0 %} active{% endunless %}" id="research-tab" data-toggle="tab" href="#research-content" role="tab" aria-controls="research-content" aria-selected="{% unless images_files.size > 0 or articles_files.size > 0 %}true{% else %}false{% endunless %}">
+      <a class="nav-link{% unless images_files.size > 0 or articles_files.size > 0 %} active{% endunless %}" id="research-tab" href="#research-content" role="tab" aria-controls="research-content" aria-selected="{% unless images_files.size > 0 or articles_files.size > 0 %}true{% else %}false{% endunless %}">
         <i class="fas fa-graduation-cap mr-2"></i>Research <span class="badge badge-secondary ml-1">{{ research_files.size }}</span>
       </a>
     </li>
@@ -277,9 +277,14 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // Vanilla JS tab switching (no Bootstrap JS dependency)
   (function initTabs() {
+    console.log('Initializing tabs...');
     var tabLinks = Array.prototype.slice.call(document.querySelectorAll('#attachmentTabs a.nav-link'));
     var panes = Array.prototype.slice.call(document.querySelectorAll('#attachmentTabContent .tab-pane'));
-    if (tabLinks.length === 0 || panes.length === 0) return;
+    console.log('Found', tabLinks.length, 'tab links and', panes.length, 'panes');
+    if (tabLinks.length === 0 || panes.length === 0) {
+      console.log('No tabs found, exiting');
+      return;
+    }
 
     function showPane(targetSelector) {
       var targetPane = targetSelector ? document.querySelector(targetSelector) : null;
@@ -329,7 +334,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // Click handlers
     tabLinks.forEach(function(link) {
       link.addEventListener('click', function(e) {
+        console.log('Tab clicked:', link.getAttribute('href'));
         e.preventDefault();
+        e.stopPropagation();
         setActiveLink(link);
         var target = link.getAttribute('href');
         // Update the hash without scrolling
@@ -339,6 +346,7 @@ document.addEventListener('DOMContentLoaded', function() {
           window.location.hash = target;
         }
         showPane(target);
+        console.log('Tab switch complete');
       });
     });
 
