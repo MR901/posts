@@ -273,6 +273,12 @@ Browse and search through all available attachments organized by category.
   cursor: default !important;
 }
 
+/* Ensure modals overlay theme panels on Pages */
+.modal,
+.modal-backdrop {
+  z-index: 1080 !important;
+}
+
 @media (max-width: 768px) {
   .attachment-tabs .nav-link {
     padding: 10px 14px;

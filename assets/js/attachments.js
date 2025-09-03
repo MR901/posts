@@ -298,6 +298,12 @@ document.addEventListener('DOMContentLoaded', function () {
 function openModal(id) {
   var el = document.getElementById(id);
   if (!el) return;
+  // Ensure modal overlays the whole page: attach directly under <body>
+  if (el.parentNode && el.parentNode !== document.body) {
+    document.body.appendChild(el);
+  }
+  el.setAttribute('role', 'dialog');
+  el.setAttribute('aria-modal', 'true');
   el.classList.add('show');
   el.style.display = 'block';
   el.removeAttribute('aria-hidden');
