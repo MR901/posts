@@ -276,7 +276,7 @@ Browse and search through all available attachments organized by category.
 /* Ensure modals overlay theme panels on Pages */
 .modal,
 .modal-backdrop {
-  z-index: 1080 !important;
+  z-index: 2000 !important;
 }
 
 @media (max-width: 768px) {

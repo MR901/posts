@@ -258,11 +258,8 @@ document.addEventListener('DOMContentLoaded', function () {
         window.open(src, '_blank');
       };
     }
-    if (typeof $ !== 'undefined') {
-      $('#imageModal').modal('show');
-    } else {
-      openModal('imageModal');
-    }
+    // Force vanilla modal to avoid theme/Bootstrap overlay issues on Pages
+    openModal('imageModal');
     if (ev) ev.preventDefault();
   };
 
@@ -286,11 +283,8 @@ document.addEventListener('DOMContentLoaded', function () {
     if (modalPdf) {
       modalPdf.setAttribute('data', src);
     }
-    if (typeof $ !== 'undefined') {
-      $('#pdfModal').modal('show');
-    } else {
-      openModal('pdfModal');
-    }
+    // Force vanilla modal to avoid theme/Bootstrap overlay issues on Pages
+    openModal('pdfModal');
     if (ev) ev.preventDefault();
   };
 });
