@@ -62,7 +62,7 @@ Browse and search through all available attachments organized by category.
           <div class="card-body p-2">
             <div class="text-center mb-2">
               <button type="button" class="btn p-0 border-0 bg-transparent" onclick="showImageModal('{{ file_rel }}', '{{ file.name }}', event)">
-                <img src="{{ file_rel }}" alt="{{ file.name }}" class="img-fluid rounded attachment-thumbnail" style="max-height: 120px; object-fit: cover; cursor: pointer;" loading="lazy" />
+                <img src="{{ file_rel }}" alt="{{ file.name }}" class="img-fluid rounded attachment-thumbnail no-lightbox" style="max-height: 120px; object-fit: cover; cursor: pointer;" loading="lazy" />
               </button>
             </div>
             <div class="text-center">
@@ -241,6 +241,22 @@ Browse and search through all available attachments organized by category.
   background-color: var(--card-bg);
 }
 
+/* Prevent theme lightbox from interfering */
+.attachment-item .no-lightbox {
+  pointer-events: auto !important;
+}
+
+.attachment-item button[onclick] {
+  position: relative;
+  z-index: 10;
+}
+
+/* Override theme's automatic image wrapping */
+.attachment-item .popup.img-link {
+  pointer-events: none !important;
+  cursor: default !important;
+}
+
 @media (max-width: 768px) {
   .attachment-tabs .nav-link {
     padding: 8px 12px;
@@ -259,12 +275,25 @@ document.addEventListener('DOMContentLoaded', function() {
   // Search functionality
   const searchInput = document.getElementById('attachment-search');
 
-  // Undo theme auto-wrap for modal image (prevents bogus anchors in HTML checks)
-  // Ensure modal image container has no auto-wrapped anchor
-  (function sanitizeModalImageContainer(){
+  // Prevent theme lightbox from interfering with our custom buttons
+  (function preventThemeLightboxInterference() {
+    // Remove theme's auto-generated anchor tags around our images
+    var buttons = document.querySelectorAll('.attachment-item button[onclick]');
+    buttons.forEach(function(button) {
+      var anchors = button.querySelectorAll('a.popup.img-link');
+      anchors.forEach(function(anchor) {
+        var img = anchor.querySelector('img');
+        if (img) {
+          // Move the image out of the anchor and remove the anchor
+          button.insertBefore(img, anchor);
+          anchor.remove();
+        }
+      });
+    });
+    
+    // Sanitize modal image container
     var el = document.getElementById('modalImage');
-    if (!el) return;
-    if (el.tagName && el.tagName.toLowerCase() === 'a') {
+    if (el && el.tagName && el.tagName.toLowerCase() === 'a') {
       var href = el.getAttribute('href') || '';
       if (!href || href === '/posts/src') {
         var div = document.createElement('div');
