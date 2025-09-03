@@ -61,9 +61,9 @@ Browse and search through all available attachments organized by category.
         <div class="card attachment-item" data-search="images {{ file.name }} {{ file.extname }}" data-category="images">
           <div class="card-body p-2">
             <div class="text-center mb-2">
-              <a href="#" data-toggle="modal" data-target="#imageModal" onclick="showImageModal('{{ file_rel }}', '{{ file.name }}', event)" role="button">
+              <button type="button" class="btn p-0 border-0 bg-transparent" onclick="showImageModal('{{ file_rel }}', '{{ file.name }}', event)">
                 <img src="{{ file_rel }}" alt="{{ file.name }}" class="img-fluid rounded attachment-thumbnail" style="max-height: 120px; object-fit: cover; cursor: pointer;" loading="lazy" />
-              </a>
+              </button>
             </div>
             <div class="text-center">
               <small class="text-muted d-block text-truncate" title="{{ file.name }}">{{ file.name }}</small>
@@ -88,7 +88,7 @@ Browse and search through all available attachments organized by category.
           <i class="fas fa-file-pdf text-danger mr-3" style="font-size: 1.5rem;"></i>
           <div class="flex-grow-1">
             <h6 class="mb-1">
-              <a href="#" onclick="showPdfModal('{{ file_url }}', '{{ file.name }}', event)" class="text-decoration-none">{{ file.name }}</a>
+              <button type="button" class="btn btn-link text-decoration-none p-0" onclick="showPdfModal('{{ file_url }}', '{{ file.name }}', event)">{{ file.name }}</button>
             </h6>
             <small class="text-muted">{{ file.extname | remove: '.' | upcase }} file</small>
           </div>
@@ -118,7 +118,7 @@ Browse and search through all available attachments organized by category.
           <i class="fas fa-file-pdf text-success mr-3" style="font-size: 1.5rem;"></i>
           <div class="flex-grow-1">
             <h6 class="mb-1">
-              <a href="#" onclick="showPdfModal('{{ file_url }}', '{{ file.name }}', event)" class="text-decoration-none">{{ file.name }}</a>
+              <button type="button" class="btn btn-link text-decoration-none p-0" onclick="showPdfModal('{{ file_url }}', '{{ file.name }}', event)">{{ file.name }}</button>
             </h6>
             <small class="text-muted">{{ file.extname | remove: '.' | upcase }} file</small>
           </div>

@@ -30,7 +30,6 @@ baseurl: "/posts"
 
 paginate: 20
 
-
 github:
   username: mr901 # change to your GitHub username
 
@@ -218,6 +217,7 @@ exclude:
   - purgecss.js
   - "*.config.js"
   - "package*.json"
+  - vendor
 
 jekyll-archives:
   enabled: [categories, tags]

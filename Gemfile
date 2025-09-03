@@ -6,6 +6,10 @@ gem "jekyll-theme-chirpy", "~> 7.3", ">= 7.3.1"
 
 gem "html-proofer", "~> 5.0", group: :test
 
+# Silence Ruby 3.5 stdlib-to-gem warnings in CI
+gem "logger", "~> 1.6"
+gem "benchmark", "~> 0.3"
+
 # RST support dependencies
 gem 'RbST'
 
