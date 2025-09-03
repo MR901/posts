@@ -277,14 +277,9 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // Vanilla JS tab switching (no Bootstrap JS dependency)
   (function initTabs() {
-    console.log('Initializing tabs...');
     var tabLinks = Array.prototype.slice.call(document.querySelectorAll('#attachmentTabs a.nav-link'));
     var panes = Array.prototype.slice.call(document.querySelectorAll('#attachmentTabContent .tab-pane'));
-    console.log('Found', tabLinks.length, 'tab links and', panes.length, 'panes');
-    if (tabLinks.length === 0 || panes.length === 0) {
-      console.log('No tabs found, exiting');
-      return;
-    }
+    if (tabLinks.length === 0 || panes.length === 0) return;
 
     function showPane(targetSelector) {
       var targetPane = targetSelector ? document.querySelector(targetSelector) : null;
@@ -334,7 +329,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // Click handlers
     tabLinks.forEach(function(link) {
       link.addEventListener('click', function(e) {
-        console.log('Tab clicked:', link.getAttribute('href'));
         e.preventDefault();
         e.stopPropagation();
         setActiveLink(link);
@@ -346,7 +340,6 @@ document.addEventListener('DOMContentLoaded', function() {
           window.location.hash = target;
         }
         showPane(target);
-        console.log('Tab switch complete');
       });
     });
 
@@ -484,8 +477,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const modalDownload = document.getElementById('modalPdfDownload');
     const pdfFallbackLink = document.getElementById('pdfFallbackLink');
     
-    console.log('Opening PDF:', src, 'Name:', name);
-    
     // Set modal title and links
     if (modalLabel) modalLabel.textContent = name;
     if (modalDownload) {
@@ -498,7 +489,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // Set PDF source using object tag (like the working example)
     if (modalPdf) {
       modalPdf.setAttribute('data', src);
-      console.log('Set PDF data attribute to:', src);
     }
     
     // Show the modal (jQuery if available, else vanilla fallback)
