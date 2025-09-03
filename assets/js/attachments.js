@@ -292,16 +292,27 @@ document.addEventListener('DOMContentLoaded', function () {
 function openModal(id) {
   var el = document.getElementById(id);
   if (!el) return;
+
   // Ensure modal overlays the whole page: attach directly under <body>
   if (el.parentNode && el.parentNode !== document.body) {
     document.body.appendChild(el);
   }
+
+  // Force modal positioning and z-index for GitHub Pages
+  el.style.position = 'fixed';
+  el.style.top = '0';
+  el.style.left = '0';
+  el.style.width = '100%';
+  el.style.height = '100%';
+  el.style.zIndex = '2050';
+
   el.setAttribute('role', 'dialog');
   el.setAttribute('aria-modal', 'true');
   el.classList.add('show');
   el.style.display = 'block';
   el.removeAttribute('aria-hidden');
   document.body.classList.add('modal-open');
+
   var existing = document.querySelector(
     '.modal-backdrop[data-for="' + id + '"]'
   );
@@ -309,6 +320,12 @@ function openModal(id) {
     var backdrop = document.createElement('div');
     backdrop.className = 'modal-backdrop fade show';
     backdrop.setAttribute('data-for', id);
+    backdrop.style.position = 'fixed';
+    backdrop.style.top = '0';
+    backdrop.style.left = '0';
+    backdrop.style.width = '100%';
+    backdrop.style.height = '100%';
+    backdrop.style.zIndex = '2040';
     backdrop.addEventListener('click', function () {
       closeModal(id);
     });
