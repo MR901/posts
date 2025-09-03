@@ -290,6 +290,25 @@ document.addEventListener('DOMContentLoaded', function() {
       targetPane.classList.add('active', 'show');
     }
 
+    function setActiveLink(link) {
+      tabLinks.forEach(function(l){
+        l.classList.remove('active');
+        l.setAttribute('aria-selected', 'false');
+      });
+      link.classList.add('active');
+      link.setAttribute('aria-selected', 'true');
+    }
+
+    function activateByHash() {
+      var h = window.location.hash;
+      if (!h) return false;
+      var link = tabLinks.find(function(l){ return l.getAttribute('href') === h; });
+      if (!link) return false;
+      setActiveLink(link);
+      showPane(h);
+      return true;
+    }
+
     // Initialize display state based on active tab or default to first
     var activeLink = tabLinks.find(function(l){ return l.classList.contains('active'); }) || tabLinks[0];
     tabLinks.forEach(function(l){
@@ -301,23 +320,30 @@ document.addEventListener('DOMContentLoaded', function() {
         l.setAttribute('aria-selected', 'false');
       }
     });
-    // Ensure exactly one pane is visible on load
+    // Ensure exactly one pane is visible on load (honor hash if present)
     panes.forEach(function(p){ p.classList.remove('active','show'); });
-    showPane(activeLink ? activeLink.getAttribute('href') : panes[0] ? '#' + panes[0].id : null);
+    if (!activateByHash()) {
+      showPane(activeLink ? activeLink.getAttribute('href') : panes[0] ? '#' + panes[0].id : null);
+    }
 
     // Click handlers
     tabLinks.forEach(function(link) {
       link.addEventListener('click', function(e) {
         e.preventDefault();
-        tabLinks.forEach(function(l){
-          l.classList.remove('active');
-          l.setAttribute('aria-selected', 'false');
-        });
-        link.classList.add('active');
-        link.setAttribute('aria-selected', 'true');
-        showPane(link.getAttribute('href'));
+        setActiveLink(link);
+        var target = link.getAttribute('href');
+        // Update the hash without scrolling
+        if (history && history.replaceState) {
+          history.replaceState(null, '', target);
+        } else {
+          window.location.hash = target;
+        }
+        showPane(target);
       });
     });
+
+    // React to external hash navigation
+    window.addEventListener('hashchange', activateByHash);
   })();
   
   function updateResults() {
