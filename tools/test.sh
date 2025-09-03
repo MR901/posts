@@ -66,7 +66,7 @@ main() {
   if [[ -n "$_baseurl" ]]; then
     bundle exec htmlproofer "$SITE_DIR" \
       --disable-external \
-      --swap-urls "/${_swap_from}:${_swap_to}" \
+      --url-swap "/${_swap_from}:${_swap_to}" \
       --ignore-urls "/^http:\/\/127.0.0.1/,/^http:\/\/0.0.0.0/,/^http:\/\/localhost/"
   else
     bundle exec htmlproofer "$SITE_DIR" \

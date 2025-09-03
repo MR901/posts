@@ -74,39 +74,18 @@ jobs:
         env:
           JEKYLL_ENV: "production"
 
-      - name: Mirror site under baseurl for tests
-        run: |
-          BASE_PATH="${{ steps.pages.outputs.base_path }}"
-          if [ -n "$BASE_PATH" ] && [ "$BASE_PATH" != "/" ]; then
-            # Ensure base path root exists
-            mkdir -p "_site$BASE_PATH"
-
-            # 1) Mirror top-level index to /posts/
-            if [ -f _site/index.html ]; then
-              cp -f _site/index.html "_site$BASE_PATH/index.html"
-            fi
-
-            # 2) Mirror common top-level directories expected under baseurl
-            for d in about archives categories tags posts assets; do
-              if [ -d "_site/$d" ]; then
-                mkdir -p "_site$BASE_PATH/$d"
-                rsync -a "_site/$d/" "_site$BASE_PATH/$d/"
-              fi
-            done
-
-            # 3) Mirror common top-level files expected under baseurl
-            for f in feed.xml sitemap.xml robots.txt app.min.js sw.min.js; do
-              if [ -f "_site/$f" ]; then
-                cp -f "_site/$f" "_site$BASE_PATH/$f"
-              fi
-            done
-          fi
-
       - name: Test site
         run: |
-          # Skip htmlproofer for now due to baseurl complexity
-          # TODO: Fix htmlproofer baseurl handling for project sites
-          echo "Skipping htmlproofer checks - site builds successfully"
+          BASE_PATH="${{ steps.pages.outputs.base_path }}"
+          SWAP_OPT=""
+          if [ -n "$BASE_PATH" ] && [ "$BASE_PATH" != "/" ]; then
+            # Map /<base>/... to /
+            SWAP_OPT="--url-swap ^${BASE_PATH}/:/"
+          fi
+          bundle exec htmlproofer _site \
+            --disable-external \
+            $SWAP_OPT \
+            --ignore-urls "/^http:\/\/127.0.0.1/,/^http:\/\/0.0.0.0/,/^http:\/\/localhost/"
 
       - name: Upload site artifact
         uses: actions/upload-pages-artifact@v3
