@@ -302,7 +302,13 @@ document.addEventListener('DOMContentLoaded', function() {
     function activateByHash() {
       var h = window.location.hash;
       if (!h) return false;
-      var link = tabLinks.find(function(l){ return l.getAttribute('href') === h; });
+      var link = null;
+      for (var i = 0; i < tabLinks.length; i++) {
+        if (tabLinks[i].getAttribute('href') === h) {
+          link = tabLinks[i];
+          break;
+        }
+      }
       if (!link) return false;
       setActiveLink(link);
       showPane(h);
@@ -310,7 +316,14 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Initialize display state based on active tab or default to first
-    var activeLink = tabLinks.find(function(l){ return l.classList.contains('active'); }) || tabLinks[0];
+    var activeLink = null;
+    for (var i = 0; i < tabLinks.length; i++) {
+      if (tabLinks[i].classList.contains('active')) {
+        activeLink = tabLinks[i];
+        break;
+      }
+    }
+    if (!activeLink && tabLinks.length > 0) activeLink = tabLinks[0];
     tabLinks.forEach(function(l){
       if (l === activeLink) {
         l.classList.add('active');
@@ -395,9 +408,19 @@ document.addEventListener('DOMContentLoaded', function() {
       if (qTokens.length === 0) return true;
       const hTokens = tokenize(hay);
       if (hTokens.length === 0) return false;
-      return qTokens.every(function(qt) {
-        return hTokens.some(function(hw) { return isFuzzyMatch(hw, qt); });
-      });
+      
+      for (var i = 0; i < qTokens.length; i++) {
+        var qt = qTokens[i];
+        var found = false;
+        for (var j = 0; j < hTokens.length; j++) {
+          if (isFuzzyMatch(hTokens[j], qt)) {
+            found = true;
+            break;
+          }
+        }
+        if (!found) return false;
+      }
+      return true;
     }
 
     items.forEach(function(item) {
