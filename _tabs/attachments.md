@@ -5,8 +5,6 @@ order: 4
 title: Attachments
 ---
 
-## Attachments
-
 Browse and search through all available attachments organized by category.
 
 <div class="search-wrapper mb-4">
@@ -55,13 +53,13 @@ Browse and search through all available attachments organized by category.
   <div class="tab-pane fade show active" id="images-content" role="tabpanel" aria-labelledby="images-tab">
     <div class="row" id="images-grid">
       {% for file in images_files %}
-      {% assign file_abs = file.path | absolute_url %}
+      {% assign file_url = file.path | replace: site.source, "" | relative_url %}
       <div class="col-sm-6 col-md-4 col-lg-3 mb-3">
         <div class="card attachment-item" data-search="images {{ file.name }} {{ file.extname }}" data-category="images">
           <div class="card-body p-2">
             <div class="text-center mb-2">
-              <button type="button" class="attachment-preview-btn" onclick="showImageModal('{{ file_abs }}', '{{ file.name }}', event)" aria-label="Preview {{ file.name }}">
-                <img src="{{ file_abs }}" alt="{{ file.name }}" class="attachment-thumbnail" loading="lazy" />
+              <button type="button" class="attachment-preview-btn" onclick="showImageModal('{{ file_url }}', '{{ file.name }}', event)" aria-label="Preview {{ file.name }}">
+                <img src="{{ file_url }}" alt="{{ file.name }}" class="attachment-thumbnail no-lightbox" loading="lazy" />
               </button>
             </div>
             <div class="text-center">
@@ -81,7 +79,7 @@ Browse and search through all available attachments organized by category.
   <div class="tab-pane fade{% unless images_files.size > 0 %} show active{% endunless %}" id="articles-content" role="tabpanel" aria-labelledby="articles-tab">
     <div class="list-group" id="articles-list">
       {% for file in articles_files %}
-      {% assign file_url = file.path | remove_first: site.baseurl | relative_url %}
+      {% assign file_url = file.path | replace: site.source, "" | relative_url %}
       <div class="list-group-item attachment-item" data-search="articles {{ file.name }} {{ file.extname }}" data-category="articles">
         <div class="attachment-file-row">
           <div class="attachment-icon">
@@ -113,7 +111,7 @@ Browse and search through all available attachments organized by category.
   <div class="tab-pane fade{% unless images_files.size > 0 or articles_files.size > 0 %} show active{% endunless %}" id="research-content" role="tabpanel" aria-labelledby="research-tab">
     <div class="list-group" id="research-list">
       {% for file in research_files %}
-      {% assign file_url = file.path | remove_first: site.baseurl | relative_url %}
+      {% assign file_url = file.path | replace: site.source, "" | relative_url %}
       <div class="list-group-item attachment-item" data-search="research {{ file.name }} {{ file.extname }}" data-category="research">
         <div class="attachment-file-row">
           <div class="attachment-icon">
@@ -377,4 +375,9 @@ Browse and search through all available attachments organized by category.
 }
 </style>
 
+<script>
+// Make Jekyll data available to JavaScript
+window.attachmentGalleries = {{ site.data.attachment_galleries | jsonify }};
+window.attachmentReferences = {{ site.data.attachment_references | jsonify }};
+</script>
 <script defer src="{{ '/assets/js/attachments.js' | relative_url }}"></script>

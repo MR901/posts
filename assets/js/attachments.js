@@ -11,6 +11,12 @@
     currentModal: null,
     searchInput: null,
     initialized: false,
+    gallery: {
+      items: [],
+      currentIndex: -1,
+      category: null,
+      isGalleryMode: false,
+    },
   };
 
   // Configuration
@@ -18,7 +24,6 @@
     modalZIndex: 9999,
     backdropZIndex: 9998,
     animationDuration: 300,
-    categories: ['images', 'articles', 'research'],
   };
 
   /**
@@ -35,8 +40,8 @@
     initSearch();
     initModals();
 
-    // Clean up any theme interference
-    cleanupThemeInterference();
+    // Clean up any theme interference aggressively
+    runPeriodicCleanup();
 
     state.initialized = true;
   }
@@ -210,7 +215,10 @@
   }
 
   function updateTabBadges(query) {
-    config.categories.forEach(function (category) {
+    // Get categories dynamically from gallery data
+    var galleries = window.attachmentGalleries || {};
+    var categories = Object.keys(galleries);
+    categories.forEach(function (category) {
       var tab = document.getElementById(category + '-tab');
       if (!tab) return;
 
@@ -266,6 +274,8 @@
       'backdrop-filter: blur(2px)',
       'opacity: 0',
       'transition: opacity ' + config.animationDuration + 'ms ease',
+      'padding: 20px',
+      'box-sizing: border-box',
     ].join(';');
 
     // Close on backdrop click
@@ -281,12 +291,18 @@
   function showImageModal(src, name, event) {
     if (event) event.preventDefault();
 
+    // Initialize gallery state for images
+    initializeGallery('images', src);
+
     var modalContent = createImageModalContent(src, name);
     openModal(modalContent);
   }
 
   function showPdfModal(src, name, event) {
     if (event) event.preventDefault();
+
+    // Initialize gallery state for PDFs
+    initializeGallery('articles', src) || initializeGallery('research', src);
 
     var modalContent = createPdfModalContent(src, name);
     openModal(modalContent);
@@ -297,34 +313,62 @@
     content.className = 'modal-content-wrapper';
     content.style.cssText = [
       'position: relative',
-      'max-width: 90vw',
-      'max-height: 90vh',
-      'margin: 5vh auto',
+      'width: 90vw',
+      'height: 85vh',
+      'max-width: 1200px',
+      'margin: 0 auto',
       'background: white',
       'border-radius: 8px',
       'overflow: hidden',
       'box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3)',
+      'display: flex',
+      'flex-direction: column',
     ].join(';');
 
+    // Build navigation controls
+    var navControls = '';
+    var galleryCounter = '';
+    if (state.gallery.isGalleryMode && state.gallery.items.length > 1) {
+      navControls = [
+        '<button type="button" class="gallery-nav gallery-prev" style="position: absolute; left: 20px; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.5); color: white; border: none; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; font-size: 18px; z-index: 10;" aria-label="Previous">&larr;</button>',
+        '<button type="button" class="gallery-nav gallery-next" style="position: absolute; right: 20px; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.5); color: white; border: none; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; font-size: 18px; z-index: 10;" aria-label="Next">&rarr;</button>',
+      ].join('');
+
+      galleryCounter =
+        '<span class="gallery-counter" style="color: #6c757d; font-size: 0.9em;">' +
+        (state.gallery.currentIndex + 1) +
+        ' / ' +
+        state.gallery.items.length +
+        '</span>';
+    }
+
     content.innerHTML = [
-      '<div class="modal-header" style="padding: 15px 20px; border-bottom: 1px solid #dee2e6; display: flex; justify-content: space-between; align-items: center;">',
-      '<h5 style="margin: 0; font-size: 1.25rem; color: #212529;">' +
+      '<div class="modal-header" style="padding: 15px 20px; border-bottom: 1px solid #dee2e6; display: flex; justify-content: space-between; align-items: center; flex-shrink: 0;">',
+      '<div style="display: flex; flex-direction: column; align-items: flex-start;">',
+      '<h5 class="modal-title" style="margin: 0; font-size: 1.25rem; color: #212529;">' +
         escapeHtml(name) +
         '</h5>',
-      '<button type="button" class="modal-close" style="background: none; border: none; font-size: 24px; cursor: pointer; padding: 0; color: #6c757d;" aria-label="Close">&times;</button>',
+      galleryCounter,
       '</div>',
-      '<div class="modal-body" style="padding: 20px; text-align: center; max-height: 70vh; overflow: auto;">',
+      '<div style="display: flex; align-items: center; gap: 10px;">',
+      '<button type="button" class="modal-download" style="background: none; border: none; font-size: 20px; cursor: pointer; padding: 8px; color: #6c757d; border-radius: 4px; transition: background-color 0.2s;" aria-label="Download" title="Download">',
+      '<i class="fas fa-download"></i>',
+      '</button>',
+      '<button type="button" class="modal-close" style="background: none; border: none; font-size: 24px; cursor: pointer; padding: 8px; color: #6c757d; border-radius: 4px; transition: background-color 0.2s;" aria-label="Close" title="Close">&times;</button>',
+      '</div>',
+      '</div>',
+      '<div class="modal-body" style="padding: 0; text-align: center; flex: 1; overflow: auto; position: relative; display: flex; align-items: center; justify-content: center; min-height: 0;">',
+      navControls,
       '<img src="' +
         escapeHtml(src) +
         '" alt="' +
         escapeHtml(name) +
-        '" style="max-width: 100%; height: auto; border-radius: 4px;" loading="lazy" />',
+        "\" style=\"max-width: 100%; max-height: 100%; object-fit: contain; display: block; margin: auto;\" loading=\"lazy\" onerror=\"this.style.display='none'; this.parentNode.innerHTML+='<div style=\\'padding: 40px; text-align: center; color: #6c757d; background: #f8f9fa;\\'><i class=\\'fas fa-image\\' style=\\'font-size: 2rem; margin-bottom: 10px; display: block;\\'></i>Image not found<br><small>" +
+        escapeHtml(name) +
+        '</small></div>\'" />',
       '</div>',
-      '<div class="modal-footer" style="padding: 15px 20px; border-top: 1px solid #dee2e6; display: flex; justify-content: space-between; align-items: center;">',
-      '<button type="button" class="btn btn-primary modal-download" style="background-color: #007bff; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer;">',
-      '<i class="fas fa-download" style="margin-right: 8px;"></i>Download',
-      '</button>',
-      '<button type="button" class="btn btn-secondary modal-close" style="background-color: #6c757d; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer;">Close</button>',
+      '<div class="references-panel" style="padding: 15px 20px; border-top: 1px solid #dee2e6; height: 120px; min-height: 120px; overflow-y: auto; background-color: #f8f9fa; flex-shrink: 0;">',
+      '<div class="references-loading">Loading references...</div>',
       '</div>',
     ].join('');
 
@@ -332,13 +376,51 @@
     var closeButtons = content.querySelectorAll('.modal-close');
     Array.prototype.forEach.call(closeButtons, function (btn) {
       btn.addEventListener('click', closeModal);
+      // Add hover effects
+      btn.addEventListener('mouseenter', function () {
+        this.style.backgroundColor = '#f8f9fa';
+      });
+      btn.addEventListener('mouseleave', function () {
+        this.style.backgroundColor = 'transparent';
+      });
     });
 
     var downloadButton = content.querySelector('.modal-download');
     if (downloadButton) {
-      downloadButton.addEventListener('click', function () {
+      downloadButton.addEventListener('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
         window.open(src, '_blank');
       });
+      // Add hover effects
+      downloadButton.addEventListener('mouseenter', function () {
+        this.style.backgroundColor = '#f8f9fa';
+      });
+      downloadButton.addEventListener('mouseleave', function () {
+        this.style.backgroundColor = 'transparent';
+      });
+    }
+
+    // Add navigation event listeners
+    var prevButton = content.querySelector('.gallery-prev');
+    var nextButton = content.querySelector('.gallery-next');
+
+    if (prevButton) {
+      prevButton.addEventListener('click', function () {
+        navigateGallery(-1);
+      });
+    }
+
+    if (nextButton) {
+      nextButton.addEventListener('click', function () {
+        navigateGallery(1);
+      });
+    }
+
+    // Load references data
+    var referencesPanel = content.querySelector('.references-panel');
+    if (referencesPanel) {
+      loadReferences(referencesPanel, name);
     }
 
     return content;
@@ -396,7 +478,9 @@
     var fallbackButton = content.querySelector('.pdf-fallback');
 
     if (downloadButton) {
-      downloadButton.addEventListener('click', function () {
+      downloadButton.addEventListener('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
         window.open(src, '_blank');
       });
     }
@@ -472,6 +556,247 @@
   function handleModalKeydown(e) {
     if (e.key === 'Escape') {
       closeModal();
+    } else if (e.key === 'ArrowLeft') {
+      navigateGallery(-1);
+    } else if (e.key === 'ArrowRight') {
+      navigateGallery(1);
+    } else if (e.key === 'Home') {
+      jumpToGalleryItem(0);
+    } else if (e.key === 'End') {
+      jumpToGalleryItem(state.gallery.items.length - 1);
+    }
+  }
+
+  function jumpToGalleryItem(index) {
+    if (!state.gallery.isGalleryMode || !state.gallery.items.length) return;
+    if (index < 0 || index >= state.gallery.items.length) return;
+
+    var item = state.gallery.items[index];
+    state.gallery.currentIndex = index;
+
+    if (state.gallery.category === 'images') {
+      updateImageModal(item);
+    } else {
+      updatePdfModal(item);
+    }
+  }
+
+  /**
+   * References System
+   */
+  function loadReferences(panel, filename) {
+    // Get references data from Jekyll
+    var references = window.attachmentReferences || {};
+    var fileRefs = references[filename];
+
+    if (!fileRefs || (!fileRefs.posts.length && !fileRefs.pages.length)) {
+      panel.innerHTML =
+        '<div style="color: #6c757d; font-style: italic;">No references found for this attachment.</div>';
+      return;
+    }
+
+    var html = [
+      '<div style="font-weight: 600; margin-bottom: 10px; color: #212529;"><i class="fas fa-link" style="margin-right: 8px;"></i>Referenced in:</div>',
+    ];
+
+    // Add post references
+    if (fileRefs.posts && fileRefs.posts.length > 0) {
+      fileRefs.posts.forEach(function (post) {
+        html.push(
+          '<div style="margin-bottom: 6px;">',
+          '<a href="' +
+            escapeHtml(post.url) +
+            '" style="color: #007bff; text-decoration: none; font-weight: 500;">',
+          '<i class="fas fa-file-alt" style="margin-right: 6px; color: #6c757d;"></i>',
+          escapeHtml(post.title),
+          '</a>',
+          post.date
+            ? '<span style="color: #6c757d; font-size: 0.85em; margin-left: 8px;">(' +
+                post.date +
+                ')</span>'
+            : '',
+          '</div>'
+        );
+      });
+    }
+
+    // Add page references
+    if (fileRefs.pages && fileRefs.pages.length > 0) {
+      fileRefs.pages.forEach(function (page) {
+        html.push(
+          '<div style="margin-bottom: 6px;">',
+          '<a href="' +
+            escapeHtml(page.url) +
+            '" style="color: #007bff; text-decoration: none; font-weight: 500;">',
+          '<i class="fas fa-file" style="margin-right: 6px; color: #6c757d;"></i>',
+          escapeHtml(page.title),
+          '</a>',
+          '</div>'
+        );
+      });
+    }
+
+    // Add total count
+    var totalRefs =
+      (fileRefs.posts || []).length + (fileRefs.pages || []).length;
+    if (totalRefs > 1) {
+      html.push(
+        '<div style="margin-top: 10px; padding-top: 10px; border-top: 1px solid #dee2e6; color: #6c757d; font-size: 0.85em;">Total: ' +
+          totalRefs +
+          ' reference' +
+          (totalRefs === 1 ? '' : 's') +
+          '</div>'
+      );
+    }
+
+    panel.innerHTML = html.join('');
+  }
+
+  function updateReferencesPanel(panel, filename) {
+    loadReferences(panel, filename);
+  }
+
+  /**
+   * Gallery Navigation System
+   */
+  function initializeGallery(category, currentSrc) {
+    // Get gallery data from Jekyll
+    var galleries = window.attachmentGalleries || {};
+    var items = galleries[category] || [];
+
+    if (!items.length) return false;
+
+    // Find current item index
+    var currentIndex = -1;
+    for (var i = 0; i < items.length; i++) {
+      if (currentSrc.indexOf(items[i].filename) !== -1) {
+        currentIndex = i;
+        break;
+      }
+    }
+
+    if (currentIndex === -1) return false;
+
+    // Update gallery state
+    state.gallery = {
+      items: items,
+      currentIndex: currentIndex,
+      category: category,
+      isGalleryMode: true,
+    };
+
+    return true;
+  }
+
+  function navigateGallery(direction) {
+    if (!state.gallery.isGalleryMode || !state.gallery.items.length) return;
+
+    var newIndex = state.gallery.currentIndex + direction;
+
+    // Wrap around
+    if (newIndex >= state.gallery.items.length) {
+      newIndex = 0;
+    } else if (newIndex < 0) {
+      newIndex = state.gallery.items.length - 1;
+    }
+
+    var newItem = state.gallery.items[newIndex];
+    state.gallery.currentIndex = newIndex;
+
+    // Update modal content
+    if (state.gallery.category === 'images') {
+      updateImageModal(newItem);
+    } else {
+      updatePdfModal(newItem);
+    }
+  }
+
+  function updateImageModal(item) {
+    var container = state.currentModal;
+    if (!container) return;
+
+    var img = container.querySelector('.modal-body img');
+    var title = container.querySelector('.modal-title');
+    var downloadBtn = container.querySelector('.modal-download');
+    var counter = container.querySelector('.gallery-counter');
+    var referencesPanel = container.querySelector('.references-panel');
+
+    if (img) {
+      img.src = item.absolute_url || item.url;
+      img.alt = item.name;
+
+      // Add error handling for broken images
+      img.onerror = function () {
+        this.style.display = 'none';
+        var errorDiv = document.createElement('div');
+        errorDiv.style.cssText =
+          'padding: 40px; text-align: center; color: #6c757d; background: #f8f9fa; border-radius: 4px;';
+        errorDiv.innerHTML =
+          '<i class="fas fa-image" style="font-size: 2rem; margin-bottom: 10px; display: block;"></i>Image not found<br><small>' +
+          escapeHtml(item.filename) +
+          '</small>';
+        this.parentNode.insertBefore(errorDiv, this);
+      };
+    }
+
+    if (title) {
+      title.textContent = item.filename;
+    }
+
+    if (downloadBtn) {
+      downloadBtn.onclick = function () {
+        window.open(item.absolute_url, '_blank');
+      };
+    }
+
+    if (counter) {
+      counter.textContent =
+        state.gallery.currentIndex + 1 + ' / ' + state.gallery.items.length;
+    }
+
+    if (referencesPanel) {
+      updateReferencesPanel(referencesPanel, item.filename);
+    }
+  }
+
+  function updatePdfModal(item) {
+    var container = state.currentModal;
+    if (!container) return;
+
+    var pdfObject = container.querySelector('.modal-body object');
+    var title = container.querySelector('.modal-title');
+    var downloadBtn = container.querySelector('.modal-download');
+    var fallbackBtn = container.querySelector('.pdf-fallback');
+    var counter = container.querySelector('.gallery-counter');
+    var referencesPanel = container.querySelector('.references-panel');
+
+    if (pdfObject) {
+      pdfObject.setAttribute('data', item.url);
+    }
+
+    if (title) {
+      title.textContent = item.filename;
+    }
+
+    if (downloadBtn) {
+      downloadBtn.onclick = function () {
+        window.open(item.url, '_blank');
+      };
+    }
+
+    if (fallbackBtn) {
+      fallbackBtn.onclick = function () {
+        window.open(item.url, '_blank');
+      };
+    }
+
+    if (counter) {
+      counter.textContent =
+        state.gallery.currentIndex + 1 + ' / ' + state.gallery.items.length;
+    }
+
+    if (referencesPanel) {
+      updateReferencesPanel(referencesPanel, item.filename);
     }
   }
 
@@ -479,18 +804,53 @@
    * Theme Interference Cleanup
    */
   function cleanupThemeInterference() {
-    // Remove any theme-generated lightbox wrappers
+    // Aggressive cleanup of theme-generated lightbox wrappers and URL fixes
     var buttons = document.querySelectorAll('.attachment-item button[onclick]');
     Array.prototype.forEach.call(buttons, function (button) {
-      var links = button.querySelectorAll('a.popup, a.img-link');
+      // Extract correct URL from onclick attribute
+      var correctSrc = button.getAttribute('onclick');
+      var correctUrl = '';
+      if (correctSrc) {
+        var match = correctSrc.match(/showImageModal\(['"]([^'"]+)['"]/);
+        if (match && match[1]) {
+          correctUrl = match[1];
+        }
+      }
+
+      // Remove all auto-generated anchor wrappers
+      var links = button.querySelectorAll('a');
       Array.prototype.forEach.call(links, function (link) {
         var img = link.querySelector('img');
         if (img) {
+          // Fix the image src with correct URL
+          if (correctUrl) {
+            img.src = correctUrl;
+          }
+          // Move image out of anchor and remove anchor
           button.insertBefore(img, link);
           link.remove();
         }
       });
+
+      // Fix any remaining images with wrong URLs
+      var images = button.querySelectorAll('img');
+      Array.prototype.forEach.call(images, function (img) {
+        if (
+          correctUrl &&
+          (img.src.includes('/posts/posts/') || !img.src.includes('/posts/'))
+        ) {
+          img.src = correctUrl;
+        }
+      });
     });
+  }
+
+  function runPeriodicCleanup() {
+    // Run cleanup multiple times to catch theme interference
+    cleanupThemeInterference();
+    setTimeout(cleanupThemeInterference, 100);
+    setTimeout(cleanupThemeInterference, 500);
+    setTimeout(cleanupThemeInterference, 1000);
   }
 
   /**
