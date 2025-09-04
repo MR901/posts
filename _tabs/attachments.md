@@ -26,21 +26,21 @@ Browse and search through all available attachments organized by category.
     {% if images_files.size > 0 %}
     <li class="nav-item" role="presentation">
       <a class="nav-link active" id="images-tab" href="#images-content" role="tab" aria-controls="images-content" aria-selected="true">
-        <i class="fas fa-image mr-2"></i>Images <span class="badge badge-secondary ml-1">{{ images_files.size }}</span>
+        <i class="fas fa-image"></i>Images <span class="badge badge-secondary">{{ images_files.size }}</span>
       </a>
     </li>
     {% endif %}
     {% if articles_files.size > 0 %}
     <li class="nav-item" role="presentation">
       <a class="nav-link{% unless images_files.size > 0 %} active{% endunless %}" id="articles-tab" href="#articles-content" role="tab" aria-controls="articles-content" aria-selected="{% if images_files.size > 0 %}false{% else %}true{% endif %}">
-        <i class="fas fa-file-alt mr-2"></i>Articles <span class="badge badge-secondary ml-1">{{ articles_files.size }}</span>
+        <i class="fas fa-file-alt"></i>Articles <span class="badge badge-secondary">{{ articles_files.size }}</span>
       </a>
     </li>
     {% endif %}
     {% if research_files.size > 0 %}
     <li class="nav-item" role="presentation">
       <a class="nav-link{% unless images_files.size > 0 or articles_files.size > 0 %} active{% endunless %}" id="research-tab" href="#research-content" role="tab" aria-controls="research-content" aria-selected="{% unless images_files.size > 0 or articles_files.size > 0 %}true{% else %}false{% endunless %}">
-        <i class="fas fa-graduation-cap mr-2"></i>Research <span class="badge badge-secondary ml-1">{{ research_files.size }}</span>
+        <i class="fas fa-graduation-cap"></i>Research <span class="badge badge-secondary">{{ research_files.size }}</span>
       </a>
     </li>
     {% endif %}
@@ -55,20 +55,18 @@ Browse and search through all available attachments organized by category.
   <div class="tab-pane fade show active" id="images-content" role="tabpanel" aria-labelledby="images-tab">
     <div class="row" id="images-grid">
       {% for file in images_files %}
-      {% assign file_url = file.path | remove_first: site.baseurl | relative_url %}
-      {% assign file_rel = file.path | remove_first: '/' %}
       {% assign file_abs = file.path | absolute_url %}
       <div class="col-sm-6 col-md-4 col-lg-3 mb-3">
         <div class="card attachment-item" data-search="images {{ file.name }} {{ file.extname }}" data-category="images">
           <div class="card-body p-2">
             <div class="text-center mb-2">
-              <button type="button" class="btn p-0 border-0 bg-transparent" onclick="showImageModal('{{ file_abs }}', '{{ file.name }}', event)">
-                <img src="{{ file_abs }}" alt="{{ file.name }}" class="img-fluid rounded attachment-thumbnail no-lightbox" style="max-height: 120px; object-fit: cover; cursor: pointer;" loading="lazy" />
+              <button type="button" class="attachment-preview-btn" onclick="showImageModal('{{ file_abs }}', '{{ file.name }}', event)" aria-label="Preview {{ file.name }}">
+                <img src="{{ file_abs }}" alt="{{ file.name }}" class="attachment-thumbnail" loading="lazy" />
               </button>
             </div>
             <div class="text-center">
-              <small class="text-muted d-block text-truncate" title="{{ file.name }}">{{ file.name }}</small>
-              <small class="text-muted">{{ file.extname | remove: '.' | upcase }}</small>
+              <small class="attachment-filename" title="{{ file.name }}">{{ file.name }}</small>
+              <small class="attachment-type">{{ file.extname | remove: '.' | upcase }}</small>
             </div>
           </div>
         </div>
@@ -85,20 +83,22 @@ Browse and search through all available attachments organized by category.
       {% for file in articles_files %}
       {% assign file_url = file.path | remove_first: site.baseurl | relative_url %}
       <div class="list-group-item attachment-item" data-search="articles {{ file.name }} {{ file.extname }}" data-category="articles">
-        <div class="d-flex align-items-center">
-          <i class="fas fa-file-pdf text-danger mr-3" style="font-size: 1.5rem;"></i>
-          <div class="flex-grow-1">
-            <h6 class="mb-1">
-              <button type="button" class="btn btn-link text-decoration-none p-0" onclick="showPdfModal('{{ file_url }}', '{{ file.name }}', event)">{{ file.name }}</button>
-            </h6>
-            <small class="text-muted">{{ file.extname | remove: '.' | upcase }} file</small>
+        <div class="attachment-file-row">
+          <div class="attachment-icon">
+            <i class="fas fa-file-pdf text-danger"></i>
           </div>
-          <div class="btn-group" role="group">
+          <div class="attachment-info">
+            <h6 class="attachment-title">
+              <button type="button" class="attachment-link-btn" onclick="showPdfModal('{{ file_url }}', '{{ file.name }}', event)">{{ file.name }}</button>
+            </h6>
+            <small class="attachment-meta">{{ file.extname | remove: '.' | upcase }} file</small>
+          </div>
+          <div class="attachment-actions">
             <button type="button" class="btn btn-sm btn-outline-primary" onclick="showPdfModal('{{ file_url }}', '{{ file.name }}', event)">
-              <i class="fas fa-eye mr-1"></i>Preview
+              <i class="fas fa-eye"></i>Preview
             </button>
             <a href="{{ file_url }}" target="_blank" class="btn btn-sm btn-outline-secondary">
-              <i class="fas fa-download mr-1"></i>Download
+              <i class="fas fa-download"></i>Download
             </a>
           </div>
         </div>
@@ -115,20 +115,22 @@ Browse and search through all available attachments organized by category.
       {% for file in research_files %}
       {% assign file_url = file.path | remove_first: site.baseurl | relative_url %}
       <div class="list-group-item attachment-item" data-search="research {{ file.name }} {{ file.extname }}" data-category="research">
-        <div class="d-flex align-items-center">
-          <i class="fas fa-file-pdf text-success mr-3" style="font-size: 1.5rem;"></i>
-          <div class="flex-grow-1">
-            <h6 class="mb-1">
-              <button type="button" class="btn btn-link text-decoration-none p-0" onclick="showPdfModal('{{ file_url }}', '{{ file.name }}', event)">{{ file.name }}</button>
-            </h6>
-            <small class="text-muted">{{ file.extname | remove: '.' | upcase }} file</small>
+        <div class="attachment-file-row">
+          <div class="attachment-icon">
+            <i class="fas fa-file-pdf text-success"></i>
           </div>
-          <div class="btn-group" role="group">
+          <div class="attachment-info">
+            <h6 class="attachment-title">
+              <button type="button" class="attachment-link-btn" onclick="showPdfModal('{{ file_url }}', '{{ file.name }}', event)">{{ file.name }}</button>
+            </h6>
+            <small class="attachment-meta">{{ file.extname | remove: '.' | upcase }} file</small>
+          </div>
+          <div class="attachment-actions">
             <button type="button" class="btn btn-sm btn-outline-success" onclick="showPdfModal('{{ file_url }}', '{{ file.name }}', event)">
-              <i class="fas fa-eye mr-1"></i>Preview
+              <i class="fas fa-eye"></i>Preview
             </button>
             <a href="{{ file_url }}" target="_blank" class="btn btn-sm btn-outline-secondary">
-              <i class="fas fa-download mr-1"></i>Download
+              <i class="fas fa-download"></i>Download
             </a>
           </div>
         </div>
@@ -147,63 +149,12 @@ Browse and search through all available attachments organized by category.
 </div>
 {% endif %}
 
-<!-- Image Modal -->
-<div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="imageModalLabel">Image Preview</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body text-center">
-        <div id="modalImage" class="img-fluid"></div>
-      </div>
-      <div class="modal-footer">
-        <button id="modalImageDownload" type="button" class="btn btn-primary">
-          <i class="fas fa-download mr-1"></i>Download
-        </button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- PDF Modal -->
-<div class="modal fade" id="pdfModal" tabindex="-1" aria-labelledby="pdfModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-xl modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="pdfModalLabel">PDF Preview</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-              <div class="modal-body p-1" style="height: 70vh;">
-          <object id="modalPdf" data="" width="100%" height="100%" type="application/pdf" style="min-height: 500px;">
-            <div class="p-4 text-center">
-              <i class="fas fa-file-pdf text-muted mb-3" style="font-size: 3rem;"></i>
-              <p class="mb-3">PDF preview unavailable in this browser.</p>
-              <button id="pdfFallbackLink" type="button" class="btn btn-primary">
-                <i class="fas fa-external-link-alt mr-2"></i>Open PDF in New Tab
-              </button>
-            </div>
-          </object>
-        </div>
-      <div class="modal-footer">
-        <button id="modalPdfDownload" type="button" class="btn btn-primary">
-          <i class="fas fa-external-link-alt mr-1"></i>Open in New Tab
-        </button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
-
 <style>
-#attachmentTabContent > .tab-pane { display: none !important; }
-#attachmentTabContent > .tab-pane.active.show { display: block !important; }
+/* ================================
+   ATTACHMENT SYSTEM STYLES
+   ================================ */
+
+/* Tab Navigation */
 .attachment-tabs .nav-tabs {
   border-bottom: 2px solid var(--border-color);
 }
@@ -219,6 +170,8 @@ Browse and search through all available attachments organized by category.
   align-items: center;
   gap: 8px;
   font-size: 1.02rem;
+  text-decoration: none;
+  transition: all 0.2s ease;
 }
 
 .attachment-tabs .nav-link i {
@@ -230,6 +183,7 @@ Browse and search through all available attachments organized by category.
   padding: 0.25em 0.5em;
   font-size: 0.78em;
   border-radius: 10px;
+  background-color: var(--text-muted-color);
 }
 
 .attachment-tabs .nav-link.active {
@@ -244,41 +198,128 @@ Browse and search through all available attachments organized by category.
   color: var(--text-color);
 }
 
-.attachment-tabs .badge {
-  background-color: var(--text-muted-color);
+/* Tab Content */
+#attachmentTabContent > .tab-pane {
+  display: none;
 }
 
-.attachment-thumbnail:hover {
-  transform: scale(1.05);
+#attachmentTabContent > .tab-pane.active.show {
+  display: block;
+}
+
+/* Image Grid */
+.attachment-preview-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: block;
+  width: 100%;
+}
+
+.attachment-preview-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.attachment-thumbnail {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 8px;
   transition: transform 0.2s ease;
 }
 
-.list-group-item:hover {
+.attachment-preview-btn:hover .attachment-thumbnail {
+  transform: scale(1.05);
+}
+
+.attachment-filename {
+  display: block;
+  color: var(--text-color);
+  font-weight: 500;
+  margin-bottom: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.attachment-type {
+  color: var(--text-muted-color);
+  font-size: 0.85em;
+  font-weight: 500;
+}
+
+/* File List */
+.attachment-file-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 0;
+}
+
+.attachment-icon {
+  flex-shrink: 0;
+}
+
+.attachment-icon i {
+  font-size: 2rem;
+}
+
+.attachment-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.attachment-title {
+  margin: 0 0 4px 0;
+  font-size: 1.1rem;
+}
+
+.attachment-link-btn {
+  background: none;
+  border: none;
+  color: var(--link-color);
+  text-decoration: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.attachment-link-btn:hover {
+  color: var(--link-hover-color);
+  text-decoration: underline;
+}
+
+.attachment-meta {
+  color: var(--text-muted-color);
+  font-size: 0.9em;
+}
+
+.attachment-actions {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+/* List Items */
+.list-group-item {
+  border: 1px solid var(--border-color);
   background-color: var(--card-bg);
+  transition: background-color 0.2s ease, transform 0.2s ease;
 }
 
-/* Prevent theme lightbox from interfering */
-.attachment-item .no-lightbox {
-  pointer-events: auto !important;
+.list-group-item:hover {
+  background-color: var(--card-header-bg);
+  transform: translateY(-1px);
 }
 
-.attachment-item button[onclick] {
-  position: relative;
-  z-index: 10;
-}
-
-/* Override theme's automatic image wrapping */
-.attachment-item .popup.img-link {
-  pointer-events: none !important;
-  cursor: default !important;
-}
-
-/* Ensure modals overlay theme panels on Pages */
-.modal,
-.modal-backdrop {
-  z-index: 2000 !important;
-}
-
+/* Responsive Design */
 @media (max-width: 768px) {
   .attachment-tabs .nav-link {
     padding: 10px 14px;
@@ -286,10 +327,53 @@ Browse and search through all available attachments organized by category.
     gap: 6px;
   }
   
-  .btn-group .btn {
+  .attachment-file-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  
+  .attachment-actions {
+    width: 100%;
+    justify-content: stretch;
+  }
+  
+  .attachment-actions .btn {
+    flex: 1;
     font-size: 0.85em;
     padding: 0.25rem 0.5rem;
   }
+}
+
+@media (max-width: 576px) {
+  .attachment-tabs .nav-link {
+    padding: 8px 12px;
+    font-size: 0.9rem;
+  }
+  
+  .attachment-tabs .nav-link i {
+    display: none;
+  }
+}
+
+/* Focus Management for Accessibility */
+.attachment-preview-btn:focus,
+.attachment-link-btn:focus {
+  outline: 2px solid var(--link-color);
+  outline-offset: 2px;
+}
+
+/* Loading States */
+.attachment-thumbnail[loading] {
+  background: var(--card-bg);
+  background-image: linear-gradient(45deg, transparent 35%, rgba(255,255,255,0.1) 50%, transparent 65%);
+  background-size: 200% 100%;
+  animation: loading-shimmer 1.5s infinite;
+}
+
+@keyframes loading-shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
 }
 </style>
 
