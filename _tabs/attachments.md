@@ -53,13 +53,14 @@ Browse and search through all available attachments organized by category.
   <div class="tab-pane fade show active" id="images-content" role="tabpanel" aria-labelledby="images-tab">
     <div class="row" id="images-grid">
       {% for file in images_files %}
-      {% assign file_url = file.path | replace: site.source, "" | relative_url %}
+      {% assign file_path = file.path | replace: site.source, "" %}
+      {% assign file_url = file_path | relative_url %}
       <div class="col-sm-6 col-md-4 col-lg-3 mb-3">
         <div class="card attachment-item" data-search="images {{ file.name }} {{ file.extname }}" data-category="images">
           <div class="card-body p-2">
             <div class="text-center mb-2">
               <button type="button" class="attachment-preview-btn" onclick="showImageModal('{{ file_url }}', '{{ file.name }}', event)" aria-label="Preview {{ file.name }}">
-                <img src="{{ file_url }}" alt="{{ file.name }}" class="attachment-thumbnail no-lightbox" loading="lazy" />
+                <img src="{{ file_path }}" alt="{{ file.name }}" class="attachment-thumbnail no-lightbox" loading="lazy" />
               </button>
             </div>
             <div class="text-center">
@@ -79,7 +80,8 @@ Browse and search through all available attachments organized by category.
   <div class="tab-pane fade{% unless images_files.size > 0 %} show active{% endunless %}" id="articles-content" role="tabpanel" aria-labelledby="articles-tab">
     <div class="list-group" id="articles-list">
       {% for file in articles_files %}
-      {% assign file_url = file.path | replace: site.source, "" | relative_url %}
+      {% assign file_path = file.path | replace: site.source, "" %}
+      {% assign file_url = file_path | relative_url %}
       <div class="list-group-item attachment-item" data-search="articles {{ file.name }} {{ file.extname }}" data-category="articles">
         <div class="attachment-file-row">
           <div class="attachment-icon">
@@ -95,7 +97,7 @@ Browse and search through all available attachments organized by category.
             <button type="button" class="btn btn-sm btn-outline-primary" onclick="showPdfModal('{{ file_url }}', '{{ file.name }}', event)">
               <i class="fas fa-eye"></i>Preview
             </button>
-            <a href="{{ file_url }}" target="_blank" class="btn btn-sm btn-outline-secondary">
+            <a href="{{ file_url }}" target="_blank" rel="noopener" class="btn btn-sm btn-outline-secondary">
               <i class="fas fa-download"></i>Download
             </a>
           </div>
@@ -111,7 +113,8 @@ Browse and search through all available attachments organized by category.
   <div class="tab-pane fade{% unless images_files.size > 0 or articles_files.size > 0 %} show active{% endunless %}" id="research-content" role="tabpanel" aria-labelledby="research-tab">
     <div class="list-group" id="research-list">
       {% for file in research_files %}
-      {% assign file_url = file.path | replace: site.source, "" | relative_url %}
+      {% assign file_path = file.path | replace: site.source, "" %}
+      {% assign file_url = file_path | relative_url %}
       <div class="list-group-item attachment-item" data-search="research {{ file.name }} {{ file.extname }}" data-category="research">
         <div class="attachment-file-row">
           <div class="attachment-icon">
