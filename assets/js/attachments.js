@@ -301,11 +301,49 @@
   function showPdfModal(src, name, event) {
     if (event) event.preventDefault();
 
-    // Initialize gallery state for PDFs
-    initializeGallery('articles', src) || initializeGallery('research', src);
+    // Initialize gallery state for PDFs using dynamic category detection
+    initializePdfGallery(src);
 
     var modalContent = createPdfModalContent(src, name);
     openModal(modalContent);
+  }
+  // More robust PDF gallery initialization: find by filename across all categories
+  function initializePdfGallery(currentSrc) {
+    var galleries = window.attachmentGalleries || {};
+    var filename = '';
+    try {
+      filename = currentSrc.split('/').pop();
+    } catch (e) {}
+
+    var matchedCategory = null;
+    var matchedIndex = -1;
+
+    Object.keys(galleries).forEach(function (category) {
+      var items = galleries[category] || [];
+      for (var i = 0; i < items.length; i++) {
+        if (items[i].filename === filename) {
+          matchedCategory = category;
+          matchedIndex = i;
+          break;
+        }
+      }
+    });
+
+    if (matchedCategory != null && matchedIndex >= 0) {
+      state.gallery = {
+        items: galleries[matchedCategory] || [],
+        currentIndex: matchedIndex,
+        category: matchedCategory,
+        isGalleryMode: true,
+      };
+      return true;
+    }
+
+    // Fallback to default logic if not found
+    return (
+      initializeGallery('articles', currentSrc) ||
+      initializeGallery('research', currentSrc)
+    );
   }
 
   function createImageModalContent(src, name) {
@@ -431,23 +469,52 @@
     content.className = 'modal-content-wrapper';
     content.style.cssText = [
       'position: relative',
-      'width: 95vw',
-      'height: 90vh',
-      'margin: 5vh auto',
+      'width: 90vw',
+      'height: 85vh',
+      'max-width: 1200px',
+      'margin: 0 auto',
       'background: white',
       'border-radius: 8px',
       'overflow: hidden',
       'box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3)',
+      'display: flex',
+      'flex-direction: column',
     ].join(';');
 
+    // Build navigation controls and counter (same as images)
+    var navControls = '';
+    var galleryCounter = '';
+    if (state.gallery.isGalleryMode && state.gallery.items.length > 1) {
+      navControls = [
+        '<button type="button" class="gallery-nav gallery-prev" style="position: absolute; left: 20px; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.5); color: white; border: none; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; font-size: 18px; z-index: 10;" aria-label="Previous">&larr;</button>',
+        '<button type="button" class="gallery-nav gallery-next" style="position: absolute; right: 20px; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.5); color: white; border: none; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; font-size: 18px; z-index: 10;" aria-label="Next">&rarr;</button>',
+      ].join('');
+
+      galleryCounter =
+        '<span class="gallery-counter" style="color: #6c757d; font-size: 0.9em;">' +
+        (state.gallery.currentIndex + 1) +
+        ' / ' +
+        state.gallery.items.length +
+        '</span>';
+    }
+
     content.innerHTML = [
-      '<div class="modal-header" style="padding: 15px 20px; border-bottom: 1px solid #dee2e6; display: flex; justify-content: space-between; align-items: center;">',
-      '<h5 style="margin: 0; font-size: 1.25rem; color: #212529;">' +
+      '<div class="modal-header" style="padding: 15px 20px; border-bottom: 1px solid #dee2e6; display: flex; justify-content: space-between; align-items: center; flex-shrink: 0;">',
+      '<div style="display: flex; flex-direction: column; align-items: flex-start;">',
+      '<h5 class="modal-title" style="margin: 0; font-size: 1.25rem; color: #212529;">' +
         escapeHtml(name) +
         '</h5>',
-      '<button type="button" class="modal-close" style="background: none; border: none; font-size: 24px; cursor: pointer; padding: 0; color: #6c757d;" aria-label="Close">&times;</button>',
+      galleryCounter,
       '</div>',
-      '<div class="modal-body" style="padding: 0; height: calc(90vh - 120px);">',
+      '<div style="display: flex; align-items: center; gap: 10px;">',
+      '<button type="button" class="modal-download" style="background: none; border: none; font-size: 20px; cursor: pointer; padding: 8px; color: #6c757d; border-radius: 4px; transition: background-color 0.2s;" aria-label="Download" title="Download">',
+      '<i class="fas fa-download"></i>',
+      '</button>',
+      '<button type="button" class="modal-close" style="background: none; border: none; font-size: 24px; cursor: pointer; padding: 8px; color: #6c757d; border-radius: 4px; transition: background-color 0.2s;" aria-label="Close" title="Close">&times;</button>',
+      '</div>',
+      '</div>',
+      '<div class="modal-body" style="padding: 0; text-align: center; flex: 1; overflow: auto; position: relative; display: flex; align-items: center; justify-content: center; min-height: 0;">',
+      navControls,
       '<object data="' +
         escapeHtml(src) +
         '" type="application/pdf" style="width: 100%; height: 100%;">',
@@ -460,11 +527,8 @@
       '</div>',
       '</object>',
       '</div>',
-      '<div class="modal-footer" style="padding: 15px 20px; border-top: 1px solid #dee2e6; display: flex; justify-content: space-between; align-items: center;">',
-      '<button type="button" class="btn btn-primary modal-download" style="background-color: #007bff; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer;">',
-      '<i class="fas fa-external-link-alt" style="margin-right: 8px;"></i>Open in New Tab',
-      '</button>',
-      '<button type="button" class="btn btn-secondary modal-close" style="background-color: #6c757d; color: white; border: none; padding: 8px 16px; border-radius: 4px; cursor: pointer;">Close</button>',
+      '<div class="references-panel" style="padding: 15px 20px; border-top: 1px solid #dee2e6; height: 120px; min-height: 120px; overflow-y: auto; background-color: #f8f9fa; flex-shrink: 0;">',
+      '<div class="references-loading">Loading references...</div>',
       '</div>',
     ].join('');
 
@@ -483,11 +547,37 @@
         e.stopPropagation();
         window.open(src, '_blank');
       });
+      downloadButton.addEventListener('mouseenter', function () {
+        this.style.backgroundColor = '#f8f9fa';
+      });
+      downloadButton.addEventListener('mouseleave', function () {
+        this.style.backgroundColor = 'transparent';
+      });
     }
 
     if (fallbackButton) {
       fallbackButton.addEventListener('click', function () {
         window.open(src, '_blank');
+      });
+    }
+
+    // Load references
+    var referencesPanel = content.querySelector('.references-panel');
+    if (referencesPanel) {
+      loadReferences(referencesPanel, name);
+    }
+
+    // Add navigation event listeners for PDFs
+    var prevButton = content.querySelector('.gallery-prev');
+    var nextButton = content.querySelector('.gallery-next');
+    if (prevButton) {
+      prevButton.addEventListener('click', function () {
+        navigateGallery(-1);
+      });
+    }
+    if (nextButton) {
+      nextButton.addEventListener('click', function () {
+        navigateGallery(1);
       });
     }
 
@@ -504,7 +594,7 @@
 
     // Show modal with animation
     container.style.display = 'flex';
-    container.style.alignItems = 'flex-start';
+    container.style.alignItems = 'center';
     container.style.justifyContent = 'center';
     container.style.padding = '0';
 
@@ -591,7 +681,7 @@
 
     if (!fileRefs || (!fileRefs.posts.length && !fileRefs.pages.length)) {
       panel.innerHTML =
-        '<div style="color: #6c757d; font-style: italic;">No references found for this attachment.</div>';
+        '<div style="color: #6c757d; font-style: italic;">This attachment isn\'t referenced in any posts or pages yet.</div>';
       return;
     }
 
@@ -771,7 +861,7 @@
     var referencesPanel = container.querySelector('.references-panel');
 
     if (pdfObject) {
-      pdfObject.setAttribute('data', item.url);
+      pdfObject.setAttribute('data', item.absolute_url || item.url);
     }
 
     if (title) {
@@ -780,13 +870,13 @@
 
     if (downloadBtn) {
       downloadBtn.onclick = function () {
-        window.open(item.url, '_blank');
+        window.open(item.absolute_url || item.url, '_blank');
       };
     }
 
     if (fallbackBtn) {
       fallbackBtn.onclick = function () {
-        window.open(item.url, '_blank');
+        window.open(item.absolute_url || item.url, '_blank');
       };
     }
 
