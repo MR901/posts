@@ -8,6 +8,14 @@ module AttachmentReferences
     priority :high
 
     def generate(site)
+      # Skip plugin execution if data files already exist (GitHub Pages scenario)
+      galleries_file = File.join(site.source, '_data', 'attachment_galleries.yml')
+      references_file = File.join(site.source, '_data', 'attachment_references.yml')
+
+      if File.exist?(galleries_file) && File.exist?(references_file)
+        Jekyll.logger.info "Attachment References:", "Pre-generated data files found, skipping plugin execution"
+        return
+      end
       @site = site
       @attachment_refs = {}
 

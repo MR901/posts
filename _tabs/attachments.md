@@ -380,7 +380,17 @@ Browse and search through all available attachments organized by category.
 
 <script>
 // Make Jekyll data available to JavaScript
+// Priority: Use generated data files first, fallback to plugin data
+{% if site.data.attachment_galleries and site.data.attachment_galleries != empty %}
 window.attachmentGalleries = {{ site.data.attachment_galleries | jsonify }};
+{% else %}
+window.attachmentGalleries = {};
+{% endif %}
+
+{% if site.data.attachment_references and site.data.attachment_references != empty %}
 window.attachmentReferences = {{ site.data.attachment_references | jsonify }};
+{% else %}
+window.attachmentReferences = {};
+{% endif %}
 </script>
 <script defer src="{{ '/assets/js/attachments.js' | relative_url }}"></script>
