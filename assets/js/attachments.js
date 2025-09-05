@@ -43,6 +43,12 @@
     // Clean up any theme interference aggressively
     runPeriodicCleanup();
 
+    // Install continuous DOM observer to keep cleaning after theme/lightbox mutations
+    installInterferenceObserver();
+
+    // Defensive CSS: ensure anchors injected into preview buttons never hijack clicks
+    injectDefensiveStyles();
+
     state.initialized = true;
   }
 
@@ -941,6 +947,61 @@
     setTimeout(cleanupThemeInterference, 100);
     setTimeout(cleanupThemeInterference, 500);
     setTimeout(cleanupThemeInterference, 1000);
+  }
+
+  /**
+   * Install a MutationObserver to watch for theme-injected wrappers
+   * and re-apply cleanup without racing on timeouts
+   */
+  function installInterferenceObserver() {
+    var root = document.getElementById('attachmentTabContent') || document;
+    if (!root || !root.querySelectorAll) return;
+
+    var debounceTimer = null;
+    function debouncedCleanup() {
+      if (debounceTimer) return;
+      debounceTimer = setTimeout(function () {
+        debounceTimer = null;
+        cleanupThemeInterference();
+      }, 50);
+    }
+
+    try {
+      var observer = new MutationObserver(function (mutations) {
+        for (var i = 0; i < mutations.length; i++) {
+          var m = mutations[i];
+          if (m.addedNodes && m.addedNodes.length) {
+            debouncedCleanup();
+            break;
+          }
+        }
+      });
+
+      observer.observe(root, {
+        childList: true,
+        subtree: true,
+      });
+    } catch (e) {
+      // Fallback: periodic cleanup every 2s if MutationObserver unsupported
+      setInterval(cleanupThemeInterference, 2000);
+    }
+  }
+
+  /**
+   * Inject CSS rules to neutralize anchor hijacking inside preview buttons
+   */
+  function injectDefensiveStyles() {
+    try {
+      var style = document.createElement('style');
+      style.setAttribute('data-attachments-guard', 'true');
+      style.textContent = [
+        '.attachment-preview-btn a{pointer-events:none !important;}',
+        '.attachment-preview-btn a img{pointer-events:none !important;}',
+        // Avoid nested interactive elements receiving focus
+        '.attachment-preview-btn a, .attachment-preview-btn a:focus{outline:none !important;}',
+      ].join('\n');
+      document.head.appendChild(style);
+    } catch (_) {}
   }
 
   /**
