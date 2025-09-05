@@ -72,14 +72,10 @@ jobs:
           echo "📂 Current directory: $(pwd)"
           echo "📁 Files in scripts/: $(ls -la scripts/ 2>/dev/null || echo 'scripts directory not found')"
 
-          # Check if data files already exist
-          if [ -f "_data/attachment_galleries.yml" ] && [ -f "_data/attachment_references.yml" ]; then
-            echo "✅ Pre-committed data files found, skipping generation"
-          else
-            echo "📊 Generating data files..."
-            mkdir -p _data
-            python3 scripts/generate_attachment_data.py . || echo "⚠️ Data generation failed, using fallback"
-          fi
+          # Always regenerate data files on GitHub Pages to ensure they're current
+          echo "📊 Regenerating data files for latest content..."
+          mkdir -p _data
+          python3 scripts/generate_attachment_data.py . || echo "⚠️ Data generation failed, using fallback"
 
           echo "📄 Final data files: $(ls -la _data/attachment_*.yml 2>/dev/null || echo 'no data files found')"
 

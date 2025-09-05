@@ -21,12 +21,12 @@ class AttachmentDataGenerator:
         self.posts_dir = self.site_root / "_posts"
         self.pages_dirs = [self.site_root / "_tabs", self.site_root]
         self.data_dir = self.site_root / "_data"
-        
+
         # Load Jekyll config
         self.config = self.load_config()
         self.base_url = self.config.get('baseurl', '')
         self.site_url = self.config.get('url', '')
-        
+
         print(f"🔧 Initializing attachment data generator...")
         print(f"📁 Site root: {self.site_root}")
         print(f"📎 Attachments: {self.attachments_dir}")
@@ -54,10 +54,10 @@ class AttachmentDataGenerator:
                 web_path = str(rel_path).replace('\\', '/')
                 relative_url = f"/{web_path}"
                 absolute_url = urljoin(urljoin(self.site_url, self.base_url), relative_url)
-                
+
                 # Determine category from path
                 category = self.determine_category(str(rel_path))
-                
+
                 attachment_info = {
                     'filename': file_path.name,
                     'path': str(file_path),
@@ -70,7 +70,7 @@ class AttachmentDataGenerator:
                     'size': file_path.stat().st_size if file_path.exists() else 0
                 }
                 attachments.append(attachment_info)
-                
+
         print(f"📎 Found {len(attachments)} attachments")
         return attachments
 
@@ -89,9 +89,9 @@ class AttachmentDataGenerator:
     def scan_content_for_references(self, attachments):
         """Scan posts and pages for attachment references"""
         print("🔍 Scanning content for attachment references...")
-        
+
         references = {}
-        
+
         # Initialize reference tracking
         for attachment in attachments:
             filename = attachment['filename']
@@ -129,7 +129,7 @@ class AttachmentDataGenerator:
         try:
             with open(doc_path, 'r', encoding='utf-8') as f:
                 content = f.read()
-                
+
             # Extract frontmatter
             frontmatter, body = self.parse_frontmatter(content)
             title = frontmatter.get('title', doc_path.stem)
@@ -138,13 +138,15 @@ class AttachmentDataGenerator:
                 date = date.strftime('%Y-%m-%d')
             elif date:
                 date = str(date)[:10]  # Extract date part if it's a string
-            
+
             # Generate URL (following Jekyll URL structure)
             if doc_type == 'posts':
-                url = f"{self.base_url}/{doc_path.stem.replace(doc_path.stem[:11], '')}/"  # Remove date prefix
+                # Remove date prefix (YYYY-MM-DD-) from post filename to get slug
+                post_slug = doc_path.stem[11:] if len(doc_path.stem) > 11 else doc_path.stem
+                url = f"{self.base_url}/{post_slug}/" if self.base_url else f"/{post_slug}/"
             else:
-                url = f"{self.base_url}/{doc_path.stem}/"
-            
+                url = f"{self.base_url}/{doc_path.stem}/" if self.base_url else f"/{doc_path.stem}/"
+
             # Look for attachment references in content
             attachment_patterns = [
                 r'!\[.*?\]\(([^)]*assets/attachments[^)]+)\)',  # Markdown images
@@ -154,21 +156,21 @@ class AttachmentDataGenerator:
                 r'showPdfModal\([\'"]([^\'\"]*assets/attachments[^\'\"]+)[\'"]',  # JS PDF
                 r'assets/attachments/[^\s]*([^/\s]+\.[a-zA-Z0-9]+)',  # Direct references
             ]
-            
+
             found_files = set()
-            
+
             for pattern in attachment_patterns:
                 matches = re.finditer(pattern, body, re.IGNORECASE)
                 for match in matches:
                     attachment_path = match.group(1)
                     filename = os.path.basename(attachment_path)
                     found_files.add(filename)
-            
+
             # Also scan for direct filename mentions in attachment context
             for filename in references.keys():
                 if filename in body and 'assets/attachments' in body:
                     found_files.add(filename)
-            
+
             # Add references
             for filename in found_files:
                 if filename in references:
@@ -182,7 +184,7 @@ class AttachmentDataGenerator:
                             'excerpt': self.extract_excerpt(body)
                         }
                         references[filename][doc_type].append(reference)
-                        
+
         except Exception as e:
             print(f"⚠️  Error scanning {doc_path}: {e}")
 
@@ -204,7 +206,7 @@ class AttachmentDataGenerator:
         # Remove markdown/rst syntax and get first few sentences
         clean_content = re.sub(r'[#*`_\[\]()]+', ' ', content)
         clean_content = re.sub(r'\s+', ' ', clean_content).strip()
-        
+
         if len(clean_content) > 100:
             return clean_content[:97] + '...'
         return clean_content
@@ -212,17 +214,17 @@ class AttachmentDataGenerator:
     def generate_galleries(self, attachments):
         """Generate gallery data grouped by category"""
         print("🖼️  Generating gallery data...")
-        
+
         galleries = defaultdict(list)
-        
+
         for attachment in attachments:
             category = attachment['category']
-            
+
             # Add reference count from references data
             gallery_item = {
                 'filename': attachment['filename'],
                 'path': attachment['path'],
-                'web_path': attachment['web_path'], 
+                'web_path': attachment['web_path'],
                 'url': attachment['url'],
                 'absolute_url': attachment['absolute_url'],
                 'name': attachment['name'],
@@ -230,44 +232,44 @@ class AttachmentDataGenerator:
                 'references': 0  # Will be updated later
             }
             galleries[category].append(gallery_item)
-        
+
         # Sort each gallery by name
         for category in galleries:
             galleries[category].sort(key=lambda x: x['name'].lower())
-            
+
         return dict(galleries)
 
     def save_data(self, galleries, references):
         """Save generated data to Jekyll data files"""
         print("💾 Saving generated data...")
-        
+
         # Ensure data directory exists
         self.data_dir.mkdir(exist_ok=True)
-        
+
         # Update gallery items with reference counts first
         for category, items in galleries.items():
             for item in items:
                 filename = item['filename']
                 if filename in references:
                     item['references'] = references[filename]['total_references']
-        
+
         # Save galleries as YAML (Jekyll's preferred format)
         galleries_file = self.data_dir / "attachment_galleries.yml"
         with open(galleries_file, 'w', encoding='utf-8') as f:
             yaml.dump(galleries, f, default_flow_style=False, allow_unicode=True, sort_keys=False)
         print(f"📊 Gallery data saved: {galleries_file}")
-        
+
         # Save references as YAML
         references_file = self.data_dir / "attachment_references.yml"
         with open(references_file, 'w', encoding='utf-8') as f:
             yaml.dump(references, f, default_flow_style=False, allow_unicode=True, sort_keys=False)
         print(f"🔗 Reference data saved: {references_file}")
-        
+
         # Also save as JSON for debugging/inspection
         galleries_json = self.data_dir / "attachment_galleries.json"
         with open(galleries_json, 'w', encoding='utf-8') as f:
             json.dump(galleries, f, indent=2, ensure_ascii=False)
-            
+
         references_json = self.data_dir / "attachment_references.json"
         with open(references_json, 'w', encoding='utf-8') as f:
             json.dump(references, f, indent=2, ensure_ascii=False)
@@ -277,16 +279,16 @@ class AttachmentDataGenerator:
         total_attachments = sum(len(items) for items in galleries.values())
         total_references = sum(ref['total_references'] for ref in references.values())
         referenced_files = sum(1 for ref in references.values() if ref['total_references'] > 0)
-        
+
         print(f"\n📊 Generation Summary:")
         print(f"   📎 Total attachments: {total_attachments}")
         print(f"   🔗 Total references: {total_references}")
         print(f"   📄 Referenced files: {referenced_files}")
         print(f"   📁 Categories: {len(galleries)}")
-        
+
         for category, items in galleries.items():
             print(f"      • {category}: {len(items)} files")
-        
+
         # Show top referenced files
         if referenced_files > 0:
             print(f"\n🏆 Most referenced attachments:")
@@ -298,7 +300,7 @@ class AttachmentDataGenerator:
     def generate(self):
         """Main generation process"""
         print("🚀 Starting attachment data generation...")
-        
+
         try:
             # Scan attachments
             attachments = self.scan_attachments()
@@ -306,28 +308,28 @@ class AttachmentDataGenerator:
                 print("⚠️  No attachments found, creating empty data files")
                 self.save_data({}, {})
                 return
-            
+
             # Scan for references
             references = self.scan_content_for_references(attachments)
-            
+
             # Generate galleries
             galleries = self.generate_galleries(attachments)
-            
+
             # Save data
             self.save_data(galleries, references)
-            
+
             # Show stats
             self.generate_stats(galleries, references)
-            
+
             print("✅ Attachment data generation completed successfully!")
-            
+
         except Exception as e:
             print(f"❌ Error during generation: {e}")
             raise
 
 if __name__ == "__main__":
     import sys
-    
+
     site_root = sys.argv[1] if len(sys.argv) > 1 else "."
     generator = AttachmentDataGenerator(site_root)
     generator.generate()

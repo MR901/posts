@@ -218,60 +218,72 @@
     // Generate basic gallery data from DOM elements when plugin data is missing
     var galleries = {};
     var items = document.querySelectorAll('.attachment-item');
-    
+
+    if (items.length === 0) {
+      console.warn('No attachment items found in DOM for fallback generation');
+      return {};
+    }
+
     Array.prototype.forEach.call(items, function (item) {
       var category = item.getAttribute('data-category');
       if (!category) return;
-      
+
       // Initialize category if needed
       if (!galleries[category]) {
         galleries[category] = [];
       }
-      
+
       // Extract file info from DOM
       var fileButton = item.querySelector('button[onclick]');
       if (!fileButton) return;
-      
+
       var onclick = fileButton.getAttribute('onclick') || '';
       var urlMatch = onclick.match(/['"]([^'"]+)['"]/);
       if (!urlMatch) return;
-      
+
       var url = urlMatch[1];
       var filename = url.split('/').pop();
       var name = filename.replace(/\.[^/.]+$/, ''); // Remove extension
       var ext = filename.includes('.') ? '.' + filename.split('.').pop() : '';
-      
+
       var galleryItem = {
         filename: filename,
         url: url,
         absolute_url: window.location.origin + url,
         name: name,
         ext: ext,
-        references: 0
+        references: 0,
       };
-      
+
       galleries[category].push(galleryItem);
     });
-    
+
     // Sort each gallery by name
     for (var category in galleries) {
-      galleries[category].sort(function(a, b) {
-        return a.name.toLowerCase().localeCompare(b.name.toLowerCase());
-      });
+      if (galleries[category].length > 1) {
+        galleries[category].sort(function (a, b) {
+          return a.name.toLowerCase().localeCompare(b.name.toLowerCase());
+        });
+      }
     }
-    
+
+    console.log(
+      'Generated fallback gallery data for',
+      Object.keys(galleries).length,
+      'categories'
+    );
     return galleries;
   }
 
   function updateTabBadges(query) {
     // Get categories dynamically from gallery data
     var galleries = window.attachmentGalleries || {};
-    
+
     // Fallback: Generate basic gallery data from DOM if missing
     if (Object.keys(galleries).length === 0) {
       galleries = generateFallbackGalleryData();
     }
-    
+
     var categories = Object.keys(galleries);
     categories.forEach(function (category) {
       var tab = document.getElementById(category + '-tab');
@@ -734,14 +746,28 @@
     var references = window.attachmentReferences || {};
     var fileRefs = references[filename];
 
-    // Fallback message when references data is missing
-    if (Object.keys(references).length === 0) {
-      panel.innerHTML = 
-        '<div style="color: #6c757d; font-style: italic;"><i class="fas fa-info-circle" style="margin-right: 8px;"></i>Reference data not available - this feature requires build-time data generation.</div>';
+    // Enhanced fallback handling
+    if (!references || Object.keys(references).length === 0) {
+      console.warn(
+        'Attachment references data not available. This usually means the data generation step failed during build.'
+      );
+      panel.innerHTML =
+        '<div style="color: #6c757d; font-style: italic; padding: 8px; background-color: rgba(255, 193, 7, 0.1); border-left: 3px solid #ffc107; border-radius: 4px;">' +
+        '<i class="fas fa-exclamation-triangle" style="margin-right: 8px; color: #ffc107;"></i>' +
+        'References data is being generated. Try refreshing the page in a moment.' +
+        '</div>';
       return;
     }
 
-    if (!fileRefs || (!fileRefs.posts || !fileRefs.pages || (!fileRefs.posts.length && !fileRefs.pages.length))) {
+    if (!fileRefs) {
+      panel.innerHTML =
+        '<div style="color: #6c757d; font-style: italic;">This attachment isn\'t referenced in any posts or pages yet.</div>';
+      return;
+    }
+
+    var totalRefs =
+      (fileRefs.posts || []).length + (fileRefs.pages || []).length;
+    if (totalRefs === 0) {
       panel.innerHTML =
         '<div style="color: #6c757d; font-style: italic;">This attachment isn\'t referenced in any posts or pages yet.</div>';
       return;
@@ -814,13 +840,13 @@
   function initializeGallery(category, currentSrc) {
     // Get gallery data from Jekyll
     var galleries = window.attachmentGalleries || {};
-    
+
     // Fallback: Generate basic gallery data from DOM if missing
     if (Object.keys(galleries).length === 0) {
       galleries = generateFallbackGalleryData();
       window.attachmentGalleries = galleries;
     }
-    
+
     var items = galleries[category] || [];
 
     if (!items.length) return false;
