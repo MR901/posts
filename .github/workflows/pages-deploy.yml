@@ -69,9 +69,19 @@ jobs:
       - name: Generate attachment data
         run: |
           echo "📊 Generating attachment data for GitHub Pages deployment..."
-          mkdir -p _data
-          python3 scripts/generate_attachment_data.py .
-          echo "✅ Attachment data generation completed"
+          echo "📂 Current directory: $(pwd)"
+          echo "📁 Files in scripts/: $(ls -la scripts/ 2>/dev/null || echo 'scripts directory not found')"
+
+          # Check if data files already exist
+          if [ -f "_data/attachment_galleries.yml" ] && [ -f "_data/attachment_references.yml" ]; then
+            echo "✅ Pre-committed data files found, skipping generation"
+          else
+            echo "📊 Generating data files..."
+            mkdir -p _data
+            python3 scripts/generate_attachment_data.py . || echo "⚠️ Data generation failed, using fallback"
+          fi
+
+          echo "📄 Final data files: $(ls -la _data/attachment_*.yml 2>/dev/null || echo 'no data files found')"
 
       - name: Build site
         # run: bundle exec jekyll b -d "_site${{ steps.pages.outputs.base_path }}"
