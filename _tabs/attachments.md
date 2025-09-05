@@ -381,16 +381,28 @@ Browse and search through all available attachments organized by category.
 <script>
 // Make Jekyll data available to JavaScript
 // Priority: Use generated data files first, fallback to plugin data
-{% if site.data.attachment_galleries and site.data.attachment_galleries != empty %}
+
+// Debug: Log data availability
+console.log('Jekyll data loading:', {
+  galleries_available: {% if site.data.attachment_galleries %}true{% else %}false{% endif %},
+  references_available: {% if site.data.attachment_references %}true{% else %}false{% endif %},
+  galleries_count: {% if site.data.attachment_galleries %}{{ site.data.attachment_galleries | size }}{% else %}0{% endif %},
+  references_count: {% if site.data.attachment_references %}{{ site.data.attachment_references | size }}{% else %}0{% endif %}
+});
+
+{% if site.data.attachment_galleries %}
 window.attachmentGalleries = {{ site.data.attachment_galleries | jsonify }};
 {% else %}
 window.attachmentGalleries = {};
+console.warn('No attachment galleries data found in site.data');
 {% endif %}
 
-{% if site.data.attachment_references and site.data.attachment_references != empty %}
+{% if site.data.attachment_references %}
 window.attachmentReferences = {{ site.data.attachment_references | jsonify }};
+console.log('Loaded', Object.keys(window.attachmentReferences).length, 'attachment references');
 {% else %}
 window.attachmentReferences = {};
+console.warn('No attachment references data found in site.data');
 {% endif %}
 </script>
 <script defer src="{{ '/assets/js/attachments.js' | relative_url }}"></script>

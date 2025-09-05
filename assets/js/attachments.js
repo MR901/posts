@@ -746,15 +746,34 @@
     var references = window.attachmentReferences || {};
     var fileRefs = references[filename];
 
-    // Enhanced fallback handling
-    if (!references || Object.keys(references).length === 0) {
+    // Debug logging
+    console.log('Loading references for:', filename);
+    console.log('Available references data:', {
+      hasData: !!references,
+      dataKeys: Object.keys(references),
+      totalFiles: Object.keys(references).length,
+      hasFileData: !!fileRefs,
+    });
+
+    // Enhanced fallback handling with better detection
+    if (!references || typeof references !== 'object') {
+      console.error('References data is not available or invalid:', references);
+      panel.innerHTML =
+        '<div style="color: #dc3545; font-style: italic; padding: 8px; background-color: rgba(220, 53, 69, 0.1); border-left: 3px solid #dc3545; border-radius: 4px;">' +
+        '<i class="fas fa-exclamation-triangle" style="margin-right: 8px; color: #dc3545;"></i>' +
+        'References data failed to load. Please check the console for details.' +
+        '</div>';
+      return;
+    }
+
+    if (Object.keys(references).length === 0) {
       console.warn(
-        'Attachment references data not available. This usually means the data generation step failed during build.'
+        'References data is empty - this may indicate a build issue'
       );
       panel.innerHTML =
         '<div style="color: #6c757d; font-style: italic; padding: 8px; background-color: rgba(255, 193, 7, 0.1); border-left: 3px solid #ffc107; border-radius: 4px;">' +
-        '<i class="fas fa-exclamation-triangle" style="margin-right: 8px; color: #ffc107;"></i>' +
-        'References data is being generated. Try refreshing the page in a moment.' +
+        '<i class="fas fa-info-circle" style="margin-right: 8px; color: #ffc107;"></i>' +
+        'No reference data available. This may be temporary during build processing.' +
         '</div>';
       return;
     }
