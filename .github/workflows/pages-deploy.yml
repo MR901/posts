@@ -64,7 +64,14 @@ jobs:
 
       - name: Install Python dependencies
         run: |
-          pip install docutils pygments
+          pip install docutils pygments pyyaml
+
+      - name: Generate attachment data
+        run: |
+          echo "📊 Generating attachment data for GitHub Pages deployment..."
+          mkdir -p _data
+          python3 scripts/generate_attachment_data.py .
+          echo "✅ Attachment data generation completed"
 
       - name: Build site
         # run: bundle exec jekyll b -d "_site${{ steps.pages.outputs.base_path }}"

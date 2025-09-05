@@ -43,15 +43,6 @@
     // Clean up any theme interference aggressively
     runPeriodicCleanup();
 
-    // Install continuous DOM observer to keep cleaning after theme/lightbox mutations
-    installInterferenceObserver();
-
-    // Defensive CSS: ensure anchors injected into preview buttons never hijack clicks
-    injectDefensiveStyles();
-
-    // Delegated event handling to ensure reliable activation even if DOM is mutated
-    installDelegatedClickHandlers();
-
     state.initialized = true;
   }
 
@@ -223,9 +214,64 @@
     return matrix[b.length][a.length];
   }
 
+  function generateFallbackGalleryData() {
+    // Generate basic gallery data from DOM elements when plugin data is missing
+    var galleries = {};
+    var items = document.querySelectorAll('.attachment-item');
+    
+    Array.prototype.forEach.call(items, function (item) {
+      var category = item.getAttribute('data-category');
+      if (!category) return;
+      
+      // Initialize category if needed
+      if (!galleries[category]) {
+        galleries[category] = [];
+      }
+      
+      // Extract file info from DOM
+      var fileButton = item.querySelector('button[onclick]');
+      if (!fileButton) return;
+      
+      var onclick = fileButton.getAttribute('onclick') || '';
+      var urlMatch = onclick.match(/['"]([^'"]+)['"]/);
+      if (!urlMatch) return;
+      
+      var url = urlMatch[1];
+      var filename = url.split('/').pop();
+      var name = filename.replace(/\.[^/.]+$/, ''); // Remove extension
+      var ext = filename.includes('.') ? '.' + filename.split('.').pop() : '';
+      
+      var galleryItem = {
+        filename: filename,
+        url: url,
+        absolute_url: window.location.origin + url,
+        name: name,
+        ext: ext,
+        references: 0
+      };
+      
+      galleries[category].push(galleryItem);
+    });
+    
+    // Sort each gallery by name
+    for (var category in galleries) {
+      galleries[category].sort(function(a, b) {
+        return a.name.toLowerCase().localeCompare(b.name.toLowerCase());
+      });
+    }
+    
+    return galleries;
+  }
+
   function updateTabBadges(query) {
     // Get categories dynamically from gallery data
     var galleries = window.attachmentGalleries || {};
+    
+    // Fallback: Generate basic gallery data from DOM if missing
+    if (Object.keys(galleries).length === 0) {
+      galleries = generateFallbackGalleryData();
+    }
+    
     var categories = Object.keys(galleries);
     categories.forEach(function (category) {
       var tab = document.getElementById(category + '-tab');
@@ -688,7 +734,14 @@
     var references = window.attachmentReferences || {};
     var fileRefs = references[filename];
 
-    if (!fileRefs || (!fileRefs.posts.length && !fileRefs.pages.length)) {
+    // Fallback message when references data is missing
+    if (Object.keys(references).length === 0) {
+      panel.innerHTML = 
+        '<div style="color: #6c757d; font-style: italic;"><i class="fas fa-info-circle" style="margin-right: 8px;"></i>Reference data not available - this feature requires build-time data generation.</div>';
+      return;
+    }
+
+    if (!fileRefs || (!fileRefs.posts || !fileRefs.pages || (!fileRefs.posts.length && !fileRefs.pages.length))) {
       panel.innerHTML =
         '<div style="color: #6c757d; font-style: italic;">This attachment isn\'t referenced in any posts or pages yet.</div>';
       return;
@@ -761,6 +814,13 @@
   function initializeGallery(category, currentSrc) {
     // Get gallery data from Jekyll
     var galleries = window.attachmentGalleries || {};
+    
+    // Fallback: Generate basic gallery data from DOM if missing
+    if (Object.keys(galleries).length === 0) {
+      galleries = generateFallbackGalleryData();
+      window.attachmentGalleries = galleries;
+    }
+    
     var items = galleries[category] || [];
 
     if (!items.length) return false;
@@ -950,133 +1010,6 @@
     setTimeout(cleanupThemeInterference, 100);
     setTimeout(cleanupThemeInterference, 500);
     setTimeout(cleanupThemeInterference, 1000);
-  }
-
-  /**
-   * Install a MutationObserver to watch for theme-injected wrappers
-   * and re-apply cleanup without racing on timeouts
-   */
-  function installInterferenceObserver() {
-    var root = document.getElementById('attachmentTabContent') || document;
-    if (!root || !root.querySelectorAll) return;
-
-    var debounceTimer = null;
-    function debouncedCleanup() {
-      if (debounceTimer) return;
-      debounceTimer = setTimeout(function () {
-        debounceTimer = null;
-        cleanupThemeInterference();
-      }, 50);
-    }
-
-    try {
-      var observer = new MutationObserver(function (mutations) {
-        for (var i = 0; i < mutations.length; i++) {
-          var m = mutations[i];
-          if (m.addedNodes && m.addedNodes.length) {
-            debouncedCleanup();
-            break;
-          }
-        }
-      });
-
-      observer.observe(root, {
-        childList: true,
-        subtree: true,
-      });
-    } catch (e) {
-      // Fallback: periodic cleanup every 2s if MutationObserver unsupported
-      setInterval(cleanupThemeInterference, 2000);
-    }
-  }
-
-  /**
-   * Inject CSS rules to neutralize anchor hijacking inside preview buttons
-   */
-  function injectDefensiveStyles() {
-    try {
-      var style = document.createElement('style');
-      style.setAttribute('data-attachments-guard', 'true');
-      style.textContent = [
-        '.attachment-preview-btn a{pointer-events:none !important;}',
-        '.attachment-preview-btn a img{pointer-events:none !important;}',
-        // Avoid nested interactive elements receiving focus
-        '.attachment-preview-btn a, .attachment-preview-btn a:focus{outline:none !important;}',
-      ].join('\n');
-      document.head.appendChild(style);
-    } catch (_) {}
-  }
-
-  /**
-   * Install delegated click handlers in capture phase to beat theme listeners
-   */
-  function installDelegatedClickHandlers() {
-    document.addEventListener(
-      'click',
-      function (event) {
-        var target = event.target;
-        if (!target) return;
-
-        var previewBtn =
-          target.closest && target.closest('.attachment-preview-btn');
-        var linkBtn =
-          !previewBtn &&
-          target.closest &&
-          target.closest('.attachment-link-btn');
-
-        if (!previewBtn && !linkBtn) return;
-
-        event.preventDefault();
-        event.stopPropagation();
-
-        try {
-          if (previewBtn) {
-            // Extract arguments from inline onclick or from child elements
-            var onclickAttr = previewBtn.getAttribute('onclick') || '';
-            var matchImg = onclickAttr.match(
-              /showImageModal\(['\"]([^'\"]+)['\"],\s*['\"]([^'\"]+)['\"]/
-            );
-            var src = null;
-            var name = null;
-            if (matchImg) {
-              src = matchImg[1];
-              name = matchImg[2];
-            } else {
-              // Fallback: derive from contained img/src
-              var img = previewBtn.querySelector('img');
-              if (img) {
-                src = img.getAttribute('src');
-                name = img.getAttribute('alt') || '';
-              }
-            }
-            if (src) {
-              showImageModal(src, name || '', event);
-            }
-          } else if (linkBtn) {
-            var onclickAttr2 = linkBtn.getAttribute('onclick') || '';
-            var matchPdf = onclickAttr2.match(
-              /showPdfModal\(['\"]([^'\"]+)['\"],\s*['\"]([^'\"]+)['\"]/
-            );
-            var src2 = null;
-            var name2 = null;
-            if (matchPdf) {
-              src2 = matchPdf[1];
-              name2 = matchPdf[2];
-            } else {
-              // Fallback: use text content when URL missing
-              src2 = (linkBtn.getAttribute('href') || '').toString();
-              name2 = (linkBtn.textContent || '').trim();
-            }
-            if (src2) {
-              showPdfModal(src2, name2 || '', event);
-            }
-          }
-        } catch (_) {
-          // ignore
-        }
-      },
-      true // capture phase
-    );
   }
 
   /**
