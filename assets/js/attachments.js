@@ -49,6 +49,9 @@
     // Defensive CSS: ensure anchors injected into preview buttons never hijack clicks
     injectDefensiveStyles();
 
+    // Delegated event handling to ensure reliable activation even if DOM is mutated
+    installDelegatedClickHandlers();
+
     state.initialized = true;
   }
 
@@ -1002,6 +1005,78 @@
       ].join('\n');
       document.head.appendChild(style);
     } catch (_) {}
+  }
+
+  /**
+   * Install delegated click handlers in capture phase to beat theme listeners
+   */
+  function installDelegatedClickHandlers() {
+    document.addEventListener(
+      'click',
+      function (event) {
+        var target = event.target;
+        if (!target) return;
+
+        var previewBtn =
+          target.closest && target.closest('.attachment-preview-btn');
+        var linkBtn =
+          !previewBtn &&
+          target.closest &&
+          target.closest('.attachment-link-btn');
+
+        if (!previewBtn && !linkBtn) return;
+
+        event.preventDefault();
+        event.stopPropagation();
+
+        try {
+          if (previewBtn) {
+            // Extract arguments from inline onclick or from child elements
+            var onclickAttr = previewBtn.getAttribute('onclick') || '';
+            var matchImg = onclickAttr.match(
+              /showImageModal\(['\"]([^'\"]+)['\"],\s*['\"]([^'\"]+)['\"]/
+            );
+            var src = null;
+            var name = null;
+            if (matchImg) {
+              src = matchImg[1];
+              name = matchImg[2];
+            } else {
+              // Fallback: derive from contained img/src
+              var img = previewBtn.querySelector('img');
+              if (img) {
+                src = img.getAttribute('src');
+                name = img.getAttribute('alt') || '';
+              }
+            }
+            if (src) {
+              showImageModal(src, name || '', event);
+            }
+          } else if (linkBtn) {
+            var onclickAttr2 = linkBtn.getAttribute('onclick') || '';
+            var matchPdf = onclickAttr2.match(
+              /showPdfModal\(['\"]([^'\"]+)['\"],\s*['\"]([^'\"]+)['\"]/
+            );
+            var src2 = null;
+            var name2 = null;
+            if (matchPdf) {
+              src2 = matchPdf[1];
+              name2 = matchPdf[2];
+            } else {
+              // Fallback: use text content when URL missing
+              src2 = (linkBtn.getAttribute('href') || '').toString();
+              name2 = (linkBtn.textContent || '').trim();
+            }
+            if (src2) {
+              showPdfModal(src2, name2 || '', event);
+            }
+          }
+        } catch (_) {
+          // ignore
+        }
+      },
+      true // capture phase
+    );
   }
 
   /**
