@@ -663,23 +663,17 @@
 
     // Show modal with animation
     container.style.display = 'flex';
-    container.style.alignItems = 'center';
-    container.style.justifyContent = 'center';
-    container.style.padding = '0';
 
     // Trigger animation
     setTimeout(function () {
       container.style.opacity = '1';
     }, 10);
 
-    // Prevent body scroll
+    // Prevent body scroll and add modal-open class
     document.body.style.overflow = 'hidden';
+    document.body.classList.add('modal-open');
 
     // Focus management for accessibility
-    var firstFocusable = content.querySelector(
-      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
-    );
-    if (firstFocusable) {
       firstFocusable.focus();
     }
 
@@ -703,8 +697,9 @@
       container.innerHTML = '';
     }, config.animationDuration);
 
-    // Restore body scroll
+    // Restore body scroll and remove modal-open class
     document.body.style.overflow = '';
+    document.body.classList.remove('modal-open');
 
     // Remove keyboard handler
     document.removeEventListener('keydown', handleModalKeydown);
