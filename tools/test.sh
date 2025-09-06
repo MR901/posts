@@ -56,14 +56,23 @@ main() {
 
   read_baseurl
 
-  # build
+  # build into standard _site (avoid nesting under baseurl for checks)
   JEKYLL_ENV=production bundle exec jekyll b \
-    -d "$SITE_DIR$_baseurl" -c "$_config"
+    -d "$SITE_DIR" -c "$_config"
 
-  # test
-  bundle exec htmlproofer "$SITE_DIR" \
-    --disable-external \
-    --ignore-urls "/^http:\/\/127.0.0.1/,/^http:\/\/0.0.0.0/,/^http:\/\/localhost/"
+  # test (swap baseurl-prefixed URLs to local paths)
+  _swap_from="^${_baseurl#/}/" # strip leading slash for regex, e.g. posts/
+  _swap_to="/"
+  if [[ -n "$_baseurl" ]]; then
+    bundle exec htmlproofer "$SITE_DIR" \
+      --disable-external \
+      --url-swap "/${_swap_from}:${_swap_to}" \
+      --ignore-urls "/^http:\/\/127.0.0.1/,/^http:\/\/0.0.0.0/,/^http:\/\/localhost/"
+  else
+    bundle exec htmlproofer "$SITE_DIR" \
+      --disable-external \
+      --ignore-urls "/^http:\/\/127.0.0.1/,/^http:\/\/0.0.0.0/,/^http:\/\/localhost/"
+  fi
 }
 
 while (($#)); do
