@@ -3,8 +3,10 @@ on:
   push:
     branches:
       - develop
-      # - main
-      # - master
+      - dev
+      - main
+      - master
+      # Add any other branches you want to trigger deployment
     paths-ignore:
       - .gitignore
       - README.md
