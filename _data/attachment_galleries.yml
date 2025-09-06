@@ -1,6 +1,6 @@
 images:
 - filename: github_actions_successful_build.png
-  path: /workspaces/posts/assets/attachments/images/github_actions_successful_build.png
+  path: /workspaces/post-test/assets/attachments/images/github_actions_successful_build.png
   web_path: assets/attachments/images/github_actions_successful_build.png
   url: /assets/attachments/images/github_actions_successful_build.png
   absolute_url: https://mr901.github.io/assets/attachments/images/github_actions_successful_build.png
@@ -8,7 +8,7 @@ images:
   ext: .png
   references: 1
 - filename: github_actions_successful_deploy.png
-  path: /workspaces/posts/assets/attachments/images/github_actions_successful_deploy.png
+  path: /workspaces/post-test/assets/attachments/images/github_actions_successful_deploy.png
   web_path: assets/attachments/images/github_actions_successful_deploy.png
   url: /assets/attachments/images/github_actions_successful_deploy.png
   absolute_url: https://mr901.github.io/assets/attachments/images/github_actions_successful_deploy.png
@@ -16,7 +16,7 @@ images:
   ext: .png
   references: 1
 - filename: github_code_successful_deployment.png
-  path: /workspaces/posts/assets/attachments/images/github_code_successful_deployment.png
+  path: /workspaces/post-test/assets/attachments/images/github_code_successful_deployment.png
   web_path: assets/attachments/images/github_code_successful_deployment.png
   url: /assets/attachments/images/github_code_successful_deployment.png
   absolute_url: https://mr901.github.io/assets/attachments/images/github_code_successful_deployment.png
@@ -24,7 +24,7 @@ images:
   ext: .png
   references: 1
 - filename: github_page_active_live.png
-  path: /workspaces/posts/assets/attachments/images/github_page_active_live.png
+  path: /workspaces/post-test/assets/attachments/images/github_page_active_live.png
   web_path: assets/attachments/images/github_page_active_live.png
   url: /assets/attachments/images/github_page_active_live.png
   absolute_url: https://mr901.github.io/assets/attachments/images/github_page_active_live.png
@@ -32,7 +32,7 @@ images:
   ext: .png
   references: 1
 - filename: github_settings_page.png
-  path: /workspaces/posts/assets/attachments/images/github_settings_page.png
+  path: /workspaces/post-test/assets/attachments/images/github_settings_page.png
   web_path: assets/attachments/images/github_settings_page.png
   url: /assets/attachments/images/github_settings_page.png
   absolute_url: https://mr901.github.io/assets/attachments/images/github_settings_page.png
@@ -40,7 +40,7 @@ images:
   ext: .png
   references: 1
 - filename: repo_icon.png
-  path: /workspaces/posts/assets/attachments/images/repo_icon.png
+  path: /workspaces/post-test/assets/attachments/images/repo_icon.png
   web_path: assets/attachments/images/repo_icon.png
   url: /assets/attachments/images/repo_icon.png
   absolute_url: https://mr901.github.io/assets/attachments/images/repo_icon.png
@@ -48,7 +48,7 @@ images:
   ext: .png
   references: 2
 - filename: screenshot.png
-  path: /workspaces/posts/assets/attachments/images/screenshot.png
+  path: /workspaces/post-test/assets/attachments/images/screenshot.png
   web_path: assets/attachments/images/screenshot.png
   url: /assets/attachments/images/screenshot.png
   absolute_url: https://mr901.github.io/assets/attachments/images/screenshot.png
@@ -57,7 +57,7 @@ images:
   references: 1
 research:
 - filename: Attention_is_all_you_need_v7.pdf
-  path: /workspaces/posts/assets/attachments/research_papers/Attention_is_all_you_need_v7.pdf
+  path: /workspaces/post-test/assets/attachments/research_papers/Attention_is_all_you_need_v7.pdf
   web_path: assets/attachments/research_papers/Attention_is_all_you_need_v7.pdf
   url: /assets/attachments/research_papers/Attention_is_all_you_need_v7.pdf
   absolute_url: https://mr901.github.io/assets/attachments/research_papers/Attention_is_all_you_need_v7.pdf
@@ -65,7 +65,7 @@ research:
   ext: .pdf
   references: 0
 - filename: The_Illustrated_Transformer_-_Jay_Alammar.pdf
-  path: /workspaces/posts/assets/attachments/research_papers/The_Illustrated_Transformer_-_Jay_Alammar.pdf
+  path: /workspaces/post-test/assets/attachments/research_papers/The_Illustrated_Transformer_-_Jay_Alammar.pdf
   web_path: assets/attachments/research_papers/The_Illustrated_Transformer_-_Jay_Alammar.pdf
   url: /assets/attachments/research_papers/The_Illustrated_Transformer_-_Jay_Alammar.pdf
   absolute_url: https://mr901.github.io/assets/attachments/research_papers/The_Illustrated_Transformer_-_Jay_Alammar.pdf
@@ -74,7 +74,7 @@ research:
   references: 0
 articles:
 - filename: The_Illustrated_Transformer_-_Jay_Alammar.pdf
-  path: /workspaces/posts/assets/attachments/articles/The_Illustrated_Transformer_-_Jay_Alammar.pdf
+  path: /workspaces/post-test/assets/attachments/articles/The_Illustrated_Transformer_-_Jay_Alammar.pdf
   web_path: assets/attachments/articles/The_Illustrated_Transformer_-_Jay_Alammar.pdf
   url: /assets/attachments/articles/The_Illustrated_Transformer_-_Jay_Alammar.pdf
   absolute_url: https://mr901.github.io/assets/attachments/articles/The_Illustrated_Transformer_-_Jay_Alammar.pdf
