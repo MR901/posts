@@ -419,7 +419,7 @@
     content.style.cssText = [
       'position: relative',
       'width: 90vw',
-      'height: 85vh',
+      'height: 90vh',
       'max-width: 1200px',
       'margin: 0 auto',
       'background: white',
@@ -440,26 +440,27 @@
       ].join('');
 
       galleryCounter =
-        '<span class="gallery-counter" style="color: #6c757d; font-size: 0.9em;">' +
+        '<span class="gallery-counter" style="color: #6c757d; font-size: 0.8em; margin-left: 10px; font-weight: 500;">' +
+        '(' +
         (state.gallery.currentIndex + 1) +
-        ' / ' +
+        ' of ' +
         state.gallery.items.length +
-        '</span>';
+        ')</span>';
     }
 
     content.innerHTML = [
-      '<div class="modal-header" style="padding: 15px 20px; border-bottom: 1px solid #dee2e6; display: flex; justify-content: space-between; align-items: center; flex-shrink: 0;">',
-      '<div style="display: flex; flex-direction: column; align-items: flex-start;">',
-      '<h5 class="modal-title" style="margin: 0; font-size: 1.25rem; color: #212529;">' +
+      '<div class="modal-header" style="padding: 6px 16px; border-bottom: 1px solid #dee2e6; display: flex; justify-content: space-between; align-items: center; flex-shrink: 0; min-height: 36px;">',
+      '<div style="display: flex; align-items: center; flex: 1; min-width: 0;">',
+      '<h5 class="modal-title" style="margin: 0; font-size: 1.05rem; color: #212529; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">' +
         escapeHtml(name) +
-        '</h5>',
-      galleryCounter,
+        '</h5>' +
+        galleryCounter,
       '</div>',
       '<div style="display: flex; align-items: center; gap: 10px;">',
-      '<button type="button" class="modal-download" style="background: none; border: none; font-size: 20px; cursor: pointer; padding: 8px; color: #6c757d; border-radius: 4px; transition: background-color 0.2s;" aria-label="Download" title="Download">',
+      '<button type="button" class="modal-download" style="background: none; border: none; font-size: 18px; cursor: pointer; padding: 6px; color: #6c757d; border-radius: 4px; transition: background-color 0.2s;" aria-label="Download" title="Download">',
       '<i class="fas fa-download"></i>',
       '</button>',
-      '<button type="button" class="modal-close" style="background: none; border: none; font-size: 24px; cursor: pointer; padding: 8px; color: #6c757d; border-radius: 4px; transition: background-color 0.2s;" aria-label="Close" title="Close">&times;</button>',
+      '<button type="button" class="modal-close" style="background: none; border: none; font-size: 22px; cursor: pointer; padding: 6px; color: #6c757d; border-radius: 4px; transition: background-color 0.2s;" aria-label="Close" title="Close">&times;</button>',
       '</div>',
       '</div>',
       '<div class="modal-body" style="padding: 0; text-align: center; flex: 1; overflow: auto; position: relative; display: flex; align-items: center; justify-content: center; min-height: 0;">',
@@ -472,7 +473,7 @@
         escapeHtml(name) +
         '</small></div>\'" />',
       '</div>',
-      '<div class="references-panel" style="padding: 15px 20px; border-top: 1px solid #dee2e6; height: 120px; min-height: 120px; overflow-y: auto; background-color: #f8f9fa; flex-shrink: 0;">',
+      '<div class="references-panel" style="padding: 8px 16px; border-top: 1px solid #dee2e6; height: 80px; min-height: 80px; max-height: 120px; overflow-y: auto; background-color: #f8f9fa; flex-shrink: 0; font-size: 0.9em; line-height: 1.4;">',
       '<div class="references-loading">Loading references...</div>',
       '</div>',
     ].join('');
@@ -537,7 +538,7 @@
     content.style.cssText = [
       'position: relative',
       'width: 90vw',
-      'height: 85vh',
+      'height: 90vh',
       'max-width: 1200px',
       'margin: 0 auto',
       'background: white',
@@ -558,26 +559,27 @@
       ].join('');
 
       galleryCounter =
-        '<span class="gallery-counter" style="color: #6c757d; font-size: 0.9em;">' +
+        '<span class="gallery-counter" style="color: #6c757d; font-size: 0.8em; margin-left: 10px; font-weight: 500;">' +
+        '(' +
         (state.gallery.currentIndex + 1) +
-        ' / ' +
+        ' of ' +
         state.gallery.items.length +
-        '</span>';
+        ')</span>';
     }
 
     content.innerHTML = [
-      '<div class="modal-header" style="padding: 15px 20px; border-bottom: 1px solid #dee2e6; display: flex; justify-content: space-between; align-items: center; flex-shrink: 0;">',
-      '<div style="display: flex; flex-direction: column; align-items: flex-start;">',
-      '<h5 class="modal-title" style="margin: 0; font-size: 1.25rem; color: #212529;">' +
+      '<div class="modal-header" style="padding: 6px 16px; border-bottom: 1px solid #dee2e6; display: flex; justify-content: space-between; align-items: center; flex-shrink: 0; min-height: 36px;">',
+      '<div style="display: flex; align-items: center; flex: 1; min-width: 0;">',
+      '<h5 class="modal-title" style="margin: 0; font-size: 1.05rem; color: #212529; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">' +
         escapeHtml(name) +
-        '</h5>',
-      galleryCounter,
+        '</h5>' +
+        galleryCounter,
       '</div>',
       '<div style="display: flex; align-items: center; gap: 10px;">',
-      '<button type="button" class="modal-download" style="background: none; border: none; font-size: 20px; cursor: pointer; padding: 8px; color: #6c757d; border-radius: 4px; transition: background-color 0.2s;" aria-label="Download" title="Download">',
+      '<button type="button" class="modal-download" style="background: none; border: none; font-size: 18px; cursor: pointer; padding: 6px; color: #6c757d; border-radius: 4px; transition: background-color 0.2s;" aria-label="Download" title="Download">',
       '<i class="fas fa-download"></i>',
       '</button>',
-      '<button type="button" class="modal-close" style="background: none; border: none; font-size: 24px; cursor: pointer; padding: 8px; color: #6c757d; border-radius: 4px; transition: background-color 0.2s;" aria-label="Close" title="Close">&times;</button>',
+      '<button type="button" class="modal-close" style="background: none; border: none; font-size: 22px; cursor: pointer; padding: 6px; color: #6c757d; border-radius: 4px; transition: background-color 0.2s;" aria-label="Close" title="Close">&times;</button>',
       '</div>',
       '</div>',
       '<div class="modal-body" style="padding: 0; text-align: center; flex: 1; overflow: auto; position: relative; display: flex; align-items: center; justify-content: center; min-height: 0;">',
@@ -594,7 +596,7 @@
       '</div>',
       '</object>',
       '</div>',
-      '<div class="references-panel" style="padding: 15px 20px; border-top: 1px solid #dee2e6; height: 120px; min-height: 120px; overflow-y: auto; background-color: #f8f9fa; flex-shrink: 0;">',
+      '<div class="references-panel" style="padding: 8px 16px; border-top: 1px solid #dee2e6; height: 80px; min-height: 80px; max-height: 120px; overflow-y: auto; background-color: #f8f9fa; flex-shrink: 0; font-size: 0.9em; line-height: 1.4;">',
       '<div class="references-loading">Loading references...</div>',
       '</div>',
     ].join('');
@@ -892,6 +894,36 @@
     return true;
   }
 
+  /**
+   * Resolve URL for local development vs production
+   */
+  function resolveItemUrl(item) {
+    if (!item) return '';
+
+    // If absolute_url matches current origin, use it
+    if (
+      item.absolute_url &&
+      item.absolute_url.indexOf(window.location.origin) === 0
+    ) {
+      return item.absolute_url;
+    }
+
+    // For local development, we need to handle the baseurl
+    var url = item.url || '';
+    if (url && !url.startsWith('http')) {
+      // Ensure URL starts with /
+      url = url.startsWith('/') ? url : '/' + url;
+
+      // Check if we're in local development and need to add baseurl
+      var currentPath = window.location.pathname;
+      if (currentPath.indexOf('/posts/') === 0 && !url.startsWith('/posts/')) {
+        url = '/posts' + url;
+      }
+    }
+
+    return url;
+  }
+
   function navigateGallery(direction) {
     if (!state.gallery.isGalleryMode || !state.gallery.items.length) return;
 
@@ -926,8 +958,8 @@
     var referencesPanel = container.querySelector('.references-panel');
 
     if (img) {
-      img.src = item.absolute_url || item.url;
-      img.alt = item.name;
+      img.src = resolveItemUrl(item);
+      img.alt = item.name || item.filename;
 
       // Add error handling for broken images
       img.onerror = function () {
@@ -949,13 +981,27 @@
 
     if (downloadBtn) {
       downloadBtn.onclick = function () {
-        window.open(item.absolute_url, '_blank');
+        // Use the same URL resolution logic for downloads
+        var downloadUrl = item.url;
+        if (
+          item.absolute_url &&
+          item.absolute_url.indexOf(window.location.origin) === 0
+        ) {
+          downloadUrl = item.absolute_url;
+        } else if (item.url && !item.url.startsWith('http')) {
+          downloadUrl = item.url.startsWith('/') ? item.url : '/' + item.url;
+        }
+        window.open(downloadUrl, '_blank');
       };
     }
 
     if (counter) {
       counter.textContent =
-        state.gallery.currentIndex + 1 + ' / ' + state.gallery.items.length;
+        '(' +
+        (state.gallery.currentIndex + 1) +
+        ' of ' +
+        state.gallery.items.length +
+        ')';
     }
 
     if (referencesPanel) {
@@ -975,7 +1021,7 @@
     var referencesPanel = container.querySelector('.references-panel');
 
     if (pdfObject) {
-      pdfObject.setAttribute('data', item.absolute_url || item.url);
+      pdfObject.setAttribute('data', resolveItemUrl(item));
     }
 
     if (title) {
@@ -984,19 +1030,23 @@
 
     if (downloadBtn) {
       downloadBtn.onclick = function () {
-        window.open(item.absolute_url || item.url, '_blank');
+        window.open(resolveItemUrl(item), '_blank');
       };
     }
 
     if (fallbackBtn) {
       fallbackBtn.onclick = function () {
-        window.open(item.absolute_url || item.url, '_blank');
+        window.open(resolveItemUrl(item), '_blank');
       };
     }
 
     if (counter) {
       counter.textContent =
-        state.gallery.currentIndex + 1 + ' / ' + state.gallery.items.length;
+        '(' +
+        (state.gallery.currentIndex + 1) +
+        ' of ' +
+        state.gallery.items.length +
+        ')';
     }
 
     if (referencesPanel) {
