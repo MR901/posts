@@ -63,7 +63,7 @@ class Pygments(Directive):
             parsed = highlight(content_text, lexer, formatter)
 
         # Strip pre tag and everything outside it
-        pres = re.compile("<pre>(.+)<\/pre>", re.S)
+        pres = re.compile(r"<pre>(.+)</pre>", re.S)
         stripped = pres.search(parsed).group(1)
 
         # Create tabular code with line numbers
