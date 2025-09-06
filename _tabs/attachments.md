@@ -85,7 +85,7 @@ Browse and search through all available attachments organized by category.
             <h6 class="mb-1">
               <button type="button" class="btn btn-link p-0 text-start" onclick="showPdfModal('{{ file_url }}', '{{ file.name }}', event)">{{ file.name }}</button>
             </h6>
-            <small class="text-muted">{{ file.extname | remove: '.' | upcase }} file</small>
+            <small class="attachment-meta">{{ file.extname | remove: '.' | upcase }} file</small>
           </div>
         </div>
         <div class="btn-group" role="group">
@@ -116,7 +116,7 @@ Browse and search through all available attachments organized by category.
             <h6 class="mb-1">
               <button type="button" class="btn btn-link p-0 text-start" onclick="showPdfModal('{{ file_url }}', '{{ file.name }}', event)">{{ file.name }}</button>
             </h6>
-            <small class="text-muted">{{ file.extname | remove: '.' | upcase }} file</small>
+            <small class="attachment-meta">{{ file.extname | remove: '.' | upcase }} file</small>
           </div>
         </div>
         <div class="btn-group" role="group">

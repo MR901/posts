@@ -4,10 +4,10 @@ github_actions_successful_deploy.png:
   url: /assets/attachments/images/github_actions_successful_deploy.png
   absolute_url: https://mr901.github.io/assets/attachments/images/github_actions_successful_deploy.png
   posts:
-  - title: 'GitHub Pages: From Zero to Live'
-    url: /posts/github-pages-from-zero-to-live/
-    date: '2025-09-03'
-    excerpt: Why this guide a short story ====================================================================...
+    - title: "GitHub Pages: From Zero to Live"
+      url: /posts/github-pages-from-zero-to-live/
+      date: "2025-09-03"
+      excerpt: Why this guide a short story ====================================================================...
   pages: []
   total_references: 1
 github_settings_page.png:
@@ -16,10 +16,10 @@ github_settings_page.png:
   url: /assets/attachments/images/github_settings_page.png
   absolute_url: https://mr901.github.io/assets/attachments/images/github_settings_page.png
   posts:
-  - title: 'GitHub Pages: From Zero to Live'
-    url: /posts/github-pages-from-zero-to-live/
-    date: '2025-09-03'
-    excerpt: Why this guide a short story ====================================================================...
+    - title: "GitHub Pages: From Zero to Live"
+      url: /posts/github-pages-from-zero-to-live/
+      date: "2025-09-03"
+      excerpt: Why this guide a short story ====================================================================...
   pages: []
   total_references: 1
 github_code_successful_deployment.png:
@@ -28,10 +28,10 @@ github_code_successful_deployment.png:
   url: /assets/attachments/images/github_code_successful_deployment.png
   absolute_url: https://mr901.github.io/assets/attachments/images/github_code_successful_deployment.png
   posts:
-  - title: 'GitHub Pages: From Zero to Live'
-    url: /posts/github-pages-from-zero-to-live/
-    date: '2025-09-03'
-    excerpt: Why this guide a short story ====================================================================...
+    - title: "GitHub Pages: From Zero to Live"
+      url: /posts/github-pages-from-zero-to-live/
+      date: "2025-09-03"
+      excerpt: Why this guide a short story ====================================================================...
   pages: []
   total_references: 1
 screenshot.png:
@@ -40,11 +40,12 @@ screenshot.png:
   url: /assets/attachments/images/screenshot.png
   absolute_url: https://mr901.github.io/assets/attachments/images/screenshot.png
   posts:
-  - title: 'Jekyll Advanced Formatting: Typography, Media, and Special Features'
-    url: /posts/jekyll-formatting-features/
-    date: '2025-09-01'
-    excerpt: 'Jekyll Advanced Formatting: Typography, Media, and Special Features
-      =============================...'
+    - title: "Jekyll Advanced Formatting: Typography, Media, and Special Features"
+      url: /posts/jekyll-formatting-features/
+      date: "2025-09-01"
+      excerpt:
+        "Jekyll Advanced Formatting: Typography, Media, and Special Features
+        =============================..."
   pages: []
   total_references: 1
 github_actions_successful_build.png:
@@ -53,10 +54,10 @@ github_actions_successful_build.png:
   url: /assets/attachments/images/github_actions_successful_build.png
   absolute_url: https://mr901.github.io/assets/attachments/images/github_actions_successful_build.png
   posts:
-  - title: 'GitHub Pages: From Zero to Live'
-    url: /posts/github-pages-from-zero-to-live/
-    date: '2025-09-03'
-    excerpt: Why this guide a short story ====================================================================...
+    - title: "GitHub Pages: From Zero to Live"
+      url: /posts/github-pages-from-zero-to-live/
+      date: "2025-09-03"
+      excerpt: Why this guide a short story ====================================================================...
   pages: []
   total_references: 1
 github_page_active_live.png:
@@ -65,10 +66,10 @@ github_page_active_live.png:
   url: /assets/attachments/images/github_page_active_live.png
   absolute_url: https://mr901.github.io/assets/attachments/images/github_page_active_live.png
   posts:
-  - title: 'GitHub Pages: From Zero to Live'
-    url: /posts/github-pages-from-zero-to-live/
-    date: '2025-09-03'
-    excerpt: Why this guide a short story ====================================================================...
+    - title: "GitHub Pages: From Zero to Live"
+      url: /posts/github-pages-from-zero-to-live/
+      date: "2025-09-03"
+      excerpt: Why this guide a short story ====================================================================...
   pages: []
   total_references: 1
 repo_icon.png:
@@ -77,16 +78,18 @@ repo_icon.png:
   url: /assets/attachments/images/repo_icon.png
   absolute_url: https://mr901.github.io/assets/attachments/images/repo_icon.png
   posts:
-  - title: 'Jekyll Advanced Formatting: Typography, Media, and Special Features'
-    url: /posts/jekyll-formatting-features/
-    date: '2025-09-01'
-    excerpt: 'Jekyll Advanced Formatting: Typography, Media, and Special Features
-      =============================...'
-  - title: 'GitHub Pages: Setup, CI/CD, gh CLI, and Cleanup'
-    url: /posts/github-pages-setup-build-deploy-cleanup/
-    date: '2025-09-02'
-    excerpt: GitHub Pages, Explained as Scenarios Situation → Goal → Tasks → Actions
-      =========================...
+    - title: "Jekyll Advanced Formatting: Typography, Media, and Special Features"
+      url: /posts/jekyll-formatting-features/
+      date: "2025-09-01"
+      excerpt:
+        "Jekyll Advanced Formatting: Typography, Media, and Special Features
+        =============================..."
+    - title: "GitHub Pages: Setup, CI/CD, gh CLI, and Cleanup"
+      url: /posts/github-pages-setup-build-deploy-cleanup/
+      date: "2025-09-02"
+      excerpt:
+        GitHub Pages, Explained as Scenarios Situation → Goal → Tasks → Actions
+        =========================...
   pages: []
   total_references: 2
 The_Illustrated_Transformer_-_Jay_Alammar.pdf:

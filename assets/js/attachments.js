@@ -674,10 +674,6 @@
     document.body.classList.add('modal-open');
 
     // Focus management for accessibility
-    var firstFocusable = content.querySelector(
-      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
-    );
-    if (firstFocusable) {
       firstFocusable.focus();
     }
 
