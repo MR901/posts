@@ -42,17 +42,6 @@ jobs:
         id: pages
         uses: actions/configure-pages@v4
 
-      # - name: Setup Node.js
-      #   uses: actions/setup-node@v4
-      #   with:
-      #     node-version: "20"
-      #     cache: "npm"
-
-      # - name: Build static assets
-      #   run: |
-      #     yarn install
-      #     yarn build
-
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
@@ -82,7 +71,6 @@ jobs:
           echo "📄 Final data files: $(ls -la _data/attachment_*.yml 2>/dev/null || echo 'no data files found')"
 
       - name: Build site
-        # run: bundle exec jekyll b -d "_site${{ steps.pages.outputs.base_path }}"
         run: |
           bundle exec jekyll clean
           bundle exec jekyll b -d "_site"
@@ -115,7 +103,6 @@ jobs:
       - name: Upload site artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # path: "_site${{ steps.pages.outputs.base_path }}"
           path: "_site"
 
   deploy:
