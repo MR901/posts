@@ -5,8 +5,6 @@ order: 4
 title: Attachments
 ---
 
-<link rel="stylesheet" href="{{ '/assets/css/attachments.css' | relative_url }}">
-
 Browse and search through all available attachments organized by category.
 
 <div class="search-wrapper mb-4">
