@@ -5,8 +5,6 @@ order: 4
 title: Attachments
 ---
 
-## Attachments
-
 Browse and search through all available attachments organized by category.
 
 <div class="search-wrapper mb-4">
@@ -25,22 +23,22 @@ Browse and search through all available attachments organized by category.
   <ul class="nav nav-tabs" id="attachmentTabs" role="tablist">
     {% if images_files.size > 0 %}
     <li class="nav-item" role="presentation">
-      <a class="nav-link active" id="images-tab" data-toggle="tab" href="#images-content" role="tab" aria-controls="images-content" aria-selected="true">
-        <i class="fas fa-image mr-2"></i>Images <span class="badge badge-secondary ml-1">{{ images_files.size }}</span>
+      <a class="nav-link active" id="images-tab" href="#images-content" role="tab" aria-controls="images-content" aria-selected="true">
+        <i class="fas fa-image"></i>Images <span class="badge badge-secondary">{{ images_files.size }}</span>
       </a>
     </li>
     {% endif %}
     {% if articles_files.size > 0 %}
     <li class="nav-item" role="presentation">
-      <a class="nav-link{% unless images_files.size > 0 %} active{% endunless %}" id="articles-tab" data-toggle="tab" href="#articles-content" role="tab" aria-controls="articles-content" aria-selected="{% if images_files.size > 0 %}false{% else %}true{% endif %}">
-        <i class="fas fa-file-alt mr-2"></i>Articles <span class="badge badge-secondary ml-1">{{ articles_files.size }}</span>
+      <a class="nav-link{% unless images_files.size > 0 %} active{% endunless %}" id="articles-tab" href="#articles-content" role="tab" aria-controls="articles-content" aria-selected="{% if images_files.size > 0 %}false{% else %}true{% endif %}">
+        <i class="fas fa-file-alt"></i>Articles <span class="badge badge-secondary">{{ articles_files.size }}</span>
       </a>
     </li>
     {% endif %}
     {% if research_files.size > 0 %}
     <li class="nav-item" role="presentation">
-      <a class="nav-link{% unless images_files.size > 0 or articles_files.size > 0 %} active{% endunless %}" id="research-tab" data-toggle="tab" href="#research-content" role="tab" aria-controls="research-content" aria-selected="{% unless images_files.size > 0 or articles_files.size > 0 %}true{% else %}false{% endunless %}">
-        <i class="fas fa-graduation-cap mr-2"></i>Research <span class="badge badge-secondary ml-1">{{ research_files.size }}</span>
+      <a class="nav-link{% unless images_files.size > 0 or articles_files.size > 0 %} active{% endunless %}" id="research-tab" href="#research-content" role="tab" aria-controls="research-content" aria-selected="{% unless images_files.size > 0 or articles_files.size > 0 %}true{% else %}false{% endunless %}">
+        <i class="fas fa-graduation-cap"></i>Research <span class="badge badge-secondary">{{ research_files.size }}</span>
       </a>
     </li>
     {% endif %}
@@ -55,19 +53,19 @@ Browse and search through all available attachments organized by category.
   <div class="tab-pane fade show active" id="images-content" role="tabpanel" aria-labelledby="images-tab">
     <div class="row" id="images-grid">
       {% for file in images_files %}
-      {% assign file_url = file.path | remove_first: site.baseurl | relative_url %}
-      {% assign file_rel = file.path | remove_first: '/' %}
+      {% assign file_path = file.path | replace: site.source, "" %}
+      {% assign file_url = file_path | relative_url %}
       <div class="col-sm-6 col-md-4 col-lg-3 mb-3">
         <div class="card attachment-item" data-search="images {{ file.name }} {{ file.extname }}" data-category="images">
           <div class="card-body p-2">
             <div class="text-center mb-2">
-              <a href="#" data-toggle="modal" data-target="#imageModal" onclick="showImageModal('{{ file_rel }}', '{{ file.name }}', event)" role="button">
-                <img src="{{ file_rel }}" alt="{{ file.name }}" class="img-fluid rounded attachment-thumbnail" style="max-height: 120px; object-fit: cover; cursor: pointer;" loading="lazy" />
-              </a>
+              <button type="button" class="attachment-preview-btn" onclick="showImageModal('{{ file_url }}', '{{ file.name }}', event)" aria-label="Preview {{ file.name }}">
+                <img src="{{ file_path }}" alt="{{ file.name }}" class="attachment-thumbnail no-lightbox" loading="lazy" />
+              </button>
             </div>
             <div class="text-center">
-              <small class="text-muted d-block text-truncate" title="{{ file.name }}">{{ file.name }}</small>
-              <small class="text-muted">{{ file.extname | remove: '.' | upcase }}</small>
+              <small class="attachment-filename" title="{{ file.name }}">{{ file.name }}</small>
+              <small class="attachment-type">{{ file.extname | remove: '.' | upcase }}</small>
             </div>
           </div>
         </div>
@@ -82,22 +80,25 @@ Browse and search through all available attachments organized by category.
   <div class="tab-pane fade{% unless images_files.size > 0 %} show active{% endunless %}" id="articles-content" role="tabpanel" aria-labelledby="articles-tab">
     <div class="list-group" id="articles-list">
       {% for file in articles_files %}
-      {% assign file_url = file.path | remove_first: site.baseurl | relative_url %}
+      {% assign file_path = file.path | replace: site.source, "" %}
+      {% assign file_url = file_path | relative_url %}
       <div class="list-group-item attachment-item" data-search="articles {{ file.name }} {{ file.extname }}" data-category="articles">
-        <div class="d-flex align-items-center">
-          <i class="fas fa-file-pdf text-danger mr-3" style="font-size: 1.5rem;"></i>
-          <div class="flex-grow-1">
-            <h6 class="mb-1">
-              <a href="#" onclick="showPdfModal('{{ file_url }}', '{{ file.name }}', event)" class="text-decoration-none">{{ file.name }}</a>
-            </h6>
-            <small class="text-muted">{{ file.extname | remove: '.' | upcase }} file</small>
+        <div class="attachment-file-row">
+          <div class="attachment-icon">
+            <i class="fas fa-file-pdf text-danger"></i>
           </div>
-          <div class="btn-group" role="group">
+          <div class="attachment-info">
+            <h6 class="attachment-title">
+              <button type="button" class="attachment-link-btn" onclick="showPdfModal('{{ file_url }}', '{{ file.name }}', event)">{{ file.name }}</button>
+            </h6>
+            <small class="attachment-meta">{{ file.extname | remove: '.' | upcase }} file</small>
+          </div>
+          <div class="attachment-actions">
             <button type="button" class="btn btn-sm btn-outline-primary" onclick="showPdfModal('{{ file_url }}', '{{ file.name }}', event)">
-              <i class="fas fa-eye mr-1"></i>Preview
+              <i class="fas fa-eye"></i>Preview
             </button>
-            <a href="{{ file_url }}" target="_blank" class="btn btn-sm btn-outline-secondary">
-              <i class="fas fa-download mr-1"></i>Download
+            <a href="{{ file_url }}" target="_blank" rel="noopener" class="btn btn-sm btn-outline-secondary">
+              <i class="fas fa-download"></i>Download
             </a>
           </div>
         </div>
@@ -112,22 +113,25 @@ Browse and search through all available attachments organized by category.
   <div class="tab-pane fade{% unless images_files.size > 0 or articles_files.size > 0 %} show active{% endunless %}" id="research-content" role="tabpanel" aria-labelledby="research-tab">
     <div class="list-group" id="research-list">
       {% for file in research_files %}
-      {% assign file_url = file.path | remove_first: site.baseurl | relative_url %}
+      {% assign file_path = file.path | replace: site.source, "" %}
+      {% assign file_url = file_path | relative_url %}
       <div class="list-group-item attachment-item" data-search="research {{ file.name }} {{ file.extname }}" data-category="research">
-        <div class="d-flex align-items-center">
-          <i class="fas fa-file-pdf text-success mr-3" style="font-size: 1.5rem;"></i>
-          <div class="flex-grow-1">
-            <h6 class="mb-1">
-              <a href="#" onclick="showPdfModal('{{ file_url }}', '{{ file.name }}', event)" class="text-decoration-none">{{ file.name }}</a>
-            </h6>
-            <small class="text-muted">{{ file.extname | remove: '.' | upcase }} file</small>
+        <div class="attachment-file-row">
+          <div class="attachment-icon">
+            <i class="fas fa-file-pdf text-success"></i>
           </div>
-          <div class="btn-group" role="group">
+          <div class="attachment-info">
+            <h6 class="attachment-title">
+              <button type="button" class="attachment-link-btn" onclick="showPdfModal('{{ file_url }}', '{{ file.name }}', event)">{{ file.name }}</button>
+            </h6>
+            <small class="attachment-meta">{{ file.extname | remove: '.' | upcase }} file</small>
+          </div>
+          <div class="attachment-actions">
             <button type="button" class="btn btn-sm btn-outline-success" onclick="showPdfModal('{{ file_url }}', '{{ file.name }}', event)">
-              <i class="fas fa-eye mr-1"></i>Preview
+              <i class="fas fa-eye"></i>Preview
             </button>
             <a href="{{ file_url }}" target="_blank" class="btn btn-sm btn-outline-secondary">
-              <i class="fas fa-download mr-1"></i>Download
+              <i class="fas fa-download"></i>Download
             </a>
           </div>
         </div>
@@ -146,61 +150,12 @@ Browse and search through all available attachments organized by category.
 </div>
 {% endif %}
 
-<!-- Image Modal -->
-<div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="imageModalLabel">Image Preview</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body text-center">
-        <img id="modalImage" src="" alt="" class="img-fluid" />
-      </div>
-      <div class="modal-footer">
-        <a id="modalImageDownload" href="" target="_blank" class="btn btn-primary">
-          <i class="fas fa-download mr-1"></i>Download
-        </a>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- PDF Modal -->
-<div class="modal fade" id="pdfModal" tabindex="-1" aria-labelledby="pdfModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-xl modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="pdfModalLabel">PDF Preview</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-              <div class="modal-body p-1" style="height: 70vh;">
-          <object id="modalPdf" data="" width="100%" height="100%" type="application/pdf" style="min-height: 500px;">
-            <div class="p-4 text-center">
-              <i class="fas fa-file-pdf text-muted mb-3" style="font-size: 3rem;"></i>
-              <p class="mb-3">PDF preview unavailable in this browser.</p>
-              <a id="pdfFallbackLink" href="" target="_blank" class="btn btn-primary">
-                <i class="fas fa-external-link-alt mr-2"></i>Open PDF in New Tab
-              </a>
-            </div>
-          </object>
-        </div>
-      <div class="modal-footer">
-        <a id="modalPdfDownload" href="" target="_blank" class="btn btn-primary">
-          <i class="fas fa-external-link-alt mr-1"></i>Open in New Tab
-        </a>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
-
 <style>
+/* ================================
+   ATTACHMENT SYSTEM STYLES
+   ================================ */
+
+/* Tab Navigation */
 .attachment-tabs .nav-tabs {
   border-bottom: 2px solid var(--border-color);
 }
@@ -209,8 +164,27 @@ Browse and search through all available attachments organized by category.
   border: none;
   border-bottom: 3px solid transparent;
   color: var(--text-muted-color);
-  font-weight: 500;
-  padding: 12px 20px;
+  font-weight: 600;
+  padding: 14px 22px;
+  line-height: 1.2;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.02rem;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.attachment-tabs .nav-link i {
+  font-size: 1.05em;
+}
+
+.attachment-tabs .nav-link .badge {
+  margin-left: 6px;
+  padding: 0.25em 0.5em;
+  font-size: 0.78em;
+  border-radius: 10px;
+  background-color: var(--text-muted-color);
 }
 
 .attachment-tabs .nav-link.active {
@@ -225,272 +199,210 @@ Browse and search through all available attachments organized by category.
   color: var(--text-color);
 }
 
-.attachment-tabs .badge {
-  background-color: var(--text-muted-color);
-  font-size: 0.75em;
+/* Tab Content */
+#attachmentTabContent > .tab-pane {
+  display: none;
 }
 
-.attachment-thumbnail:hover {
-  transform: scale(1.05);
+#attachmentTabContent > .tab-pane.active.show {
+  display: block;
+}
+
+/* Image Grid */
+.attachment-preview-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: block;
+  width: 100%;
+}
+
+.attachment-preview-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.attachment-thumbnail {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 8px;
   transition: transform 0.2s ease;
 }
 
-.list-group-item:hover {
-  background-color: var(--card-bg);
+.attachment-preview-btn:hover .attachment-thumbnail {
+  transform: scale(1.05);
 }
 
+.attachment-filename {
+  display: block;
+  color: var(--text-color);
+  font-weight: 500;
+  margin-bottom: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.attachment-type {
+  color: var(--text-muted-color);
+  font-size: 0.85em;
+  font-weight: 500;
+}
+
+/* File List */
+.attachment-file-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 0;
+}
+
+.attachment-icon {
+  flex-shrink: 0;
+}
+
+.attachment-icon i {
+  font-size: 2rem;
+}
+
+.attachment-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.attachment-title {
+  margin: 0 0 4px 0;
+  font-size: 1.1rem;
+}
+
+.attachment-link-btn {
+  background: none;
+  border: none;
+  color: var(--link-color);
+  text-decoration: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.attachment-link-btn:hover {
+  color: var(--link-hover-color);
+  text-decoration: underline;
+}
+
+.attachment-meta {
+  color: var(--text-muted-color);
+  font-size: 0.9em;
+}
+
+.attachment-actions {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+/* List Items */
+.list-group-item {
+  border: 1px solid var(--border-color);
+  background-color: var(--card-bg);
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.list-group-item:hover {
+  background-color: var(--card-header-bg);
+  transform: translateY(-1px);
+}
+
+/* Responsive Design */
 @media (max-width: 768px) {
   .attachment-tabs .nav-link {
-    padding: 8px 12px;
-    font-size: 0.9em;
+    padding: 10px 14px;
+    font-size: 0.95rem;
+    gap: 6px;
   }
   
-  .btn-group .btn {
-    font-size: 0.8em;
+  .attachment-file-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  
+  .attachment-actions {
+    width: 100%;
+    justify-content: stretch;
+  }
+  
+  .attachment-actions .btn {
+    flex: 1;
+    font-size: 0.85em;
     padding: 0.25rem 0.5rem;
   }
+}
+
+@media (max-width: 576px) {
+  .attachment-tabs .nav-link {
+    padding: 8px 12px;
+    font-size: 0.9rem;
+  }
+  
+  .attachment-tabs .nav-link i {
+    display: none;
+  }
+}
+
+/* Focus Management for Accessibility */
+.attachment-preview-btn:focus,
+.attachment-link-btn:focus {
+  outline: 2px solid var(--link-color);
+  outline-offset: 2px;
+}
+
+/* Loading States */
+.attachment-thumbnail[loading] {
+  background: var(--card-bg);
+  background-image: linear-gradient(45deg, transparent 35%, rgba(255,255,255,0.1) 50%, transparent 65%);
+  background-size: 200% 100%;
+  animation: loading-shimmer 1.5s infinite;
+}
+
+@keyframes loading-shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
 }
 </style>
 
 <script>
-(function() {
-  // Search functionality
-  const searchInput = document.getElementById('attachment-search');
-  if (!searchInput) return;
-  
-  // Vanilla JS tab switching (no Bootstrap JS dependency)
-  (function initTabs() {
-    var tabLinks = Array.prototype.slice.call(document.querySelectorAll('#attachmentTabs a.nav-link'));
-    var panes = Array.prototype.slice.call(document.querySelectorAll('#attachmentTabContent .tab-pane'));
-    if (tabLinks.length === 0 || panes.length === 0) return;
+// Make Jekyll data available to JavaScript
+// Priority: Use generated data files first, fallback to plugin data
 
-    function showPane(targetSelector) {
-      var targetPane = targetSelector ? document.querySelector(targetSelector) : null;
-      if (!targetPane) return;
-      panes.forEach(function(p) {
-        p.classList.remove('active', 'show');
-        p.style.display = 'none';
-      });
-      targetPane.classList.add('active', 'show');
-      targetPane.style.display = '';
-    }
+// Debug: Log data availability
+console.log('Jekyll data loading:', {
+  galleries_available: {% if site.data.attachment_galleries %}true{% else %}false{% endif %},
+  references_available: {% if site.data.attachment_references %}true{% else %}false{% endif %},
+  galleries_count: {% if site.data.attachment_galleries %}{{ site.data.attachment_galleries | size }}{% else %}0{% endif %},
+  references_count: {% if site.data.attachment_references %}{{ site.data.attachment_references | size }}{% else %}0{% endif %}
+});
 
-    // Initialize display state based on active tab or default to first
-    var activeLink = tabLinks.find(function(l){ return l.classList.contains('active'); }) || tabLinks[0];
-    tabLinks.forEach(function(l){
-      if (l === activeLink) {
-        l.classList.add('active');
-        l.setAttribute('aria-selected', 'true');
-      } else {
-        l.classList.remove('active');
-        l.setAttribute('aria-selected', 'false');
-      }
-    });
-    showPane(activeLink ? activeLink.getAttribute('href') : null);
+{% if site.data.attachment_galleries %}
+window.attachmentGalleries = {{ site.data.attachment_galleries | jsonify }};
+{% else %}
+window.attachmentGalleries = {};
+console.warn('No attachment galleries data found in site.data');
+{% endif %}
 
-    // Click handlers
-    tabLinks.forEach(function(link) {
-      link.addEventListener('click', function(e) {
-        e.preventDefault();
-        tabLinks.forEach(function(l){
-          l.classList.remove('active');
-          l.setAttribute('aria-selected', 'false');
-        });
-        link.classList.add('active');
-        link.setAttribute('aria-selected', 'true');
-        showPane(link.getAttribute('href'));
-      });
-    });
-  })();
-  
-  function updateResults() {
-    const raw = searchInput.value || '';
-    const items = document.querySelectorAll('.attachment-item');
-
-    // Helper: normalize text (case, underscores, hyphens, punctuation, diacritics)
-    function normalizeText(s) {
-      if (!s) return '';
-      try { s = s.normalize('NFD').replace(/[\u0300-\u036f]/g, ''); } catch(e) {}
-      return s.toLowerCase()
-        .replace(/[_-]+/g, ' ')
-        .replace(/[^a-z0-9\s]/g, ' ')
-        .replace(/\s+/g, ' ')
-        .trim();
-    }
-
-    // Tokenize into words
-    function tokenize(s) {
-      const n = normalizeText(s);
-      return n ? n.split(' ').filter(Boolean) : [];
-    }
-
-    // Fast edit-distance <= 1 checker
-    function editDistanceLTE1(a, b) {
-      if (a === b) return true;
-      const la = a.length, lb = b.length;
-      if (Math.abs(la - lb) > 1) return false;
-      let i = 0, j = 0, edits = 0;
-      while (i < la && j < lb) {
-        if (a[i] === b[j]) { i++; j++; continue; }
-        edits++; if (edits > 1) return false;
-        if (la > lb) i++; else if (lb > la) j++; else { i++; j++; }
-      }
-      if ((la - i) + (lb - j) > 0) edits++;
-      return edits <= 1;
-    }
-
-    function isFuzzyMatch(hayWord, qWord) {
-      if (!qWord) return true;
-      if (hayWord.indexOf(qWord) !== -1) return true;
-      if (qWord.length >= 3 && qWord.indexOf(hayWord) !== -1) return true;
-      return editDistanceLTE1(hayWord, qWord);
-    }
-
-    function matches(hay, queryRaw) {
-      const qTokens = tokenize(queryRaw);
-      if (qTokens.length === 0) return true;
-      const hTokens = tokenize(hay);
-      if (hTokens.length === 0) return false;
-      return qTokens.every(function(qt) {
-        return hTokens.some(function(hw) { return isFuzzyMatch(hw, qt); });
-      });
-    }
-
-    items.forEach(function(item) {
-      const hay = item.getAttribute('data-search') || '';
-      const visible = matches(hay, raw);
-      item.style.display = visible ? '' : 'none';
-    });
-
-    // Update tab badges with visible counts
-    updateTabBadges(raw);
-  }
-  
-  function updateTabBadges(query) {
-    const categories = ['images', 'articles', 'research'];
-    
-    categories.forEach(function(category) {
-      const tab = document.getElementById(category + '-tab');
-      if (!tab) return;
-      
-      const items = document.querySelectorAll('.attachment-item[data-category="' + category + '"]');
-      let visibleCount = 0;
-      
-      items.forEach(function(item) {
-        if (item.style.display !== 'none') {
-          visibleCount++;
-        }
-      });
-      
-      const badge = tab.querySelector('.badge');
-      if (badge) {
-        const totalCount = items.length;
-        badge.textContent = query ? visibleCount + '/' + totalCount : totalCount;
-        badge.style.opacity = query && visibleCount === 0 ? '0.5' : '1';
-      }
-    });
-  }
-  
-  searchInput.addEventListener('input', updateResults);
-  
-  // Modal functions - make them global
-  window.showImageModal = function(src, name, ev) {
-    const modal = document.getElementById('imageModal');
-    const modalImage = document.getElementById('modalImage');
-    const modalLabel = document.getElementById('imageModalLabel');
-    const modalDownload = document.getElementById('modalImageDownload');
-    
-    if (modalImage) modalImage.src = src;
-    if (modalImage) modalImage.alt = name;
-    if (modalLabel) modalLabel.textContent = name;
-    if (modalDownload) modalDownload.href = src;
-    // Show the modal (jQuery if available, else vanilla fallback)
-    if (typeof $ !== 'undefined') {
-      $('#imageModal').modal('show');
-    } else {
-      openModal('imageModal');
-    }
-    
-    // Prevent default link behavior
-    if (ev) ev.preventDefault();
-  };
-  
-  window.showPdfModal = function(src, name, ev) {
-    const modal = document.getElementById('pdfModal');
-    const modalPdf = document.getElementById('modalPdf');
-    const modalLabel = document.getElementById('pdfModalLabel');
-    const modalDownload = document.getElementById('modalPdfDownload');
-    const pdfFallbackLink = document.getElementById('pdfFallbackLink');
-    
-    console.log('Opening PDF:', src, 'Name:', name);
-    
-    // Set modal title and links
-    if (modalLabel) modalLabel.textContent = name;
-    if (modalDownload) modalDownload.href = src;
-    if (pdfFallbackLink) pdfFallbackLink.href = src;
-    
-    // Set PDF source using object tag (like the working example)
-    if (modalPdf) {
-      modalPdf.setAttribute('data', src);
-      console.log('Set PDF data attribute to:', src);
-    }
-    
-    // Show the modal (jQuery if available, else vanilla fallback)
-    if (typeof $ !== 'undefined') {
-      $('#pdfModal').modal('show');
-    } else {
-      openModal('pdfModal');
-    }
-    
-    // Prevent default link behavior
-    if (ev) ev.preventDefault();
-  };
-})();
-
-// Vanilla modal fallback helpers (used when Bootstrap JS/jQuery isn't present)
-function openModal(id) {
-  var el = document.getElementById(id);
-  if (!el) return;
-  el.classList.add('show');
-  el.style.display = 'block';
-  el.removeAttribute('aria-hidden');
-  document.body.classList.add('modal-open');
-  // backdrop
-  var existing = document.querySelector('.modal-backdrop[data-for="' + id + '"]');
-  if (!existing) {
-    var backdrop = document.createElement('div');
-    backdrop.className = 'modal-backdrop fade show';
-    backdrop.setAttribute('data-for', id);
-    backdrop.addEventListener('click', function(){ closeModal(id); });
-    document.body.appendChild(backdrop);
-  }
-}
-
-function closeModal(id) {
-  var el = document.getElementById(id);
-  if (!el) return;
-  el.classList.remove('show');
-  el.style.display = 'none';
-  el.setAttribute('aria-hidden', 'true');
-  document.body.classList.remove('modal-open');
-  var backdrop = document.querySelector('.modal-backdrop[data-for="' + id + '"]');
-  if (backdrop && backdrop.parentNode) backdrop.parentNode.removeChild(backdrop);
-}
-
-// Wire up close buttons when Bootstrap JS isn't available
-if (typeof $ === 'undefined') {
-  document.addEventListener('click', function(e){
-    var target = e.target;
-    if (!target) return;
-    // handle <button data-dismiss="modal"> and its child <span>
-    var btn = target.closest('[data-dismiss="modal"]');
-    if (btn) {
-      var modal = btn.closest('.modal');
-      if (modal && modal.id) {
-        e.preventDefault();
-        closeModal(modal.id);
-      }
-    }
-  });
-}
+{% if site.data.attachment_references %}
+window.attachmentReferences = {{ site.data.attachment_references | jsonify }};
+console.log('Loaded', Object.keys(window.attachmentReferences).length, 'attachment references');
+{% else %}
+window.attachmentReferences = {};
+console.warn('No attachment references data found in site.data');
+{% endif %}
 </script>
+<script defer src="{{ '/assets/js/attachments.js' | relative_url }}"></script>

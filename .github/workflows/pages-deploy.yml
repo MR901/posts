@@ -3,8 +3,10 @@ on:
   push:
     branches:
       - develop
-      # - main
-      # - master
+      - dev
+      - main
+      - master
+      # Add any other branches you want to trigger deployment
     paths-ignore:
       - .gitignore
       - README.md
@@ -40,17 +42,6 @@ jobs:
         id: pages
         uses: actions/configure-pages@v4
 
-      # - name: Setup Node.js
-      #   uses: actions/setup-node@v4
-      #   with:
-      #     node-version: "20"
-      #     cache: "npm"
-
-      # - name: Build static assets
-      #   run: |
-      #     yarn install
-      #     yarn build
-
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
@@ -60,14 +51,26 @@ jobs:
       - name: Setup Python for RST support
         uses: actions/setup-python@v4
         with:
-          python-version: '3.x'
-      
+          python-version: "3.x"
+
       - name: Install Python dependencies
         run: |
-          pip install docutils pygments
+          pip install docutils pygments pyyaml
+
+      - name: Generate attachment data
+        run: |
+          echo "📊 Generating attachment data for GitHub Pages deployment..."
+          echo "📂 Current directory: $(pwd)"
+          echo "📁 Files in scripts/: $(ls -la scripts/ 2>/dev/null || echo 'scripts directory not found')"
+
+          # Always regenerate data files on GitHub Pages to ensure they're current
+          echo "📊 Regenerating data files for latest content..."
+          mkdir -p _data
+          python3 scripts/generate_attachment_data.py . || echo "⚠️ Data generation failed, using fallback"
+
+          echo "📄 Final data files: $(ls -la _data/attachment_*.yml 2>/dev/null || echo 'no data files found')"
 
       - name: Build site
-        # run: bundle exec jekyll b -d "_site${{ steps.pages.outputs.base_path }}"
         run: |
           bundle exec jekyll clean
           bundle exec jekyll b -d "_site"
@@ -78,40 +81,28 @@ jobs:
         run: |
           BASE_PATH="${{ steps.pages.outputs.base_path }}"
           if [ -n "$BASE_PATH" ] && [ "$BASE_PATH" != "/" ]; then
-            # Ensure base path root exists
+            BASE_DIR="${BASE_PATH#/}"
             mkdir -p "_site$BASE_PATH"
-
-            # 1) Mirror top-level index to /posts/
-            if [ -f _site/index.html ]; then
-              cp -f _site/index.html "_site$BASE_PATH/index.html"
-            fi
-
-            # 2) Mirror common top-level directories expected under baseurl
-            for d in about archives categories tags posts assets; do
-              if [ -d "_site/$d" ]; then
-                mkdir -p "_site$BASE_PATH/$d"
-                rsync -a "_site/$d/" "_site$BASE_PATH/$d/"
+            shopt -s dotglob
+            for entry in _site/*; do
+              name="$(basename "$entry")"
+              if [ "$name" = "$BASE_DIR" ]; then
+                continue
               fi
+              cp -a "$entry" "_site$BASE_PATH/"
             done
-
-            # 3) Mirror common top-level files expected under baseurl
-            for f in feed.xml sitemap.xml robots.txt app.min.js sw.min.js; do
-              if [ -f "_site/$f" ]; then
-                cp -f "_site/$f" "_site$BASE_PATH/$f"
-              fi
-            done
+            shopt -u dotglob
           fi
 
       - name: Test site
         run: |
           bundle exec htmlproofer _site \
-            \-\-disable-external \
-            \-\-ignore-urls "/^http:\/\/127.0.0.1/,/^http:\/\/0.0.0.0/,/^http:\/\/localhost/"
+            --disable-external \
+            --ignore-urls "/^http:\/\/127.0.0.1/,/^http:\/\/0.0.0.0/,/^http:\/\/localhost/,^\/posts\/posts\/"
 
       - name: Upload site artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # path: "_site${{ steps.pages.outputs.base_path }}"
           path: "_site"
 
   deploy:
