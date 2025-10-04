@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 # :Author: David Goodger, the Pygments team, Guenter Milde
 # :Date: $Date: $
@@ -29,7 +29,7 @@ from directives import Pygments
 
 description = ('Generates (X)HTML documents from standalone reStructuredText '
                'sources. Uses `pygments` to colorize the content of'
-               '"code-block" directives. Needs an adapted stylesheet' 
+               '"code-block" directives. Needs an adapted stylesheet'
                + default_description)
 
 def main():

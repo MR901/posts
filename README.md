@@ -9,6 +9,7 @@ This repository is a Jekyll site powered by the Chirpy theme. It includes a read
   - [Dev Container (recommended)](#dev-container-recommended)
     - [Open in Dev Container](#open-in-dev-container)
     - [Run the site inside the container](#run-the-site-inside-the-container)
+    - [One-click run options](#one-click-run-options)
     - [Content workflow in container](#content-workflow-in-container)
     - [Notes](#notes)
   - [Local Development](#local-development)
@@ -48,7 +49,19 @@ Develop and preview the site in an isolated container using VS Code Dev Containe
 bundle exec jekyll serve --livereload --host 0.0.0.0
 ```
 
-Then open the forwarded URL shown by VS Code (typically `http://127.0.0.1:4000`).
+Manual start is expected; the container does not auto-start Jekyll. After running the command, open the forwarded URL (typically `http://127.0.0.1:4000/posts`).
+
+Alternatively, override the base URL during local preview to serve at `/`:
+
+```bash
+bundle exec jekyll serve --livereload --host 0.0.0.0 --baseurl ""
+```
+
+### One-click run options
+
+- VS Code: Run Task → "Jekyll: Serve" (or "Jekyll: Serve (root baseurl)").
+- Makefile: `make serve` (or `make serve-root`).
+- Script: `./scripts/serve.sh` (or `./scripts/serve.sh --root`).
 
 ### Content workflow in container
 - Create or edit posts under `_posts/` and assets under `assets/images/`.
@@ -80,7 +93,13 @@ bundle install
 bundle exec jekyll serve --livereload
 ```
 
-Then open `http://127.0.0.1:4000`.
+Then open `http://127.0.0.1:4000/posts`.
+
+Alternatively, ignore the configured `baseurl` during local preview to serve at `/`:
+
+```bash
+bundle exec jekyll serve --livereload --baseurl ""
+```
 
 Locate installed theme files (optional):
 
@@ -245,6 +264,13 @@ bundle update
 - **Gem or dependency errors**: run `bundle update`, then `bundle install`.
 - **Ruby version mismatch**: ensure your local Ruby matches the Gemfile requirements (Ruby 3.x recommended).
 - **Port already in use**: `bundle exec jekyll serve -P 4001`.
+- **Pages not rendering locally**:
+  - Ensure you are opening `http://127.0.0.1:4000/posts` (matches `_config.yml` `baseurl: "/posts"`).
+  - Or serve with `--baseurl ""` to preview at root.
+  - Make sure every post has valid front matter (`---` at top) and correct filename `YYYY-MM-DD-title.rst`.
+  - Clear cache and rebuild: `bundle exec jekyll clean && bundle exec jekyll serve`.
+  - Run with `--trace` for detailed error logs.
+  - For RST, verify the converter plugin loads (files under `_plugins/jekyll-rst/`) and that the `RbST` gem is installed.
 - **Theme files location**: `bundle info --path jekyll-theme-chirpy`.
 
 ## Documentation and Links
