@@ -1,43 +1,253 @@
-# Chirpy Starter
+# Jekyll + Chirpy Starter
 
-[![Gem Version](https://img.shields.io/gem/v/jekyll-theme-chirpy)][gem]&nbsp;
-[![GitHub license](https://img.shields.io/github/license/cotes2020/chirpy-starter.svg?color=blue)][mit]
+This repository is a Jekyll site powered by the Chirpy theme. It includes a ready-to-write setup plus a comprehensive guide for creating posts and pages.
 
-When installing the [**Chirpy**][chirpy] theme through [RubyGems.org][gem], Jekyll can only read files in the folders
-`_data`, `_layouts`, `_includes`, `_sass` and `assets`, as well as a small part of options of the `_config.yml` file
-from the theme's gem. If you have ever installed this theme gem, you can use the command
-`bundle info --path jekyll-theme-chirpy` to locate these files.
+## Table of Contents
 
-The Jekyll team claims that this is to leave the ball in the user’s court, but this also results in users not being
-able to enjoy the out-of-the-box experience when using feature-rich themes.
+- [Jekyll + Chirpy Starter](#jekyll--chirpy-starter)
+  - [Table of Contents](#table-of-contents)
+  - [Dev Container (recommended)](#dev-container-recommended)
+    - [Open in Dev Container](#open-in-dev-container)
+    - [Run the site inside the container](#run-the-site-inside-the-container)
+    - [Content workflow in container](#content-workflow-in-container)
+    - [Notes](#notes)
+  - [Local Development](#local-development)
+    - [Prerequisites](#prerequisites)
+    - [Install and run locally](#install-and-run-locally)
+  - [Writing Content](#writing-content)
+    - [New post](#new-post)
+    - [Pages](#pages)
+    - [Conventions](#conventions)
+  - [Authoring Workflow (branches, PRs, validation)](#authoring-workflow-branches-prs-validation)
+    - [Create a new branch](#create-a-new-branch)
+    - [Add post in reStructuredText](#add-post-in-restructuredtext)
+    - [Add attachments (images, downloads)](#add-attachments-images-downloads)
+    - [Preview and validate locally](#preview-and-validate-locally)
+    - [Commit, push, and open PR](#commit-push-and-open-pr)
+    - [Merge into base branch](#merge-into-base-branch)
+  - [Project Structure](#project-structure)
+  - [Useful Commands](#useful-commands)
+  - [Troubleshooting](#troubleshooting)
+  - [Documentation and Links](#documentation-and-links)
 
-To fully use all the features of **Chirpy**, you need to copy the other critical files from the theme's gem to your
-Jekyll site. The following is a list of targets:
+## Dev Container (recommended)
 
-```shell
-.
-├── _config.yml
-├── _plugins
-├── _tabs
-└── index.html
+Develop and preview the site in an isolated container using VS Code Dev Containers or GitHub Codespaces. This avoids changing your local Ruby setup and ensures consistent builds.
+
+### Open in Dev Container
+1. Install the "Dev Containers" extension in VS Code.
+2. Open this repository in VS Code.
+3. When prompted, select "Reopen in Container" (or run: Command Palette → Dev Containers: Reopen in Container).
+   - The container image `mcr.microsoft.com/devcontainers/jekyll:2-bullseye` is used.
+   - Dependencies are installed automatically (`bundle install`).
+   - Ports 4000 (site) and 35729 (LiveReload) are auto-forwarded.
+
+### Run the site inside the container
+
+```bash
+bundle exec jekyll serve --livereload --host 0.0.0.0
 ```
 
-To save you time, and also in case you lose some files while copying, we extract those files/configurations of the
-latest version of the **Chirpy** theme and the [CD][CD] workflow to here, so that you can start writing in minutes.
+Then open the forwarded URL shown by VS Code (typically `http://127.0.0.1:4000`).
 
-## Usage
+### Content workflow in container
+- Create or edit posts under `_posts/` and assets under `assets/images/`.
+- Use `media_subpath` in front matter to keep images organized per post.
+- Verify build output and links before opening a PR to `develop`.
 
-Check out the [theme's docs](https://github.com/cotes2020/jekyll-theme-chirpy/wiki).
+### Notes
+- First run may take a few minutes to pull the image and install gems.
+- If livereload doesn’t trigger, hard refresh the browser or ensure port 35729 is forwarded.
 
-## Contributing
+## Local Development
 
-This repository is automatically updated with new releases from the theme repository. If you encounter any issues or want to contribute to its improvement, please visit the [theme repository][chirpy] to provide feedback.
+### Prerequisites
+- Ruby (3.x recommended) and Bundler
+- Node.js (optional, for asset tooling)
 
-## License
+Verify your tools:
 
-This work is published under [MIT][mit] License.
+```bash
+ruby -v
+gem install bundler
+bundle -v
+```
 
-[gem]: https://rubygems.org/gems/jekyll-theme-chirpy
-[chirpy]: https://github.com/cotes2020/jekyll-theme-chirpy/
-[CD]: https://en.wikipedia.org/wiki/Continuous_deployment
-[mit]: https://github.com/cotes2020/chirpy-starter/blob/master/LICENSE
+### Install and run locally
+
+```bash
+bundle install
+bundle exec jekyll serve --livereload
+```
+
+Then open `http://127.0.0.1:4000`.
+
+Locate installed theme files (optional):
+
+```bash
+bundle info --path jekyll-theme-chirpy
+```
+
+## Writing Content
+
+See the detailed guide: `_posts/2025-09-01-jekyll-content-creation-guide.rst`.
+
+### New post
+Create a file in `_posts/` named `YYYY-MM-DD-your-title.md` (or `.rst`/`.markdown`).
+
+Minimal front matter:
+
+```yaml
+---
+layout: post
+title: "Your Post Title"
+date: 2025-09-01 12:00:00 +0000
+categories: [Category, Subcategory]
+tags: [tag1, tag2]
+description: "Short summary for previews"
+image:
+  path: /assets/images/2025-09-01/example.png
+  alt: "Descriptive alt text"
+media_subpath: "/assets/images/2025-09-01/"
+pin: false
+toc: true
+---
+```
+
+Write in Markdown or reStructuredText. Use headers, lists, code blocks, and links for scannability.
+
+### Pages
+Create standalone pages (e.g., `about.md`) at the project root or in a folder. Use `layout: page` or a custom layout.
+
+### Conventions
+- **Posts**: `_posts/`, named `YYYY-MM-DD-title.ext`
+- **Categories**: up to two levels, e.g., `[Tutorial, Jekyll]`
+- **Tags**: lowercase, specific topics, e.g., `[jekyll, static-sites]`
+- **Images**: keep under `assets/images/`, set `media_subpath` per post
+- **Accessibility**: always set `image.alt`
+
+## Authoring Workflow (branches, PRs, validation)
+
+### Create a new branch
+
+```bash
+git checkout -b feature/your-post-slug
+```
+
+Use a short, kebab-cased branch name matching your post slug.
+
+### Add post in reStructuredText
+
+Create a new RST file under `_posts/` with the required name format `YYYY-MM-DD-your-post-slug.rst`.
+
+```text
+_posts/
+├── 2025-09-01-your-post-slug.rst
+```
+
+Start with front matter and a top-level title:
+
+```rst
+---
+layout: post
+title: "Your Post Title"
+date: 2025-09-01 10:00:00 +0000
+categories: [Tutorial, Jekyll]
+tags: [jekyll, rst]
+description: "What readers will learn"
+image:
+  path: /assets/images/2025-09-01/cover.png
+  alt: "Cover image alt text"
+media_subpath: "/assets/images/2025-09-01/"
+toc: true
+---
+
+Your Post Title
+===============
+
+Introduction paragraph...
+```
+
+### Add attachments (images, downloads)
+
+- Put images under `assets/images/YYYY-MM-DD/` that matches the post date.
+- Reference images in RST using standard Markdown image syntax or HTML, the front matter `media_subpath` will simplify relative paths.
+- For downloads, use `assets/downloads/` and link directly.
+
+```text
+assets/
+├── images/
+│   └── 2025-09-01/
+│       ├── cover.png
+│       └── diagram.png
+└── downloads/
+    └── your-asset.pdf
+```
+
+### Preview and validate locally
+
+- Dev Container: run `bundle exec jekyll serve --livereload --host 0.0.0.0` and open the forwarded URL.
+- Local: run `bundle exec jekyll serve --livereload` and open `http://127.0.0.1:4000`.
+- Validate links and images, skim the layout, and check the console for build warnings.
+
+Optional link check (CI-style):
+
+```bash
+bundle exec jekyll build
+bundle exec htmlproofer --disable-external _site
+```
+
+### Commit, push, and open PR
+
+```bash
+git add _posts/ assets/
+git commit -m "add(post): your-post-slug in RST with assets"
+git push -u origin feature/your-post-slug
+```
+
+Open a Pull Request to the `develop` branch. Include a short summary and screenshots if relevant.
+
+### Merge into base branch
+
+- After review passes and checks are green, squash-merge the PR into `develop`.
+- If your workflow deploys from `main`, create a follow-up PR from `develop` → `main` when ready to publish.
+
+## Project Structure
+
+```text
+.
+├── _config.yml
+├── _posts/
+├── _tabs/
+├── assets/
+│   └── images/
+├── index.html
+└── README.md
+```
+
+## Useful Commands
+
+```bash
+# Install dependencies
+bundle install
+
+# Run locally with live reload
+bundle exec jekyll serve --livereload
+
+# Build the site
+bundle exec jekyll build
+
+# Update gems (if needed)
+bundle update
+```
+
+## Troubleshooting
+- **Gem or dependency errors**: run `bundle update`, then `bundle install`.
+- **Ruby version mismatch**: ensure your local Ruby matches the Gemfile requirements (Ruby 3.x recommended).
+- **Port already in use**: `bundle exec jekyll serve -P 4001`.
+- **Theme files location**: `bundle info --path jekyll-theme-chirpy`.
+
+## Documentation and Links
+- Chirpy theme docs: https://github.com/cotes2020/jekyll-theme-chirpy/wiki
+- Jekyll docs: https://jekyllrb.com/docs/
+
