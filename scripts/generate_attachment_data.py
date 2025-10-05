@@ -58,7 +58,10 @@ class AttachmentDataGenerator:
                 rel_path = file_path.relative_to(self.site_root)
                 web_path = str(rel_path).replace('\\', '/')
                 relative_url = f"/{web_path}"
-                absolute_url = urljoin(urljoin(self.site_url, self.base_url), relative_url)
+                # Build absolute URL without losing baseurl when relative_url starts with '/'
+                # Example: site_url=https://mr901.github.io, base_url=/posts, relative_url=/attachments/...
+                # Result: https://mr901.github.io/posts/attachments/...
+                absolute_url = f"{self.site_url.rstrip('/')}" f"{self.base_url}{relative_url}"
 
                 # Determine category from path
                 category = self.determine_category(str(rel_path))
