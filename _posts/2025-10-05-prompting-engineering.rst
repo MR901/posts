@@ -17,7 +17,6 @@ image:
 
 
 
-
 ===============================================================
 Part 1 – Foundations of Prompt Engineering
 ===============================================================
@@ -1680,8 +1679,6 @@ Transition to Next Section
 
 Final section (Part 6) will integrate all prior elements into a unified conceptual model,
 linking the evolution from simple prompting to reasoning agents aligned with human goals.
-
-
 
 
 ===============================================================
