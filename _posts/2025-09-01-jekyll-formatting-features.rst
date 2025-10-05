@@ -61,7 +61,7 @@ Text Styling Options
 
 * **Bold text** - ``**bold text**`` or ``**emphasis**``
 * *Italic text* - ``*italic text*`` or ``*emphasis*``
-* ``Inline code`` - ```inline code``` for technical terms
+* ``Inline code`` - ``inline code`` for technical terms
 * **Combined** - ``***bold and italic***``
 
 **Special Text Elements:**
@@ -294,14 +294,11 @@ Complex Tables
 +------------------+-------------------------+------------------+
 | Tool             | Command                 | Purpose          |
 +==================+=========================+==================+
-| Jekyll           | ``bundle exec jekyll    | Build static     |
-|                  | serve``                 | site             |
+| Jekyll           | ``bundle exec jekyll serve``           | Build static     |
 +------------------+-------------------------+------------------+
-| Git              | ``git commit -m         | Version control  |
-|                  | "message"``             |                  |
+| Git              | ``git commit -m "message"``            | Version control  |
 +------------------+-------------------------+------------------+
-| NPM              | ``npm install           | Package          |
-|                  | package-name``          | management       |
+| NPM              | ``npm install package-name``            | Package          |
 +------------------+-------------------------+------------------+
 
 Mathematics and Equations

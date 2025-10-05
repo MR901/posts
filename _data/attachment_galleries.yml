@@ -1,6 +1,6 @@
 images:
 - filename: github_actions_successful_build.png
-  path: /home/mohit/Documents/new_age/_articles_in_development/posts/attachments/posts/2025-09-03-github-pages-from-zero-to-live/images/github_actions_successful_build.png
+  path: /workspaces/posts/attachments/posts/2025-09-03-github-pages-from-zero-to-live/images/github_actions_successful_build.png
   web_path: attachments/posts/2025-09-03-github-pages-from-zero-to-live/images/github_actions_successful_build.png
   url: /attachments/posts/2025-09-03-github-pages-from-zero-to-live/images/github_actions_successful_build.png
   absolute_url: https://mr901.github.io/posts/attachments/posts/2025-09-03-github-pages-from-zero-to-live/images/github_actions_successful_build.png
@@ -8,7 +8,7 @@ images:
   ext: .png
   references: 1
 - filename: github_actions_successful_deploy.png
-  path: /home/mohit/Documents/new_age/_articles_in_development/posts/attachments/posts/2025-09-03-github-pages-from-zero-to-live/images/github_actions_successful_deploy.png
+  path: /workspaces/posts/attachments/posts/2025-09-03-github-pages-from-zero-to-live/images/github_actions_successful_deploy.png
   web_path: attachments/posts/2025-09-03-github-pages-from-zero-to-live/images/github_actions_successful_deploy.png
   url: /attachments/posts/2025-09-03-github-pages-from-zero-to-live/images/github_actions_successful_deploy.png
   absolute_url: https://mr901.github.io/posts/attachments/posts/2025-09-03-github-pages-from-zero-to-live/images/github_actions_successful_deploy.png
@@ -16,7 +16,7 @@ images:
   ext: .png
   references: 1
 - filename: github_code_successful_deployment.png
-  path: /home/mohit/Documents/new_age/_articles_in_development/posts/attachments/posts/2025-09-03-github-pages-from-zero-to-live/images/github_code_successful_deployment.png
+  path: /workspaces/posts/attachments/posts/2025-09-03-github-pages-from-zero-to-live/images/github_code_successful_deployment.png
   web_path: attachments/posts/2025-09-03-github-pages-from-zero-to-live/images/github_code_successful_deployment.png
   url: /attachments/posts/2025-09-03-github-pages-from-zero-to-live/images/github_code_successful_deployment.png
   absolute_url: https://mr901.github.io/posts/attachments/posts/2025-09-03-github-pages-from-zero-to-live/images/github_code_successful_deployment.png
@@ -24,7 +24,7 @@ images:
   ext: .png
   references: 1
 - filename: github_page_active_live.png
-  path: /home/mohit/Documents/new_age/_articles_in_development/posts/attachments/posts/2025-09-03-github-pages-from-zero-to-live/images/github_page_active_live.png
+  path: /workspaces/posts/attachments/posts/2025-09-03-github-pages-from-zero-to-live/images/github_page_active_live.png
   web_path: attachments/posts/2025-09-03-github-pages-from-zero-to-live/images/github_page_active_live.png
   url: /attachments/posts/2025-09-03-github-pages-from-zero-to-live/images/github_page_active_live.png
   absolute_url: https://mr901.github.io/posts/attachments/posts/2025-09-03-github-pages-from-zero-to-live/images/github_page_active_live.png
@@ -32,7 +32,7 @@ images:
   ext: .png
   references: 1
 - filename: github_settings_page.png
-  path: /home/mohit/Documents/new_age/_articles_in_development/posts/attachments/posts/2025-09-03-github-pages-from-zero-to-live/images/github_settings_page.png
+  path: /workspaces/posts/attachments/posts/2025-09-03-github-pages-from-zero-to-live/images/github_settings_page.png
   web_path: attachments/posts/2025-09-03-github-pages-from-zero-to-live/images/github_settings_page.png
   url: /attachments/posts/2025-09-03-github-pages-from-zero-to-live/images/github_settings_page.png
   absolute_url: https://mr901.github.io/posts/attachments/posts/2025-09-03-github-pages-from-zero-to-live/images/github_settings_page.png
@@ -40,7 +40,7 @@ images:
   ext: .png
   references: 1
 - filename: repo_icon.png
-  path: /home/mohit/Documents/new_age/_articles_in_development/posts/attachments/general/images/repo_icon.png
+  path: /workspaces/posts/attachments/general/images/repo_icon.png
   web_path: attachments/general/images/repo_icon.png
   url: /attachments/general/images/repo_icon.png
   absolute_url: https://mr901.github.io/posts/attachments/general/images/repo_icon.png
@@ -48,7 +48,7 @@ images:
   ext: .png
   references: 2
 - filename: screenshot.png
-  path: /home/mohit/Documents/new_age/_articles_in_development/posts/attachments/general/images/screenshot.png
+  path: /workspaces/posts/attachments/general/images/screenshot.png
   web_path: attachments/general/images/screenshot.png
   url: /attachments/general/images/screenshot.png
   absolute_url: https://mr901.github.io/posts/attachments/general/images/screenshot.png
@@ -57,7 +57,7 @@ images:
   references: 2
 research:
 - filename: Attention_is_all_you_need_v7.pdf
-  path: /home/mohit/Documents/new_age/_articles_in_development/posts/attachments/general/research_papers/Attention_is_all_you_need_v7.pdf
+  path: /workspaces/posts/attachments/general/research_papers/Attention_is_all_you_need_v7.pdf
   web_path: attachments/general/research_papers/Attention_is_all_you_need_v7.pdf
   url: /attachments/general/research_papers/Attention_is_all_you_need_v7.pdf
   absolute_url: https://mr901.github.io/posts/attachments/general/research_papers/Attention_is_all_you_need_v7.pdf
@@ -65,7 +65,7 @@ research:
   ext: .pdf
   references: 0
 - filename: The_Illustrated_Transformer_-_Jay_Alammar.pdf
-  path: /home/mohit/Documents/new_age/_articles_in_development/posts/attachments/general/research_papers/The_Illustrated_Transformer_-_Jay_Alammar.pdf
+  path: /workspaces/posts/attachments/general/research_papers/The_Illustrated_Transformer_-_Jay_Alammar.pdf
   web_path: attachments/general/research_papers/The_Illustrated_Transformer_-_Jay_Alammar.pdf
   url: /attachments/general/research_papers/The_Illustrated_Transformer_-_Jay_Alammar.pdf
   absolute_url: https://mr901.github.io/posts/attachments/general/research_papers/The_Illustrated_Transformer_-_Jay_Alammar.pdf
@@ -74,7 +74,7 @@ research:
   references: 0
 articles:
 - filename: The_Illustrated_Transformer_-_Jay_Alammar.pdf
-  path: /home/mohit/Documents/new_age/_articles_in_development/posts/attachments/general/articles/The_Illustrated_Transformer_-_Jay_Alammar.pdf
+  path: /workspaces/posts/attachments/general/articles/The_Illustrated_Transformer_-_Jay_Alammar.pdf
   web_path: attachments/general/articles/The_Illustrated_Transformer_-_Jay_Alammar.pdf
   url: /attachments/general/articles/The_Illustrated_Transformer_-_Jay_Alammar.pdf
   absolute_url: https://mr901.github.io/posts/attachments/general/articles/The_Illustrated_Transformer_-_Jay_Alammar.pdf
