@@ -2,9 +2,57 @@
 
 This repository is a Jekyll site powered by the Chirpy theme. It includes a ready-to-write setup plus a comprehensive guide for creating posts and pages.
 
+## Quick Start
+
+- Clone and install:
+  ```bash
+  bundle install
+  ```
+- Serve locally:
+  ```bash
+  bundle exec jekyll serve --livereload
+  ```
+  Open `http://127.0.0.1:4000/posts` (or run with `--baseurl ""` to serve at `/`).
+- Create content:
+  - Add a post under `_posts/`
+  - Put images and downloads under `attachments/` (see below)
+- Deploy: follow the GitHub Pages notes to pre-generate attachment data, then push.
+
+## Attachments
+
+- Base directory: `attachments/` (configurable via `attachments_dir` in `_config.yml`).
+- Use shared buckets for cross-post assets and per-post buckets for single-use assets.
+
+```text
+attachments/
+├── general/
+│   ├── images/
+│   ├── articles/
+│   └── research_papers/
+└── posts/
+    └── <your-post-slug>/
+        ├── images/
+        ├── articles/
+        └── research_papers/
+```
+
+Linking examples (RST):
+
+```rst
+.. image:: attachments/general/images/example.png
+   :alt: Example image
+
+.. figure:: attachments/posts/your-post-slug/images/diagram.png
+   :alt: Diagram
+
+`Download the paper <attachments/general/research_papers/paper.pdf>`_
+```
+
 ## Table of Contents
 
 - [Jekyll + Chirpy Starter](#jekyll--chirpy-starter)
+  - [Quick Start](#quick-start)
+  - [Attachments](#attachments)
   - [Table of Contents](#table-of-contents)
   - [Dev Container (recommended)](#dev-container-recommended)
     - [Open in Dev Container](#open-in-dev-container)
@@ -65,8 +113,8 @@ bundle exec jekyll serve --livereload --host 0.0.0.0 --baseurl ""
 - Script: `./scripts/serve.sh` (or `./scripts/serve.sh --root`).
 
 ### Content workflow in container
-- Create or edit posts under `_posts/` and assets under `assets/images/`.
-- Use `media_subpath` in front matter to keep images organized per post.
+- Create or edit posts under `_posts/` and attachments under `attachments/`.
+- Use `attachments/general/{images,articles,research_papers}` for shared files, or `attachments/posts/<your-post-slug>/{images,articles,research_papers}` for post‑scoped files.
 - Verify build output and links before opening a PR to `develop`.
 
 ### Notes
@@ -143,7 +191,9 @@ Create standalone pages (e.g., `about.md`) at the project root or in a folder. U
 - **Posts**: `_posts/`, named `YYYY-MM-DD-title.ext`
 - **Categories**: up to two levels, e.g., `[Tutorial, Jekyll]`
 - **Tags**: lowercase, specific topics, e.g., `[jekyll, static-sites]`
-- **Images**: keep under `assets/images/`, set `media_subpath` per post
+- **Attachments**: store under `attachments/` (configurable via `attachments_dir` in `_config.yml`):
+  - Shared: `attachments/general/{images,articles,research_papers}`
+  - Per-post: `attachments/posts/<slug>/{images,articles,research_papers}`
 - **Accessibility**: always set `image.alt`
 
 ## Authoring Workflow (branches, PRs, validation)
@@ -190,18 +240,37 @@ Introduction paragraph...
 
 ### Add attachments (images, downloads)
 
-- Put images under `assets/images/YYYY-MM-DD/` that matches the post date.
-- Reference images in RST using standard Markdown image syntax or HTML, the front matter `media_subpath` will simplify relative paths.
-- For downloads, use `assets/downloads/` and link directly.
+- Put shared files under `attachments/general/…`.
+- For post-specific assets, use `attachments/posts/<your-post-slug>/…`.
+- Prefer relative paths like `attachments/...` in your content so links work with any `baseurl`.
 
 ```text
-assets/
-├── images/
-│   └── 2025-09-01/
-│       ├── cover.png
-│       └── diagram.png
-└── downloads/
-    └── your-asset.pdf
+attachments/
+├── general/
+│   ├── images/
+│   ├── articles/
+│   └── research_papers/
+└── posts/
+    └── <your-post-slug>/
+        ├── images/
+        ├── articles/
+        └── research_papers/
+```
+
+Examples in RST:
+
+```rst
+.. image:: attachments/general/images/example.png
+   :alt: Example image
+
+.. figure:: attachments/posts/your-post-slug/images/diagram.png
+   :alt: Diagram
+```
+
+PDF/article download:
+
+```rst
+`Download the paper <attachments/general/research_papers/paper.pdf>`_
 ```
 
 ### Preview and validate locally
@@ -220,8 +289,8 @@ bundle exec htmlproofer --disable-external _site
 ### Commit, push, and open PR
 
 ```bash
-git add _posts/ assets/
-git commit -m "add(post): your-post-slug in RST with assets"
+git add _posts/ attachments/
+git commit -m "add(post): your-post-slug with attachments"
 git push -u origin feature/your-post-slug
 ```
 
@@ -239,8 +308,20 @@ Open a Pull Request to the `develop` branch. Include a short summary and screens
 ├── _config.yml
 ├── _posts/
 ├── _tabs/
+├── attachments/
+│   ├── general/
+│   │   ├── images/
+│   │   ├── articles/
+│   │   └── research_papers/
+│   └── posts/
+│       └── <slug>/
+│           ├── images/
+│           ├── articles/
+│           └── research_papers/
 ├── assets/
-│   └── images/
+│   ├── css/
+│   ├── js/
+│   └── img/
 ├── index.html
 └── README.md
 ```
@@ -287,8 +368,9 @@ git push origin <pages-source-branch>  # e.g., main
 ```
 
 Notes
-- The Pages source branch/folder is shown in GitHub → Settings → Pages → Build and deployment → Source. Ensure the generated `_data/*.yml` exist in that branch and folder.
-- The generator respects `_config.yml` `baseurl`. This repo uses `baseurl: "/posts"`, so generated post URLs look like `/posts/<slug>/`.
+- `attachments_dir` in `_config.yml` controls where attachments live (default: `attachments`).
+- Prefer relative paths like `attachments/...` in posts so links work with any `baseurl`.
+- The generator respects `_config.yml` `baseurl` when composing absolute URLs for data files.
 - In CI (GitHub Actions), run `python3 scripts/generate_attachment_data.py .` before `jekyll build` and deploy the output.
 
 ## Troubleshooting

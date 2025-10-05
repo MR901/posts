@@ -1,44 +1,44 @@
 images:
 - filename: github_actions_successful_build.png
-  path: /workspaces/post-test/attachments/general/images/github_actions_successful_build.png
-  web_path: attachments/general/images/github_actions_successful_build.png
-  url: /attachments/general/images/github_actions_successful_build.png
-  absolute_url: https://mr901.github.io/attachments/general/images/github_actions_successful_build.png
+  path: /workspaces/post-test/attachments/posts/2025-09-03-github-pages-from-zero-to-live/images/github_actions_successful_build.png
+  web_path: attachments/posts/2025-09-03-github-pages-from-zero-to-live/images/github_actions_successful_build.png
+  url: /attachments/posts/2025-09-03-github-pages-from-zero-to-live/images/github_actions_successful_build.png
+  absolute_url: https://mr901.github.io/attachments/posts/2025-09-03-github-pages-from-zero-to-live/images/github_actions_successful_build.png
   name: github_actions_successful_build
   ext: .png
-  references: 2
+  references: 1
 - filename: github_actions_successful_deploy.png
-  path: /workspaces/post-test/attachments/general/images/github_actions_successful_deploy.png
-  web_path: attachments/general/images/github_actions_successful_deploy.png
-  url: /attachments/general/images/github_actions_successful_deploy.png
-  absolute_url: https://mr901.github.io/attachments/general/images/github_actions_successful_deploy.png
+  path: /workspaces/post-test/attachments/posts/2025-09-03-github-pages-from-zero-to-live/images/github_actions_successful_deploy.png
+  web_path: attachments/posts/2025-09-03-github-pages-from-zero-to-live/images/github_actions_successful_deploy.png
+  url: /attachments/posts/2025-09-03-github-pages-from-zero-to-live/images/github_actions_successful_deploy.png
+  absolute_url: https://mr901.github.io/attachments/posts/2025-09-03-github-pages-from-zero-to-live/images/github_actions_successful_deploy.png
   name: github_actions_successful_deploy
   ext: .png
-  references: 2
+  references: 1
 - filename: github_code_successful_deployment.png
-  path: /workspaces/post-test/attachments/general/images/github_code_successful_deployment.png
-  web_path: attachments/general/images/github_code_successful_deployment.png
-  url: /attachments/general/images/github_code_successful_deployment.png
-  absolute_url: https://mr901.github.io/attachments/general/images/github_code_successful_deployment.png
+  path: /workspaces/post-test/attachments/posts/2025-09-03-github-pages-from-zero-to-live/images/github_code_successful_deployment.png
+  web_path: attachments/posts/2025-09-03-github-pages-from-zero-to-live/images/github_code_successful_deployment.png
+  url: /attachments/posts/2025-09-03-github-pages-from-zero-to-live/images/github_code_successful_deployment.png
+  absolute_url: https://mr901.github.io/attachments/posts/2025-09-03-github-pages-from-zero-to-live/images/github_code_successful_deployment.png
   name: github_code_successful_deployment
   ext: .png
-  references: 2
+  references: 1
 - filename: github_page_active_live.png
-  path: /workspaces/post-test/attachments/general/images/github_page_active_live.png
-  web_path: attachments/general/images/github_page_active_live.png
-  url: /attachments/general/images/github_page_active_live.png
-  absolute_url: https://mr901.github.io/attachments/general/images/github_page_active_live.png
+  path: /workspaces/post-test/attachments/posts/2025-09-03-github-pages-from-zero-to-live/images/github_page_active_live.png
+  web_path: attachments/posts/2025-09-03-github-pages-from-zero-to-live/images/github_page_active_live.png
+  url: /attachments/posts/2025-09-03-github-pages-from-zero-to-live/images/github_page_active_live.png
+  absolute_url: https://mr901.github.io/attachments/posts/2025-09-03-github-pages-from-zero-to-live/images/github_page_active_live.png
   name: github_page_active_live
   ext: .png
-  references: 2
+  references: 1
 - filename: github_settings_page.png
-  path: /workspaces/post-test/attachments/general/images/github_settings_page.png
-  web_path: attachments/general/images/github_settings_page.png
-  url: /attachments/general/images/github_settings_page.png
-  absolute_url: https://mr901.github.io/attachments/general/images/github_settings_page.png
+  path: /workspaces/post-test/attachments/posts/2025-09-03-github-pages-from-zero-to-live/images/github_settings_page.png
+  web_path: attachments/posts/2025-09-03-github-pages-from-zero-to-live/images/github_settings_page.png
+  url: /attachments/posts/2025-09-03-github-pages-from-zero-to-live/images/github_settings_page.png
+  absolute_url: https://mr901.github.io/attachments/posts/2025-09-03-github-pages-from-zero-to-live/images/github_settings_page.png
   name: github_settings_page
   ext: .png
-  references: 2
+  references: 1
 - filename: repo_icon.png
   path: /workspaces/post-test/attachments/general/images/repo_icon.png
   web_path: attachments/general/images/repo_icon.png
