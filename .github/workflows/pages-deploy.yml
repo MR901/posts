@@ -111,17 +111,32 @@ jobs:
         with:
           path: "_site"
 
-  deploy:
-    # For PRs from forks, skip deployment but still run build/test
-    if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository)
+  deploy_preview:
+    # Deploy preview for all PRs from the same repo; does not affect production
+    if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     needs: build
     steps:
-      - name: Deploy to GitHub Pages
+      - name: Deploy PR Preview to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
         with:
-          preview: ${{ github.event_name == 'pull_request' }}
+          preview: true
+
+  deploy:
+    # Only deploy production Pages from allowed branches to satisfy environment protections
+    if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master' || github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/dev')
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages (Production)
+        id: deployment
+        uses: actions/deploy-pages@v4
+        with:
+          preview: false
