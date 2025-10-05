@@ -216,9 +216,6 @@ Best-Practice Checklist
 - Include **verification steps** in complex tasks.
 - Document each iteration for traceability.
 
-.. image:: placeholder_prompt_iteration_cycle.png
-   :alt: Flowchart of prompt design–evaluation–refinement loop
-   :align: center
 
 Transition to Advanced Concepts
 ===============================
