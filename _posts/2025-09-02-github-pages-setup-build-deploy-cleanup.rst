@@ -105,6 +105,22 @@ Scenario A — CI/CD pipeline setup (generator‑agnostic)
   - If content looks cached, try a private window or a hard refresh
 
 
+Attachment references data on GitHub Pages (important)
+--------------------------------------------------------------------------------
+
+GitHub Pages runs Jekyll in safe mode and does not execute custom plugins. This site uses a custom attachment data generator to power the "Referenced in" panel on the ``Attachments`` tab. Before pushing to the branch that Pages builds from, pre-generate and commit the data files:
+
+::
+
+   make data           # generates _data/attachment_{galleries,references}.yml
+   make pages-prep     # optional: builds locally to verify
+   git add _data/attachment_galleries.yml _data/attachment_references.yml
+   git commit -m "chore(data): update attachment data for Pages"
+   git push origin <pages-source-branch>
+
+Where to confirm the branch/folder: GitHub → Settings → Pages → Build and deployment → Source. Ensure the generated files exist in that branch (e.g., ``main``) and folder (root or ``/docs``).
+
+
 Scenario B — Inspect/Manage Deployments with gh CLI
 --------------------------------------------------------------------------------
 
@@ -242,13 +258,13 @@ Scenario E — Authoring Content that Survives baseurl
   Write paths that work both locally and in production.
 
 **Tasks**
-  1. Prefer relative paths for images/assets inside posts (e.g., ``assets/attachments/...``)
+  1. Prefer relative paths for images/assets inside posts (e.g., ``attachments/general/...``)
   2. Use live URLs that include the base path when linking between pages
 
 **Actions**
   RST image in a post::
 
-      .. image:: assets/attachments/images/repo_icon.png
+      .. image:: attachments/general/images/repo_icon.png
          :alt: Example
 
   Internal post links (examples)::

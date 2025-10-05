@@ -443,7 +443,7 @@ Images
 
 **Basic Image Syntax:**
 
-.. image:: assets/attachments/images/repo_icon.png
+.. image:: attachments/general/images/repo_icon.png
    :alt: Description of the image
    :align: center
    :width: 400
@@ -451,7 +451,7 @@ Images
 
 **Image with Caption:**
 
-.. figure:: assets/attachments/images/screenshot.png
+.. figure:: attachments/general/images/screenshot.png
    :alt: Application screenshot
    :align: left
    :width: 600

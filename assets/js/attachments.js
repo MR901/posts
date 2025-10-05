@@ -78,6 +78,47 @@
     });
   }
 
+  // Normalize incoming URL hashes to the actual tab pane IDs
+  function normalizeHash(hash) {
+    if (!hash) return '';
+    var h = ('' + hash).toLowerCase();
+    if (h.charAt(0) !== '#') h = '#' + h;
+    var key = h.slice(1);
+
+    // Images aliases
+    if (
+      key === 'images' ||
+      key === 'image' ||
+      key === 'images-tab' ||
+      key === 'images-content'
+    ) {
+      return '#images-content';
+    }
+
+    // Articles aliases
+    if (
+      key === 'articles' ||
+      key === 'article' ||
+      key === 'articles-tab' ||
+      key === 'articles-content'
+    ) {
+      return '#articles-content';
+    }
+
+    // Research aliases
+    if (
+      key === 'research' ||
+      key === 'research-tab' ||
+      key === 'research-content' ||
+      key === 'papers' ||
+      key === 'paper'
+    ) {
+      return '#research-content';
+    }
+
+    return h;
+  }
+
   function setInitialTabState(tabLinks, tabPanes) {
     // Hide all panes first
     Array.prototype.forEach.call(tabPanes, function (pane) {
@@ -86,7 +127,7 @@
     });
 
     // Check for hash or activate first tab
-    var hash = window.location.hash;
+    var hash = normalizeHash(window.location.hash);
     var activeLink = null;
 
     if (hash) {
@@ -126,7 +167,7 @@
   }
 
   function handleHashChange(tabLinks, tabPanes) {
-    var hash = window.location.hash;
+    var hash = normalizeHash(window.location.hash);
     if (!hash) return;
 
     var targetLink = document.querySelector('a[href="' + hash + '"]');
@@ -663,24 +704,22 @@
 
     // Show modal with animation
     container.style.display = 'flex';
-    container.style.alignItems = 'center';
-    container.style.justifyContent = 'center';
-    container.style.padding = '0';
 
     // Trigger animation
     setTimeout(function () {
       container.style.opacity = '1';
     }, 10);
 
-    // Prevent body scroll
+    // Prevent body scroll and add modal-open class
     document.body.style.overflow = 'hidden';
+    document.body.classList.add('modal-open');
 
     // Focus management for accessibility
-    var firstFocusable = content.querySelector(
+    var focusable = content.querySelectorAll(
       'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
     );
-    if (firstFocusable) {
-      firstFocusable.focus();
+    if (focusable && focusable.length) {
+      focusable[0].focus();
     }
 
     // Keyboard handling
@@ -703,8 +742,9 @@
       container.innerHTML = '';
     }, config.animationDuration);
 
-    // Restore body scroll
+    // Restore body scroll and remove modal-open class
     document.body.style.overflow = '';
+    document.body.classList.remove('modal-open');
 
     // Remove keyboard handler
     document.removeEventListener('keydown', handleModalKeydown);
@@ -922,6 +962,30 @@
     }
 
     return url;
+  }
+
+  // Ensure global handlers exist even if initialization hasn’t run yet
+  if (typeof window !== 'undefined') {
+    if (!window.showImageModal) {
+      window.showImageModal = function () {
+        try {
+          init();
+        } catch (e) {}
+        if (typeof showImageModal === 'function') {
+          return showImageModal.apply(this, arguments);
+        }
+      };
+    }
+    if (!window.showPdfModal) {
+      window.showPdfModal = function () {
+        try {
+          init();
+        } catch (e) {}
+        if (typeof showPdfModal === 'function') {
+          return showPdfModal.apply(this, arguments);
+        }
+      };
+    }
   }
 
   function navigateGallery(direction) {
