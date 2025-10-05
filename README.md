@@ -28,6 +28,7 @@ This repository is a Jekyll site powered by the Chirpy theme. It includes a read
     - [Merge into base branch](#merge-into-base-branch)
   - [Project Structure](#project-structure)
   - [Useful Commands](#useful-commands)
+  - [Attachment references on GitHub Pages](#attachment-references-on-github-pages)
   - [Troubleshooting](#troubleshooting)
   - [Documentation and Links](#documentation-and-links)
 
@@ -259,6 +260,36 @@ bundle exec jekyll build
 # Update gems (if needed)
 bundle update
 ```
+
+Test the built site (baseurl-aware htmlproofer):
+
+```bash
+make test
+```
+
+## Attachment references on GitHub Pages
+
+GitHub Pages runs Jekyll in safe mode and will not execute custom plugins. This site ships a custom attachment scanner/generator, so you must pre-generate and commit the data files that power the “Referenced in” panel on the `Attachments` tab.
+
+What to do before pushing to the branch that Pages builds from (e.g., `main`):
+
+```bash
+# Generate `_data/attachment_{galleries,references}.yml`
+make data
+
+# Optionally build locally to verify
+make pages-prep
+
+# Commit the generated data files
+git add _data/attachment_galleries.yml _data/attachment_references.yml
+git commit -m "chore(data): update attachment data for Pages"
+git push origin <pages-source-branch>  # e.g., main
+```
+
+Notes
+- The Pages source branch/folder is shown in GitHub → Settings → Pages → Build and deployment → Source. Ensure the generated `_data/*.yml` exist in that branch and folder.
+- The generator respects `_config.yml` `baseurl`. This repo uses `baseurl: "/posts"`, so generated post URLs look like `/posts/<slug>/`.
+- In CI (GitHub Actions), run `python3 scripts/generate_attachment_data.py .` before `jekyll build` and deploy the output.
 
 ## Troubleshooting
 - **Gem or dependency errors**: run `bundle update`, then `bundle install`.

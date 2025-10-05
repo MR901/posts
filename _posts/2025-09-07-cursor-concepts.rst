@@ -54,7 +54,7 @@ Steps:
 
 3. Visit the live URL shown on the Pages screen (incognito/hard‑refresh if needed).
 
-.. figure:: assets/attachments/images/github_settings_page.png
+.. figure:: attachments/general/images/github_settings_page.png
    :alt: GitHub Pages settings showing source and live URL
 
 
@@ -123,10 +123,10 @@ Create ``.github/workflows/pages-deploy.yml`` with one build path of your choice
          - id: deployment
            uses: actions/deploy-pages@v4
 
-.. figure:: assets/attachments/images/github_actions_successful_build.png
+.. figure:: attachments/general/images/github_actions_successful_build.png
    :alt: Successful GitHub Actions build steps
 
-.. figure:: assets/attachments/images/github_actions_successful_deploy.png
+.. figure:: attachments/general/images/github_actions_successful_deploy.png
    :alt: Successful GitHub Actions deploy with page URL
 
 
@@ -137,10 +137,10 @@ Verify and monitor
 2. Settings → Pages shows the same live URL.
 3. Use a hard refresh (Ctrl+Shift+R) or incognito to bypass caches.
 
-.. figure:: assets/attachments/images/github_code_successful_deployment.png
+.. figure:: attachments/general/images/github_code_successful_deployment.png
    :alt: Repository deployments view showing github-pages environment
 
-.. figure:: assets/attachments/images/github_page_active_live.png
+.. figure:: attachments/general/images/github_page_active_live.png
    :alt: Live site rendering after deployment
 
 

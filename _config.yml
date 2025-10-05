@@ -30,6 +30,10 @@ baseurl: "/posts"
 
 paginate: 20
 
+# Base directory for attachments (images, articles, research_papers)
+# Can be changed to relocate attachments without code changes elsewhere
+attachments_dir: "attachments"
+
 github:
   username: mr901 # change to your GitHub username
 

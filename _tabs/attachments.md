@@ -13,12 +13,13 @@ Browse and search through all available attachments organized by category.
   <input id="attachment-search" type="search" placeholder="Search attachments..." class="form-control" />
 </div>
 
-{% assign all_files = site.static_files | where_exp: "file", "file.path contains '/assets/attachments/'" %}
+{% assign attachments_base = '/' | append: site.attachments_dir | append: '/' %}
+{% assign all_files = site.static_files | where_exp: "file", "file.path contains attachments_base" %}
 
 {% if all_files.size > 0 %}
-{% assign images_files = all_files | where_exp: "file", "file.path contains '/assets/attachments/images/'" | sort: 'name' %}
-{% assign articles_files = all_files | where_exp: "file", "file.path contains '/assets/attachments/articles/'" | sort: 'name' %}
-{% assign research_files = all_files | where_exp: "file", "file.path contains '/assets/attachments/research_papers/'" | sort: 'name' %}
+{% assign images_files = all_files | where_exp: "file", "file.path contains '/images/'" | sort: 'name' %}
+{% assign articles_files = all_files | where_exp: "file", "file.path contains '/articles/'" | sort: 'name' %}
+{% assign research_files = all_files | where_exp: "file", "file.path contains '/research_papers/'" | sort: 'name' %}
 
 <!-- Tab Navigation -->
 <ul class="nav nav-tabs mb-4" id="attachmentTabs" role="tablist">
@@ -138,7 +139,7 @@ Browse and search through all available attachments organized by category.
 {% else %}
 <div class="alert alert-info" role="alert">
   <i class="fas fa-info-circle me-2"></i>
-  No attachments found under <code>assets/attachments/</code>.
+  No attachments found under <code>{{ site.attachments_dir }}/</code>.
 </div>
 {% endif %}
 
