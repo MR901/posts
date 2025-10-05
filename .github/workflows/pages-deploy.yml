@@ -7,7 +7,7 @@ on:
       - main
       - master
       # Add any other branches you want to trigger deployment
-      - article-prompt
+      - article-*
     paths-ignore:
       - .gitignore
       - README.md
