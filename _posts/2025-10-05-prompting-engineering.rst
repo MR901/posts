@@ -60,9 +60,6 @@ Key components:
 - **Feed-Forward Network** – non-linear transformation applied to each position.
 - **Residual Connections + Layer Normalization** – stabilize gradient flow.
 
-.. image:: placeholder_transformer_architecture.png
-   :alt: Diagram showing transformer layers and token flow
-   :align: center
 
 Tokenization and Context
 ------------------------
