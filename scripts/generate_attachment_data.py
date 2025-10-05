@@ -7,7 +7,6 @@ Replaces the Ruby plugin functionality with build-time data generation
 
 import os
 import re
-import json
 import yaml
 import glob
 from pathlib import Path
@@ -17,7 +16,6 @@ from collections import defaultdict
 class AttachmentDataGenerator:
     def __init__(self, site_root="."):
         self.site_root = Path(site_root).resolve()
-        self.attachments_dir = self.site_root / "assets" / "attachments"
         self.posts_dir = self.site_root / "_posts"
         self.pages_dirs = [self.site_root / "_tabs", self.site_root]
         self.data_dir = self.site_root / "_data"
@@ -27,9 +25,16 @@ class AttachmentDataGenerator:
         self.base_url = self.config.get('baseurl', '')
         self.site_url = self.config.get('url', '')
 
+        # Resolve attachments directory from config (default to "assets/attachments")
+        attachments_dir_name = str(self.config.get('attachments_dir', 'assets/attachments')).strip('/')
+        self.attachments_dir = self.site_root / attachments_dir_name
+        # Web prefix used in content and URLs (with leading and trailing slash)
+        self.attachments_web_prefix = f"/{attachments_dir_name}/"
+
         print(f"🔧 Initializing attachment data generator...")
         print(f"📁 Site root: {self.site_root}")
         print(f"📎 Attachments: {self.attachments_dir}")
+        print(f"📎 Attachments web prefix: {self.attachments_web_prefix}")
         print(f"🌐 Base URL: {self.base_url}")
 
     def load_config(self):
@@ -148,13 +153,15 @@ class AttachmentDataGenerator:
                 url = f"{self.base_url}/{doc_path.stem}/" if self.base_url else f"/{doc_path.stem}/"
 
             # Look for attachment references in content
+            prefix = re.escape(self.attachments_web_prefix)
+            prefix_no_slash = re.escape(self.attachments_web_prefix.lstrip('/'))
             attachment_patterns = [
-                r'!\[.*?\]\(([^)]*assets/attachments[^)]+)\)',  # Markdown images
-                r'src=[\'"]([^\'\"]*assets/attachments[^\'\"]+)[\'"]',  # HTML src
-                r'href=[\'"]([^\'\"]*assets/attachments[^\'\"]+)[\'"]',  # HTML href
-                r'showImageModal\([\'"]([^\'\"]*assets/attachments[^\'\"]+)[\'"]',  # JS modal
-                r'showPdfModal\([\'"]([^\'\"]*assets/attachments[^\'\"]+)[\'"]',  # JS PDF
-                r'assets/attachments/[^\s]*([^/\s]+\.[a-zA-Z0-9]+)',  # Direct references
+                rf'!\[.*?\]\(([^)]*(?:{prefix}|{prefix_no_slash})[^)]+)\)',
+                rf'src=[\'\"]([^\'\"]*(?:{prefix}|{prefix_no_slash})[^\'\"]+)[\'\"]',
+                rf'href=[\'\"]([^\'\"]*(?:{prefix}|{prefix_no_slash})[^\'\"]+)[\'\"]',
+                rf'showImageModal\([\'\"]([^\'\"]*(?:{prefix}|{prefix_no_slash})[^\'\"]+)[\'\"]',
+                rf'showPdfModal\([\'\"]([^\'\"]*(?:{prefix}|{prefix_no_slash})[^\'\"]+)[\'\"]',
+                rf'(?:{prefix}|{prefix_no_slash})[^\s]*([^/\s]+\.[a-zA-Z0-9]+)'
             ]
 
             found_files = set()
@@ -162,13 +169,15 @@ class AttachmentDataGenerator:
             for pattern in attachment_patterns:
                 matches = re.finditer(pattern, body, re.IGNORECASE)
                 for match in matches:
-                    attachment_path = match.group(1)
+                    attachment_path = match.group(1) if match.groups() else match.group(0)
                     filename = os.path.basename(attachment_path)
                     found_files.add(filename)
 
             # Also scan for direct filename mentions in attachment context
+            base_marker_with_slash = self.attachments_web_prefix
+            base_marker_no_slash = self.attachments_web_prefix.lstrip('/')
             for filename in references.keys():
-                if filename in body and 'assets/attachments' in body:
+                if filename in body and (base_marker_with_slash in body or base_marker_no_slash in body):
                     found_files.add(filename)
 
             # Add references
@@ -265,14 +274,7 @@ class AttachmentDataGenerator:
             yaml.dump(references, f, default_flow_style=False, allow_unicode=True, sort_keys=False)
         print(f"🔗 Reference data saved: {references_file}")
 
-        # Also save as JSON for debugging/inspection
-        galleries_json = self.data_dir / "attachment_galleries.json"
-        with open(galleries_json, 'w', encoding='utf-8') as f:
-            json.dump(galleries, f, indent=2, ensure_ascii=False)
-
-        references_json = self.data_dir / "attachment_references.json"
-        with open(references_json, 'w', encoding='utf-8') as f:
-            json.dump(references, f, indent=2, ensure_ascii=False)
+        # JSON export removed (standardize on YAML only)
 
     def generate_stats(self, galleries, references):
         """Generate and display statistics"""

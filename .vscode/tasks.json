@@ -2,25 +2,32 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "Run Jekyll Server",
+      "label": "Jekyll: Serve",
       "type": "shell",
-      "command": "./tools/run.sh",
+      "command": "bundle exec jekyll serve --livereload --host 0.0.0.0",
+      "problemMatcher": [],
       "group": {
         "kind": "build",
         "isDefault": true
-      },
-      "problemMatcher": [],
-      "detail": "Runs the Jekyll server with live reload."
+      }
     },
     {
-      "label": "Build Jekyll Site",
+      "label": "Jekyll: Serve (root baseurl)",
       "type": "shell",
-      "command": "./tools/test.sh",
-      "group": {
-        "kind": "build"
-      },
-      "problemMatcher": [],
-      "detail": "Build the Jekyll site for production."
+      "command": "bundle exec jekyll serve --livereload --host 0.0.0.0 --baseurl \"\"",
+      "problemMatcher": []
+    },
+    {
+      "label": "Jekyll: Build",
+      "type": "shell",
+      "command": "bundle exec jekyll build",
+      "problemMatcher": []
+    },
+    {
+      "label": "Jekyll: Clean",
+      "type": "shell",
+      "command": "bundle exec jekyll clean",
+      "problemMatcher": []
     }
   ]
 }

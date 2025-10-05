@@ -8,6 +8,11 @@ Gemfile.lock
 .jekyll-metadata
 .pygments-cache
 _site
+.ruby-lsp
+.sass-cache
+
+# OS
+.DS_Store
 
 # Python cache
 __pycache__/
