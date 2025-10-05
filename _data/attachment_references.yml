@@ -1,8 +1,8 @@
 screenshot.png:
-  path: /workspaces/post-test/attachments/general/images/screenshot.png
+  path: /home/mohit/Documents/new_age/_articles_in_development/posts/attachments/general/images/screenshot.png
   web_path: attachments/general/images/screenshot.png
   url: /attachments/general/images/screenshot.png
-  absolute_url: https://mr901.github.io/attachments/general/images/screenshot.png
+  absolute_url: https://mr901.github.io/posts/attachments/general/images/screenshot.png
   posts:
   - title: 'Jekyll Content Creation: Writing Posts and Pages'
     url: /posts/jekyll-content-creation-guide/
@@ -16,10 +16,10 @@ screenshot.png:
   pages: []
   total_references: 2
 repo_icon.png:
-  path: /workspaces/post-test/attachments/general/images/repo_icon.png
+  path: /home/mohit/Documents/new_age/_articles_in_development/posts/attachments/general/images/repo_icon.png
   web_path: attachments/general/images/repo_icon.png
   url: /attachments/general/images/repo_icon.png
-  absolute_url: https://mr901.github.io/attachments/general/images/repo_icon.png
+  absolute_url: https://mr901.github.io/posts/attachments/general/images/repo_icon.png
   posts:
   - title: 'Jekyll Advanced Formatting: Typography, Media, and Special Features'
     url: /posts/jekyll-formatting-features/
@@ -34,26 +34,26 @@ repo_icon.png:
   pages: []
   total_references: 2
 The_Illustrated_Transformer_-_Jay_Alammar.pdf:
-  path: /workspaces/post-test/attachments/general/articles/The_Illustrated_Transformer_-_Jay_Alammar.pdf
+  path: /home/mohit/Documents/new_age/_articles_in_development/posts/attachments/general/articles/The_Illustrated_Transformer_-_Jay_Alammar.pdf
   web_path: attachments/general/articles/The_Illustrated_Transformer_-_Jay_Alammar.pdf
   url: /attachments/general/articles/The_Illustrated_Transformer_-_Jay_Alammar.pdf
-  absolute_url: https://mr901.github.io/attachments/general/articles/The_Illustrated_Transformer_-_Jay_Alammar.pdf
+  absolute_url: https://mr901.github.io/posts/attachments/general/articles/The_Illustrated_Transformer_-_Jay_Alammar.pdf
   posts: []
   pages: []
   total_references: 0
 Attention_is_all_you_need_v7.pdf:
-  path: /workspaces/post-test/attachments/general/research_papers/Attention_is_all_you_need_v7.pdf
+  path: /home/mohit/Documents/new_age/_articles_in_development/posts/attachments/general/research_papers/Attention_is_all_you_need_v7.pdf
   web_path: attachments/general/research_papers/Attention_is_all_you_need_v7.pdf
   url: /attachments/general/research_papers/Attention_is_all_you_need_v7.pdf
-  absolute_url: https://mr901.github.io/attachments/general/research_papers/Attention_is_all_you_need_v7.pdf
+  absolute_url: https://mr901.github.io/posts/attachments/general/research_papers/Attention_is_all_you_need_v7.pdf
   posts: []
   pages: []
   total_references: 0
 github_actions_successful_deploy.png:
-  path: /workspaces/post-test/attachments/posts/2025-09-03-github-pages-from-zero-to-live/images/github_actions_successful_deploy.png
+  path: /home/mohit/Documents/new_age/_articles_in_development/posts/attachments/posts/2025-09-03-github-pages-from-zero-to-live/images/github_actions_successful_deploy.png
   web_path: attachments/posts/2025-09-03-github-pages-from-zero-to-live/images/github_actions_successful_deploy.png
   url: /attachments/posts/2025-09-03-github-pages-from-zero-to-live/images/github_actions_successful_deploy.png
-  absolute_url: https://mr901.github.io/attachments/posts/2025-09-03-github-pages-from-zero-to-live/images/github_actions_successful_deploy.png
+  absolute_url: https://mr901.github.io/posts/attachments/posts/2025-09-03-github-pages-from-zero-to-live/images/github_actions_successful_deploy.png
   posts:
   - title: 'GitHub Pages: From Zero to Live'
     url: /posts/github-pages-from-zero-to-live/
@@ -62,10 +62,10 @@ github_actions_successful_deploy.png:
   pages: []
   total_references: 1
 github_settings_page.png:
-  path: /workspaces/post-test/attachments/posts/2025-09-03-github-pages-from-zero-to-live/images/github_settings_page.png
+  path: /home/mohit/Documents/new_age/_articles_in_development/posts/attachments/posts/2025-09-03-github-pages-from-zero-to-live/images/github_settings_page.png
   web_path: attachments/posts/2025-09-03-github-pages-from-zero-to-live/images/github_settings_page.png
   url: /attachments/posts/2025-09-03-github-pages-from-zero-to-live/images/github_settings_page.png
-  absolute_url: https://mr901.github.io/attachments/posts/2025-09-03-github-pages-from-zero-to-live/images/github_settings_page.png
+  absolute_url: https://mr901.github.io/posts/attachments/posts/2025-09-03-github-pages-from-zero-to-live/images/github_settings_page.png
   posts:
   - title: 'GitHub Pages: From Zero to Live'
     url: /posts/github-pages-from-zero-to-live/
@@ -74,10 +74,10 @@ github_settings_page.png:
   pages: []
   total_references: 1
 github_code_successful_deployment.png:
-  path: /workspaces/post-test/attachments/posts/2025-09-03-github-pages-from-zero-to-live/images/github_code_successful_deployment.png
+  path: /home/mohit/Documents/new_age/_articles_in_development/posts/attachments/posts/2025-09-03-github-pages-from-zero-to-live/images/github_code_successful_deployment.png
   web_path: attachments/posts/2025-09-03-github-pages-from-zero-to-live/images/github_code_successful_deployment.png
   url: /attachments/posts/2025-09-03-github-pages-from-zero-to-live/images/github_code_successful_deployment.png
-  absolute_url: https://mr901.github.io/attachments/posts/2025-09-03-github-pages-from-zero-to-live/images/github_code_successful_deployment.png
+  absolute_url: https://mr901.github.io/posts/attachments/posts/2025-09-03-github-pages-from-zero-to-live/images/github_code_successful_deployment.png
   posts:
   - title: 'GitHub Pages: From Zero to Live'
     url: /posts/github-pages-from-zero-to-live/
@@ -86,10 +86,10 @@ github_code_successful_deployment.png:
   pages: []
   total_references: 1
 github_actions_successful_build.png:
-  path: /workspaces/post-test/attachments/posts/2025-09-03-github-pages-from-zero-to-live/images/github_actions_successful_build.png
+  path: /home/mohit/Documents/new_age/_articles_in_development/posts/attachments/posts/2025-09-03-github-pages-from-zero-to-live/images/github_actions_successful_build.png
   web_path: attachments/posts/2025-09-03-github-pages-from-zero-to-live/images/github_actions_successful_build.png
   url: /attachments/posts/2025-09-03-github-pages-from-zero-to-live/images/github_actions_successful_build.png
-  absolute_url: https://mr901.github.io/attachments/posts/2025-09-03-github-pages-from-zero-to-live/images/github_actions_successful_build.png
+  absolute_url: https://mr901.github.io/posts/attachments/posts/2025-09-03-github-pages-from-zero-to-live/images/github_actions_successful_build.png
   posts:
   - title: 'GitHub Pages: From Zero to Live'
     url: /posts/github-pages-from-zero-to-live/
@@ -98,10 +98,10 @@ github_actions_successful_build.png:
   pages: []
   total_references: 1
 github_page_active_live.png:
-  path: /workspaces/post-test/attachments/posts/2025-09-03-github-pages-from-zero-to-live/images/github_page_active_live.png
+  path: /home/mohit/Documents/new_age/_articles_in_development/posts/attachments/posts/2025-09-03-github-pages-from-zero-to-live/images/github_page_active_live.png
   web_path: attachments/posts/2025-09-03-github-pages-from-zero-to-live/images/github_page_active_live.png
   url: /attachments/posts/2025-09-03-github-pages-from-zero-to-live/images/github_page_active_live.png
-  absolute_url: https://mr901.github.io/attachments/posts/2025-09-03-github-pages-from-zero-to-live/images/github_page_active_live.png
+  absolute_url: https://mr901.github.io/posts/attachments/posts/2025-09-03-github-pages-from-zero-to-live/images/github_page_active_live.png
   posts:
   - title: 'GitHub Pages: From Zero to Live'
     url: /posts/github-pages-from-zero-to-live/
