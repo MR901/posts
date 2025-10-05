@@ -9,6 +9,7 @@ import os
 import re
 import yaml
 import glob
+import json
 from pathlib import Path
 from urllib.parse import urljoin
 from collections import defaultdict
@@ -252,7 +253,7 @@ class AttachmentDataGenerator:
         return dict(galleries)
 
     def save_data(self, galleries, references):
-        """Save generated data to Jekyll data files"""
+        """Save generated data to Jekyll data files and public JSON endpoints"""
         print("💾 Saving generated data...")
 
         # Ensure data directory exists
@@ -277,7 +278,20 @@ class AttachmentDataGenerator:
             yaml.dump(references, f, default_flow_style=False, allow_unicode=True, sort_keys=False)
         print(f"🔗 Reference data saved: {references_file}")
 
-        # JSON export removed (standardize on YAML only)
+        # Also export JSON so GitHub Pages can fetch when inline data isn't injected
+        public_dir = self.site_root / "attachments-data"
+        public_dir.mkdir(exist_ok=True)
+
+        galleries_json = public_dir / "attachment_galleries.json"
+        references_json = public_dir / "attachment_references.json"
+
+        with open(galleries_json, 'w', encoding='utf-8') as f:
+            json.dump(galleries, f, ensure_ascii=False)
+        with open(references_json, 'w', encoding='utf-8') as f:
+            json.dump(references, f, ensure_ascii=False)
+
+        print(f"📁 Public JSON saved: {galleries_json}")
+        print(f"📁 Public JSON saved: {references_json}")
 
     def generate_stats(self, galleries, references):
         """Generate and display statistics"""
