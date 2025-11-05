@@ -348,6 +348,68 @@ Test the built site (baseurl-aware htmlproofer):
 make test
 ```
 
+## Post Protection
+
+Protect finalized posts from accidental edits using the post protection system.
+
+### How it works
+
+**Two-layer protection:**
+1. **Front matter flag**: Add `allow_edit: false` to a post's YAML front matter
+2. **IDE ignore**: Add the post path to `.cursorignore` to hide it from Cursor's file search
+
+### Protecting a post
+
+```bash
+# 1. Edit the post's front matter - add this field:
+#    allow_edit: false
+
+# 2. Edit .cursorignore - add the post path:
+#    _posts/2025-09-01-your-post-name.rst
+
+# 3. Commit both changes together
+git add _posts/2025-09-01-your-post-name.rst .cursorignore
+git commit -m "Protect: your post name"
+```
+
+### Unprotecting a post
+
+```bash
+# 1. Remove the line from .cursorignore
+
+# 2. Edit the post - change to allow_edit: true (or remove the field)
+
+# 3. Make your edits
+
+# 4. Re-protect if desired (repeat protection steps)
+```
+
+### Useful commands
+
+```bash
+# Show all currently protected posts
+make show-protected
+
+# Show help and instructions
+make protect-help
+```
+
+### Example front matter
+
+```yaml
+---
+layout: post
+title: "My Finalized Post"
+date: 2025-09-01 00:00:00 +0530
+categories: [jekyll]
+
+# Prevent accidental edits
+allow_edit: false
+---
+```
+
+**Note:** This is a convenience feature to prevent accidental edits. For true access control, use git branch protection rules.
+
 ## Attachment references on GitHub Pages
 
 GitHub Pages runs Jekyll in safe mode and will not execute custom plugins. This site ships a custom attachment scanner/generator, so you must pre-generate and commit the data files that power the “Referenced in” panel on the `Attachments` tab.

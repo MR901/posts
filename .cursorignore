@@ -1,0 +1,47 @@
+# =============================================
+# Jekyll Build Artifacts & Cache
+# =============================================
+_site/
+.sass-cache/
+.jekyll-cache/
+.jekyll-metadata
+.pygments-cache/
+.ruby-lsp/
+__pycache__/
+
+# =============================================
+# PROTECTED POSTS (allow_edit: false)
+# =============================================
+# Finalized posts - edit only for critical fixes
+#
+# To edit a protected post:
+#   1. Remove the line from this file
+#   2. Change 'allow_edit: false' to 'allow_edit: true'
+#      in the post's front matter (or remove the field)
+#   3. Make your changes
+#   4. Re-protect if desired
+#
+# Last updated: 2025-11-05
+# =============================================
+
+# Add protected posts here, one per line:
+# _posts/2025-09-01-jekyll-content-creation-guide.rst
+# _posts/2025-09-01-jekyll-customization-deployment.rst
+# _posts/2025-09-01-jekyll-formatting-features.rst
+# _posts/2025-09-01-jekyll-fundamentals-setup.rst
+# _posts/2025-09-02-github-pages-setup-build-deploy-cleanup.rst
+# _posts/2025-09-03-github-pages-from-zero-to-live.rst
+# _posts/2025-10-05-prompting-engineering.rst
+# _posts/2025-10-22-laws-of-life.rst
+# _posts/2025-10-24-harddisk-shucking.rst
+# _posts/2025-10-25-a-complete-guide-to-mlflow.rst
+# _posts/2025-10-26-understanding-data-version-control.rst
+# _posts/2025-10-26-understanding-docker.rst
+# _posts/2025-10-26-understanding-elasticsearch.rst
+# _posts/2025-10-26-understanding-milvus.rst
+# _posts/2025-10-26-understanding-mongodb.rst
+# _posts/2025-10-26-understanding-postgressql.rst
+# _posts/2025-10-26-understanding-redis.rst
+# _posts/2025-10-27-multithreading-vs-multiprocessing.rst
+# _posts/2025-11-04-udemy-course-open-source-llms.rst
+

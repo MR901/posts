@@ -24,6 +24,7 @@ from pygments.formatters import HtmlFormatter
 
 from docutils import nodes
 from docutils.parsers.rst import directives, Directive
+from docutils.parsers.rst.directives.tables import ListTable as DocutilsListTable
 
 from pygments import highlight
 from pygments.lexers import get_lexer_by_name, TextLexer
@@ -95,3 +96,39 @@ class Pygments(Directive):
 
 directives.register_directive('code-block', Pygments)
 directives.register_directive('sourcecode', Pygments)
+
+
+# Extend the built-in list-table directive to support a custom overall width
+class ListTableWithCustomWidth(DocutilsListTable):
+    option_spec = DocutilsListTable.option_spec.copy()
+    option_spec['custom-table-width'] = directives.unchanged
+
+    def run(self):
+        nodes_list = super().run()
+
+        cw = self.options.get('custom-table-width')
+        if not cw:
+            return nodes_list
+
+        val = cw.strip()
+        # If numeric only, default to px
+        if val.isdigit():
+            val = f"{val}px"
+
+        # Accept common CSS length units and percent
+        if not re.match(r'^[0-9]+(px|rem|em|ch|vw|vh|%)$', val):
+            return nodes_list
+
+        encoded = val.replace('%', 'pct')  # encode % to keep it in class token
+
+        # Attach an identifying class to the produced table nodes
+        for n in nodes_list:
+            for t in n.traverse(nodes.table):
+                classes = t.setdefault('classes', [])
+                classes.append('rst-cw-' + encoded)
+
+        return nodes_list
+
+
+# Override the default directive registration with our extended one
+directives.register_directive('list-table', ListTableWithCustomWidth)

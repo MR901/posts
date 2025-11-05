@@ -11,15 +11,15 @@ math: true
 mermaid: false
 description: "Comprehensive guide to prompt engineering: foundations, techniques (zero/few-shot, CoT/ToT, RAG, ReAct), reasoning LLMs, agents, evaluation, and alignment."
 image:
+
   path: /attachments/posts/2025-10-05-prompting-engineering/images/prompt_engineering.png
   alt: "Prompt Engineering"
+allow_edit: true
 ---
 
 
-
-===============================================================
 Part 1 – Foundations of Prompt Engineering
-===============================================================
+==========================================
 
 Introduction
 ============
@@ -39,7 +39,7 @@ Text, images, audio, and code are synthesized through probabilistic token predic
 Core principle
 --------------
 
-LLMs learn conditional probability distributions:
+**LLMs learn conditional probability distributions**
 
 .. math::
 
@@ -53,12 +53,16 @@ Architecture Snapshot – Transformers
 
 Transformers are the foundation of modern LLMs.
 They use **self-attention** mechanisms to weigh contextual relationships between tokens.
-Key components:
+**Key components**
 
 - **Embedding Layer** – converts discrete tokens into high-dimensional vectors.
+
 - **Self-Attention Block** – computes contextual similarity via query–key–value matrices.
+
 - **Feed-Forward Network** – non-linear transformation applied to each position.
+
 - **Residual Connections + Layer Normalization** – stabilize gradient flow.
+
 
 
 Tokenization and Context
@@ -73,10 +77,15 @@ Limitations of LLMs
 -------------------
 
 - **Finite Context:** Memory restricted by context window.
+
 - **Stale Knowledge:** Training data frozen at cutoff.
+
 - **Hallucinations:** Fabricated but fluent statements.
+
 - **Bias:** Inherited from source data distributions.
+
 - **Non-Determinism:** Sampling randomness affects reproducibility.
+
 
 Prompt Engineering Defined
 ==========================
@@ -86,11 +95,15 @@ Formal Definition
 
 **Prompt Engineering (PE)** is the systematic design of model inputs—prompts—to achieve desired output behaviors from language models.
 
-It involves:
+**It involves**
 - Understanding model behavior and limitations.
+
 - Framing questions or tasks effectively.
+
 - Specifying structure, tone, or reasoning depth.
+
 - Iteratively refining for performance and control.
+
 
 Historical Context
 ------------------
@@ -119,6 +132,7 @@ General Template
    [Input Examples (optional)]
    [Output Format Specification]
 
+
 Example
 -------
 
@@ -128,6 +142,7 @@ Example
    Task: Design a 3-day itinerary for Kyoto emphasizing historical sites.
    Include travel time estimates and dining suggestions.
    Present results as a markdown table.
+
 
 → The role primes behavior; task defines scope; context narrows relevance; format ensures consistency.
 
@@ -145,7 +160,7 @@ Prompt Categories
 LLM Generation Controls
 =======================
 
-The output distribution is shaped by several parameters:
+**The output distribution is shaped by several parameters**
 
 +--------------------+---------------------+------------------------------+
 | Parameter          | Function            | Effect of Higher Value       |
@@ -164,7 +179,7 @@ The output distribution is shaped by several parameters:
 Mathematical Note
 -----------------
 
-Sampling draws next token *t* such that:
+**Sampling draws next token *t* such that**
 
 .. math::
 
@@ -176,22 +191,32 @@ Evaluation and Prompt Iteration
 ===============================
 
 Prompt engineering is iterative.
-Cycle:
+**Cycle**
 
 1. **Design Prompt** – define goal and constraints.
+
 2. **Generate Output** – obtain model response.
+
 3. **Evaluate** – assess relevance, accuracy, tone.
+
 4. **Refine** – adjust wording, order, or explicitness.
+
 5. **Automate Testing** – create evaluation datasets.
+
 
 Heuristic Principles
 --------------------
 
 - Specificity > Vagueness.
+
 - Context > Assumption.
+
 - Constraints guide style and format.
+
 - Step-by-step reasoning reduces error.
+
 - Examples anchor model behavior.
+
 
 Common Failure Modes
 --------------------
@@ -207,11 +232,17 @@ Best-Practice Checklist
 -----------------------
 
 - Always declare **purpose** and **audience**.
+
 - Use **few-shot examples** to steer tone.
+
 - Control **temperature and top-p** explicitly.
+
 - Explicitly state **format** (e.g., tables).
+
 - Include **verification steps** in complex tasks.
+
 - Document each iteration for traceability.
+
 
 
 Transition to Advanced Concepts
@@ -223,10 +254,8 @@ The next part will cover **advanced prompting techniques**, including reasoning,
 
 
 
-
-===============================================================
 Part 2 – Prompting Techniques and Strategies
-===============================================================
+============================================
 
 Overview
 ========
@@ -238,16 +267,20 @@ Techniques vary by objective — precision, creativity, factual grounding, or lo
 Classification of Prompting Techniques
 ======================================
 
-Prompting methods can be categorized into:
+**Prompting methods can be categorized into**
 
 1. **Example-based prompting** — uses examples to shape behavior.
+
 2. **Reasoning-based prompting** — induces structured thinking.
+
 3. **External-knowledge prompting** — retrieves data beyond training.
+
 4. **Meta-cognitive prompting** — encourages self-evaluation and improvement.
+
 
 Each method balances control, cost, and interpretability.
 
-------------------------------------------------------------
+
 
 Zero-shot Prompting
 ===================
@@ -272,22 +305,28 @@ Example
    Translate the following sentence into French:
    "Knowledge is power."
 
+
 → Output: *Le savoir est le pouvoir.*
 
 Strengths
 ---------
 
 - Simplicity and speed.
+
 - Works well for general-purpose models.
+
 - Baseline for comparing other strategies.
+
 
 Limitations
 -----------
 
 - High variability on nuanced tasks.
+
 - Lacks stylistic control or domain adaptation.
 
-------------------------------------------------------------
+
+
 
 Few-shot Prompting
 ==================
@@ -308,6 +347,7 @@ Example
    house → casa
    tree → ?
 
+
 → Output: *árbol*
 
 Mechanism
@@ -320,17 +360,23 @@ When to Use
 -----------
 
 - Translation or classification tasks.
+
 - Style imitation (tone, formatting).
+
 - Domain adaptation without retraining.
+
 
 Design Considerations
 ---------------------
 
 - Keep examples consistent in syntax.
+
 - Provide diverse coverage of patterns.
+
 - End examples with clear delimiter before new input.
 
-------------------------------------------------------------
+
+
 
 Chain-of-Thought (CoT) Prompting
 ================================
@@ -350,6 +396,7 @@ Example
    A: Let's think step by step.
    Tom starts with 3, buys 2 → total 5.
 
+
 Mechanism
 ---------
 
@@ -360,15 +407,21 @@ Advantages
 ----------
 
 - Enhances interpretability.
+
 - Reduces reasoning errors in math, logic, and planning.
+
 - Enables post-hoc verification of intermediate steps.
+
 
 Variants
 --------
 
 - **Explicit CoT:** Prompt includes “Let’s think step by step.”
+
 - **Implicit CoT:** Model generates reasoning spontaneously (tuned behavior).
+
 - **Scratchpad CoT:** Use structured fields (Reasoning:, Answer:) to isolate computation.
+
 
 Best Practice
 -------------
@@ -376,7 +429,7 @@ Best Practice
 Include explicit reasoning markers.
 Avoid requesting CoT for trivial tasks to save compute.
 
-------------------------------------------------------------
+
 
 Self-Consistency Prompting
 ==========================
@@ -393,10 +446,13 @@ Mechanism
 ---------
 
 1. Sample several independent reasoning chains with different seeds.
+
 2. Collect all final answers.
+
 3. Choose the mode (most common) or highest-confidence answer.
 
-Mathematically:
+
+**Mathematically**
 
 .. math::
 
@@ -408,16 +464,21 @@ Benefits
 --------
 
 - Increases reasoning reliability.
+
 - Reduces stochastic hallucination.
+
 - Adds ensemble-like stability to outputs.
+
 
 Trade-offs
 ----------
 
 - Increased compute cost (multiple samples).
+
 - Requires automated aggregation pipeline.
 
-------------------------------------------------------------
+
+
 
 Prompt Chaining
 ===============
@@ -432,8 +493,11 @@ Process
 -------
 
 1. **Decomposition:** Split large task into logical sub-steps.
+
 2. **Execution:** Run each prompt sequentially.
+
 3. **Integration:** Aggregate partial outputs into final answer.
+
 
 Example
 -------
@@ -444,21 +508,28 @@ Example
    Step 2: Extract five key insights from the summary.
    Step 3: Draft three exam questions based on those insights.
 
+
 Applications
 ------------
 
 - Summarization pipelines.
+
 - Multi-stage reasoning or document QA.
+
 - Workflow orchestration for automation agents.
+
 
 Advantages
 ----------
 
 - Improves modularity and interpretability.
+
 - Allows re-use of intermediate artifacts.
+
 - Simplifies debugging of long tasks.
 
-------------------------------------------------------------
+
+
 
 Tree-of-Thought (ToT) Prompting
 ===============================
@@ -475,25 +546,35 @@ Mechanism
 ---------
 
 1. Generate multiple partial reasoning paths.
+
 2. Evaluate each branch using internal or external heuristics.
+
 3. Prune suboptimal branches.
+
 4. Continue expanding promising directions.
+
 
 Benefits
 --------
 
 - Handles complex reasoning (planning, puzzles).
+
 - Balances exploration and exploitation.
+
 - Enables self-evaluation through intermediate scoring.
+
 
 Challenges
 ----------
 
 - High computational cost.
+
 - Requires orchestration logic for branch management.
+
 - Difficult to visualize large reasoning trees.
 
-------------------------------------------------------------
+
+
 
 Retrieval-Augmented Generation (RAG)
 ====================================
@@ -508,9 +589,11 @@ Architecture
 ------------
 
 1. **Retriever:** Searches vector database for relevant documents using embeddings.
+
 2. **Reader (LLM):** Incorporates retrieved context to answer the query.
 
-Mathematically:
+
+**Mathematically**
 
 .. math::
 
@@ -522,25 +605,35 @@ Advantages
 ----------
 
 - Reduces hallucination.
+
 - Enables up-to-date and domain-specific answers.
+
 - Supports explainability via citation of sources.
+
 
 Applications
 ------------
 
 - Knowledge management systems.
+
 - Academic or legal document querying.
+
 - Customer support chatbots.
+
 
 Implementation Notes
 --------------------
 
 - Use high-quality embedding models (e.g., OpenAI text-embedding-3-large).
+
 - Normalize documents before indexing.
+
 - Chunk long documents intelligently (~500–1,000 tokens).
+
 - Maintain retrieval–generation alignment through consistent vector space.
 
-------------------------------------------------------------
+
+
 
 ReAct Prompting
 ===============
@@ -555,9 +648,13 @@ Workflow
 --------
 
 1. Model reasons about task and identifies next action.
+
 2. Executes tool call (search, API, code).
+
 3. Observes result and continues reasoning.
+
 4. Produces final answer.
+
 
 Example (simplified)
 --------------------
@@ -570,21 +667,28 @@ Example (simplified)
    Observation: Found IMF report stating 1.3%.
    Answer: Japan's GDP growth rate for 2024 is approximately 1.3%.
 
+
 Advantages
 ----------
 
 - Enables factual grounding and adaptability.
+
 - Integrates tool-use capabilities.
+
 - Supports agent-like autonomy.
+
 
 Requirements
 ------------
 
 - Sandbox execution environment.
+
 - Access to trusted APIs.
+
 - Logging for action traceability.
 
-------------------------------------------------------------
+
+
 
 Reflexion Prompting
 ===================
@@ -601,9 +705,13 @@ Process
 -------
 
 1. Generate initial answer.
+
 2. Critique its correctness and quality.
+
 3. Produce an improved version guided by critique.
+
 4. Optionally repeat for convergence.
+
 
 Example
 -------
@@ -615,14 +723,18 @@ Example
    Reflection: “Can this be optimized?”
    Revision: Implements Timsort or built-in sort().
 
+
 Benefits
 --------
 
 - Continuous self-improvement.
+
 - Reduces logical and factual error.
+
 - Builds implicit long-term learning via feedback logs.
 
-------------------------------------------------------------
+
+
 
 Advanced Prompting Patterns
 ===========================
@@ -641,6 +753,7 @@ Example
    Meta-Instruction:
    “For every answer you give, include definitions, examples, and key takeaways at the end.”
 
+
 This persists across multiple user queries until context resets.
 
 Dynamic Prompting
@@ -649,20 +762,24 @@ Dynamic Prompting
 Prompts constructed programmatically at runtime.
 Used in tool-augmented systems or retrieval chains.
 
-Example (template):
+**Example (template)**
 
 .. code-block:: python
 
    template = f"Summarize the document titled '{title}' in 200 words."
 
+
 Benefits
 --------
 
 - Enables automation.
+
 - Allows conditional prompt assembly.
+
 - Supports scalability in multi-user environments.
 
-------------------------------------------------------------
+
+
 
 Comparison Summary
 ==================
@@ -689,7 +806,7 @@ Comparison Summary
 | Reflexion           | Self-critique and refinement       | Iterative improvement            |
 +---------------------+-----------------------------------+----------------------------------+
 
-------------------------------------------------------------
+
 
 Transition to Next Section
 ==========================
@@ -698,10 +815,8 @@ The strategies above enable controlled reasoning and external knowledge integrat
 In the next part, we examine **Reasoning LLMs and Test-Time Compute**, where these prompting principles evolve into architectural capabilities that let models think longer and smarter, not just bigger.
 
 
-
-===============================================================
 Part 3 – Reasoning LLMs and Test-Time Compute
-===============================================================
+=============================================
 
 Overview
 ========
@@ -738,7 +853,7 @@ The concept parallels the evolution from **fast pattern recognition** (System 1)
 to **deliberative reasoning** (System 2) described in cognitive psychology.
 By extending inference time, LLMs approximate deeper “thought loops.”
 
-------------------------------------------------------------
+
 
 Train-Time Compute vs Test-Time Compute
 =======================================
@@ -747,7 +862,7 @@ Train-Time Compute
 ------------------
 
 Compute used during pre-training or fine-tuning.
-Follows empirical **scaling laws** such as those proposed by Kaplan et al. (2020) and Chinchilla (2022):
+**Follows empirical **scaling laws** such as those proposed by Kaplan et al. (2020) and Chinchilla (2022)**
 
 .. math::
 
@@ -767,13 +882,16 @@ Test-Time Compute
 Compute consumed when the model answers a prompt.
 Reasoning LLMs allocate variable inference effort — more steps, sampling paths, or evaluations — depending on task difficulty.
 
-Advantages:
+**Advantages**
 
 - **Adaptive computation**: hard problems receive more reasoning cycles.
+
 - **Energy efficiency**: easy tasks terminate early.
+
 - **Scalable cognition**: ability grows without retraining.
 
-Mathematical abstraction:
+
+**Mathematical abstraction**
 
 .. math::
 
@@ -781,7 +899,7 @@ Mathematical abstraction:
 
 where :math:`t` controls depth of reasoning (number of inference iterations).
 
-------------------------------------------------------------
+
 
 Reasoning Path Sampling
 =======================
@@ -789,20 +907,26 @@ Reasoning Path Sampling
 Most reasoning-oriented LLMs generate multiple partial solutions internally, then select or aggregate among them.
 
 Approaches
------------
+----------
 
 1. **Search Against Verifiers** — generate candidate outputs, evaluate with reward models, choose best.
+
 2. **Modify Proposal Distribution** — alter token probabilities during generation to favor coherent reasoning chains.
 
+
 Typical Frameworks
--------------------
+------------------
 
 - **Self-Consistency** (ensemble reasoning).
+
 - **Majority Voting** among CoT runs.
+
 - **Best-of-N sampling** guided by reward models.
+
 - **Backtracking** where reasoning branches are pruned when inconsistent.
 
-------------------------------------------------------------
+
+
 
 Reward Models for Reasoning
 ===========================
@@ -820,7 +944,7 @@ Evaluates **intermediate reasoning steps** for correctness, coherence, or effici
 Encourages valid intermediate logic even if final answer differs slightly.
 
 Comparison
------------
+----------
 
 | Aspect          | ORM                            | PRM                                |
 |-----------------|---------------------------------|------------------------------------|
@@ -832,7 +956,7 @@ Comparison
 Combined Objective
 ------------------
 
-Some reasoning LLMs use both:
+**Some reasoning LLMs use both**
 
 .. math::
 
@@ -840,7 +964,7 @@ Some reasoning LLMs use both:
 
 where :math:`\lambda` coefficients control emphasis.
 
-------------------------------------------------------------
+
 
 Inference-Time Scaling Techniques
 =================================
@@ -849,23 +973,29 @@ These methods extend “thinking time” dynamically.
 
 1. **Deliberate Decoding**
    - Model generates reasoning tokens, then final output tokens.
+
    - Similar to CoT but embedded in architecture.
+
 
 2. **Speculative Sampling**
    - Produce draft completions quickly; verify or refine with larger model.
 
+
 3. **Monte Carlo Reasoning**
    - Explore multiple reasoning paths; compute expectation over best candidates.
+
 
 4. **Adaptive Computation Time (ACT)**
    - Decide dynamically how many transformer layers to evaluate per token.
 
+
 5. **Verifier-Guided Search**
    - Use external evaluators to prune unsound paths in real time.
 
+
 Effectively, test-time compute substitutes for model size.
 
-------------------------------------------------------------
+
 
 Architectural Innovations
 =========================
@@ -893,7 +1023,7 @@ Inner-Monologue Paradigm
 The model distinguishes between **private reasoning tokens** (not user-visible) and **final communication tokens**.
 Enables internal self-dialogue and reasoning refinement.
 
-------------------------------------------------------------
+
 
 Empirical Advances
 ==================
@@ -912,29 +1042,39 @@ Performance Trends
 ------------------
 
 - Reasoning LLMs outperform larger static models on logic benchmarks.
+
 - Gains saturate near 10× inference cost; beyond that diminishing returns reappear.
+
 - Hybrid reasoning + retrieval often yields best real-world performance.
 
-------------------------------------------------------------
+
+
 
 Evaluation Metrics for Reasoning
 ================================
 
 Traditional metrics (BLEU, ROUGE, accuracy) inadequately measure reasoning quality.
-New measures include:
+**New measures include**
 
 - **Step Accuracy:** fraction of correct intermediate steps.
+
 - **Process Coherence:** logical consistency across reasoning chain.
+
 - **Verifier-Score:** reward model score on final or intermediate reasoning.
+
 - **Compute Efficiency:** reasoning accuracy per unit of inference FLOPs.
 
-Example workflow:
+
+**Example workflow**
 
 1. Generate N reasoning traces.
+
 2. Score each trace using PRM.
+
 3. Select trace with highest cumulative reward.
 
-------------------------------------------------------------
+
+
 
 Trade-offs and Engineering Implications
 =======================================
@@ -943,36 +1083,51 @@ Advantages
 ----------
 
 - Stronger logical reasoning and mathematical accuracy.
+
 - Modular scalability without retraining.
+
 - Transparent reasoning processes.
+
 
 Costs
 -----
 
 - Higher inference latency.
+
 - Need for auxiliary verifiers and evaluators.
+
 - More complex orchestration pipelines.
+
 
 Design Heuristics
 -----------------
 
 - Use reasoning modes selectively (triggered by complexity estimation).
+
 - Cache reasoning results for repeated tasks.
+
 - Limit number of branches to balance cost vs. accuracy.
+
 - Train verifiers with diverse reasoning data.
 
-------------------------------------------------------------
+
+
 
 Conceptual Summary
 ==================
 
 1. **Traditional scaling** improved fluency through larger networks.
+
 2. **Reasoning scaling** improves intelligence by allocating variable compute.
+
 3. **Reward models** provide evaluative feedback for both outcome and process.
+
 4. **Search and sampling** strategies let LLMs simulate deliberate thought.
+
 5. **Empirical evidence** shows that reasoning LLMs can surpass models 5–10× their size when given more inference time.
 
-------------------------------------------------------------
+
+
 
 Transition to Next Section
 ==========================
@@ -983,10 +1138,8 @@ the next section explores **LLM Agents and Autonomy** — systems that combine r
 
 
 
-
-===============================================================
 Part 4 – LLM Agents, Autonomy, and System Integration
-===============================================================
+=====================================================
 
 
 Overview
@@ -1002,7 +1155,7 @@ Definition of an LLM Agent
 An **LLM agent** is a system where a large language model acts as the **cognitive core**,
 interfacing with external tools, memory stores, and APIs to perform complex, goal-oriented tasks.
 
-Conceptually:
+**Conceptually**
 
 .. math::
 
@@ -1010,40 +1163,50 @@ Conceptually:
 
 Each component plays a distinct functional role.
 
-------------------------------------------------------------
+
 
 Core Architecture
 =================
 
 1. **LLM Core**
    - Performs reasoning, planning, and natural language understanding.
+
    - Generates intermediate plans or decisions in text.
+
 
 2. **Memory Module**
    - Stores long-term or session-specific context.
+
    - Implemented via vector databases, JSON stores, or key–value caches.
+
 
 3. **Tool Interface**
    - Allows external function calls (e.g., search, code execution, file operations).
+
    - Extends beyond textual reasoning into concrete actions.
+
 
 4. **Planner / Controller**
    - Manages decision loops and subgoal scheduling.
+
    - Uses techniques from symbolic AI and reinforcement learning.
+
 
 5. **Environment**
    - Represents the external world (e.g., API endpoints, OS shell, web).
 
-------------------------------------------------------------
+
+
 
 Agentic Loop
 ============
 
-General execution cycle:
+**General execution cycle**
 
 .. code-block:: text
 
    1. Perceive → 2. Plan → 3. Act → 4. Observe → 5. Reflect → Repeat
+
 
 **Perceive:** interpret input or new environment state.
 **Plan:** decide sequence of actions to achieve goal.
@@ -1055,17 +1218,20 @@ Variants
 --------
 
 - **ReAct** (Reason + Act): interleaves reasoning traces with tool calls.
+
 - **Reflexion:** integrates self-evaluation feedback loops.
+
 - **AutoGPT-style agents:** perform goal decomposition recursively.
 
-------------------------------------------------------------
+
+
 
 Reasoning + Acting: The ReAct Paradigm
 ======================================
 
 The **ReAct** framework (Yao et al., 2022) merges *reasoning traces* with *actions* in one prompt chain.
 
-Example pattern:
+**Example pattern**
 
 .. code-block:: text
 
@@ -1075,16 +1241,20 @@ Example pattern:
    Thought: I should summarize the results.
    Action: python("summarize_sales('sales_2025.csv')")
 
+
 The model alternates between “thought” and “action” tokens.
 This design grounds reasoning in verifiable, tool-mediated results.
 
-Advantages:
+**Advantages**
 
 - Prevents hallucination through factual grounding.
+
 - Enables multi-step workflows.
+
 - Supports transparency (trace inspection).
 
-------------------------------------------------------------
+
+
 
 Memory Systems
 ==============
@@ -1106,54 +1276,71 @@ Memory Management
 -----------------
 
 - **Compression:** summarize to save context length.
+
 - **Retrieval:** cosine similarity search for relevance.
+
 - **Prioritization:** weight by recency or frequency.
+
 - **Forgetting:** prune outdated or irrelevant entries.
+
 
 Retrieval-Augmented Generation (RAG)
 ------------------------------------
 
-Pipeline:
+**Pipeline**
 
 1. Encode user query → embedding vector.
+
 2. Retrieve relevant documents from vector store.
+
 3. Inject retrieved text into model prompt.
+
 4. Generate final response conditioned on retrieved data.
+
 
 This approach extends model knowledge dynamically without retraining.
 
-------------------------------------------------------------
+
 
 Tool Use and Function Calling
 =============================
 
 LLMs interact with external systems through **function calling APIs**.
 
-Pattern:
+**Pattern**
 
 .. code-block:: json
 
    {
+
      "name": "search_database",
      "arguments": { "query": "market trends 2025" }
    }
 
+
 After executing the call, the result is returned to the LLM, forming a reasoning–action feedback loop.
 
-Tool types include:
+**Tool types include**
 
 - **Search engines** (retrieval).
+
 - **Calculators / Code interpreters**.
+
 - **Database connectors**.
+
 - **Scheduling systems**.
+
 - **APIs for external services (email, docs, etc.)**.
 
-Tool selection strategies:
+
+**Tool selection strategies**
 
 - **Static mapping**: predefined tool per query type.
+
 - **Dynamic routing**: LLM decides best tool based on context.
 
-------------------------------------------------------------
+
+
 
 Autonomy Levels
 ===============
@@ -1170,23 +1357,27 @@ LLM agents vary in autonomy according to how much decision-making they control.
 
 The higher the autonomy, the greater the need for safety controls and performance monitoring.
 
-------------------------------------------------------------
+
 
 Reflection and Self-Improvement
 ===============================
 
 Agents can use feedback loops to refine reasoning and output quality.
 
-Typical steps:
+**Typical steps**
 
 1. **Generate** initial answer.
+
 2. **Critique** output against goal and criteria.
+
 3. **Revise** with incorporated feedback.
+
 4. **Evaluate** improvement.
+
 
 Frameworks such as *Reflexion* and *Self-Refine* automate this cycle.
 
-Mathematical abstraction:
+**Mathematical abstraction**
 
 .. math::
 
@@ -1194,7 +1385,7 @@ Mathematical abstraction:
 
 Iterative convergence approximates self-improvement.
 
-------------------------------------------------------------
+
 
 Multi-Agent Systems
 ===================
@@ -1209,35 +1400,49 @@ Coordination Models
 -------------------
 
 - **Hierarchical control**: one supervisor assigns sub-tasks.
+
 - **Decentralized consensus**: peer voting among agents.
+
 - **Market-based scheduling**: tasks allocated by simulated bidding.
 
-Benefits:
+
+**Benefits**
 
 - Parallelized reasoning.
+
 - Error correction through redundancy.
+
 - Division of labor (domain specialization).
 
-Risks:
+
+**Risks**
 
 - Cascading hallucinations.
+
 - Excessive token cost.
+
 - Coordination failures.
 
-------------------------------------------------------------
+
+
 
 Safety and Control Mechanisms
 =============================
 
 Autonomous systems require safeguards to prevent unintended behavior.
 
-Key dimensions:
+**Key dimensions**
 
 - **Goal alignment:** constrain objectives with predefined rules.
+
 - **Rate limiting:** cap inference loops to prevent runaway cost.
+
 - **Validation layers:** verify outputs via deterministic tools.
+
 - **Human-in-the-loop:** require confirmation for critical actions.
+
 - **Sandboxing:** isolate execution environments for safety.
+
 
 Alignment via Constitutional AI
 -------------------------------
@@ -1245,13 +1450,16 @@ Alignment via Constitutional AI
 Constitutional AI (Anthropic) defines explicit principles guiding agent behavior.
 Instead of relying solely on human labels, the agent critiques its own output based on written rules.
 
-Example principles:
+**Example principles**
 
 - Be helpful, harmless, and honest.
+
 - Respect privacy and autonomy.
+
 - Prioritize factual accuracy.
 
-------------------------------------------------------------
+
+
 
 Metrics for Agent Evaluation
 ============================
@@ -1266,56 +1474,76 @@ Metrics for Agent Evaluation
 
 Experiment protocols often combine quantitative and qualitative review.
 
-------------------------------------------------------------
+
 
 Integration with External Systems
 =================================
 
-LLM agents can be embedded into operational stacks:
+**LLM agents can be embedded into operational stacks**
 
 - **Enterprise workflows:** document analysis, summarization, meeting assistance.
+
 - **Scientific discovery:** hypothesis generation, data analysis.
+
 - **Software engineering:** code generation and debugging pipelines.
+
 - **Robotics and IoT:** natural-language control of sensors and actuators.
+
 - **Customer support automation:** contextual reasoning across channels.
+
 
 APIs and Frameworks
 -------------------
 
 - **LangChain** – modular prompt and tool orchestration.
+
 - **LlamaIndex** – retrieval and context management.
+
 - **Semantic Kernel (Microsoft)** – skill-based agent composition.
+
 - **CrewAI / AutoGen / Haystack** – multi-agent experimentation.
+
 - **OpenAI Function Calling / JSON Mode** – structured action execution.
 
-------------------------------------------------------------
+
+
 
 Emerging Research Directions
-=============================
+============================
 
 1. **Meta-cognition**
    - Agents aware of their own uncertainty; can seek clarification.
+
 2. **Goal learning**
    - Deriving abstract objectives from examples or human feedback.
+
 3. **Continual learning**
    - Updating memory without catastrophic forgetting.
+
 4. **Multi-modal perception**
    - Integrating vision, audio, and text reasoning.
+
 5. **Distributed agent societies**
    - Coordinated swarms simulating organizational intelligence.
 
-------------------------------------------------------------
+
+
 
 Conceptual Summary
 ==================
 
 1. LLMs become *agents* when coupled with memory, tools, and planning logic.
+
 2. ReAct and Reflexion frameworks ground reasoning in real-world actions.
+
 3. Autonomy levels scale from reactive chatbots to self-improving planners.
+
 4. Safety, evaluation, and control remain central to sustainable deployment.
+
 5. Multi-agent systems foreshadow collective AI ecosystems capable of distributed reasoning.
 
-------------------------------------------------------------
+
+
 
 Transition to Next Section
 ==========================
@@ -1325,8 +1553,6 @@ which unifies all prior principles into a practical methodology for expert-level
 
 
 
-
-================================================================
 Part 5 – Advanced Prompt Design, Evaluation, and Human Alignment
 ================================================================
 
@@ -1337,7 +1563,7 @@ Overview
 This section consolidates advanced-level knowledge for building robust prompt systems.
 It addresses systematic prompt optimization, evaluation methodologies, human alignment, and emerging frontiers in automated reasoning control.
 
-------------------------------------------------------------
+
 
 Prompt Design as a Systematic Process
 =====================================
@@ -1345,24 +1571,29 @@ Prompt Design as a Systematic Process
 Effective prompting is not artistic improvisation; it is structured engineering.
 An advanced prompt designer approaches every task as a *control problem* — how to guide probabilistic text generation toward a defined objective under constraints.
 
-The process consists of the following stages:
+**The process consists of the following stages**
 
 1. **Goal definition**
    - Clarify what constitutes success: factuality, style, reasoning depth, or novelty.
 
+
 2. **Constraint modeling**
    - Define limits of tone, format, ethical boundaries, or domain scope.
+
 
 3. **Prompt synthesis**
    - Construct structured templates incorporating examples and format instructions.
 
+
 4. **Iterative optimization**
    - Measure, refine, and automate prompt improvement.
+
 
 5. **Deployment**
    - Integrate optimized prompts into production workflows or agent architectures.
 
-------------------------------------------------------------
+
+
 
 Prompt Optimization Techniques
 ==============================
@@ -1372,13 +1603,14 @@ Prompt Templates
 
 Reusable skeletons with placeholders for variable data.
 
-Example:
+**Example**
 
 .. code-block:: text
 
    Task: Summarize the following report for {audience}.
    Constraints: Limit to {word_count} words, focus on {topics}.
    Report: {document_text}
+
 
 These templates enforce consistency across tasks and enable automation.
 
@@ -1388,17 +1620,24 @@ Prompt Chaining
 Decompose complex objectives into multiple sequential sub-prompts.
 Each stage feeds its output into the next.
 
-Example chain:
+**Example chain**
 
 1. Extract keywords.
+
 2. Retrieve background data.
+
 3. Compose summary.
+
 4. Verify factual accuracy.
 
-Benefits:
+
+**Benefits**
 - Reduces context complexity.
+
 - Enables modular testing.
+
 - Improves interpretability.
+
 
 Tree-of-Thought (ToT)
 ---------------------
@@ -1406,12 +1645,16 @@ Tree-of-Thought (ToT)
 Generalizes Chain-of-Thought by exploring reasoning *branches* in parallel.
 Each branch represents an alternative reasoning path, later evaluated for coherence and reward.
 
-ToT algorithm steps:
+**ToT algorithm steps**
 
 1. Generate multiple reasoning branches.
+
 2. Evaluate partial conclusions using heuristic or learned scoring.
+
 3. Expand promising branches.
+
 4. Select highest-reward terminal node as output.
+
 
 Formally, ToT approximates best-first search through reasoning space.
 
@@ -1420,13 +1663,14 @@ Self-Refinement and Reflection Loops
 
 A model critiques and edits its own output.
 
-Example pattern:
+**Example pattern**
 
 .. code-block:: text
 
    Step 1: Produce initial draft.
    Step 2: Evaluate for clarity, correctness, and tone.
    Step 3: Revise with improvements.
+
 
 This meta-cognitive loop enhances reliability and coherence.
 
@@ -1435,11 +1679,14 @@ Automated Prompt Tuning (APT)
 
 Optimization of prompt parameters via algorithmic search rather than manual editing.
 
-Methods include:
+**Methods include**
 
 - **Gradient-free optimization** (e.g., evolutionary search).
+
 - **Reinforcement learning** (prompt as policy).
+
 - **Bayesian optimization** (evaluate expected improvement).
+
 
 APT uses quantitative metrics (accuracy, BLEU, reward) to guide search.
 
@@ -1449,7 +1696,7 @@ Soft Prompting
 Instead of discrete text, prompts can exist as **learned embeddings** inserted into the model input.
 Used in **prompt tuning** and **prefix-tuning** for fine-grained control.
 
-Mathematically:
+**Mathematically**
 
 .. math::
 
@@ -1457,7 +1704,7 @@ Mathematically:
 
 where :math:`P_{\text{learned}}` is a trainable soft prompt vector.
 
-------------------------------------------------------------
+
 
 Evaluation Frameworks
 =====================
@@ -1479,9 +1726,13 @@ Evaluation Pipelines
 --------------------
 
 1. **Human evaluation** – domain experts score samples.
+
 2. **Automated metrics** – lexical, semantic, or reward-based.
+
 3. **Verifier models** – specialized LLMs assess reasoning validity.
+
 4. **Regression testing** – ensure no degradation after updates.
+
 
 Hybrid strategies combine quantitative and qualitative review for robustness.
 
@@ -1496,7 +1747,7 @@ Error Typology
 | **Omission error** | Missing key information | Instruction specificity |
 | **Bias / Toxicity** | Value misalignment | Ethical fine-tuning |
 
-------------------------------------------------------------
+
 
 Human Alignment
 ===============
@@ -1506,26 +1757,31 @@ Definition
 
 **Human alignment** ensures that LLM outputs adhere to ethical norms, user intentions, and contextual appropriateness.
 
-Two main paradigms exist:
+**Two main paradigms exist**
 
 1. **Reinforcement Learning from Human Feedback (RLHF)**
+
 2. **Constitutional AI (CAI)**
+
 
 Reinforcement Learning from Human Feedback
 ------------------------------------------
 
-RLHF involves three stages:
+**RLHF involves three stages**
 
 1. **Supervised Fine-Tuning (SFT)**
    - Model trained on human demonstration pairs (prompt → preferred response).
 
+
 2. **Reward Modeling**
    - Separate model learns to predict human preference scores.
+
 
 3. **Policy Optimization**
    - Main LLM fine-tuned using reinforcement learning (e.g., PPO) to maximize reward.
 
-Objective function:
+
+**Objective function**
 
 .. math::
 
@@ -1538,7 +1794,7 @@ Constitutional AI
 
 Instead of relying on human labels, the model critiques and revises its own outputs using a written constitution of ethical rules.
 
-Example:
+**Example**
 
 .. code-block:: text
 
@@ -1546,10 +1802,14 @@ Example:
    Critique: The following paragraph violates the rule by revealing identity details.
    Revision: Replace identifiers with anonymized descriptions.
 
-Advantages:
+
+**Advantages**
 - Scalable and consistent.
+
 - Reduces dependence on expensive human labeling.
+
 - Enables transparent reasoning about ethical compliance.
+
 
 Hybrid Alignment Approaches
 ---------------------------
@@ -1557,23 +1817,28 @@ Hybrid Alignment Approaches
 Combining RLHF with CAI yields balance between empirical grounding and principled reasoning.
 Systems like **Claude 3.5** and **GPT-4-turbo** employ such hybrid training.
 
-------------------------------------------------------------
+
 
 Ethical and Societal Implications
 =================================
 
 Prompt engineers influence how AI systems interpret and enact human intent.
-Key considerations:
+**Key considerations**
 
 1. **Bias Amplification** – Avoid prompts reinforcing stereotypes.
+
 2. **Data Privacy** – Never leak or synthesize sensitive information.
+
 3. **Transparency** – Document prompt design and purpose.
+
 4. **Accountability** – Include provenance and traceability in outputs.
+
 5. **Interpretability** – Prefer prompts that expose reasoning, not hide it.
+
 
 Emerging ethical standards (ISO/IEC 42001, NIST AI RMF) treat prompt design as part of responsible AI lifecycle.
 
-------------------------------------------------------------
+
 
 Advanced Methodologies
 ======================
@@ -1590,6 +1855,7 @@ Use multiple prompts targeting the same task; combine outputs by voting, ranking
    Prompt C → Output 3
    Select best via verifier
 
+
 Improves robustness to noise and linguistic variation.
 
 Meta-Prompting
@@ -1597,12 +1863,13 @@ Meta-Prompting
 
 Prompts that *generate or evaluate* other prompts.
 
-Example:
+**Example**
 
 .. code-block:: text
 
    Task: Design an optimized prompt for evaluating research abstracts.
    Constraints: Must measure novelty, clarity, and reproducibility.
+
 
 Enables automation of prompt engineering itself.
 
@@ -1612,7 +1879,7 @@ Prompt Grammars
 Formal rule-based systems defining valid prompt structure.
 Used for LLM orchestration and safety assurance.
 
-Example grammar fragment (EBNF style):
+**Example grammar fragment (EBNF style)**
 
 .. code-block:: text
 
@@ -1620,53 +1887,69 @@ Example grammar fragment (EBNF style):
    <role> ::= "You are" <persona>
    <constraints> ::= "Follow these rules:" <rule_list>
 
+
 Automated prompt grammars reduce malformed or unsafe prompt inputs in production pipelines.
 
-------------------------------------------------------------
+
 
 Scaling and Maintenance
 =======================
 
 In enterprise contexts, prompt systems evolve continuously.
 
-Best practices:
+**Best practices**
 
 - **Version control:** store each iteration with metadata.
+
 - **Benchmark suite:** track longitudinal performance.
+
 - **A/B testing:** compare prompt variants statistically.
+
 - **Monitoring:** detect drift or degradation over time.
+
 - **Retraining triggers:** schedule updates when failure rate exceeds threshold.
+
 
 Prompt Lifecycle Management resembles traditional software engineering, with prompts as versioned code artifacts.
 
-------------------------------------------------------------
+
 
 Future Directions
 =================
 
 1. **Neuro-symbolic prompting**
    - Integrating structured logic reasoning modules within neural prompting loops.
+
 2. **Adaptive prompt optimization**
    - Real-time tuning via continuous evaluation.
+
 3. **Cross-modal prompting**
    - Unified prompts controlling text, image, audio, and code models.
+
 4. **Prompt programming languages**
    - Formal DSLs for composable prompt design (e.g., Guidance, DSPy).
+
 5. **Autonomous prompt ecosystems**
    - Agents generating, evaluating, and deploying prompts automatically.
 
-------------------------------------------------------------
+
+
 
 Conceptual Summary
 ==================
 
 1. Expert-level prompt engineering treats language interfaces as controllable systems.
+
 2. Structured templates, chains, and meta-prompts improve reliability.
+
 3. Evaluation metrics and verifier models replace subjective assessment.
+
 4. Alignment frameworks (RLHF, CAI) connect AI reasoning to human ethics.
+
 5. Continuous optimization and lifecycle management sustain long-term robustness.
 
-------------------------------------------------------------
+
+
 
 Transition to Next Section
 ==========================
@@ -1674,10 +1957,8 @@ Transition to Next Section
 Final section (Part 6) will integrate all prior elements into a unified conceptual model,
 linking the evolution from simple prompting to reasoning agents aligned with human goals.
 
-
-===============================================================
 Part 6 – Unification, Frameworks, and Future Landscape
-===============================================================
+======================================================
 
 
 Overview
@@ -1686,7 +1967,7 @@ Overview
 Prompt engineering has evolved from a craft of phrasing to a full-stack discipline bridging linguistics, cognitive science, and software engineering.
 This final section consolidates previous concepts into a coherent framework for expert practitioners and outlines future trajectories of the field.
 
-------------------------------------------------------------
+
 
 Unified Conceptual Model of Prompt Systems
 ==========================================
@@ -1696,27 +1977,36 @@ Definition
 
 A **prompt system** is a complete architecture that manages the generation, evaluation, and improvement of LLM responses through designed textual interfaces and structured computation.
 
-The system integrates four primary layers:
+**The system integrates four primary layers**
 
 1. **Prompt Layer** — Natural language interface and templates.
+
 2. **Reasoning Layer** — Internal inference and chain-of-thought control.
+
 3. **Tool Layer** — Integration with external actions, databases, or APIs.
+
 4. **Evaluation Layer** — Continuous assessment and alignment mechanisms.
+
 
 These layers form a **feedback-controlled cognitive loop** analogous to a control system in engineering.
 
 Mathematical Analogy
 --------------------
 
-Let:
+**Let**
 
 - :math:`u` = user input (goal / query)
+
 - :math:`y` = LLM output
+
 - :math:`e = y^* - y` = deviation from ideal response
+
 - :math:`P` = prompt function
+
 - :math:`C` = controller adjusting prompt parameters
 
-Then:
+
+**Then**
 
 .. math::
 
@@ -1724,7 +2014,7 @@ Then:
 
 Prompt engineering aims to minimize :math:`e` through iterative adaptation of :math:`\theta`.
 
-------------------------------------------------------------
+
 
 Frameworks for Structured Prompting
 ===================================
@@ -1747,47 +2037,60 @@ Programmatic Frameworks
 
 1. **LangChain**
    - Modular chaining of prompts, memory, and tools.
+
    - Abstracts agents, retrievers, and evaluators.
+
 
 2. **LlamaIndex**
    - Specialized for retrieval augmentation and knowledge graph construction.
 
+
 3. **DSPy**
    - Declarative syntax for dataflow-style prompt orchestration.
-   - Example:
+
+**- Example**
 
      .. code-block:: python
 
         @dspy.prompt("Summarize research paper {title} with focus on {topic}.")
         def summarize(title, topic):
+
             pass
+
 
 4. **Guidance / Outlines**
    - DSL-based prompt control with token-by-token validation.
 
+
 5. **Semantic Kernel**
    - Microsoft framework treating skills as callable AI functions.
 
+
 Together, these frameworks transform prompt design from ad-hoc text to software-defined pipelines.
 
-------------------------------------------------------------
+
 
 Cognitive and Linguistic Insights
 =================================
 
 Prompt engineering increasingly leverages cognitive linguistics and psycholinguistics to model how LLMs interpret instructions.
 
-Core insights:
+**Core insights**
 
 - **Framing effect:** Slight wording changes shift probabilistic activation.
+
 - **Priming:** Early context defines latent vector space trajectory.
+
 - **Anchoring:** Initial examples bias continuation direction.
+
 - **Recency weighting:** Tokens near the end of the context disproportionately influence output.
+
 - **Cognitive load:** Excessive complexity in one prompt reduces focus and coherence.
+
 
 Design implication: clarity, hierarchy, and progressive disclosure yield better reasoning outcomes.
 
-------------------------------------------------------------
+
 
 Interdisciplinary Connections
 =============================
@@ -1802,7 +2105,7 @@ Interdisciplinary Connections
 
 Prompt engineering thus sits at the intersection of technical precision and human communication theory.
 
-------------------------------------------------------------
+
 
 Scaling Laws and Systemic Limits
 ================================
@@ -1820,29 +2123,36 @@ Reasoning and retrieval improvements now drive major performance leaps at smalle
 
 The modern optimization frontier balances all dimensions simultaneously.
 
-------------------------------------------------------------
+
 
 Automation of Prompt Engineering
 ================================
 
 Emerging systems increasingly automate prompt generation and testing.
 
-Automation pipelines typically include:
+**Automation pipelines typically include**
 
 1. **Prompt generator** — produces candidate prompts from meta-specifications.
+
 2. **Evaluator** — scores each output using reward models or verifiers.
+
 3. **Optimizer** — updates prompt templates via gradient-free or RL search.
+
 4. **Deployer** — selects best-performing prompt for live use.
+
 
 This mirrors AutoML paradigms applied to linguistic interfaces.
 
-Terminology:
+**Terminology**
 
 - **AutoPrompting:** end-to-end pipeline for automated prompt design.
+
 - **Prompt Compiler:** software that translates human intent into structured prompt graphs.
+
 - **Prompt Policy:** adaptive selection rule determining which prompt variant to use per context.
 
-------------------------------------------------------------
+
+
 
 Human–AI Collaboration Paradigm
 ===============================
@@ -1850,39 +2160,51 @@ Human–AI Collaboration Paradigm
 Prompt engineering embodies *symbiotic cognition*: humans and models co-reason in shared linguistic space.
 
 - Humans contribute **intent**, **values**, and **contextual understanding**.
+
 - LLMs contribute **speed**, **breadth**, and **combinatorial search**.
+
 
 The interface becomes a **joint cognitive workspace** where prompts act as mutual protocols.
 
-Key properties of effective collaboration:
+**Key properties of effective collaboration**
 
 1. Explicit goal communication.
+
 2. Iterative refinement and feedback.
+
 3. Trust through transparency.
+
 4. Measurable accountability.
 
-------------------------------------------------------------
+
+
 
 Societal and Industrial Impact
 ==============================
 
-Prompt engineering underpins multiple industries:
+**Prompt engineering underpins multiple industries**
 
 - **Education:** adaptive tutoring and automated assessment.
+
 - **Medicine:** clinical summarization, differential reasoning.
+
 - **Law:** contract analysis and compliance review.
+
 - **Finance:** risk modeling, regulatory summarization.
+
 - **Science:** literature synthesis and hypothesis generation.
+
 - **Creative arts:** text, image, and multimedia synthesis.
+
 
 Organizations now maintain **PromptOps** pipelines for systematic prompt management akin to DevOps.
 
-------------------------------------------------------------
+
 
 Ecosystem Integration
 =====================
 
-Modern LLM systems operate as composable services:
+**Modern LLM systems operate as composable services**
 
 | Layer | Function | Example Tools |
 |--------|-----------|---------------|
@@ -1894,33 +2216,40 @@ Modern LLM systems operate as composable services:
 
 The complete stack represents the **AI Reasoning Operating System (AI-ROS)** — a conceptual architecture combining all reasoning, memory, and action subsystems under unified control.
 
-------------------------------------------------------------
+
 
 The Future of Prompt Engineering
 ================================
 
-Key forecasted trends:
+**Key forecasted trends**
 
 1. **Prompt Programming Languages (PPLs):**
    - DSLs combining natural and formal syntax.
+
    - Enable declarative prompt composition and safety guarantees.
+
 
 2. **Dynamic Prompting:**
    - Prompts that adapt in real time using environmental feedback.
 
+
 3. **Cognitive Emulation:**
    - Multi-agent reasoning loops imitating human deliberation structures.
+
 
 4. **Regulatory Standardization:**
    - Industry-wide specifications for transparency, safety, and reproducibility.
 
+
 5. **Embedded Prompt Ecosystems:**
    - Prompts compiled directly into chip-level or edge model firmware.
+
 
 6. **Semantic Networks of Prompts:**
    - Graph-based prompt repositories enabling search and reuse across tasks.
 
-------------------------------------------------------------
+
+
 
 Synthesis: From Words to Systems
 ================================
@@ -1928,7 +2257,7 @@ Synthesis: From Words to Systems
 Prompt engineering began as linguistic experimentation and now functions as system design.
 Every improvement — from prompt phrasing to test-time reasoning — contributes to a continuous feedback loop between human thought and machine cognition.
 
-Hierarchy of abstraction:
+**Hierarchy of abstraction**
 
 | Level | Focus | Artifact |
 |-------|--------|----------|
@@ -1941,18 +2270,23 @@ Hierarchy of abstraction:
 Each layer refines control and interpretability.
 Future systems will likely unify these layers under a single adaptive architecture.
 
-------------------------------------------------------------
+
 
 Key Takeaways
 =============
 
 1. Prompt engineering is both linguistic precision and systems engineering.
+
 2. Mastery requires understanding transformers, reasoning, and alignment.
+
 3. Reasoning LLMs and agents mark a paradigm shift from static prediction to dynamic cognition.
+
 4. Human alignment ensures safe and ethical integration into society.
+
 5. Automation and standardization will transform prompt design into a formal software discipline.
 
-------------------------------------------------------------
+
+
 
 Conclusion
 ==========
@@ -1965,22 +2299,31 @@ As LLMs evolve into autonomous agents, prompt engineers become architects of cog
 > Prompt engineering is not merely about crafting words —
 > it is about constructing reasoning systems that think, act, and align with human purpose.
 
-------------------------------------------------------------
+
 
 Appendix: Suggested Readings and References
 ===========================================
 
 - OpenAI (2024). *GPT-4 Technical Report.*
+
 - Anthropic (2024). *Constitutional AI: Harmlessness from AI Feedback.*
+
 - DeepSeek (2025). *Reasoning LLMs and Test-Time Scaling.*
+
 - Yao et al. (2022). *ReAct: Synergizing Reasoning and Acting in Language Models.*
+
 - Ouyang et al. (2022). *Training language models to follow instructions with human feedback.*
+
 - Kaplan et al. (2020). *Scaling Laws for Neural Language Models.*
+
 - Chinchilla (DeepMind, 2022). *Compute-optimal large language model scaling.*
+
 - Maarten Grootendorst (2024). *Visual Guides to LLM Agents and Reasoning LLMs.*
+
 - LearnPrompting.org & PromptingGuide.ai (2023–2025). *Prompting fundamentals and applied patterns.*
 
-------------------------------------------------------------
+
+
 
 End of Document
 ===============

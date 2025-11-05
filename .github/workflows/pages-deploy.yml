@@ -8,10 +8,11 @@ on:
       - master
       # Add any other branches you want to trigger deployment
       - article-*
+
     paths-ignore:
       - .gitignore
       - README.md
-      - LICENSE
+
   pull_request:
     types: [opened, synchronize, reopened]
     paths-ignore:
@@ -51,11 +52,11 @@ jobs:
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 3.4
+          ruby-version: 3.3
           bundler-cache: true
 
       - name: Setup Python for RST support
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: "3.x"
 

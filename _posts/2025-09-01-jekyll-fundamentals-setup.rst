@@ -10,12 +10,13 @@ comments: false
 math: false
 mermaid: false
 description: "This post covers the fundamentals of Jekyll, from creating your first repository to setting up development environments."
-author: "Mohit Rajput"
 image:
+
   path: https://jekyllrb.com/img/logo-2x.png
   alt: "Jekyll Fundamentals: Setup and Environment Configuration"
-.. media_subpath: '/assets/images/2025-09-01/'
+allow_edit: true
 ---
+
 
 Jekyll Fundamentals: Setup and Environment Configuration
 ========================================================
@@ -28,67 +29,93 @@ Understanding Jekyll
 What is Jekyll?
 ---------------
 
-Jekyll is a **static site generator** that transforms plain text files into static websites and blogs. It's particularly popular for:
+**Jekyll is a **static site generator** that transforms plain text files into static websites and blogs. It's particularly popular for**
 
-* **GitHub Pages** integration
-* **Markdown and RST** support
-* **Theme-based** customization
-* **Blog-aware** features
-* **Fast, secure** static sites
+- **GitHub Pages** integration
+
+- **Markdown and RST** support
+
+- **Theme-based** customization
+
+- **Blog-aware** features
+
+- **Fast, secure** static sites
+
 
 Key Concepts
 ------------
 
 **Static Site Generation:**
 - Source files → Processing → Static HTML/CSS/JS
+
 - No database or server-side processing needed
+
 - Fast loading and secure deployment
+
 
 **Content Structure:**
 - ``_posts/`` - Blog posts and articles
+
 - ``_config.yml`` - Site configuration
+
 - ``assets/`` - Images, CSS, JavaScript
+
 - ``_site/`` - Generated output (temporary)
 
+
 Creating Your Jekyll Site
-==========================
+=========================
 
 Repository Setup Options
--------------------------
+------------------------
 
 **Option 1: Using Jekyll Starter (Recommended)**
 
-This approach simplifies upgrades and focuses on content creation:
+**This approach simplifies upgrades and focuses on content creation**
 
 1. **Create from Template:**
 
-   * Navigate to Jekyll theme starter repository
-   * Click "Use this template" → "Create a new repository"
-   * Name it ``<username>.github.io`` for GitHub Pages
+   - Navigate to Jekyll theme starter repository
+
+   - Click "Use this template" → "Create a new repository"
+
+   - Name it ``<username>.github.io`` for GitHub Pages
+
 
 2. **Benefits:**
 
-   * Simplified upgrade process
-   * Clean, minimal setup
-   * Focus on writing content
-   * Automatic theme updates
+   - Simplified upgrade process
+
+   - Clean, minimal setup
+
+   - Focus on writing content
+
+   - Automatic theme updates
+
 
 **Option 2: Forking a Theme**
 
-For users who want to modify the theme extensively:
+**For users who want to modify the theme extensively**
 
 1. **Fork the Repository:**
 
-   * Fork the theme repository on GitHub
-   * Name it ``<username>.github.io``
-   * Clone to your local machine
+   - Fork the theme repository on GitHub
+
+   - Name it ``<username>.github.io``
+
+   - Clone to your local machine
+
 
 2. **Considerations:**
 
-   * More control over customization
-   * Harder to upgrade theme
-   * Requires Jekyll knowledge
-   * Good for heavy modifications
+   - More control over customization
+
+   - Harder to upgrade theme
+
+   - Requires Jekyll knowledge
+
+   - Good for heavy modifications
+
 
 Environment Setup
 =================
@@ -98,46 +125,61 @@ Development Environment Options
 
 **Option 1: Dev Containers (Recommended for Windows)**
 
-Dev Containers provide isolated, consistent environments using Docker:
+**Dev Containers provide isolated, consistent environments using Docker**
 
 **Prerequisites:**
 
-* Docker Desktop (Windows/macOS) or Docker Engine (Linux)
-* VS Code with Dev Containers extension
+- Docker Desktop (Windows/macOS) or Docker Engine (Linux)
+
+- VS Code with Dev Containers extension
+
 
 **Setup Steps:**
 
 1. **Install Docker:**
 
-   * Windows/macOS: Install Docker Desktop
-   * Linux: Install Docker Engine
+   - Windows/macOS: Install Docker Desktop
+
+   - Linux: Install Docker Engine
+
 
 2. **Install VS Code Extensions:**
 
-   * Dev Containers extension
-   * Remote development support
+   - Dev Containers extension
+
+   - Remote development support
+
 
 3. **Clone and Open:**
 
-   * Docker Desktop: Clone in container volume
-   * Docker Engine: Clone locally, open in container
+   - Docker Desktop: Clone in container volume
+
+   - Docker Engine: Clone locally, open in container
+
 
 4. **Benefits:**
 
-   * Isolated environment
-   * Consistent across machines
-   * No system dependency conflicts
-   * Easy cleanup and reset
+   - Isolated environment
+
+   - Consistent across machines
+
+   - No system dependency conflicts
+
+   - Easy cleanup and reset
+
 
 **Option 2: Native Setup (Recommended for Unix-like OS)**
 
-Direct installation on your system for optimal performance:
+**Direct installation on your system for optimal performance**
 
 **Prerequisites:**
 
-* Ruby (with bundler)
-* Git
-* Node.js (for some themes)
+- Ruby (with bundler)
+
+- Git
+
+- Node.js (for some themes)
+
 
 **Setup Steps:**
 
@@ -152,11 +194,13 @@ Direct installation on your system for optimal performance:
        # macOS (using Homebrew)
        brew install ruby
 
+
 2. **Install Bundler:**
 
    ::
 
        gem install bundler
+
 
 3. **Clone Repository:**
 
@@ -165,11 +209,13 @@ Direct installation on your system for optimal performance:
        git clone <your-repo-url>
        cd <your-repo-name>
 
+
 4. **Install Dependencies:**
 
    ::
 
        bundle install
+
 
 5. **Initialize (if forked):**
 
@@ -178,8 +224,9 @@ Direct installation on your system for optimal performance:
        bash tools/init.sh  # For forked themes
        bundle
 
+
 Basic Jekyll Workflow
-======================
+=====================
 
 Development Cycle
 -----------------
@@ -190,22 +237,32 @@ Development Cycle
 
     bundle exec jekyll serve
 
-* Builds the site
-* Starts local server at http://localhost:4000
-* Watches for file changes
-* Auto-rebuilds on changes
+- Builds the site
+
+- Starts local server at http://localhost:4000
+
+- Watches for file changes
+
+- Auto-rebuilds on changes
+
 
 **2. Create Content:**
 
-* Write posts in ``_posts/`` directory
-* Use Markdown (``.md``) or reStructuredText (``.rst``)
-* Follow naming convention: ``YYYY-MM-DD-title.extension``
+- Write posts in ``_posts/`` directory
+
+- Use Markdown (``.md``) or reStructuredText (``.rst``)
+
+- Follow naming convention: ``YYYY-MM-DD-title.extension``
+
 
 **3. Preview Changes:**
 
-* Server automatically rebuilds
-* Refresh browser to see updates
-* Check for build errors in terminal
+- Server automatically rebuilds
+
+- Refresh browser to see updates
+
+- Check for build errors in terminal
+
 
 **4. Build for Production:**
 
@@ -217,7 +274,7 @@ Essential Configuration
 =======================
 
 Basic _config.yml Settings
----------------------------
+--------------------------
 
 Key configuration options to customize::
 
@@ -229,6 +286,7 @@ Key configuration options to customize::
 
     # Author settings
     author:
+
       name: Your Name
       email: your@email.com
 
@@ -238,10 +296,13 @@ Key configuration options to customize::
     timezone: Your/Timezone
 
     # Plugins
-    plugins:
+**plugins**
       - jekyll-feed
+
       - jekyll-sitemap
+
       - jekyll-seo-tag
+
 
 Social Contact Configuration
 ----------------------------
@@ -250,17 +311,20 @@ Configure social links in ``_data/contact.yml``::
 
     - type: github
       icon: 'fab fa-github'
+
     - type: twitter
       icon: 'fab fa-twitter'
+
     - type: email
       icon: 'fas fa-envelope'
       noblank: true
 
+
 Development Best Practices
-===========================
+==========================
 
 Project Organization
----------------------
+--------------------
 
 **Directory Structure:**
 
@@ -279,26 +343,37 @@ Project Organization
 
 **File Naming:**
 
-* Posts: ``YYYY-MM-DD-title.md``
-* Pages: ``about.md``, ``contact.md``
-* Assets: Organized in subdirectories
+- Posts: ``YYYY-MM-DD-title.md``
+
+- Pages: ``about.md``, ``contact.md``
+
+- Assets: Organized in subdirectories
+
 
 **Content Management:**
 
-* Use descriptive filenames
-* Organize assets by type or date
-* Keep source files clean and organized
-* Use consistent front matter
+- Use descriptive filenames
+
+- Organize assets by type or date
+
+- Keep source files clean and organized
+
+- Use consistent front matter
+
 
 Version Control
 ---------------
 
 **Git Best Practices:**
 
-* Commit source files, not ``_site/``
-* Use ``.gitignore`` for build artifacts
-* Regular commits with descriptive messages
-* Separate branches for features/experiments
+- Commit source files, not ``_site/``
+
+- Use ``.gitignore`` for build artifacts
+
+- Regular commits with descriptive messages
+
+- Separate branches for features/experiments
+
 
 **Essential .gitignore:**
 
@@ -315,21 +390,30 @@ Local Development Tips
 
 **Performance:**
 
-* Use ``--incremental`` for faster builds
-* Exclude unnecessary files in ``_config.yml``
-* Optimize images before adding to assets
+- Use ``--incremental`` for faster builds
+
+- Exclude unnecessary files in ``_config.yml``
+
+- Optimize images before adding to assets
+
 
 **Debugging:**
 
-* Use ``--trace`` for detailed error messages
-* Check Jekyll and plugin versions
-* Test builds in production environment
+- Use ``--trace`` for detailed error messages
+
+- Check Jekyll and plugin versions
+
+- Test builds in production environment
+
 
 **Workflow Optimization:**
 
-* Use live reload for instant updates
-* Set up editor with Jekyll syntax support
-* Create content templates for consistency
+- Use live reload for instant updates
+
+- Set up editor with Jekyll syntax support
+
+- Create content templates for consistency
+
 
 Troubleshooting Common Issues
 =============================
@@ -378,27 +462,36 @@ Build Errors
        bundle exec jekyll clean
        bundle exec jekyll build
 
+
 2. **Update dependencies:**
 
    ::
 
        bundle update
 
+
 3. **Check configuration:**
 
-   * Validate YAML syntax in ``_config.yml``
-   * Check plugin compatibility
-   * Verify file permissions
+   - Validate YAML syntax in ``_config.yml``
+
+   - Check plugin compatibility
+
+   - Verify file permissions
+
 
 Next Steps
 ==========
 
-Once your Jekyll environment is set up:
+**Once your Jekyll environment is set up**
 
 1. **Learn content creation** - Writing posts and pages
+
 2. **Explore themes** - Customization and styling
+
 3. **Add features** - Plugins and advanced functionality
+
 4. **Deploy your site** - GitHub Pages, Netlify, or other hosts
+
 
 Jekyll Quick Recovery Guide
 ===========================
@@ -467,7 +560,7 @@ Reset and Cleanup
     bundle install
 
 Common Issues - Quick Fixes
-============================
+===========================
 
 **Issue: "No such file or directory - getcwd"**
 
@@ -550,16 +643,24 @@ Best Practices
 **Daily Workflow:**
 
 1. ``cd /workspaces/mr9`` - Always start in correct directory
+
 2. ``bundle exec jekyll serve --host 0.0.0.0`` - Start server
+
 3. Edit content files
+
 4. ``Ctrl+C`` - Stop server when done
+
 
 **When Things Break:**
 
 1. ``pkill -f jekyll`` - Kill any hanging processes
+
 2. ``bundle exec jekyll clean`` - Clean build cache
+
 3. ``cd /workspaces/mr9`` - Ensure correct directory
+
 4. ``bundle exec jekyll serve --host 0.0.0.0`` - Restart fresh
+
 
 **Before Deploying:**
 
@@ -571,5 +672,7 @@ Best Practices
 **File Organization:**
 
 - Edit source files in ``_posts/``, ``assets/``, ``_config.yml``
+
 - Never edit files in ``_site/`` (gets overwritten)
+
 - Use version control: ``git add .`` → ``git commit`` → ``git push``
