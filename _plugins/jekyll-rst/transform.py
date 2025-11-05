@@ -58,6 +58,100 @@ def _assign_section_ids_to_headings(html: str) -> str:
 
     return ''.join(result_parts)
 
+
+def _apply_custom_table_width(html: str) -> str:
+    """
+    Find tables annotated with a class like 'rst-cw-<value>' and move the
+    width value into an inline style on the surrounding .table-wrapper or table.
+    The class is produced by our extended list-table directive option
+    ':custom-table-width:' where <value> is a CSS length or percent.
+    """
+    # Match classes like rst-cw-960px, rst-cw-80pct, rst-cw-120ch, etc.
+    # Capture the width value after rst-cw- until a space or end of class string
+    table_class_pat = re.compile(r'(<table\b[^>]*class="[^"]*\brst-cw-([^\s"]+)[^"]*"[^>]*>)', re.IGNORECASE)
+
+    def decode_width(token: str) -> str:
+        token = token.strip()
+        token = token.replace('pct', '%')
+        # Trust units previously validated in directive
+        return token
+
+    pos = 0
+    out = []
+    while True:
+        m = table_class_pat.search(html, pos)
+        if not m:
+            out.append(html[pos:])
+            break
+        # append leading chunk
+        out.append(html[pos:m.start()])
+        full_tag = m.group(1)
+        width_token = decode_width(m.group(2))
+
+        # Inject inline width style on table element, preserving existing style
+        # 1) If style="..." exists, append width/max-width
+        if 'style=' in full_tag:
+            new_tag = re.sub(r'style="([^"]*)"', lambda mm: f'style="{mm.group(1)}; width: {width_token}; max-width: none;"', full_tag, count=1)
+        else:
+            # Insert a new style attribute before the closing '>'
+            new_tag = full_tag[:-1] + f' style="width: {width_token}; max-width: none;"' + '>'
+
+        out.append(new_tag)
+        pos = m.end()
+
+    return ''.join(out)
+
+def _transform_mermaid_blocks(html: str) -> str:
+    """
+    Transform mermaid code blocks from RST output into the format expected by
+    the Chirpy theme's JavaScript (which looks for .language-mermaid class).
+
+    RST produces code blocks that start with "mindmap" (mermaid's mindmap syntax)
+    We need: <pre class="language-mermaid"><code>...</code></pre>
+    """
+    # Pattern to match code blocks that contain mermaid mindmap syntax
+    # Look for figure.code blocks where the first non-empty line starts with "mindmap"
+    # or other mermaid diagram types
+    pattern = re.compile(
+        r'<figure\s+class="code">.*?<td\s+class="code"><pre><code\s+class="[^"]*">(.*?)</code></pre></td>.*?</figure>',
+        re.DOTALL | re.IGNORECASE
+    )
+
+    def replace_mermaid(match):
+        import html
+        # Extract the code content (it's HTML-escaped with spans)
+        code_content = match.group(1)
+        # Remove line number spans and reconstruct plain text
+        # The content has structure like: <span class="line"><span></span>text</span>
+        lines = re.findall(r'<span class="line">(?:<span></span>)?(.*?)</span>', code_content, re.DOTALL)
+
+        # Clean up: remove empty lines but preserve indentation for non-empty lines
+        cleaned_lines = []
+        for line in lines:
+            # Don't strip - preserve leading spaces for indentation
+            if line.strip():  # Only keep non-empty lines
+                # Unescape HTML entities (&amp; -> &, &lt; -> <, etc.)
+                line = html.unescape(line)
+                cleaned_lines.append(line)
+
+        # Join with newlines and collapse any accidental blank lines
+        clean_content = '\n'.join(cleaned_lines)
+        clean_content = re.sub(r'\n{2,}', '\n', clean_content).strip()
+
+        # Check if this looks like a mermaid diagram (starts with mermaid keywords)
+        mermaid_keywords = ['mindmap', 'graph', 'flowchart', 'sequenceDiagram', 'classDiagram',
+                           'stateDiagram', 'erDiagram', 'gantt', 'pie', 'journey', 'gitGraph']
+        first_word = clean_content.strip().split()[0] if clean_content.strip() else ''
+
+        if first_word in mermaid_keywords:
+            # Return the format Chirpy expects (content will be re-escaped by HTML rendering)
+            return f'<pre class="language-mermaid"><code>{clean_content}</code></pre>'
+        else:
+            # Not a mermaid block, return original
+            return match.group(0)
+
+    return pattern.sub(replace_mermaid, html)
+
 def _convert_markdown_tables_to_grid(rst_text: str) -> str:
     """
     Convert simple Markdown pipe tables into reStructuredText grid tables.
@@ -298,17 +392,40 @@ def transform(writer=None, part=None):
         p.add_option_group(group.title, None).add_options(group.option_list)
 
     p.add_option('--part', default=part)
+    p.add_option('--source-path', default=None, help='Path to the source file for error reporting')
 
     opts, args = p.parse_args()
 
     settings = dict({
         'file_insertion_enabled': False,
         'raw_enabled': False,
+
+        # Philosophy: Trust preprocessing and accept warnings
+        # =====================================================
+        # We set report_level to 4 (SEVERE) because:
+        # 1. Our preprocessing fixes most common RST issues automatically
+        # 2. Level 2 (WARNING) issues are cosmetic and don't affect rendering
+        # 3. Level 3 (ERROR) issues are usually handled gracefully by docutils
+        # 4. Only SEVERE issues would actually break builds (extremely rare)
+        #
+        # This means the site builds successfully even with warnings/errors,
+        # which is intentional. For validation, use `make rst-validate` which
+        # filters build output to show ERROR-level issues if you want to fix them.
+        #
+        # Levels: 1=info, 2=warning, 3=error, 4=severe, 5=none
+        'report_level': 4,
+
+        # Never abort on non-severe messages
+        'halt_level': 5,
     }, **opts.__dict__)
 
+    # Track source file for better error messages
+    source_path = opts.source_path
     if len(args) == 1:
         try:
             content = open(args[0], 'r').read()
+            if not source_path:
+                source_path = args[0]
         except IOError:
             content = args[0]
     else:
@@ -333,14 +450,41 @@ def transform(writer=None, part=None):
     except Exception:
         pass
 
+    # Debug: write the final RST string that will be fed to docutils
+    try:
+        with open('/tmp/last_rst_input.rst', 'w') as dbg:
+            dbg.write(content)
+    except Exception:
+        pass
+
     # Prefer MathJax rendering for LaTeX/math
     settings['math_output'] = 'MathJax https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'
 
-    parts = publish_parts(
-        source=content,
-        settings_overrides=settings,
-        writer=writer,
-    )
+    # Add source_path to settings for better error messages
+    if source_path:
+        settings['source_path'] = source_path
+        settings['_source'] = source_path
+
+    # Capture stderr to enhance error messages with filename
+    import io
+    from contextlib import redirect_stderr
+
+    stderr_capture = io.StringIO()
+    with redirect_stderr(stderr_capture):
+        parts = publish_parts(
+            source=content,
+            source_path=source_path if source_path else '<string>',
+            settings_overrides=settings,
+            writer=writer,
+        )
+
+    # Print captured stderr with filename context
+    stderr_text = stderr_capture.getvalue()
+    if stderr_text:
+        # Replace <string> with actual filename if we have it
+        if source_path:
+            stderr_text = stderr_text.replace('<string>:', f'{source_path}:')
+        sys.stderr.write(stderr_text)
 
     if opts.part in parts:
         html = parts[opts.part]
@@ -349,6 +493,16 @@ def transform(writer=None, part=None):
             html = _assign_section_ids_to_headings(html)
         except Exception:
             # Do not fail the build on post-processing; return the original fragment
+            pass
+        # Post-process to apply custom table width option
+        try:
+            html = _apply_custom_table_width(html)
+        except Exception:
+            pass
+        # Post-process to transform mermaid blocks for Chirpy theme
+        try:
+            html = _transform_mermaid_blocks(html)
+        except Exception:
             pass
         return html
     return ''

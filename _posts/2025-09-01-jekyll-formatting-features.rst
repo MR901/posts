@@ -10,12 +10,13 @@ comments: false
 math: true
 mermaid: true
 description: "This post covers the advanced formatting capabilities of Jekyll, from typography and text styling to media integration, mathematical equations, and interactive diagrams."
-author: "Mohit Rajput"
 image:
+
   path: https://jekyllrb.com/img/logo-2x.png
   alt: "Jekyll Advanced Formatting: Typography, Media, and Special Features"
-.. media_subpath: '/assets/images/2025-09-01/'
+allow_edit: true
 ---
+
 
 Jekyll Advanced Formatting: Typography, Media, and Special Features
 ===================================================================
@@ -23,46 +24,54 @@ Jekyll Advanced Formatting: Typography, Media, and Special Features
 This comprehensive guide covers Jekyll's advanced formatting capabilities, from typography and text styling to media integration, mathematical equations, and interactive diagrams. Master these features to create rich, engaging content.
 
 Typography and Text Formatting
-===============================
+==============================
 
 Header Hierarchy
------------------
+----------------
 
 **RST Header Styles:**
 
 ::
 
     Main Title
-    ==========
+==============
 
     Major Section
-    =============
+=================
 
     Section
-    -------
+-----------
 
     Subsection
-    ~~~~~~~~~~
+~~~~~~~~~~~~~~
 
     Minor Section
-    ^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^
 
 **Best Practices:**
 
-* **Consistent hierarchy** - Don't skip levels
-* **Descriptive titles** - Clear, scannable headers
-* **Logical organization** - Group related content
-* **SEO-friendly** - Headers help search engines understand structure
+- **Consistent hierarchy** - Don't skip levels
+
+- **Descriptive titles** - Clear, scannable headers
+
+- **Logical organization** - Group related content
+
+- **SEO-friendly** - Headers help search engines understand structure
+
 
 Text Styling Options
 --------------------
 
 **Basic Text Formatting:**
 
-* **Bold text** - ``**bold text**`` or ``**emphasis**``
-* *Italic text* - ``*italic text*`` or ``*emphasis*``
-* ``Inline code`` - ``inline code`` for technical terms
-* **Combined** - ``***bold and italic***``
+- **Bold text** - ``**bold text**`` or ``**emphasis**``
+
+- *Italic text* - ``*italic text*`` or ``*emphasis*``
+
+- ``Inline code`` - ``inline code`` for technical terms
+
+- **Combined** - ``***bold and italic***``
+
 
 **Special Text Elements:**
 
@@ -84,38 +93,51 @@ List Types
 **Ordered Lists:**
 
 1. First item
+
 2. Second item
+
 3. Third item
 
    a. Nested sub-item
    b. Another sub-item
 
+
 4. Fourth item
+
 
 **Unordered Lists:**
 
-* Main point
+- Main point
 
-  * Sub-point
-  * Another sub-point
+  - Sub-point
 
-    * Deeply nested point
+  - Another sub-point
 
-* Another main point
+    - Deeply nested point
+
+
+- Another main point
+
 
 **Task Lists:**
 
 - [x] Completed task
+
 - [x] Another completed task
+
 - [ ] Pending task
+
 - [ ] Future task
+
 
 **Description Lists:**
 
 Term 1
+
     Definition of the first term
 
 Term 2
+
     Definition of the second term with more detailed explanation
     that spans multiple lines
 
@@ -126,21 +148,30 @@ Complex List Examples
 
 1. **Setup Phase**
 
-   * Install dependencies
-   * Configure environment
-   * Test installation
+   - Install dependencies
+
+   - Configure environment
+
+   - Test installation
+
 
 2. **Development Phase**
 
-   * Write code
-   * Test functionality
-   * Document changes
+   - Write code
+
+   - Test functionality
+
+   - Document changes
+
 
 3. **Deployment Phase**
 
-   * Build production version
-   * Deploy to server
-   * Monitor performance
+   - Build production version
+
+   - Deploy to server
+
+   - Monitor performance
+
 
 Block Elements
 ==============
@@ -170,24 +201,30 @@ Blockquotes
 Prompt Boxes (Theme-Specific)
 -----------------------------
 
-Many Jekyll themes support special prompt boxes for different types of information:
+**Many Jekyll themes support special prompt boxes for different types of information**
 
 **Information Prompts:**
 
 .. note::
+
    This is an informational note that provides helpful context
+
    or additional information about the topic.
 
 **Warning Prompts:**
 
 .. warning::
+
    This is a warning about potential issues or things to be
+
    careful about when following instructions.
 
 **Tip Prompts:**
 
 .. tip::
+
    This is a helpful tip that can make the process easier
+
    or more efficient for readers.
 
 Code and Technical Content
@@ -200,11 +237,16 @@ Use backticks for inline code: ``variable_name``, ``function()``, ``command --op
 
 **When to Use Inline Code:**
 
-* Variable names and values
-* Function and method names
-* Command line commands
-* File and directory names
-* Technical terminology
+- Variable names and values
+
+- Function and method names
+
+- Command line commands
+
+- File and directory names
+
+- Technical terminology
+
 
 Code Blocks
 -----------
@@ -223,13 +265,17 @@ Code Blocks
 
    # Python code block
    def fibonacci(n):
+
        if n <= 1:
+
            return n
        return fibonacci(n-1) + fibonacci(n-2)
 
    # Generate first 10 Fibonacci numbers
    for i in range(10):
+
        print(f"F({i}) = {fibonacci(i)}")
+
 
 
 .. code-block:: bash
@@ -244,27 +290,36 @@ Code Blocks
    # Check installation
    gcc --version
 
+
 .. code-block:: javascript
 
    // JavaScript code block
    // Modern JavaScript example with async/await
    async function fetchUserData(userId) {
+
        try {
+
            const response = await fetch(`/api/users/${userId}`);
            const userData = await response.json();
            return userData;
        } catch (error) {
+
            console.error('Error fetching user data:', error);
            throw error;
        }
    }
 
+
 **Code Block Features:**
 
-* **Syntax highlighting** - Automatic language detection
-* **Line numbers** - Optional line numbering
-* **Copy functionality** - Easy code copying
-* **Filename labels** - Show source file names
+- **Syntax highlighting** - Automatic language detection
+
+- **Line numbers** - Optional line numbering
+
+- **Copy functionality** - Easy code copying
+
+- **Filename labels** - Show source file names
+
 
 Tables and Data
 ===============
@@ -301,8 +356,102 @@ Complex Tables
 | NPM              | ``npm install package-name``            | Package          |
 +------------------+-------------------------+------------------+
 
+Advanced Table Features
+-----------------------
+
+**Custom Column Widths:**
+
+The ``list-table`` directive supports the ``:widths:`` option to control column proportions. Values are relative ratios that determine how the table width is distributed across columns.
+
+**Example with 20/80 split**
+
+Table
+-----
+
+   - - Category
+     - Description
+
+   - - Short label
+     - This is a longer description that will wrap within its column while maintaining the 20/80 width ratio between columns.
+
+
+**Behavior of widths:**
+
+- ``1 1`` → Equal columns (50/50)
+
+- ``1 9`` → Left column gets 10%, right gets 90%
+
+- ``1 99`` → Left column gets ~1%, right gets ~99%
+
+- Values are normalized to percentages (``2 2`` = ``1 1``)
+
+
+**Custom Table Width:**
+
+**For tables that need a specific overall width (enabling horizontal scroll when wider than viewport), use the ``:custom-table-width:`` option**
+
+Table
+-----
+
+   - - Rank
+     - Name
+
+     - Description
+
+     - Example
+
+   - - 1
+     - First Item
+
+     - A detailed description
+
+     - Sample value
+
+
+**Supported width units:**
+
+- **Pixels:** ``1200px``, ``960px`` (or bare numbers: ``1200`` defaults to px)
+
+- **Relative:** ``80%``, ``90%``
+
+- **Font-based:** ``80ch``, ``40rem``, ``30em``
+
+- **Viewport:** ``80vw``, ``60vh``
+
+
+**Default behavior (no custom-table-width):**
+
+- Table fills its container
+
+- Text wraps within cells
+
+- Horizontal scroll appears only when content forces it
+
+
+**With custom-table-width:**
+
+- Table uses the specified width exactly
+
+- If wider than viewport, horizontal scrolling is enabled
+
+- Column ratios from ``:widths:`` are still respected
+
+- Text still wraps within cells
+
+
+**Best practices:**
+
+- Use ``:widths:`` alone for most tables
+
+- Add ``:custom-table-width:`` only when you need tables wider than the viewport
+
+- For narrow viewports, consider responsive widths like ``90vw`` instead of fixed pixels
+
+- Test on mobile to ensure usability with horizontal scroll
+
+
 Mathematics and Equations
-==========================
+=========================
 
 Inline Mathematics
 ------------------
@@ -338,7 +487,8 @@ The quadratic formula shown in equation is fundamental in algebra.
    x \\
    y
    \end{pmatrix}
-   =
+================
+
    \begin{pmatrix}
    ax + by \\
    cx + dy
@@ -361,17 +511,20 @@ Mermaid Diagrams
 .. code-block:: mermaid
 
    flowchart TD
+
        A[Start] --> B{Decision}
        B -->|Yes| C[Process A]
        B -->|No| D[Process B]
        C --> E[End]
        D --> E
 
+
 **Sequence Diagrams:**
 
 .. code-block:: mermaid
 
    sequenceDiagram
+
        participant User
        participant Browser
        participant Server
@@ -384,11 +537,13 @@ Mermaid Diagrams
        Server-->>Browser: HTTP Response
        Browser-->>User: Display Page
 
+
 **Gantt Charts:**
 
 .. code-block:: mermaid
 
    gantt
+
        title Project Timeline
        dateFormat YYYY-MM-DD
 
@@ -405,12 +560,15 @@ Mermaid Diagrams
        Production Setup  :c1, after b3, 3d
        Go Live          :c2, after c1, 1d
 
+
 **Class Diagrams:**
 
 .. code-block:: mermaid
 
    classDiagram
+
        class Animal {
+
            +String name
            +int age
            +makeSound()
@@ -418,12 +576,14 @@ Mermaid Diagrams
        }
 
        class Dog {
+
            +String breed
            +bark()
            +wagTail()
        }
 
        class Cat {
+
            +String color
            +meow()
            +purr()
@@ -431,6 +591,7 @@ Mermaid Diagrams
 
        Animal <|-- Dog
        Animal <|-- Cat
+
 
 Media Integration
 =================
@@ -441,7 +602,9 @@ Images
 **Basic Image Syntax:**
 
 .. image:: attachments/general/images/repo_icon.png
+
    :alt: Description of the image
+
    :align: center
    :width: 400
    :height: 400
@@ -452,6 +615,7 @@ Images
    :alt: Application screenshot
    :align: left
    :width: 600
+
 
    *From the about section of this website*
 
@@ -482,26 +646,33 @@ Internal Links
 
 **Link to Other Posts:**
 
-* `Jekyll Fundamentals Guide </posts/jekyll-fundamentals-setup/>`_
-* `Content Creation Guide </posts/jekyll-content-creation-guide/>`_
+- `Jekyll Fundamentals Guide </posts/jekyll-fundamentals-setup/>`_
+
+- `Content Creation Guide </posts/jekyll-content-creation-guide/>`_
+
 
 **Link to Sections:**
 
-* `Typography Section <#typography-and-text-formatting>`_
-* `Code Blocks <#code-blocks>`_
+- `Typography Section <#typography-and-text-formatting>`_
+
+- `Code Blocks <#code-blocks>`_
+
 
 External Links
 --------------
 
 **Resource Links:**
 
-* `Jekyll Documentation <https://jekyllrb.com/docs/>`_
-* `Markdown Guide <https://www.markdownguide.org/>`_
-* `reStructuredText Primer <https://docutils.sourceforge.io/docs/user/rst/quickref.html>`_
+- `Jekyll Documentation <https://jekyllrb.com/docs/>`_
+
+- `Markdown Guide <https://www.markdownguide.org/>`_
+
+- `reStructuredText Primer <https://docutils.sourceforge.io/docs/user/rst/quickref.html>`_
+
 
 **Reference-Style Links:**
 
-For frequently referenced resources, you can define links at the bottom:
+**For frequently referenced resources, you can define links at the bottom**
 
 .. _Jekyll: https://jekyllrb.com/
 .. _GitHub: https://github.com/
@@ -529,11 +700,12 @@ Advanced Features
 Custom HTML Integration
 -----------------------
 
-When Markdown or RST limitations are reached, custom HTML can be embedded:
+**When Markdown or RST limitations are reached, custom HTML can be embedded**
 
 .. raw:: html
 
    <div class="custom-container">
+
        <h3>Custom HTML Section</h3>
        <p>This content uses custom HTML for specific styling needs.</p>
    </div>
@@ -555,7 +727,9 @@ Interactive Elements
 .. raw:: html
 
    <div class="video-container">
+
        <iframe width="560" height="315"
+
                src="https://www.youtube.com/embed/Y7LCiZbOmNQ"
                frameborder="0" allowfullscreen>
        </iframe>
@@ -569,38 +743,52 @@ Optimization Guidelines
 
 **Image Optimization:**
 
-* **Compress images** before uploading
-* **Use appropriate formats** - JPEG for photos, PNG for graphics
-* **Specify dimensions** to prevent layout shift
-* **Add alt text** for accessibility
+- **Compress images** before uploading
+
+- **Use appropriate formats** - JPEG for photos, PNG for graphics
+
+- **Specify dimensions** to prevent layout shift
+
+- **Add alt text** for accessibility
+
 
 **Content Performance:**
 
-* **Minimize large code blocks** - Use external files when needed
-* **Optimize tables** - Keep data manageable
-* **Use lazy loading** for images below the fold
+- **Minimize large code blocks** - Use external files when needed
+
+- **Optimize tables** - Keep data manageable
+
+- **Use lazy loading** for images below the fold
+
 
 Accessibility Best Practices
------------------------------
+----------------------------
 
 **Text Accessibility:**
 
-* **Sufficient color contrast** for readability
-* **Descriptive link text** - avoid "click here"
-* **Proper heading hierarchy** - don't skip levels
-* **Alt text for images** - describe content and function
+- **Sufficient color contrast** for readability
+
+- **Descriptive link text** - avoid "click here"
+
+- **Proper heading hierarchy** - don't skip levels
+
+- **Alt text for images** - describe content and function
+
 
 **Navigation Aids:**
 
-* **Table of contents** for long posts
-* **Skip links** for keyboard navigation
-* **Descriptive page titles** and meta descriptions
+- **Table of contents** for long posts
+
+- **Skip links** for keyboard navigation
+
+- **Descriptive page titles** and meta descriptions
+
 
 Formatting Quick Reference
 ==========================
 
 Common Issues - Quick Fixes
-----------------------------
+---------------------------
 
 **Math Not Rendering:**
 
@@ -634,8 +822,11 @@ Common Issues - Quick Fixes
 **Table Formatting Issues:**
 
 - Keep tables simple
+
 - Use consistent spacing
+
 - Test with minimal content first
+
 
 **Code Block Problems:**
 
@@ -643,13 +834,17 @@ Common Issues - Quick Fixes
 
     # Wrong
     Here's code::
+
     def function():
+
         return True
+
 
     # Right
     Here's code::
 
         def function():
+
             return True
 
 **Image Not Loading:**
@@ -663,14 +858,18 @@ Common Issues - Quick Fixes
     .. image:: assets/images/your-image.jpg
 
 Formatting Troubleshooting
-===========================
+==========================
 
 **Quick Debug Process:**
 
 1. **Test with minimal content** - Start simple
+
 2. **Add complexity gradually** - One feature at a time
+
 3. **Check build output** - ``bundle exec jekyll build --trace``
+
 4. **View generated HTML** - ``cat _site/posts/your-post/index.html``
+
 
 **Content Not Rendering:**
 
@@ -693,6 +892,9 @@ Formatting Troubleshooting
 **Performance Issues:**
 
 - Keep images under 1MB
+
 - Use simple tables for complex data
+
 - Break up very long documents
+
 - Test build time: ``time bundle exec jekyll build``
