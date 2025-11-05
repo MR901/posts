@@ -596,7 +596,7 @@ Important Links
 
 - Anything LLM: https://useanything.com/
 
-- https://github.com/Mintplex-Labs/anything-llm/blob/master/README.md
+- Anything LLM GitHub: https://github.com/Mintplex-Labs/anything-llm/blob/master/README.md
 
 - LAAMA: https://ai.meta.com/llama/
 
@@ -606,27 +606,27 @@ Important Links
   - https://groq.com/
 
 **- Token**
-  - https://platform.openai.com/tokenizer
+  - OpenAI Tokenizer: https://platform.openai.com/tokenizer
 
-  - https://help.openai.com/en/articles/4936856-what-are-tokens-and-how-to-count-them
+  - OpenAI Token Counting Guide: https://help.openai.com/en/articles/4936856-what-are-tokens-and-how-to-count-them
 
 - RLHF: https://huggingface.co/blog/rlhf
 
 - Vision Examples from Microsoft: https://arxiv.org/pdf/2309.17421
 
 **- Prompting**
-  - https://www.promptingguide.ai/techniques/tot
+  - Prompting Guide: https://www.promptingguide.ai/techniques/tot
 
-  - https://learnprompting.org/docs/intro
+  - Learn Prompting: https://learnprompting.org/docs/intro
 
 **- RAG**
-  - https://aws.amazon.com/de/what-is/retrieval-augmented-generation/
+  - AWS RAG Overview: https://aws.amazon.com/de/what-is/retrieval-augmented-generation/
 
-  - https://blogs.nvidia.com/blog/what-is-retrieval-augmented-generation/
+  - NVIDIA RAG Blog: https://blogs.nvidia.com/blog/what-is-retrieval-augmented-generation/
 
-  - https://research.ibm.com/blog/retrieval-augmented-generation-RAG
+  - IBM Research on RAG: https://research.ibm.com/blog/retrieval-augmented-generation-RAG
 
-  - https://www.databricks.com/glossary/retrieval-augmented-generation-rag
+  - Databricks Glossary: https://www.databricks.com/glossary/retrieval-augmented-generation-rag
 
 - PDFs for RAG: https://github.com/run-llama/llama_parse
 
@@ -639,7 +639,7 @@ Important Links
 
   - https://voyager.minedojo.org/
 
-  - https://flowiseai.com/
+  - Flowise AI: https://flowiseai.com/
 
   - Flowise on Github: https://github.com/FlowiseAI/Flowise
 
@@ -652,19 +652,19 @@ Important Links
 - Talk to a AI-Assistant: https://moshi.chat/?queue_id=talktomoshi
 
 **- Papers**
-  - https://arxiv.org/pdf/2307.02483
+  - Jailbroken: How Does LLM Safety Training Fail? (Link: https://arxiv.org/pdf/2307.02483)
 
-  - https://arxiv.org/pdf/2307.15043
+  - Many-Shot Jailbreaking (Link: https://arxiv.org/pdf/2307.15043)
 
-  - https://arxiv.org/pdf/2306.13213
+  - The Prompt Injection Attack (Link: https://arxiv.org/pdf/2306.13213)
 
-  - https://arxiv.org/pdf/2302.12173
+  - Not What You’ve Signed Up For: Compromising Real-World LLM-Integrated Applications with Indirect Prompt Injections (Link: https://arxiv.org/pdf/2302.12173)
 
-  - https://arxiv.org/pdf/2305.00944
+  - Hacking Google Bard: From Prompt Injections to Data Exfiltration (Link: https://arxiv.org/pdf/2305.00944)
 
-  - FInetuning Paper: https://arxiv.org/pdf/2405.05904v2
+  - FInetuning Paper: (Link: https://arxiv.org/pdf/2405.05904v2)
 
-- https://embracethered.com/blog/posts/2023/google-bard-data-exfiltration/
+- Hacking Google Bard: From Prompt Injections to Data Exfiltration (Link: https://embracethered.com/blog/posts/2023/google-bard-data-exfiltration/)
 
 
 Key Takeaways

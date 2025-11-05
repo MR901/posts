@@ -125,18 +125,16 @@ def _transform_mermaid_blocks(html: str) -> str:
         # The content has structure like: <span class="line"><span></span>text</span>
         lines = re.findall(r'<span class="line">(?:<span></span>)?(.*?)</span>', code_content, re.DOTALL)
 
-        # Clean up: remove empty lines but preserve indentation for non-empty lines
+        # Clean up: preserve empty lines and indentation
         cleaned_lines = []
         for line in lines:
-            # Don't strip - preserve leading spaces for indentation
-            if line.strip():  # Only keep non-empty lines
-                # Unescape HTML entities (&amp; -> &, &lt; -> <, etc.)
-                line = html.unescape(line)
-                cleaned_lines.append(line)
+            # Unescape HTML entities (&amp; -> &, &lt; -> <, etc.)
+            line = html.unescape(line)
+            # Preserve empty lines - mermaid syntax may need them
+            cleaned_lines.append(line.rstrip() if line.strip() else '')
 
-        # Join with newlines and collapse any accidental blank lines
-        clean_content = '\n'.join(cleaned_lines)
-        clean_content = re.sub(r'\n{2,}', '\n', clean_content).strip()
+        # Join with newlines - preserve structure including blank lines
+        clean_content = '\n'.join(cleaned_lines).strip()
 
         # Check if this looks like a mermaid diagram (starts with mermaid keywords)
         mermaid_keywords = ['mindmap', 'graph', 'flowchart', 'sequenceDiagram', 'classDiagram',
@@ -144,8 +142,8 @@ def _transform_mermaid_blocks(html: str) -> str:
         first_word = clean_content.strip().split()[0] if clean_content.strip() else ''
 
         if first_word in mermaid_keywords:
-            # Return the format Chirpy expects (content will be re-escaped by HTML rendering)
-            return f'<pre class="language-mermaid"><code>{clean_content}</code></pre>'
+            # Wrap in a div to isolate from surrounding content and prevent DOM interference
+            return f'<div class="mermaid-wrapper">\n<pre class="language-mermaid"><code>{clean_content}</code></pre>\n</div>\n'
         else:
             # Not a mermaid block, return original
             return match.group(0)
