@@ -484,1209 +484,726 @@ Organizational & Management Principles
      - Org design, platform engineering, microservices
 
 
-
 5. Cognitive & Decision Heuristics
+---------------------------------
 
+.. list-table::
+   :header-rows: 1
+   :widths: 4 24 18 30 26 20
 
-
-Cognitive & Decision Heuristics
--------------------------------
-
-   - - Rank
+   * - Rank
      - Principle
-
      - Core Insight
-
      - Overview
-
      - Core Concept
-
      - Common Use
-
-   - - 1
+   * - 1
      - Occam’s Razor
-
      - Prefer the simplest explanation that fits the facts.
-
      - Fewer assumptions mean easier testing and fewer ways to be wrong. Simple doesn’t mean simplistic.
-
-
+     -
        - Parsimony: remove unnecessary parts.
-
        - Fit: keep what evidence requires.
-
        - Testability: simpler models are easier to check.
-
      - Debugging, modeling, product decisions
-
-   - - 2
+   * - 2
      - Sagan Standard
-
      - Bigger claims need stronger evidence.
-
      - Raise the proof bar when a claim is surprising or costly to act on.
-
-
+     -
        - Proportional evidence: match proof to the claim.
-
        - Prior odds: the less likely, the more proof required.
-
        - Replication: prefer results others can reproduce.
-
      - Research, product claims, safety decisions
-
-   - - 3
+   * - 3
      - Hitchen’s Razor
-
      - What’s asserted without proof can be dismissed without proof.
-
      - The burden of proof rests on the person making the claim.
-
-
+     -
        - Evidence first: ask for support before debate.
-
        - Avoid distraction: don’t chase unfalsifiable ideas.
-
        - Default neutral: no proof, no change.
-
      - Critical thinking, design reviews, decision gates
-
-   - - 4
+   * - 4
      - Hanlon’s Razor
-
      - Mistakes explain more than malice.
-
      - Start investigating with error and miscommunication before assuming bad intent.
-
-
+     -
        - Calm diagnosis: reduce heat and blame.
-
        - Error taxonomy: process, design, or execution?
-
        - Safer systems: fix causes, not people.
-
      - Security triage, incident reviews, team communication
-
-   - - 5
+   * - 5
      - Chesterton’s Fence
-
      - Don’t remove or change a rule until you know why it exists.
-
      - Hidden constraints and edge cases often justify awkward systems.
-
-
+     -
        - History matters: learn the original problem.
-
        - Safety checks: design reversible changes.
-
        - Replace with better: keep the benefit, fix the cost.
-
      - Policy, refactoring, migrations, governance
-
-   - - 6
+   * - 6
      - Brandolini’s Law
-
      - It’s much harder to debunk nonsense than to create it.
-
      - Be strategic: don’t chase every claim; prepare concise, high-quality corrections.
-
-
+     -
        - Prebunk: share facts before myths take hold.
-
        - Templates: reusable responses save time.
-
        - Amplify truth: use credible, reachable channels.
-
      - Communications, moderation, documentation
-
-   - - 7
+   * - 7
      - Hick’s Law
-
      - More choices mean slower decisions.
-
      - Reduce, group, or sequence options to help people choose faster.
-
-
+     -
        - Progressive disclosure: reveal options in steps.
-
        - Defaults: offer a sensible first choice.
-
        - Grouping: organize by task or outcome.
-
      - UX menus, settings, onboarding, pricing pages
-
-   - - 8
+   * - 8
      - Segal’s Law
-
      - Two conflicting sources create confusion.
-
      - One well-calibrated source beats two that disagree. Reconcile or pick a single source of truth.
-
-
+     -
        - Calibration: verify accuracy and drift.
-
        - Consistency: align definitions and methods.
-
        - Governance: document the “source of truth.”
-
      - Analytics, instrumentation, reporting, monitoring
 
 
 6. Systems & Complexity Principles
+----------------------------------
 
+.. list-table::
+   :header-rows: 1
+   :widths: 4 24 18 28 24 20
 
-
-Systems & Complexity Principles
--------------------------------
-
-   - - Rank
+   * - Rank
      - Principle
-
      - Core Insight
-
      - Overview
-
      - Core Concept
-
      - Common Use
-
-   - - 1
+   * - 1
      - Butterfly Effect
-
      - Tiny changes can produce big outcomes.
-
      - In complex systems, small differences at the start can grow into large effects, limiting long-term predictions.
-
-
+     -
        - Sensitivity: initial conditions matter a lot.
-
        - Nonlinearity: feedback loops amplify changes.
-
        - Short horizons: forecast modestly, monitor closely.
-
      - Forecasting, risk management, experimentation
-
-   - - 2
+   * - 2
      - Tragedy of the Commons
-
      - Shared resources are depleted without rules.
-
      - Personal incentives can drain common assets unless coordinated.
-
-
+     -
        - Externalities: private gains, shared costs.
-
        - Mechanisms: quotas, pricing, and norms.
-
        - Monitoring: track usage and enforce limits.
-
      - Policy, resource management, shared infrastructure
-
-   - - 3
+   * - 3
      - Gall’s Law
-
      - Successful complex systems start simple.
-
      - Build a working simple version first, then iterate toward complexity.
-
-
+     -
        - MVP first: ship the smallest useful system.
-
        - Iteration: add complexity after learning.
-
        - Robustness: small, proven parts compose better.
-
      - Architecture, product development, platform design
-
-   - - 4
+   * - 4
      - Law of Unintended Consequences
-
      - Actions create side effects—good, bad, and surprising.
-
      - Expect trade-offs and ripple effects, especially in complex systems.
-
-
+     -
        - Second-order thinking: look beyond first impacts.
-
        - Scenarios: test multiple paths and stakeholders.
-
        - Feedback: monitor and adjust after changes.
-
      - Policy design, change management, product launches
 
 
-
 7. Probability, Risk, and Forecasting Principles
-
-
-
-Probability, Risk, and Forecasting Principles
 ---------------------------------------------
 
-   - - Rank
+.. list-table::
+   :header-rows: 1
+   :widths: 4 26 18 28 24 20
+
+   * - Rank
      - Principle
-
      - Core Insight
-
      - Overview
-
      - Core Concept
-
      - Common Use
-
-   - - 1
+   * - 1
      - Murphy’s Law
-
      - If it can fail, plan as if it will.
-
      - Design for failure so that issues are contained and recovery is quick.
-
-
+     -
        - Redundancy: avoid single points of failure.
-
        - Failure tests: rehearse outages and rollbacks.
-
        - Graceful degradation: keep core functions alive.
-
      - SRE, operations, safety engineering
-
-   - - 2
+   * - 2
      - Sod’s Law
-
      - Failures cluster at the worst moments.
-
      - Critical events deserve buffers, freeze windows, and extra checks.
-
-
+     -
        - Timing risk: consider calendars and dependencies.
-
        - Buffers: add time and capacity around key dates.
-
        - Fallbacks: plan postponements and alternatives.
-
      - Release planning, events, critical operations
-
-   - - 3
+   * - 3
      - Lindy Effect
-
      - The longer something has lasted, the longer it’s likely to last.
-
      - Time filters fragile ideas; the robust ones survive.
-
-
+     -
        - Survival bias: watch what endures, not what’s flashy.
-
        - Half-life intuition: old ideas can be safer bets.
-
        - Mix: balance proven with promising new.
-
      - Tech choices, content libraries, vendor selection
-
-   - - 4
+   * - 4
      - Law of Averages
-
      - Over many tries, results tend toward the expected mix.
-
      - In the short run, randomness still swings—don’t assume payback is “due.”
-
-
+     -
        - Independence: past events don’t change fair odds.
-
        - Streaks: clusters happen by chance.
-
        - Sample size: stability needs volume.
-
      - Risk assessment, planning, communication
-
-   - - 5
+   * - 5
      - Planning Fallacy
-
      - We underestimate time, cost, and risk.
-
      - Use outside evidence and buffers to counter optimism.
-
-
+     -
        - Reference class: base estimates on similar work.
-
        - Premortem: imagine failure and prevent it.
-
        - Milestones: deliver in stages to learn early.
-
      - Project management, budgeting, product delivery
 
 
 8. Philosophical, Ethical, and Cultural Principles
-
-
-
-Philosophical, Ethical, and Cultural Principles
 -----------------------------------------------
 
-   - - Rank
+.. list-table::
+   :header-rows: 1
+   :widths: 4 30 18 28 24 20
+
+   * - Rank
      - Principle
-
      - Core Insight
-
      - Overview
-
      - Core Concept
-
      - Common Use
-
-   - - 1
+   * - 1
      - Law of Karma
-
      - Actions carry consequences over time.
-
      - Behaviors, intentions, and patterns tend to return results that match them.
-
-
+     -
        - Intention matters: why you act shapes outcomes.
-
        - Habits: repeated actions build your future.
-
        - Reciprocity: what you give often comes back.
-
      - Ethics, leadership, personal development
-
-   - - 2
+   * - 2
      - Golden Rule
-
      - Treat others the way you want to be treated.
-
      - A fast test for fairness and respect across cultures.
-
-
+     -
        - Empathy: imagine yourself on the receiving end.
-
        - Reversibility: would you accept this treatment?
-
        - Context: adapt to different needs and norms.
-
      - Team culture, customer service, conflict resolution
-
-   - - 3
+   * - 3
      - Occam’s Razor
-
      - Prefer simple reasons over complicated ones when both fit.
-
      - In ethics and reasoning, fewer assumptions reduce error.
-
-
+     -
        - Keep essentials: remove what isn’t needed.
-
        - Clarity: simple rules are easier to follow.
-
        - Evidence fit: don’t oversimplify beyond facts.
-
      - Philosophy, policy, everyday judgment
 
 
 9. Communication & Information Principles
+---------------------------------------
 
+.. list-table::
+   :header-rows: 1
+   :widths: 4 32 18 28 24 20
 
-
-Communication & Information Principles
---------------------------------------
-
-   - - Rank
+   * - Rank
      - Principle
-
      - Core Insight
-
      - Overview
-
      - Core Concept
-
      - Common Use
-
-   - - 1
+   * - 1
      - Shannon’s Information Theory
-
      - Information reduces uncertainty.
-
      - Messages can be measured (in bits), and channels have limits. Good encoding fights noise.
-
-
+     -
        - Entropy: quantify unpredictability.
-
        - Channel capacity: how much can pass reliably.
-
        - Coding: compress and correct to beat noise.
-
      - Communications, compression, telemetry, API design
-
-   - - 2
+   * - 2
      - Brandolini’s Law
-
      - Debunking takes much more work than making a false claim.
-
      - Choose battles, prepare clear responses, and build trust in advance.
-
-
+     -
        - Prebunking: inoculate with facts early.
-
        - Focus: address the most harmful errors.
-
        - Trust: use credible messengers and sources.
-
      - Media, communications, community management
 
 
 10. Technology & Innovation Principles
+------------------------------------
 
+.. list-table::
+   :header-rows: 1
+   :widths: 4 30 18 28 24 20
 
-
-Technology & Innovation Principles
-----------------------------------
-
-   - - Rank
+   * - Rank
      - Principle
-
      - Core Insight
-
      - Overview
-
      - Core Concept
-
      - Common Use
-
-   - - 1
+   * - 1
      - Moore’s Law
-
      - Computing capacity improves rapidly over time.
-
      - Performance-per-dollar has historically compounded, enabling new use cases and designs.
-
-
+     -
        - Curves: expect periodic leaps, not linear change.
-
        - Limits: watch physics and cost walls.
-
        - Timing: align bets with likely improvements.
-
      - Tech roadmaps, budgeting, architecture choices
-
-   - - 2
+   * - 2
      - Metcalfe’s Law
-
      - Networks get more useful with each new user.
-
      - As participation grows, connections multiply and value compounds.
-
-
+     -
        - Density: more links, more use cases.
-
        - Quality: valuable nodes matter more.
-
        - Onboarding: reduce friction to reach flywheel.
-
      - Platforms, marketplaces, collaboration tools
 
 
 11. Time & Effort Principles
+---------------------------
 
+.. list-table::
+   :header-rows: 1
+   :widths: 4 30 18 28 24 20
 
-
-Time & Effort Principles
-------------------------
-
-   - - Rank
+   * - Rank
      - Principle
-
      - Core Insight
-
      - Overview
-
      - Core Concept
-
      - Common Use
-
-   - - 1
+   * - 1
      - Parkinson’s Law
-
      - Work expands to fill the time you allow.
-
      - Use shorter cycles and crisp definitions to keep momentum.
-
-
+     -
        - Tight scopes: define deliverables clearly.
-
        - Short cycles: weekly beats quarterly for speed.
-
        - Deadlines: commit, then protect the time.
-
      - Planning, productivity, sprint design
-
-   - - 2
+   * - 2
      - Hofstadter’s Law
-
      - It always takes longer than you expect—even when you expect it.
-
      - Build slack into plans and deliver in increments.
-
-
+     -
        - Unknown unknowns: risks you can’t list.
-
        - Buffers: add time, budget, and options.
-
        - Incremental delivery: learn and adjust sooner.
-
      - Planning, scheduling, product delivery
 
 
 12. Communication & Coordination Principles
+-----------------------------------------
 
+.. list-table::
+   :header-rows: 1
+   :widths: 4 32 18 28 24 20
 
-
-Communication & Coordination Principles
----------------------------------------
-
-   - - Rank
+   * - Rank
      - Principle
-
      - Core Insight
-
      - Overview
-
      - Core Concept
-
      - Common Use
-
-   - - 1
+   * - 1
      - Conway’s Law
-
      - Systems mirror how organizations communicate.
-
      - Team boundaries, incentives, and tooling shape architecture.
-
-
+     -
        - Team topology: organize for desired interfaces.
-
        - Cohesion: minimize cross-team dependencies.
-
        - Feedback: align ownership with outcomes.
-
      - Software, org design, platform work
-
-   - - 2
+   * - 2
      - Goodhart’s Law
-
      - Targeting a metric can break its meaning.
-
      - Use balanced measures and watch for unintended behavior.
-
-
+     -
        - Balanced scorecards: multiple views of success.
-
        - Guardrails: track leading and lagging metrics.
-
        - Audits: look for shortcuts and side effects.
-
      - Management, org metrics, incentives
 
 
 13. Network & Connectivity Principles
+-----------------------------------
 
+.. list-table::
+   :header-rows: 1
+   :widths: 4 30 18 28 24 20
 
-
-Network & Connectivity Principles
----------------------------------
-
-   - - Rank
+   * - Rank
      - Principle
-
      - Core Insight
-
      - Overview
-
      - Core Concept
-
      - Common Use
-
-   - - 1
+   * - 1
      - Metcalfe’s Law
-
      - The value of a network rises quickly as it grows.
-
      - More users mean more possible connections and use cases.
-
-
+     -
        - Critical mass: reach a self-sustaining loop.
-
        - Governance: balance openness with quality.
-
        - Tooling: APIs and integrations expand value.
-
      - Network growth, platform strategy, partnerships
-
-   - - 2
+   * - 2
      - Reed’s Law
-
      - Groups within networks create outsized value.
-
      - Forming communities multiplies ways people can connect and collaborate.
-
-
+     -
        - Subgroups: enable teams, channels, and circles.
-
        - Tools: make it easy to form and manage groups.
-
        - Moderation: keep groups healthy and engaged.
-
      - Social networks, collaboration platforms, communities
 
 
 14. Self & Personal Effectiveness
+-------------------------------
 
+.. list-table::
+   :header-rows: 1
+   :widths: 4 32 18 28 24 20
 
-
-Self & Personal Effectiveness
------------------------------
-
-   - - SNo.
+   * - SNo.
      - Principle
-
      - Core Insight
-
      - Overview
-
      - Core Concept
-
      - Common Use
-
-   - - 1
+   * - 1
      - Law of Attraction
-
      - Focus shapes attention, choices, and results.
-
      - What you focus on, you notice and act on. It’s not magic—attention guides behavior and behavior drives outcomes.
-
-
+     -
        - Attention filter: you see more of what you look for.
-
        - Expectancy: beliefs influence effort and persistence.
-
        - Action: align daily steps with desired goals.
-
      - Goal-setting, habits, coaching, personal effectiveness
-
-   - - 2
+   * - 2
      - Law of Karma
-
      - Choices and actions bring consequences.
-
      - Over time, what you do tends to come back in kind.
-
-
+     -
        - Intention: align means with ends.
-
        - Consistency: repeated acts shape reputation.
-
        - Community: relationships echo behavior.
-
      - Ethics, leadership, personal growth
-
-   - - 3
+   * - 3
      - 80/20 Productivity (Pareto)
-
      - A few tasks create most of your impact.
-
      - Spend time on the small set of actions that move the needle.
-
-
+     -
        - Identify leverage: find high-yield activities.
-
        - Time blocking: protect deep work slots.
-
        - Prune: say no to low-value tasks.
-
      - Time management, personal effectiveness, planning
 
 
-
 15. Cognitive Biases & Behavioral Effects
+---------------------------------------
 
+.. list-table::
+   :header-rows: 1
+   :widths: 4 32 20 30 28 22
 
-
-See also: Section 5 “Cognitive & Decision Heuristics” for foundational heuristics. Related risk attitudes appear in Section 7.
-
-Cognitive Biases & Behavioral Effects
--------------------------------------
-
-   - - Rank
+   * - Rank
      - Principle
-
      - Core Insight
-
      - Overview
-
      - Core Concept
-
      - Common Use
-
-   - - 1
+   * - 1
      - Prospect Theory
-
      - People weigh losses more than equal gains and distort probabilities.
-
      - Describes how choices under risk deviate from expected value; explains risk-seeking in losses and risk-aversion in gains.
-
-
+     -
        - Value function: concave for gains, convex for losses.
-
        - Loss weighting: losses loom larger than gains.
-
        - Probability weighting: overweigh small, underweigh large.
-
      - Product pricing, policy, UX defaults, risk communication
-
-   - - 2
+   * - 2
      - Loss Aversion
-
      - Losses hurt more than equivalent gains feel good.
-
      - People avoid losses even at the expense of larger long-run value. See Section 7 for broader risk principles.
-
-
+     -
        - Asymmetry: roughly 2–3× impact vs. gains.
-
        - Framing: avoid “losing” frames to reduce resistance.
-
        - Endowment link: ownership increases loss feelings.
-
      - Pricing, retention, change management, negotiation
-
-   - - 3
+   * - 3
      - Framing Effect
-
      - Choices change when the same facts are framed differently.
-
      - Equivalent information (gain vs. loss) leads to different decisions due to presentation.
-
-
+     -
        - Gain/loss frames: wording shifts preferences.
-
        - Reference points: baselines anchor evaluation.
-
        - Transparency: show both frames to reduce bias.
-
      - Messaging, policy, UI copy, A/B tests
-
-   - - 4
+   * - 4
      - Anchoring Effect
-
      - Initial numbers pull later estimates and choices toward them.
-
      - Early cues (prices, ranges, defaults) set expectations and bias judgments.
-
-
+     -
        - First exposure: earliest value sticks strongest.
-
        - Adjustment: insufficient move away from the anchor.
-
        - Guardrails: hide irrelevant anchors.
-
      - Pricing, estimation, negotiations, forms
-
-   - - 5
+   * - 5
      - Availability Heuristic
-
      - What comes to mind easily feels more likely or important.
-
      - Salient, recent, or vivid examples overweight probability and priority.
-
-
+     -
        - Recency: fresh events dominate.
-
        - Vividness: memorable stories > dry statistics.
-
        - Coverage: show base rates to rebalance.
-
      - Risk communication, prioritization, incident reviews
-
-   - - 6
+   * - 6
      - Confirmation Bias
-
      - We seek, favor, and remember evidence that confirms our beliefs.
-
      - Drives echo chambers and selective interpretation; reduces openness to disconfirming data.
-
-
+     -
        - Search bias: look where agreement is likely.
-
        - Interpretation bias: skew reading of mixed evidence.
-
        - Debias: pre-mortems and red teams.
-
      - Research, hiring, strategy, analytics
-
-   - - 7
+   * - 7
      - Overconfidence Bias
-
      - People are more confident than they are correct.
-
      - Narrow confidence intervals and overestimated skill are common, especially in hard tasks.
-
-
+     -
        - Calibration: align confidence with hit rates.
-
        - Hard–easy gap: confidence rises as tasks harden.
-
        - Feedback: track forecasts vs. outcomes.
-
      - Forecasting, planning, risk assessments
-
-   - - 8
+   * - 8
      - Dunning–Kruger Effect
-
      - Low skill can produce high confidence; experts may be modest.
-
      - Miscalibration at both ends of skill: novices overrate; experts may underrate and assume others know more.
-
-
+     -
        - Meta-knowledge: skill to judge own skill.
-
        - Feedback loops: make performance visible.
-
        - Coaching: pair learning with calibration.
-
      - Training, reviews, mentorship, safety
-
-   - - 9
+   * - 9
      - Status Quo Bias
-
      - We prefer current states over change.
-
      - Defaults and existing options feel safer even when better alternatives exist.
-
-
+     -
        - Default effect: preselected options win.
-
        - Switching costs: perceived and real friction.
-
        - Nudge: set beneficial defaults.
-
      - Onboarding, settings, policy, product adoption
-
-   - - 10
+   * - 10
      - Endowment Effect
-
      - Ownership increases perceived value.
-
      - People demand more to give up an item than they would pay to acquire it.
-
-
+     -
        - WTA > WTP: willingness to accept exceeds pay.
-
        - Identity: possession links to self.
-
        - Loss aversion: giving up feels like a loss.
-
      - Pricing, marketplaces, retention, refunds
-
-   - - 11
+   * - 11
      - Sunk Cost Fallacy
-
      - Past investments irrationally justify continued commitment.
-
      - Decisions should depend on future costs and benefits, not irrecoverable spend.
-
-
+     -
        - Escalation: more sunk → more persistence.
-
        - Precommit: exit criteria before starting.
-
        - Separate accounts: isolate past vs. future.
-
      - Project kills, product bets, portfolio reviews
-
-   - - 12
+   * - 12
      - Hindsight Bias
-
      - After outcomes, we see events as more predictable.
-
      - “Knew-it-all-along” reduces learning from surprises and distorts accountability.
-
-
+     -
        - Blinding: record pre-outcome predictions.
-
        - Retrospectives: focus on uncertainty at the time.
-
        - Counterfactuals: explore plausible alternatives.
-
      - Postmortems, audits, governance
-
-   - - 13
+   * - 13
      - Selection Bias
-
      - Sample differs systematically from population.
-
      - Skewed samples (e.g., opt-in) invalidate generalization; track the selection mechanism.
-
-
+     -
        - Sampling frame: who can enter.
-
        - Missingness: who’s excluded and why.
-
        - Weighting: adjust or redesign sampling.
-
      - Experiments, surveys, analytics
-
-   - - 14
+   * - 14
      - Survivorship Bias
-
      - Focusing on successes hides the failed and the fragile.
-
      - You miss patterns in the missing data and overestimate success drivers.
-
-
+     -
        - Denominator: count the unseen failures.
-
        - Robustness: success can be luck + selection.
-
        - Balance: study exits and breakages.
-
      - VC theses, hiring funnels, reliability
-
-   - - 15
+   * - 15
      - Authority Bias
-
      - Signals of authority increase compliance beyond merit.
-
      - Titles, lab coats, and badges can override independent judgment.
-
-
+     -
        - Source checking: evaluate claims, not roles.
-
        - Dissent norms: invite challenge safely.
-
        - Two-person rule: split authority and execution.
-
      - Reviews, safety-critical ops, compliance
-
-   - - 16
+   * - 16
      - Social Proof
-
      - We infer value from what others do.
-
      - Popularity cues shift adoption and preferences, especially under uncertainty.
-
-
+     -
        - Local peers: relevance beats raw counts.
-
        - Authenticity: avoid fake signals.
-
        - Context: avoid herd risks.
-
      - Onboarding, growth loops, UX cues
-
-   - - 17
+   * - 17
      - Halo Effect
-
      - One positive trait spills over to unrelated judgments.
-
      - Attractive or successful features bias global evaluation.
-
-
+     -
        - Trait spillover: competence ↔ warmth confusions.
-
        - Separate facets: score dimensions independently.
-
        - Blind reviews: hide irrelevant cues.
-
      - Hiring, performance reviews, product ratings
-
-   - - 18
+   * - 18
      - Groupthink
-
      - Desire for harmony suppresses dissent and alternatives.
-
      - Teams converge prematurely and miss risks or creative options.
-
-
+     -
        - Devil’s advocate: rotate critique roles.
-
        - Red teams: structured counter-arguments.
-
        - Pre-mortems: imagine failure causes.
-
      - Strategy, incidents, governance, design sprints
-
-   - - 19
+   * - 19
      - Bystander Effect
-
      - More observers can mean less individual help.
-
      - Diffusion of responsibility lowers action unless roles are clear.
-
-
+     -
        - Name roles: assign a specific person.
-
        - Triggers: clear “owner” cues.
-
        - Training: rehearse response protocols.
-
      - Safety, moderation, incident response
-
-   - - 20
+   * - 20
      - Backfire Effect
-
      - Corrections can strengthen original beliefs for some audiences.
-
      - Motivated reasoning and identity threats can flip persuasion attempts.
-
-
+     -
        - Gentle framing: reduce identity threat.
-
        - Shared goals: build common ground.
-
        - Evidence layering: simple → detailed.
-
      - Communications, moderation, policy
-
-   - - 21
+   * - 21
      - Illusory Superiority
-
      - Many people rate themselves above average.
-
      - A pervasive self-enhancement bias especially in ambiguous domains.
-
-
+     -
        - Feedback: show distributions and peer medians.
-
        - Clear metrics: reduce ambiguity.
-
        - Calibration training: compare estimates to outcomes.
-
      - Performance reviews, training, safety
-
-   - - 22
+   * - 22
      - Curse of Knowledge
-
      - Experts struggle to imagine novice perspectives.
-
      - Leads to jargon, skipped steps, and opaque instructions.
-
-
+     -
        - Teach-back: ask others to explain back.
-
        - Step-by-step: enumerate hidden steps.
-
        - Plain language: define terms.
-
      - Documentation, onboarding, teaching
-
-   - - 23
+   * - 23
      - Forer (Barnum) Effect
-
      - Vague, general statements feel personal and accurate.
-
      - People project specifics into broad descriptions.
-
-
+     -
        - Specificity: use falsifiable, concrete claims.
-
        - Blinding: hide identity when possible.
-
        - Education: show how Barnum statements work.
-
      - Personality tests, marketing, horoscopes
-
-   - - 24
+   * - 24
      - Zeigarnik Effect
-
      - Unfinished tasks stay top-of-mind.
-
      - Interruptions increase intrusive thoughts; closure reduces tension.
-
-
+     -
        - Visible progress: show steps and completion.
-
        - Checklists: offload memory.
-
        - Batching: avoid mid-task context switches.
-
      - UX flows, productivity, onboarding
-
-   - - 25
+   * - 25
      - Ambiguity Aversion
-
      - People prefer known risks over unknown probabilities.
-
      - Uncertain probabilities reduce willingness to choose; see Section 7 for risk discussion.
-
-
+     -
        - Ellsberg intuition: known vs. unknown urns.
-
        - Transparency: show ranges and methods.
-
        - Defaults: allow safe “opt-outs”.
-
      - Product choices, policy, financial decisions
-
-   - - 26
+   * - 26
      - Stroop Effect
-
      - Automatic processing interferes with controlled tasks.
-
      - Reading words can slow naming their ink color; demonstrates conflict in attention.
-
-
+     -
        - Interference: competing processes collide.
-
        - Control: slow down to override automaticity.
-
        - Measurement: use for attention tests.
-
      - Testing, cognitive research, UX attention checks
-
-   - - 27
+   * - 27
      - Change Blindness
-
      - People often miss large visual changes when attention is elsewhere.
-
      - Shows limits of awareness and the role of attention in perception.
-
-
+     -
        - Flicker paradigm: detect change with cues.
-
        - Salience: highlight critical changes.
-
        - Progressive disclosure: stage updates.
-
      - UI design, safety displays, monitoring
-
-   - - 28
+   * - 28
      - Cocktail Party Effect
-
      - We can attend to one stream and catch salient cues (like our name).
-
      - Demonstrates selective attention and threshold-triggered reorientation.
-
-
+     -
        - Salient triggers: personalize key alerts.
-
        - Load: avoid alert fatigue.
-
        - Context: place cues near relevant tasks.
-
      - Notifications, accessibility, ops alerts
-
-   - - 29
+   * - 29
      - Planning Fallacy
-
      - We underestimate time, cost, and risk.
-
      - Covered in Section 7; included here for completeness with cognitive framing.
-
-
+     -
        - Outside view: use reference-class forecasting.
-
        - Buffers: add slack and milestones.
-
        - Premortems: plan for failure modes.
-
      - Project planning, roadmaps, budgeting
 
 
