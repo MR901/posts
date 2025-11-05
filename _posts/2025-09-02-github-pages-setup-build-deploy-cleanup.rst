@@ -346,15 +346,15 @@ Scenario E — Authoring Content that Survives baseurl
   Internal post links (examples):
 
 **# User site (https://<user>.github.io)**
-      - `Home </>`__
+      - ``/`` → Home
 
-      - `Post A </post-a/>`__
+      - ``/post-a/`` → Post A
 
 
 **# Project site (https://<user>.github.io/REPO/)**
-      - `Home </REPO/>`__
+      - ``/REPO/`` → Home
 
-      - `Post A </REPO/post-a/>`__
+      - ``/REPO/post-a/`` → Post A
 
 
 **Signals of success**
