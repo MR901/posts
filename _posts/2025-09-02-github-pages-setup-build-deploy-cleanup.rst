@@ -11,10 +11,9 @@ math: false
 mermaid: true
 description: "GitHub Pages setup, CI/CD with Actions, gh CLI management, and safe cleanup of stale deployments."
 image:
-
   path: https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png
   alt: "GitHub Pages: Setup, CI/CD, gh CLI, and Cleanup"
-allow_edit: true
+allow_edit: false
 ---
 
 GitHub Pages, Explained as Scenarios (Situation → Goal → Tasks → Actions)
@@ -36,9 +35,7 @@ Scenario A — CI/CD pipeline setup (generator‑agnostic)
 
 **Tasks**
   1. Decide your build step so it outputs a single folder (e.g., ``dist``)
-
   2. Add a GitHub Actions workflow to build and upload that folder as the Pages artifact
-
   3. Enable Pages → Source = GitHub Actions
 
 
@@ -49,70 +46,51 @@ Scenario A — CI/CD pipeline setup (generator‑agnostic)
 
    name: "Build and Deploy"
    on:
-
      push:
-
        branches: [ main ]   # adjust as needed
      workflow_dispatch:
-
    permissions:
-
      contents: read
      pages: write
      id-token: write
-
    concurrency:
-
      group: "pages"
      cancel-in-progress: true
-
    jobs:
-
      build:
-
        runs-on: ubuntu-latest
        steps:
          - uses: actions/checkout@v4
-
          - id: pages
            uses: actions/configure-pages@v4
 
-
          # Choose ONE build path below
-
          # A) Plain static content already in repo root
          # - name: Prepare static folder
          #   run: mkdir -p dist && cp -r * dist/
-
          # B) Node-based static site (Vite, Next export, Astro, etc.)
          # - uses: actions/setup-node@v4
          #   with:
          #     node-version: '20'
          # - run: npm ci && npm run build   # ensure output is ./dist
-
          # C) Jekyll (example)
          # - uses: ruby/setup-ruby@v1
          #   with:
          #     ruby-version: '3.2'
          #     bundler-cache: true
          # - run: bundle exec jekyll build -d _site && mv _site dist
-
          - name: Upload artifact
            uses: actions/upload-pages-artifact@v3
            with:
-
              path: "dist"   # change if your output folder differs
 
 
      deploy:
-
        runs-on: ubuntu-latest
        needs: build
        environment:
-
          name: github-pages
          url: ${{ steps.deployment.outputs.page_url }}
-
        steps:
          - id: deployment
            uses: actions/deploy-pages@v4
@@ -128,17 +106,13 @@ Scenario A — CI/CD pipeline setup (generator‑agnostic)
 
 **Signals of success**
   - Actions run is green; the job has a “View deployment”/page URL
-
   - Settings → Pages shows “Your site is live at …”
-
   - Opening the live URL shows the new content
 
 
 **Rollback/Notes**
   - Revert a change by pushing a previous commit; Pages re-deploys
-
   - If content looks cached, try a private window or a hard refresh
-
 
 
 Attachment references data on GitHub Pages (important)
@@ -161,18 +135,14 @@ Scenario B — Inspect/Manage Deployments with gh CLI
 ---------------------------------------------------
 
 **Situation**
-
 You need visibility into which deployments exist and, if needed, remove one.
 
 **Goal**
-
 List, inspect, and optionally delete Pages deployments using ``gh``.
 
 **Tasks**
   1. Enumerate repositories and Pages status
-
   2. List deployments for a repo
-
   3. Delete a problematic deployment (rare)
 
 
@@ -230,7 +200,6 @@ List, inspect, and optionally delete Pages deployments using ``gh``.
 **Signals of success**
   - ``gh`` returns expected JSON; the listed item is removed after delete
 
-
 **Rollback/Notes**
   - Deleting a deployment does not delete the site; re-run your deployment workflow to publish again
 
@@ -240,18 +209,14 @@ Scenario C — Clear Old Pages Content / Shut Down a Site
 -------------------------------------------------------
 
 **Situation**
-
   You deleted or plan to delete a repository, but the old Pages site persists.
 
 **Goal**
-
   Ensure the CDN flushes and the site is removed or overwritten.
 
 **Tasks**
   1. Push a guaranteed-successful dummy site
-
   2. Verify live content changed
-
   3. Disable Pages (and optionally delete repo)
 
 
@@ -286,7 +251,6 @@ Scenario C — Clear Old Pages Content / Shut Down a Site
 
 **Rollback/Notes**
   - Re-enable Pages anytime and push real content again
-
   - CDN/browser caching can delay visibility; hard refresh or incognito helps
 
 
@@ -295,30 +259,22 @@ Scenario D — Pages Looks Out of Sync After a Successful Deploy
 --------------------------------------------------------------
 
 **Situation**
-
   Actions is green, but the live site seems unchanged.
 
 **Goal**
-
   Confirm deployment source and purge visible cache.
 
 **Tasks**
   1. Verify Settings → Pages → Source = GitHub Actions (or correct branch/folder)
-
   2. Open the deployment’s “View deployment” URL from Actions
-
   3. Hard refresh or incognito test
-
 
 **Actions**
   - Change content in ``index.html`` (e.g., add a version string) and push again
-
   - Validate the “Visit site” link in Pages settings matches your expected URL
-
 
 **Signals of success**
   - Live site reflects the new versioned content
-
 
 **Rollback/Notes**
   - CDN propagation can take minutes; another deploy often invalidates cache faster
@@ -329,45 +285,38 @@ Scenario E — Authoring Content that Survives baseurl
 ----------------------------------------------------
 
 **Situation**
-
   Internal links or assets are breaking under a project site's base path (e.g., ``baseurl: "/<repo>"``).
 
 **Goal**
-
   Write paths that work both locally and in production.
 
 **Tasks**
   1. Prefer relative paths for images/assets inside posts (e.g., ``attachments/general/...``)
-
   2. Use live URLs that include the base path when linking between pages
 
 
 **Actions**
 
-RST image in a post
+**Example: RST image in a post**
 
-.. image:: attachments/general/images/repo_icon.png
-  :alt: Example
-  :width: 400
+.. code-block:: rst
 
+   .. image:: attachments/general/images/repo_icon.png
+     :alt: Example
+     :width: 400
 
-Internal post links (examples):
+**Example: Internal post links**
 
-**User site (https://<user>.github.io)**
-      - ``/`` → Home
+User site (``https://<user>.github.io``)
+  - ``/`` → Home
+  - ``/post-a/`` → Post A
 
-      - ``/post-a/`` → Post A
-
-
-**Project site (https://<user>.github.io/REPO/)**
-      - ``/REPO/`` → Home
-
-      - ``/REPO/post-a/`` → Post A
-
+Project site (``https://<user>.github.io/REPO/``)
+  - ``/REPO/`` → Home
+  - ``/REPO/post-a/`` → Post A
 
 **Signals of success**
   - ``htmlproofer`` (or your checks) pass; images and links resolve on the live site
-
 
 **Rollback/Notes**
   - Avoid absolute ``/assets/...`` in content; prefer relative paths within posts
@@ -379,17 +328,12 @@ Scenario F — User vs Project site quick reference
 
 **User site**
   - Live base URL: ``https://<user>.github.io``
-
   - Typically no base path (``baseurl: ""``)
-
   - Link root is ``/``
-
 
 **Project site**
   - Live base URL: ``https://<user>.github.io/<repo>/``
-
   - Base path is usually the repo name (``baseurl: "/<repo>"``)
-
   - Link root is ``/<repo>/``
 
 
@@ -397,18 +341,14 @@ Scenario G — Custom domain and HTTPS
 ------------------------------------
 
 **Situation**
-
   You want your site served at a custom domain with HTTPS.
 
 **Goal**
-
   Connect a custom domain, validate DNS, and enforce HTTPS in Pages settings.
 
 **Tasks**
   1. Add a ``CNAME`` file to the site output with your domain (e.g., ``www.example.com``)
-
   2. Configure DNS: CNAME for ``www``; ALIAS/ANAME (or A records) for apex
-
   3. In Settings → Pages, set the custom domain and enable “Enforce HTTPS”
 
 
@@ -439,7 +379,6 @@ DNS guidance::
 **Signals of success**
   - Pages shows your custom domain and HTTPS status is “Enforced”
 
-
 **Rollback/Notes**
   - DNS changes may take time; re-validate domain in Pages settings if needed
 
@@ -449,12 +388,15 @@ Scenario H — PR preview builds (artifacts & Job Summary)
 --------------------------------------------------------
 
 **Situation**
-
   Reviewers want to preview a PR build without merging.
 
 **Goal**
-
   Build the site on pull_request, upload the output as an artifact, and link it in the job summary.
+
+**Tasks**
+  1. Add a pull_request workflow that builds the site
+  2. Upload the build output as an artifact
+  3. Add a job summary with artifact reference
 
 **Actions**
 
@@ -463,37 +405,34 @@ Scenario H — PR preview builds (artifacts & Job Summary)
 
    name: "PR Preview"
    on:
-
      pull_request:
-
        branches: [ main ]
-
    jobs:
-
      preview:
-
        runs-on: ubuntu-latest
-
        steps:
          - uses: actions/checkout@v4
-
          # build your site to ./dist
          # - uses: actions/setup-node@v4
          # - run: npm ci && npm run build
          - uses: actions/upload-artifact@v4
            with:
-
              name: site-preview
              path: dist
-
          - name: Add summary
            run: |
-
              echo "PR preview artifact: site-preview" >> "$GITHUB_STEP_SUMMARY"
 
 
-**Notes**
-  - Artifacts can be downloaded from the workflow run; they’re ephemeral
+**Signals of success**
+  - PR workflow completes successfully
+  - Artifact "site-preview" is downloadable from the workflow run page
+  - Job summary shows the artifact name
+
+
+**Rollback/Notes**
+  - Artifacts are ephemeral and expire after a configurable retention period (default 90 days)
+  - This does not deploy to Pages; it only creates a downloadable preview
 
 
 
@@ -501,12 +440,15 @@ Scenario I — Monorepo subdirectory deployments
 ----------------------------------------------
 
 **Situation**
-
   Your site lives under a subdirectory in a monorepo (e.g., ``apps/docs``).
 
 **Goal**
-
   Build from a subdirectory and upload only that output folder as the Pages artifact.
+
+**Tasks**
+  1. Configure the workflow to use the subdirectory as working directory
+  2. Build the site from the subdirectory
+  3. Upload only the built output from that subdirectory
 
 **Actions**
 
@@ -516,29 +458,29 @@ Scenario I — Monorepo subdirectory deployments
    jobs:
 
       build:
-
         runs-on: ubuntu-latest
         defaults:
-
           run:
-
             working-directory: apps/docs
-
         steps:
           - uses: actions/checkout@v4
-
           # build in apps/docs → outputs to apps/docs/dist
           # - uses: actions/setup-node@v4
           # - run: npm ci && npm run build
-          - name: Upload artifact
-            uses: actions/upload-pages-artifact@v3
-            with:
+         - name: Upload artifact
+           uses: actions/upload-pages-artifact@v3
+           with:
+             path: apps/docs/dist
 
-              path: apps/docs/dist
+
+**Signals of success**
+  - Workflow runs successfully and uploads the artifact
+  - The Pages site contains only content from the subdirectory
 
 
-**Notes**
-  - Alternatively, ``cd apps/docs`` per step; ensure the artifact path points to the built folder
+**Rollback/Notes**
+  - Alternatively, use ``cd apps/docs`` in individual steps; ensure the artifact path points to the built folder
+  - The deploy job (not shown) remains unchanged and works with any artifact
 
 
 
@@ -546,12 +488,15 @@ Scenario J — Cache‑busting and version stamping
 -----------------------------------------------
 
 **Situation**
-
   Browsers cache your static assets aggressively.
 
 **Goal**
-
   Add a short revision id to asset URLs to force cache refresh on deploys.
+
+**Tasks**
+  1. Compute the current commit short hash in CI
+  2. Inject the revision id into HTML files as a query parameter
+  3. Reference assets with the version parameter
 
 **Actions**
 
@@ -565,7 +510,6 @@ Scenario J — Cache‑busting and version stamping
 
    - name: Inject rev into HTML
      run: |
-
        find dist -name '*.html' -print0 | xargs -0 sed -i "s/\[REV\]/${{ steps.rev.outputs.rev }}/g"
 
 
@@ -575,5 +519,11 @@ Scenario J — Cache‑busting and version stamping
    <link rel="stylesheet" href="/assets/site.css?[REV]">
    <script src="/assets/site.js?[REV]"></script>
 
-**Notes**
-  - Many frameworks offer built‑in hashing; prefer those when available
+**Signals of success**
+  - Asset URLs in deployed HTML include the commit hash as a query parameter
+  - Hard refresh is no longer needed to see asset updates after deployment
+
+
+**Rollback/Notes**
+  - Many frameworks offer built‑in hashing (e.g., Vite, Webpack); prefer those when available
+  - Query parameter approach works universally but content hashes in filenames are more robust
