@@ -11,7 +11,6 @@ math: true
 mermaid: true
 description: "This post covers the advanced formatting capabilities of Jekyll, from typography and text styling to media integration, mathematical equations, and interactive diagrams."
 image:
-
   path: https://jekyllrb.com/img/logo-2x.png
   alt: "Jekyll Advanced Formatting: Typography, Media, and Special Features"
 allow_edit: true
@@ -34,28 +33,24 @@ Header Hierarchy
 ::
 
     Main Title
-==============
+    ==========
 
     Major Section
-=================
+    =============
 
     Section
------------
+    -------
 
     Subsection
-~~~~~~~~~~~~~~
+    ~~~~~~~~~~
 
     Minor Section
-^^^^^^^^^^^^^^^^^
+    ^^^^^^^^^^^^^
 
 **Best Practices:**
-
 - **Consistent hierarchy** - Don't skip levels
-
 - **Descriptive titles** - Clear, scannable headers
-
 - **Logical organization** - Group related content
-
 - **SEO-friendly** - Headers help search engines understand structure
 
 
@@ -64,13 +59,13 @@ Text Styling Options
 
 **Basic Text Formatting:**
 
-- **Bold text** - ``**bold text**`` or ``**emphasis**``
+- **Bold text** - Use double asterisks: ``**bold text**``
+- *Italic text* - Use single asterisks: ``*italic text*``
+- ``Inline code`` - Use double backticks: ````inline code```` for technical terms
 
-- *Italic text* - ``*italic text*`` or ``*emphasis*``
+.. note::
 
-- ``Inline code`` - ``inline code`` for technical terms
-
-- **Combined** - ``***bold and italic***``
+   **Combined bold and italic:** RST does not directly support nested inline markup like ``***text***``. To achieve both bold and italic, you typically need to use one style or custom roles. Most Jekyll themes with RST support will convert ``***text***`` correctly if the content is processed through a Markdown-compatible parser.
 
 
 **Special Text Elements:**
@@ -91,43 +86,38 @@ List Types
 ----------
 
 **Ordered Lists:**
-
 1. First item
-
 2. Second item
-
 3. Third item
-
-   a. Nested sub-item
-   b. Another sub-item
-
-
+   a) Nested sub-item
+   b) Another sub-item
 4. Fourth item
 
 
 **Unordered Lists:**
 
 - Main point
-
   - Sub-point
-
   - Another sub-point
-
     - Deeply nested point
 
 
 - Another main point
 
 
-**Task Lists:**
+**Definition Lists (Task Status Example):**
 
-- [x] Completed task
+Completed task
+    ✓ This task has been completed
 
-- [x] Another completed task
+Another completed task
+    ✓ This task has also been completed
 
-- [ ] Pending task
+Pending task
+    ○ This task is still pending
 
-- [ ] Future task
+Future task
+    ○ This task is planned for the future
 
 
 **Description Lists:**
@@ -147,29 +137,18 @@ Complex List Examples
 **Nested Mixed Lists:**
 
 1. **Setup Phase**
-
    - Install dependencies
-
    - Configure environment
-
    - Test installation
 
-
 2. **Development Phase**
-
    - Write code
-
    - Test functionality
-
    - Document changes
 
-
 3. **Deployment Phase**
-
    - Build production version
-
    - Deploy to server
-
    - Monitor performance
 
 
@@ -236,15 +215,10 @@ Inline Code
 Use backticks for inline code: ``variable_name``, ``function()``, ``command --option``
 
 **When to Use Inline Code:**
-
 - Variable names and values
-
 - Function and method names
-
 - Command line commands
-
 - File and directory names
-
 - Technical terminology
 
 
@@ -265,15 +239,12 @@ Code Blocks
 
    # Python code block
    def fibonacci(n):
-
        if n <= 1:
-
            return n
        return fibonacci(n-1) + fibonacci(n-2)
 
    # Generate first 10 Fibonacci numbers
    for i in range(10):
-
        print(f"F({i}) = {fibonacci(i)}")
 
 
@@ -311,13 +282,9 @@ Code Blocks
 
 
 **Code Block Features:**
-
 - **Syntax highlighting** - Automatic language detection
-
 - **Line numbers** - Optional line numbering
-
 - **Copy functionality** - Easy code copying
-
 - **Filename labels** - Show source file names
 
 
@@ -346,15 +313,15 @@ Complex Tables
 
 **Tables with Code and Links:**
 
-+------------------+-------------------------+------------------+
-| Tool             | Command                 | Purpose          |
-+==================+=========================+==================+
-| Jekyll           | ``bundle exec jekyll serve``           | Build static     |
-+------------------+-------------------------+------------------+
-| Git              | ``git commit -m "message"``            | Version control  |
-+------------------+-------------------------+------------------+
-| NPM              | ``npm install package-name``            | Package          |
-+------------------+-------------------------+------------------+
++------------------+----------------------------------+------------------+
+| Tool             | Command                          | Purpose          |
++==================+==================================+==================+
+| Jekyll           | ``bundle exec jekyll serve``     | Build static     |
++------------------+----------------------------------+------------------+
+| Git              | ``git commit -m "message"``      | Version control  |
++------------------+----------------------------------+------------------+
+| NPM              | ``npm install package-name``     | Package manager  |
++------------------+----------------------------------+------------------+
 
 Advanced Table Features
 -----------------------
@@ -363,91 +330,126 @@ Advanced Table Features
 
 The ``list-table`` directive supports the ``:widths:`` option to control column proportions. Values are relative ratios that determine how the table width is distributed across columns.
 
-**Example with 20/80 split**
+**Example with 20/80 split:**
 
-Table
------
+.. list-table::
+   :widths: 20 80
+   :header-rows: 1
 
-   - - Category
+   * - Category
      - Description
 
-   - - Short label
+   * - Short label
      - This is a longer description that will wrap within its column while maintaining the 20/80 width ratio between columns.
 
 
 **Behavior of widths:**
-
 - ``1 1`` → Equal columns (50/50)
-
 - ``1 9`` → Left column gets 10%, right gets 90%
-
 - ``1 99`` → Left column gets ~1%, right gets ~99%
-
 - Values are normalized to percentages (``2 2`` = ``1 1``)
 
 
-**Custom Table Width:**
+**Multi-Column Tables:**
 
-**For tables that need a specific overall width (enabling horizontal scroll when wider than viewport), use the ``:custom-table-width:`` option**
+**For tables with multiple columns, specify the width ratios accordingly:**
 
-Table
------
+.. list-table::
+   :widths: 10 20 40 30
+   :header-rows: 1
 
-   - - Rank
+   * - Rank
      - Name
-
      - Description
-
      - Example
 
-   - - 1
+   * - 1
      - First Item
-
      - A detailed description
-
      - Sample value
 
 
-**Supported width units:**
+**Standard list-table options:**
+- ``:header-rows:`` - Number of rows to use as table headers (default: 0)
+- ``:stub-columns:`` - Number of leftmost columns to use as row headers (default: 0)
+- ``:class:`` - CSS class name(s) for custom styling
+- ``:name:`` - Reference name for the table
 
-- **Pixels:** ``1200px``, ``960px`` (or bare numbers: ``1200`` defaults to px)
 
+Custom Table Width (Enhanced Feature)
+--------------------------------------
+
+.. note::
+
+   **Custom Extension:** This site includes an enhanced ``:custom-table-width:`` option for the ``list-table`` directive. This is a custom feature implemented via a Jekyll plugin extension, not part of standard RST.
+
+**Purpose:**
+
+Control the overall table width precisely, enabling horizontal scrolling for wide tables that need more space than the viewport provides. This is especially useful for tables with many columns or detailed content.
+
+**Usage:**
+
+.. code-block:: rst
+
+   .. list-table::
+      :widths: 10 20 40 30
+      :header-rows: 1
+      :custom-table-width: 1100px
+
+      * - Column 1
+        - Column 2
+        - Column 3
+        - Column 4
+
+**Supported Width Units:**
+
+- **Pixels:** ``1200px``, ``960px`` (or bare numbers: ``1200`` defaults to ``px``)
 - **Relative:** ``80%``, ``90%``
-
 - **Font-based:** ``80ch``, ``40rem``, ``30em``
-
 - **Viewport:** ``80vw``, ``60vh``
 
+**Behavior:**
 
-**Default behavior (no custom-table-width):**
+**Without** ``:custom-table-width:``:
+  - Table fills its container
+  - Text wraps within cells
+  - Horizontal scroll appears only when content forces it
 
-- Table fills its container
+**With** ``:custom-table-width:``:
+  - Table uses the specified width exactly
+  - If wider than viewport, horizontal scrolling is enabled
+  - Column ratios from ``:widths:`` are still respected
+  - Text still wraps within cells
 
-- Text wraps within cells
+**Example with Multiple Columns:**
 
-- Horizontal scroll appears only when content forces it
+.. list-table::
+   :widths: 3 6 7 10 12 10
+   :header-rows: 1
+   :custom-table-width: 1100px
+
+   * - SNo.
+     - Category
+     - Subcategory
+     - Description
+     - Details
+     - Notes
+
+   * - 1
+     - Example
+     - Test
+     - A detailed description that demonstrates wrapping
+     - Additional information with more context
+     - Final notes
 
 
-**With custom-table-width:**
-
-- Table uses the specified width exactly
-
-- If wider than viewport, horizontal scrolling is enabled
-
-- Column ratios from ``:widths:`` are still respected
-
-- Text still wraps within cells
-
-
-**Best practices:**
+**Best Practices:**
 
 - Use ``:widths:`` alone for most tables
-
-- Add ``:custom-table-width:`` only when you need tables wider than the viewport
-
+- Add ``:custom-table-width:`` **only** when you need tables wider than the viewport
 - For narrow viewports, consider responsive widths like ``90vw`` instead of fixed pixels
-
 - Test on mobile to ensure usability with horizontal scroll
+- Common use case: tables with 5+ columns that need detailed content per cell
 
 
 Mathematics and Equations
@@ -487,8 +489,7 @@ The quadratic formula shown in equation is fundamental in algebra.
    x \\
    y
    \end{pmatrix}
-================
-
+   =
    \begin{pmatrix}
    ax + by \\
    cx + dy
@@ -602,9 +603,7 @@ Images
 **Basic Image Syntax:**
 
 .. image:: attachments/general/images/repo_icon.png
-
    :alt: Description of the image
-
    :align: center
    :width: 400
    :height: 400

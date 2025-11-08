@@ -296,7 +296,7 @@ Section 3 Preview: Running Models Locally
 Section 4 Preview: Prompt Engineering
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-- Interface overview (e.g., “hugging Jet” cloud interface).
+- Interface overview (e.g., “hugging chat” cloud interface).
 
 - System prompts and structured prompting rationales.
 
@@ -321,7 +321,7 @@ Section 4 Preview: Prompt Engineering
 
 - Creating AI assistants (e.g., in Hugging Chat).
 
-- Hardware/architecture note: “grok” uses an NLP chip; LPW stands for Language Processing Unit.
+- Hardware/architecture note: “grok” uses an NLP chip; LPU stands for Language Processing Unit.
 
 
 .. note::

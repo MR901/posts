@@ -11,7 +11,6 @@ math: true
 mermaid: false
 description: "A practical guide comparing multithreading and multiprocessing (Python focus): GIL, I/O- vs CPU-bound workloads, examples, pitfalls, and decision checklist."
 image:
-
   path: /attachments/posts/2025-10-27-multithreading-vs-multiprocessing/images/multi-threading-multi-processing.png
   alt: "Multithreading vs Multiprocessing overview"
 allow_edit: true

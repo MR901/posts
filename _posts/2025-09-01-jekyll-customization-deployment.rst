@@ -11,10 +11,9 @@ math: false
 mermaid: false
 description: "This post covers the customization and deployment of Jekyll, from theme modification and asset management to deployment strategies."
 image:
-
   path: https://jekyllrb.com/img/logo-2x.png
   alt: "Jekyll Customization and Deployment: Themes, Assets, and Publishing"
-allow_edit: true
+allow_edit: false
 ---
 
 
@@ -30,24 +29,16 @@ Understanding Jekyll Themes
 ---------------------------
 
 **Theme Components:**
-
 - **Layouts** - Page templates in ``_layouts/``
-
 - **Includes** - Reusable components in ``_includes/``
-
 - **Sass** - Stylesheets in ``_sass/``
-
 - **Assets** - CSS, JavaScript, images in ``assets/``
-
 - **Configuration** - Theme settings in ``_config.yml``
 
 
 **Theme Types:**
-
 - **Gem-based themes** - Installed as Ruby gems
-
 - **Fork-based themes** - Full theme code in your repository
-
 - **Remote themes** - GitHub-hosted themes
 
 
@@ -56,25 +47,24 @@ Customizing Stylesheets
 
 **Override Theme Styles:**
 
-Create ``assets/css/main.scss`` to customize theme styles::
+Create ``assets/css/main.scss`` to customize theme styles:
 
+.. code-block:: scss
 
-
+    ---
     # Front matter required
----------------------------
+    ---
 
-    @import "{{ site.theme }}";
+    @import "minima";
 
     /* Custom styles */
     .custom-header {
-
         background-color: #2c3e50;
         color: white;
         padding: 20px;
     }
 
     .highlight-box {
-
         background-color: #f8f9fa;
         border-left: 4px solid #007bff;
         padding: 15px;
@@ -83,10 +73,12 @@ Create ``assets/css/main.scss`` to customize theme styles::
 
 **Sass Variables:**
 
-Override theme variables by defining them before the import::
+Override theme variables by defining them before the import:
 
+.. code-block:: scss
 
-
+    ---
+    ---
 
     // Custom color scheme
     $primary-color: #3498db;
@@ -94,7 +86,7 @@ Override theme variables by defining them before the import::
     $text-color: #2c3e50;
     $background-color: #ecf0f1;
 
-    @import "{{ site.theme }}";
+    @import "minima";
 
 Layout Customization
 --------------------
@@ -106,31 +98,23 @@ Layout Customization
 .. code-block:: html
 
     <!-- _layouts/custom-post.html -->
-
-
-
+    ---
     layout: default
--------------------
+    ---
 
     <article class="custom-post">
-
         <header class="post-header">
-
             <h1 class="post-title">{% raw %}{{ page.title }}{% endraw %}</h1>
             <time class="post-date">{% raw %}{{ page.date | date: "%B %d, %Y" }}{% endraw %}</time>
         </header>
 
         <div class="post-content">
-
             {% raw %}{{ content }}{% endraw %}
         </div>
 
         <footer class="post-footer">
-
             <div class="post-tags">
-
                 {% raw %}{% for tag in page.tags %}{% endraw %}
-
                     <span class="tag">{% raw %}{{ tag }}{% endraw %}</span>
                 {% raw %}{% endfor %}{% endraw %}
             </div>
@@ -145,9 +129,7 @@ Layout Customization
 
     <!-- _includes/custom-navigation.html -->
     <nav class="custom-nav">
-
         <ul>
-
             <li><a href="{% raw %}{{ '/' | relative_url }}{% endraw %}">Home</a></li>
             <li><a href="{% raw %}{{ '/about' | relative_url }}{% endraw %}">About</a></li>
             <li><a href="{% raw %}{{ '/posts' | relative_url }}{% endraw %}">Posts</a></li>
@@ -181,13 +163,14 @@ Static Assets Organization
     │       ├── 2025-09-01/
     │       └── 2025-09-02/
     └── fonts/
-
         ├── custom-font.woff2
         └── custom-font.woff
 
 **Asset URL Configuration:**
 
-Configure CDN or asset paths in ``_config.yml``::
+Configure CDN or asset paths in ``_config.yml``:
+
+.. code-block:: yaml
 
     # Asset configuration
     cdn: https://cdn.example.com
@@ -200,34 +183,29 @@ JavaScript Integration
 
 **Custom JavaScript:**
 
-Create ``assets/js/main.js`` for site functionality::
+Create ``assets/js/main.js`` for site functionality:
+
+.. code-block:: javascript
 
     // Custom site functionality
     document.addEventListener('DOMContentLoaded', function() {
-
         // Mobile menu toggle
         const menuToggle = document.querySelector('.menu-toggle');
         const navigation = document.querySelector('.navigation');
 
         if (menuToggle && navigation) {
-
             menuToggle.addEventListener('click', function() {
-
                 navigation.classList.toggle('active');
             });
         }
 
         // Smooth scrolling for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-
             anchor.addEventListener('click', function (e) {
-
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));
                 if (target) {
-
                     target.scrollIntoView({
-
                         behavior: 'smooth',
                         block: 'start'
                     });
@@ -238,7 +216,7 @@ Create ``assets/js/main.js`` for site functionality::
 
 **Include JavaScript in Layout:**
 
-::
+.. code-block:: html
 
     <!-- In _layouts/default.html -->
     <script src="{{ '/assets/js/main.js' | relative_url }}"></script>
@@ -272,26 +250,18 @@ Favicon Generation Process
 --------------------------
 
 **Step 1: Prepare Source Image**
-
 - **Format:** PNG, JPG, or SVG
-
 - **Size:** 512x512 pixels minimum
-
 - **Design:** Simple, recognizable at small sizes
-
 - **Colors:** Work well at different sizes
 
 
 **Step 2: Generate Favicon Set**
 
 **Use online tools like Real Favicon Generator**
-
 1. Upload your source image
-
 2. Configure platform-specific settings
-
 3. Generate and download favicon package
-
 4. Extract files to ``assets/img/favicons/``
 
 
@@ -303,11 +273,8 @@ Favicon Generation Process
 
    <?xml version="1.0" encoding="utf-8"?>
    <browserconfig>
-
        <msapplication>
-
            <tile>
-
                <square150x150logo src="/assets/img/favicons/mstile-150x150.png"/>
                <TileColor>#2d89ef</TileColor>
            </tile>
@@ -320,19 +287,15 @@ Favicon Generation Process
 .. code-block:: json
 
    {
-
        "name": "Your Site Name",
        "short_name": "Site",
        "icons": [
-
            {
-
                "src": "/assets/img/favicons/android-chrome-192x192.png",
                "sizes": "192x192",
                "type": "image/png"
            },
            {
-
                "src": "/assets/img/favicons/android-chrome-512x512.png",
                "sizes": "512x512",
                "type": "image/png"
@@ -376,13 +339,11 @@ Site Configuration
 
    # Author information
    author:
-
      name: Your Name
      email: your@email.com
 
    # Social media
    social:
-
      github: your-username
      twitter: your-username
      linkedin: your-username
@@ -395,17 +356,12 @@ Site Configuration
    # Plugins
    plugins:
      - jekyll-feed
-
      - jekyll-sitemap
-
      - jekyll-seo-tag
-
 
    # Collections (if used)
    collections:
-
      projects:
-
        output: true
        permalink: /:collection/:name/
 
@@ -437,21 +393,19 @@ Custom Data Files
 
 **Site Data in _data/ Directory:**
 
-Create ``_data/navigation.yml``::
+Create ``_data/navigation.yml``:
 
-**main**
+.. code-block:: yaml
+
+    main:
       - title: "Home"
         url: "/"
-
       - title: "About"
         url: "/about/"
-
       - title: "Posts"
         url: "/posts/"
-
       - title: "Projects"
         url: "/projects/"
-
       - title: "Contact"
         url: "/contact/"
 
@@ -462,10 +416,8 @@ Create ``_data/navigation.yml``::
 
     <!-- _includes/navigation.html -->
     <nav>
-
         <ul>
         {% raw %}{% for item in site.data.navigation.main %}{% endraw %}
-
             <li><a href="{% raw %}{{ item.url | relative_url }}{% endraw %}">{% raw %}{{ item.title }}{% endraw %}</a></li>
         {% raw %}{% endfor %}{% endraw %}
         </ul>
@@ -481,22 +433,16 @@ GitHub Pages Deployment
 **Automatic Deployment with GitHub Actions:**
 
 **Prerequisites:**
-
 - Repository on GitHub
-
 - GitHub Pages enabled
-
 - Proper ``_config.yml`` configuration
 
 
 **Setup Steps:**
 
 1. **Configure Repository Settings:**
-
    - Go to repository Settings → Pages
-
    - Set source to "GitHub Actions"
-
    - Configure custom domain if needed
 
 
@@ -511,7 +457,7 @@ GitHub Pages Deployment
 
 3. **Push Changes:**
 
-   ::
+   .. code-block:: bash
 
        git add .
        git commit -m "Deploy site updates"
@@ -520,66 +466,57 @@ GitHub Pages Deployment
 
 **GitHub Actions Workflow:**
 
-GitHub automatically creates a workflow for Jekyll sites. You can customize it in ``.github/workflows/jekyll.yml``::
+GitHub automatically creates a workflow for Jekyll sites. You can customize it in ``.github/workflows/jekyll.yml``:
+
+.. code-block:: yaml
 
     name: Deploy Jekyll site to Pages
 
     on:
-
       push:
-
         branches: ["main"]
       workflow_dispatch:
 
     permissions:
-
       contents: read
       pages: write
       id-token: write
 
     concurrency:
-
       group: "pages"
       cancel-in-progress: false
 
     jobs:
-
       build:
-
         runs-on: ubuntu-latest
-**steps**
+        steps:
           - name: Checkout
             uses: actions/checkout@v4
 
           - name: Setup Ruby
             uses: ruby/setup-ruby@v1
             with:
-
-              ruby-version: '3.1'
+              ruby-version: '3.2'
               bundler-cache: true
 
           - name: Setup Pages
-            uses: actions/configure-pages@v4
+            uses: actions/configure-pages@v5
 
           - name: Build with Jekyll
             run: bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"
             env:
-
               JEKYLL_ENV: production
 
           - name: Upload artifact
             uses: actions/upload-pages-artifact@v3
 
-
       deploy:
-
         environment:
-
           name: github-pages
           url: ${{ steps.deployment.outputs.page_url }}
         runs-on: ubuntu-latest
         needs: build
-**steps**
+        steps:
           - name: Deploy to GitHub Pages
             uses: actions/deploy-pages@v4
 
@@ -590,25 +527,22 @@ Alternative Deployment Options
 **Netlify Deployment:**
 
 1. **Connect Repository:**
-
    - Link GitHub repository to Netlify
-
    - Configure build settings
-
    - Set environment variables
 
 
 2. **Build Configuration:**
 
-   Create ``netlify.toml``::
+   Create ``netlify.toml``:
+
+   .. code-block:: toml
 
        [build]
-
          command = "bundle exec jekyll build"
          publish = "_site"
 
        [build.environment]
-
          JEKYLL_ENV = "production"
 
 
@@ -616,7 +550,7 @@ Alternative Deployment Options
 
 **Build Locally:**
 
-::
+.. code-block:: bash
 
     # Build for production
     JEKYLL_ENV=production bundle exec jekyll build
@@ -638,15 +572,15 @@ Domain Configuration
 
 1. **Add CNAME File:**
 
-   Create ``CNAME`` in repository root::
+   Create ``CNAME`` in repository root:
+
+   .. code-block:: text
 
        yourdomain.com
 
 
 2. **Configure DNS:**
-
    - **A Records:** Point to GitHub Pages IPs
-
    - **CNAME Record:** Point www subdomain to username.github.io
 
 
@@ -670,13 +604,9 @@ Site Performance
 ----------------
 
 **Image Optimization:**
-
 - **Compress images** before uploading
-
 - **Use appropriate formats** (WebP when supported)
-
 - **Implement lazy loading** for below-fold images
-
 - **Specify image dimensions** to prevent layout shift
 
 
@@ -686,12 +616,10 @@ Site Performance
 
    # _config.yml
    sass:
-
      style: compressed
 
    # Minify HTML
    compress_html:
-
      clippings: all
      comments: all
      endings: all
@@ -699,11 +627,12 @@ Site Performance
 
 **Caching Strategy:**
 
-Configure proper cache headers for static assets::
+Configure proper cache headers for static assets:
+
+.. code-block:: apache
 
     # .htaccess for Apache
     <IfModule mod_expires.c>
-
         ExpiresActive on
         ExpiresByType text/css "access plus 1 year"
         ExpiresByType application/javascript "access plus 1 year"
@@ -720,45 +649,40 @@ SEO Optimization
 .. code-block:: yaml
 
    # _config.yml
-
-**plugins**
+   plugins:
      - jekyll-seo-tag
-
      - jekyll-sitemap
-
      - jekyll-feed
-
 
    # SEO settings
    title: Your Site Title
    description: A compelling site description
    author: Your Name
    twitter:
-
      username: your_twitter
      card: summary_large_image
 
    # Social media defaults
-**defaults**
+   defaults:
      - scope:
          path: ""
          type: "posts"
        values:
-
          layout: "post"
          author: "Your Name"
 
 
 **Per-Page SEO:**
 
-::
+Add to post front matter:
 
+.. code-block:: yaml
 
-
+    ---
     title: "Specific Page Title"
     description: "Specific page description for search engines"
     image: /assets/images/page-social-image.jpg
------------------------------------------------
+    ---
 
 Maintenance and Updates
 =======================
@@ -768,7 +692,7 @@ Regular Maintenance Tasks
 
 **Dependency Updates:**
 
-::
+.. code-block:: bash
 
     # Update Ruby gems
     bundle update
@@ -777,24 +701,16 @@ Regular Maintenance Tasks
     bundle audit
 
 **Content Maintenance:**
-
 - **Review old posts** for outdated information
-
 - **Update broken links** regularly
-
 - **Optimize images** and assets periodically
-
 - **Monitor site performance** and loading times
 
 
 **Backup Strategy:**
-
 - **Source code** - Version controlled in Git
-
 - **Generated site** - Can be regenerated from source
-
 - **Custom assets** - Backup important media files
-
 - **Configuration** - Document custom settings
 
 
@@ -806,7 +722,7 @@ GitHub Pages Issues
 
 **Build Failed:**
 
-::
+.. code-block:: bash
 
     # Check Actions tab in GitHub repository
     # Look for specific error messages
@@ -817,18 +733,20 @@ GitHub Pages Issues
 
 **Assets Not Loading (404 errors):**
 
-::
+.. code-block:: yaml
 
     # Check _config.yml
     baseurl: "/repository-name"  # For project sites
     baseurl: ""                  # For user sites (username.github.io)
+
+.. code-block:: bash
 
     # Test production build locally
     JEKYLL_ENV=production bundle exec jekyll build
 
 **Custom Domain Not Working:**
 
-::
+.. code-block:: bash
 
     # Check CNAME file contains only domain name
     echo "yourdomain.com" > CNAME
@@ -841,7 +759,7 @@ Local vs Production Differences
 
 **Test Production Build Locally:**
 
-::
+.. code-block:: bash
 
     # Build like GitHub Pages does
     JEKYLL_ENV=production bundle exec jekyll build --trace
@@ -851,13 +769,15 @@ Local vs Production Differences
 
 **Environment-Specific Config:**
 
-::
+.. code-block:: yaml
 
     # _config.yml (base)
     url: "http://localhost:4000"
 
     # _config_production.yml (override)
     url: "https://yourdomain.com"
+
+.. code-block:: bash
 
     # Build with both configs
     bundle exec jekyll build --config _config.yml,_config_production.yml
@@ -866,17 +786,14 @@ Quick Deployment Workflow
 =========================
 
 **Standard GitHub Pages:**
-
 1. Push to ``main`` branch
-
 2. Check Actions tab for build status
-
 3. Fix any errors and push again
 
 
 **Manual Build and Deploy:**
 
-::
+.. code-block:: bash
 
     # Build for production
     JEKYLL_ENV=production bundle exec jekyll build
@@ -886,10 +803,12 @@ Quick Deployment Workflow
 
 **Draft Posts (Don't Deploy):**
 
-::
+.. code-block:: yaml
 
     # Add to front matter
     published: false
+
+.. code-block:: bash
 
     # Test locally with drafts
     bundle exec jekyll serve --drafts
@@ -899,32 +818,30 @@ Performance Quick Wins
 
 **Speed Up Builds:**
 
-::
+.. code-block:: yaml
 
     # Exclude unnecessary files in _config.yml
-**exclude**
+    exclude:
       - README.md
-
       - node_modules
-
       - .git
-
       - .github
 
+.. code-block:: bash
 
     # Use incremental builds for development
     bundle exec jekyll serve --incremental
 
 **Optimize Images:**
 
-::
+.. code-block:: bash
 
     # Compress before adding to repo
     mogrify -resize 1200x1200> -quality 85 assets/images/*.jpg
 
 **Check Build Performance:**
 
-::
+.. code-block:: bash
 
     # Time your builds
     time bundle exec jekyll build
@@ -937,7 +854,7 @@ Security Essentials
 
 **Dependency Updates:**
 
-::
+.. code-block:: bash
 
     # Check for vulnerabilities
     bundle audit
@@ -949,18 +866,12 @@ Security Essentials
     git add Gemfile.lock && git commit -m "Update dependencies"
 
 **Never Commit Secrets:**
-
 - API keys, passwords, tokens
-
 - Use environment variables instead
-
 - Check ``.gitignore`` includes sensitive files
 
 
 **Content Security:**
-
 - Review any user-contributed content
-
 - Keep Jekyll and plugins updated
-
 - Use HTTPS for custom domains

@@ -8,7 +8,7 @@ pin: false
 toc: true
 comments: false
 math: false
-mermaid: false
+mermaid: true
 description: "GitHub Pages setup, CI/CD with Actions, gh CLI management, and safe cleanup of stale deployments."
 image:
 
@@ -44,79 +44,87 @@ Scenario A — CI/CD pipeline setup (generator‑agnostic)
 
 **Actions**
 
-  .. code-block:: yaml
-     :caption: .github/workflows/pages-deploy.yml (generic)
+.. code-block:: yaml
+   :caption: .github/workflows/pages-deploy.yml (generic)
 
-      name: "Build and Deploy"
-      on:
+   name: "Build and Deploy"
+   on:
 
-        push:
+     push:
 
-          branches: [ main ]   # adjust as needed
-        workflow_dispatch:
+       branches: [ main ]   # adjust as needed
+     workflow_dispatch:
 
-      permissions:
+   permissions:
 
-        contents: read
-        pages: write
-        id-token: write
+     contents: read
+     pages: write
+     id-token: write
 
-      concurrency:
+   concurrency:
 
-        group: "pages"
-        cancel-in-progress: true
+     group: "pages"
+     cancel-in-progress: true
 
-      jobs:
+   jobs:
 
-        build:
+     build:
 
-          runs-on: ubuntu-latest
-          steps:
-            - uses: actions/checkout@v4
+       runs-on: ubuntu-latest
+       steps:
+         - uses: actions/checkout@v4
 
-            - id: pages
-              uses: actions/configure-pages@v4
-
-
-            # Choose ONE build path below
-
-            # A) Plain static content already in repo root
-            # - name: Prepare static folder
-            #   run: mkdir -p dist && cp -r * dist/
-
-            # B) Node-based static site (Vite, Next export, Astro, etc.)
-            # - uses: actions/setup-node@v4
-            #   with:
-            #     node-version: '20'
-            # - run: npm ci && npm run build   # ensure output is ./dist
-
-            # C) Jekyll (example)
-            # - uses: ruby/setup-ruby@v1
-            #   with:
-            #     ruby-version: '3.2'
-            #     bundler-cache: true
-            # - run: bundle exec jekyll build -d _site && mv _site dist
-
-            - name: Upload artifact
-              uses: actions/upload-pages-artifact@v3
-              with:
-
-                path: "dist"   # change if your output folder differs
+         - id: pages
+           uses: actions/configure-pages@v4
 
 
-        deploy:
+         # Choose ONE build path below
 
-          runs-on: ubuntu-latest
-          needs: build
-          environment:
+         # A) Plain static content already in repo root
+         # - name: Prepare static folder
+         #   run: mkdir -p dist && cp -r * dist/
 
-            name: github-pages
-            url: ${{ steps.deployment.outputs.page_url }}
+         # B) Node-based static site (Vite, Next export, Astro, etc.)
+         # - uses: actions/setup-node@v4
+         #   with:
+         #     node-version: '20'
+         # - run: npm ci && npm run build   # ensure output is ./dist
 
-          steps:
-            - id: deployment
-              uses: actions/deploy-pages@v4
+         # C) Jekyll (example)
+         # - uses: ruby/setup-ruby@v1
+         #   with:
+         #     ruby-version: '3.2'
+         #     bundler-cache: true
+         # - run: bundle exec jekyll build -d _site && mv _site dist
 
+         - name: Upload artifact
+           uses: actions/upload-pages-artifact@v3
+           with:
+
+             path: "dist"   # change if your output folder differs
+
+
+     deploy:
+
+       runs-on: ubuntu-latest
+       needs: build
+       environment:
+
+         name: github-pages
+         url: ${{ steps.deployment.outputs.page_url }}
+
+       steps:
+         - id: deployment
+           uses: actions/deploy-pages@v4
+
+.. code-block:: mermaid
+   :caption: CI/CD pipeline flow (Mermaid)
+
+   flowchart TD
+     Push[Push to main] --> Build[Build site]
+     Build --> Upload[Upload Pages artifact]
+     Upload --> Deploy[Deploy to Pages]
+     Deploy --> Live[Site live]
 
 **Signals of success**
   - Actions run is green; the job has a “View deployment”/page URL
@@ -138,7 +146,7 @@ Attachment references data on GitHub Pages (important)
 
 **GitHub Pages runs Jekyll in safe mode and does not execute custom plugins. This site uses a custom attachment data generator to power the "Referenced in" panel on the ``Attachments`` tab. Before pushing to the branch that Pages builds from, pre-generate and commit the data files**
 
-::
+.. code-block:: shell
 
    make data           # generates _data/attachment_{galleries,references}.yml
    make pages-prep     # optional: builds locally to verify
@@ -154,11 +162,11 @@ Scenario B — Inspect/Manage Deployments with gh CLI
 
 **Situation**
 
-  You need visibility into which deployments exist and, if needed, remove one.
+You need visibility into which deployments exist and, if needed, remove one.
 
 **Goal**
 
-  List, inspect, and optionally delete Pages deployments using ``gh``.
+List, inspect, and optionally delete Pages deployments using ``gh``.
 
 **Tasks**
   1. Enumerate repositories and Pages status
@@ -170,52 +178,54 @@ Scenario B — Inspect/Manage Deployments with gh CLI
 
 **Actions**
 
-  List repositories (selected fields)::
+.. code-block:: shell
+   :caption: List repositories (selected fields)
 
-  .. code-block:: shell
-     :caption: List repositories (selected fields)
+   gh api users/<USER>/repos --jq '.[] | {name: .name, full_name: .full_name, has_pages: .has_pages, archived: .archived, disabled: .disabled}'
 
-      gh api users/<USER>/repos --jq '.[] | {name: .name, full_name: .full_name, has_pages: .has_pages, archived: .archived, disabled: .disabled}'
+.. code-block:: shell
+   :caption: List deployments per repo
 
-  List deployments per repo::
+   gh api \
+     --method GET \
+     -H "Accept: application/vnd.github+json" \
+     -H "X-GitHub-Api-Version: 2022-11-28" \
+     "/users/<USER>/repos?per_page=70&type=all" | jq -r '.[].full_name' | while read repo; do
 
-      gh api \
+     echo "=== $repo ==="
+     gh api \
+       --method GET \
+       -H "Accept: application/vnd.github+json" \
+       -H "X-GitHub-Api-Version: 2022-11-28" \
+       "/repos/$repo/deployments" | jq -r '.[] | "\(.id) - \(.environment) - \(.ref)"'
+     echo
+   done
 
-        --method GET \
-        -H "Accept: application/vnd.github+json" \
-        -H "X-GitHub-Api-Version: 2022-11-28" \
-        "/users/<USER>/repos?per_page=70&type=all" | jq -r '.[].full_name' | while read repo; do
+.. code-block:: shell
+   :caption: List deployments for one repo
 
-          echo "=== $repo ==="
-          gh api \
+   gh api \
+     --method GET \
+     -H "Accept: application/vnd.github+json" \
+     -H "X-GitHub-Api-Version: 2022-11-28" \
+     /repos/<USER>/<REPO>/deployments | jq -r '.[] | "\(.id) - \(.environment) - \(.ref)"'
 
-            --method GET \
-            -H "Accept: application/vnd.github+json" \
-            -H "X-GitHub-Api-Version: 2022-11-28" \
-            "/repos/$repo/deployments" | jq -r '.[] | "\(.id) - \(.environment) - \(.ref)"'
-          echo
-        done
+.. code-block:: shell
+   :caption: Delete by deployment ID (use sparingly)
 
-  List deployments for one repo::
+   gh api \
+     --method DELETE \
+     -H "Accept: application/vnd.github+json" \
+     -H "X-GitHub-Api-Version: 2022-11-28" \
+     /repos/<USER>/<REPO>/deployments/<ID>
 
-      gh api \
+.. code-block:: mermaid
+   :caption: Inspect/manage deployments with gh (Mermaid)
 
-        --method GET \
-        -H "Accept: application/vnd.github+json" \
-        -H "X-GitHub-Api-Version: 2022-11-28" \
-        /repos/<USER>/<REPO>/deployments | jq -r '.[] | "\(.id) - \(.environment) - \(.ref)"'
-
-  Delete by deployment ID (use sparingly)::
-
-  .. code-block:: shell
-     :caption: Delete by deployment ID (use sparingly)
-
-      gh api \
-
-        --method DELETE \
-        -H "Accept: application/vnd.github+json" \
-        -H "X-GitHub-Api-Version: 2022-11-28" \
-        /repos/<USER>/<REPO>/deployments/<ID>
+   flowchart LR
+     A[List repos] --> B[For each repo]
+     B --> C[List deployments]
+     C -->|optional| D[Delete deployment]
 
 **Signals of success**
   - ``gh`` returns expected JSON; the listed item is removed after delete
@@ -247,30 +257,28 @@ Scenario C — Clear Old Pages Content / Shut Down a Site
 
 **Actions**
 
-  Push a minimal site to force a fresh deploy::
+.. code-block:: shell
+   :caption: Push a minimal site to force a fresh deploy
 
-      # User site variant (served from <USER>.github.io)
-      git clone https://github.com/<USER>/<USER>.github.io.git
-      cd <USER>.github.io
-      echo '<!DOCTYPE html><html><head><meta charset="utf-8"><title>Reset</title></head><body><h1>Site reset</h1></body></html>' > index.html
-      git add index.html && git commit -m "reset site" && git push origin main
+   # User site variant (served from <USER>.github.io)
+   git clone https://github.com/<USER>/<USER>.github.io.git
+   cd <USER>.github.io
+   echo '<!DOCTYPE html><html><head><meta charset="utf-8"><title>Reset</title></head><body><h1>Site reset</h1></body></html>' > index.html
+   git add index.html && git commit -m "reset site" && git push origin main
 
-      # Project site variant (served from <USER>.github.io/<REPO>/)
-      # git clone https://github.com/<USER>/<REPO>.git
-      # cd <REPO>
-      # echo '<!DOCTYPE html><html><head><meta charset="utf-8"><title>Reset</title></head><body><h1>Site reset</h1></body></html>' > index.html
-      # git add index.html && git commit -m "reset site" && git push origin main
+   # Project site variant (served from <USER>.github.io/<REPO>/)
+   # git clone https://github.com/<USER>/<REPO>.git
+   # cd <REPO>
+   # echo '<!DOCTYPE html><html><head><meta charset="utf-8"><title>Reset</title></head><body><h1>Site reset</h1></body></html>' > index.html
+   # git add index.html && git commit -m "reset site" && git push origin main
 
-  Then disable Pages (UI) or via API::
+.. code-block:: shell
+   :caption: Then disable Pages (UI) or via API
 
-  .. code-block:: shell
-     :caption: Then disable Pages (UI) or via API
-
-      gh api -X DELETE \
-
-        -H "Accept: application/vnd.github+json" \
-        -H "X-GitHub-Api-Version: 2022-11-28" \
-        /repos/<USER>/<REPO>/pages
+   gh api -X DELETE \
+     -H "Accept: application/vnd.github+json" \
+     -H "X-GitHub-Api-Version: 2022-11-28" \
+     /repos/<USER>/<REPO>/pages
 
 **Signals of success**
   - Live site shows new dummy page, then becomes unavailable after disable
@@ -336,22 +344,22 @@ Scenario E — Authoring Content that Survives baseurl
 
 **Actions**
 
-  RST image in a post::
+RST image in a post
 
-      .. image:: attachments/general/images/repo_icon.png
+.. image:: attachments/general/images/repo_icon.png
+  :alt: Example
+  :width: 400
 
-         :alt: Example
 
+Internal post links (examples):
 
-  Internal post links (examples):
-
-**# User site (https://<user>.github.io)**
+**User site (https://<user>.github.io)**
       - ``/`` → Home
 
       - ``/post-a/`` → Post A
 
 
-**# Project site (https://<user>.github.io/REPO/)**
+**Project site (https://<user>.github.io/REPO/)**
       - ``/REPO/`` → Home
 
       - ``/REPO/post-a/`` → Post A
@@ -406,17 +414,27 @@ Scenario G — Custom domain and HTTPS
 
 **Actions**
 
-  Add ``CNAME`` to your site source (copied to output)::
+.. code-block:: shell
+   :caption: Add CNAME to your site source (copied to output)
 
-      echo 'www.example.com' > CNAME
+   echo 'www.example.com' > CNAME
 
-  DNS guidance::
+DNS guidance::
 
-      # Subdomain (www):
-      #   CNAME www → <user>.github.io
-      # Apex (example.com):
-      #   Prefer ALIAS/ANAME example.com → <user>.github.io
-      #   Or A records to GitHub Pages IPs (check GitHub docs for current list)
+    # Subdomain (www):
+    #   CNAME www → <user>.github.io
+    # Apex (example.com):
+    #   Prefer ALIAS/ANAME example.com → <user>.github.io
+    #   Or A records to GitHub Pages IPs (check GitHub docs for current list)
+
+.. code-block:: mermaid
+   :caption: Custom domain DNS flow (Mermaid)
+
+   flowchart LR
+     Browser -->|www.example.com| DNS
+     DNS -->|CNAME www → <user>.github.io| Pages
+     DNS -->|ALIAS/ANAME apex → <user>.github.io| Pages
+     Pages --> Site[Your site]
 
 **Signals of success**
   - Pages shows your custom domain and HTTPS status is “Enforced”
@@ -440,38 +458,38 @@ Scenario H — PR preview builds (artifacts & Job Summary)
 
 **Actions**
 
-  .. code-block:: yaml
-     :caption: .github/workflows/preview.yml (excerpt)
+.. code-block:: yaml
+   :caption: .github/workflows/preview.yml (excerpt)
 
-      name: "PR Preview"
-      on:
+   name: "PR Preview"
+   on:
 
-        pull_request:
+     pull_request:
 
-          branches: [ main ]
+       branches: [ main ]
 
-      jobs:
+   jobs:
 
-        preview:
+     preview:
 
-          runs-on: ubuntu-latest
+       runs-on: ubuntu-latest
 
-          steps:
-            - uses: actions/checkout@v4
+       steps:
+         - uses: actions/checkout@v4
 
-            # build your site to ./dist
-            # - uses: actions/setup-node@v4
-            # - run: npm ci && npm run build
-            - uses: actions/upload-artifact@v4
-              with:
+         # build your site to ./dist
+         # - uses: actions/setup-node@v4
+         # - run: npm ci && npm run build
+         - uses: actions/upload-artifact@v4
+           with:
 
-                name: site-preview
-                path: dist
+             name: site-preview
+             path: dist
 
-            - name: Add summary
-              run: |
+         - name: Add summary
+           run: |
 
-                echo "PR preview artifact: site-preview" >> "$GITHUB_STEP_SUMMARY"
+             echo "PR preview artifact: site-preview" >> "$GITHUB_STEP_SUMMARY"
 
 
 **Notes**
@@ -492,30 +510,31 @@ Scenario I — Monorepo subdirectory deployments
 
 **Actions**
 
-  ``.github/workflows/pages-deploy.yml`` (excerpt)::
+.. code-block:: yaml
+   :caption: .github/workflows/pages-deploy.yml (excerpt)
 
-      jobs:
+   jobs:
 
-        build:
+      build:
 
-          runs-on: ubuntu-latest
-          defaults:
+        runs-on: ubuntu-latest
+        defaults:
 
-            run:
+          run:
 
-              working-directory: apps/docs
+            working-directory: apps/docs
 
-          steps:
-            - uses: actions/checkout@v4
+        steps:
+          - uses: actions/checkout@v4
 
-            # build in apps/docs → outputs to apps/docs/dist
-            # - uses: actions/setup-node@v4
-            # - run: npm ci && npm run build
-            - name: Upload artifact
-              uses: actions/upload-pages-artifact@v3
-              with:
+          # build in apps/docs → outputs to apps/docs/dist
+          # - uses: actions/setup-node@v4
+          # - run: npm ci && npm run build
+          - name: Upload artifact
+            uses: actions/upload-pages-artifact@v3
+            with:
 
-                path: apps/docs/dist
+              path: apps/docs/dist
 
 
 **Notes**
@@ -536,23 +555,25 @@ Scenario J — Cache‑busting and version stamping
 
 **Actions**
 
-  Generic approach in CI::
+.. code-block:: yaml
+   :caption: Generic approach in CI
 
-      - name: Compute short rev
-        id: rev
-        run: echo "rev=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
-
-
-      - name: Inject rev into HTML
-        run: |
-
-          find dist -name '*.html' -print0 | xargs -0 sed -i "s/\[REV\]/${{ steps.rev.outputs.rev }}/g"
+   - name: Compute short rev
+     id: rev
+     run: echo "rev=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
 
 
-  Then author asset URLs like::
+   - name: Inject rev into HTML
+     run: |
 
-      <link rel="stylesheet" href="/assets/site.css?[REV]">
-      <script src="/assets/site.js?[REV]"></script>
+       find dist -name '*.html' -print0 | xargs -0 sed -i "s/\[REV\]/${{ steps.rev.outputs.rev }}/g"
+
+
+.. code-block:: html
+   :caption: Then author asset URLs like
+
+   <link rel="stylesheet" href="/assets/site.css?[REV]">
+   <script src="/assets/site.js?[REV]"></script>
 
 **Notes**
   - Many frameworks offer built‑in hashing; prefer those when available
