@@ -27,7 +27,7 @@ __pycache__/
 # Add protected posts here, one per line:
 _posts/2025-09-01-jekyll-content-creation-guide.rst
 _posts/2025-09-01-jekyll-customization-deployment.rst
-# _posts/2025-09-01-jekyll-formatting-features.rst
+_posts/2025-09-01-jekyll-formatting-features.rst
 _posts/2025-09-01-jekyll-fundamentals-setup.rst
 # _posts/2025-09-02-github-pages-setup-build-deploy-cleanup.rst
 # _posts/2025-09-03-github-pages-from-zero-to-live.rst

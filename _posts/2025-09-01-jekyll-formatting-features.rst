@@ -13,7 +13,7 @@ description: "This post covers the advanced formatting capabilities of Jekyll, f
 image:
   path: https://jekyllrb.com/img/logo-2x.png
   alt: "Jekyll Advanced Formatting: Typography, Media, and Special Features"
-allow_edit: true
+allow_edit: false
 ---
 
 
@@ -86,6 +86,7 @@ List Types
 ----------
 
 **Ordered Lists:**
+
 1. First item
 2. Second item
 3. Third item
@@ -97,10 +98,11 @@ List Types
 **Unordered Lists:**
 
 - Main point
-  - Sub-point
-  - Another sub-point
-    - Deeply nested point
 
+  + Sub-point
+  + Another sub-point
+
+    * Deeply nested point
 
 - Another main point
 
@@ -444,7 +446,6 @@ Control the overall table width precisely, enabling horizontal scrolling for wid
 
 
 **Best Practices:**
-
 - Use ``:widths:`` alone for most tables
 - Add ``:custom-table-width:`` **only** when you need tables wider than the viewport
 - For narrow viewports, consider responsive widths like ``90vw`` instead of fixed pixels
@@ -610,13 +611,12 @@ Images
 
 **Image with Caption:**
 
-.. figure:: attachments/general/images/screenshot.png
+.. figure:: attachments/general/images/repo_icon.png
    :alt: Application screenshot
    :align: left
-   :width: 600
+   :width: 250
 
-
-   *From the about section of this website*
+   *<This is the caption for the above image>*
 
 **Responsive Images:**
 
@@ -644,16 +644,12 @@ Internal Links
 --------------
 
 **Link to Other Posts:**
-
 - `Jekyll Fundamentals Guide </posts/jekyll-fundamentals-setup/>`_
-
 - `Content Creation Guide </posts/jekyll-content-creation-guide/>`_
 
 
 **Link to Sections:**
-
 - `Typography Section <#typography-and-text-formatting>`_
-
 - `Code Blocks <#code-blocks>`_
 
 
@@ -661,11 +657,8 @@ External Links
 --------------
 
 **Resource Links:**
-
 - `Jekyll Documentation <https://jekyllrb.com/docs/>`_
-
 - `Markdown Guide <https://www.markdownguide.org/>`_
-
 - `reStructuredText Primer <https://docutils.sourceforge.io/docs/user/rst/quickref.html>`_
 
 
@@ -704,7 +697,6 @@ Custom HTML Integration
 .. raw:: html
 
    <div class="custom-container">
-
        <h3>Custom HTML Section</h3>
        <p>This content uses custom HTML for specific styling needs.</p>
    </div>
@@ -726,9 +718,7 @@ Interactive Elements
 .. raw:: html
 
    <div class="video-container">
-
        <iframe width="560" height="315"
-
                src="https://www.youtube.com/embed/Y7LCiZbOmNQ"
                frameborder="0" allowfullscreen>
        </iframe>
@@ -741,22 +731,14 @@ Optimization Guidelines
 -----------------------
 
 **Image Optimization:**
-
 - **Compress images** before uploading
-
 - **Use appropriate formats** - JPEG for photos, PNG for graphics
-
 - **Specify dimensions** to prevent layout shift
-
 - **Add alt text** for accessibility
 
-
 **Content Performance:**
-
 - **Minimize large code blocks** - Use external files when needed
-
 - **Optimize tables** - Keep data manageable
-
 - **Use lazy loading** for images below the fold
 
 
@@ -764,22 +746,14 @@ Accessibility Best Practices
 ----------------------------
 
 **Text Accessibility:**
-
 - **Sufficient color contrast** for readability
-
 - **Descriptive link text** - avoid "click here"
-
 - **Proper heading hierarchy** - don't skip levels
-
 - **Alt text for images** - describe content and function
 
-
 **Navigation Aids:**
-
 - **Table of contents** for long posts
-
 - **Skip links** for keyboard navigation
-
 - **Descriptive page titles** and meta descriptions
 
 
@@ -819,11 +793,8 @@ Common Issues - Quick Fixes
     # Site still builds and works
 
 **Table Formatting Issues:**
-
 - Keep tables simple
-
 - Use consistent spacing
-
 - Test with minimal content first
 
 
@@ -851,24 +822,19 @@ Common Issues - Quick Fixes
 ::
 
     # Check file exists
-    ls assets/images/your-image.jpg
+    ls attachments/general/images/your-image.jpg
 
     # Use correct path (relative, not absolute)
-    .. image:: assets/images/your-image.jpg
+    .. image:: attachments/general/images/your-image.jpg
 
 Formatting Troubleshooting
 ==========================
 
 **Quick Debug Process:**
-
 1. **Test with minimal content** - Start simple
-
 2. **Add complexity gradually** - One feature at a time
-
 3. **Check build output** - ``bundle exec jekyll build --trace``
-
 4. **View generated HTML** - ``cat _site/posts/your-post/index.html``
-
 
 **Content Not Rendering:**
 
@@ -889,11 +855,7 @@ Formatting Troubleshooting
     # Verify syntax in online editors first
 
 **Performance Issues:**
-
 - Keep images under 1MB
-
 - Use simple tables for complex data
-
 - Break up very long documents
-
 - Test build time: ``time bundle exec jekyll build``
