@@ -22,8 +22,31 @@ module Jekyll
 
       # Get document path from the current document being processed
       doc_path = nil
+      line_offset = 0
       if current_document
         doc_path = current_document.relative_path rescue (current_document.path rescue nil)
+
+        # Calculate line offset due to YAML front matter
+        # Jekyll strips front matter before passing content to converter
+        if doc_path && File.exist?(doc_path)
+          begin
+            original_content = File.read(doc_path)
+            # Check if file starts with front matter (---)
+            if original_content.start_with?("---")
+              # Count lines until the closing ---
+              lines = original_content.lines
+              lines.each_with_index do |line, idx|
+                if idx > 0 && line.strip == "---"
+                  line_offset = idx + 1
+                  break
+                end
+              end
+            end
+          rescue => e
+            # If we can't read the file, continue without offset adjustment
+            line_offset = 0
+          end
+        end
       end
 
       # Pass source path if available (requires writing to temp file)
@@ -47,9 +70,11 @@ module Jekyll
             temp_path
           )
 
-          # Print stderr with filename context if there are errors/warnings
+          # Print stderr with filename context and adjusted line numbers
           if stderr_str && !stderr_str.empty?
-            $stderr.puts stderr_str
+            # Adjust line numbers in error messages to account for YAML front matter
+            adjusted_stderr = adjust_line_numbers(stderr_str, line_offset)
+            $stderr.puts adjusted_stderr
           end
 
           # Return the HTML output
@@ -60,6 +85,23 @@ module Jekyll
       else
         # Original behavior when we don't have document path
         return RbST.new(content).to_html(:part => :fragment, :initial_header_level => 2)
+      end
+    end
+
+    private
+
+    def adjust_line_numbers(stderr_text, offset)
+      return stderr_text if offset == 0
+
+      # Pattern matches: filename:line: or <string>:line:
+      # Examples:
+      #   _posts/file.rst:66: (WARNING/2) ...
+      #   <string>:311: (ERROR/3) ...
+      stderr_text.gsub(/^(.*?):(\d+):/) do |match|
+        filepath = $1
+        line_num = $2.to_i
+        adjusted_line = line_num + offset
+        "#{filepath}:#{adjusted_line}:"
       end
     end
   end
