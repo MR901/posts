@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Key Laws and Principles That Shape Thinking and Decision-Making"
+title: "Laws and Principles That Shape Thinking and Decision-Making"
 date: 2025-10-22 00:00:00 +0530
 categories: [principles, decision-making, strategy]
 tags: [laws, principles, mental-models, decision-making, reasoning]
@@ -17,9 +17,8 @@ allow_edit: true
 ---
 
 
-
-Key Laws and Principles That Shape Thinking and Decision-Making
-===============================================================
+Laws and Principles That Shape Thinking and Decision-Making
+===========================================================
 
 This guide brings together durable laws, principles, and heuristics from science, statistics,
 economics, management, and everyday life. It’s designed as a practical reference: skim the
@@ -30,11 +29,8 @@ How to Use This Guide
 ---------------------
 
 - Start with the section that matches your context (e.g., risk, systems, org design).
-
 - Use the Core Insight to sanity-check whether a principle applies.
-
 - Scan Core Concepts for levers and caveats before acting.
-
 - Apply one lens at a time; combine only after you're clear on first-order effects.
 
 
@@ -59,13 +55,9 @@ Reading the Tables
 ------------------
 
 - Principle: the named law or heuristic.
-
 - Core Insight: the essence in one sentence.
-
 - Overview: practical explanation for application.
-
 - Core Concept: key bullets to operationalize the idea.
-
 - Common Use: typical scenarios where it helps.
 
 
@@ -81,31 +73,63 @@ This mindmap shows the major families of principles covered in this guide:
          physical_science[Physical and Scientific]
             cause_effect[Cause & Effect]
             entropy[Entropy]
+            alder_razor[Alder's Razor]
             conservation[Conservation Laws]
          math_stats[Mathematical and Statistical]
             large_numbers[Law of Large Numbers]
-            power_laws[Power-Law Patterns]
+            benford[Benford's Law]
+            zipf[Zipf's Law]
             littles_law[Little's Law]
+            law_of_averages[Law of Averages]
          economics[Economic and Market]
             supply_demand[Supply vs Demand]
             pareto[Pareto 80/20]
             diminishing_returns[Diminishing Returns]
+            tragedy_commons[Tragedy of the Commons]
+            metcalfe[Metcalfe's Law]
+            gresham[Gresham's Law]
          organizational[Organizational and Management]
-            conways_law[Conway's Law]
-            goodharts_law[Goodhart's Law]
+            peter_principle[Peter Principle]
             parkinsons_law[Parkinson's Law]
+            goodharts_law[Goodhart's Law]
+            brooks_law[Brooks's Law]
+            wadler[Wadler's Law]
+            conways_law[Conway's Law]
          cognitive[Cognitive and Decision]
             occams_razor[Occam's Razor]
+            razors[Various Razors]
             hicks_law[Hick's Law]
-            biases[Various Razors]
+            brandolini[Brandolini's Law]
          systems[Systems and Complexity]
             butterfly_effect[Butterfly Effect]
             galls_law[Gall's Law]
-            feedback_loops[Feedback Dynamics]
+            tesler[Tesler's Law]
+            zawinski[Zawinski's Law]
+            unintended[Unintended Consequences]
+            ostrich[Ostrich Algorithm]
          risk[Risk and Forecasting]
             murphys_law[Murphy's Law]
             lindy_effect[Lindy Effect]
             planning_fallacy[Planning Fallacy]
+         philosophy[Philosophical and Ethical]
+            karma[Law of Karma]
+            golden_rule[Golden Rule]
+         tech[Technology and Innovation]
+            moore[Moore's Law]
+            hyrum[Hyrum's Law]
+            postel[Postel's Law]
+            reed[Reed's Law]
+         personal[Self and Personal]
+            attraction[Law of Attraction]
+            pareto_productivity[80/20 Productivity]
+         cognitive_biases[Cognitive Biases]
+            prospect_theory[Prospect Theory]
+            loss_aversion[Loss Aversion]
+            dunning_kruger[Dunning-Kruger]
+         social_biases[Social Biases]
+            status_quo[Status Quo Bias]
+            groupthink[Groupthink]
+            social_proof[Social Proof]
 
 
 1. Physical & Scientific Principles
@@ -126,8 +150,7 @@ This mindmap shows the major families of principles covered in this guide:
      - Law of Cause and Effect
      - Every result comes from one or more causes.
      - Outcomes are not random; they arise from identifiable factors. Understanding causes helps you predict results and change them by adjusting inputs.
----------------------------------------------------------------------------------------------------------------------------------------------------------
-       - Direction: causes come before effects.
+     - - Direction: causes come before effects.
        - Multiple drivers: outcomes often have several contributing causes.
        - Delays: effects can appear long after the cause.
        - Agency: change inputs to change outcomes.
@@ -136,8 +159,7 @@ This mindmap shows the major families of principles covered in this guide:
      - Second Law of Thermodynamics (Entropy)
      - Without upkeep, things drift toward disorder.
      - When energy moves or changes form, some becomes unusable. Over time, systems wear down unless you invest effort to maintain order.
------------------------------------------------------------------------------------------------------------------------------------------
-       - Entropy rises: disorder naturally increases.
+     - - Entropy rises: disorder naturally increases.
        - Irreversibility: many processes cannot be undone perfectly.
        - Maintenance: order requires ongoing energy and care.
      - Engineering reliability, maintenance planning, process design, strategy
@@ -145,17 +167,15 @@ This mindmap shows the major families of principles covered in this guide:
      - Le Chatelier’s Principle
      - Systems push back when conditions change.
      - If a stable system is disturbed, it shifts to reduce the impact and restore balance. This predicts the direction of change after a shock.
-------------------------------------------------------------------------------------------------------------------------------------------------
-       - Disturbance: change in input, pressure, or constraints.
+     - - Disturbance: change in input, pressure, or constraints.
        - Counter-move: the system responds to offset the change.
        - New balance: a different equilibrium may emerge.
      - Chemistry, economics, policy design, systems thinking
    * - 4
-     - Newton’s Flaming Laser Sword
-     - If it can’t be tested, set it aside.
-     - Prioritize claims with observable consequences. Untestable ideas may be interesting, but they do not help you make reliable decisions.
----------------------------------------------------------------------------------------------------------------------------------------------
-       - Testability: prefer statements you can check.
+     - Alder's Razor (Newton's Flaming Laser Sword)
+     - If it can't be tested, set it aside.
+     - Prioritize claims with observable consequences. Untestable ideas may be interesting, but they do not help you make reliable decisions. Named colloquially after Newton, but formally proposed by philosopher Mike Alder in 2004.
+     - - Testability: prefer statements you can check.
        - Falsifiability: good claims risk being proven wrong.
        - Evidence-first: run experiments before debates.
      - Product decisions, scientific reasoning, strategy debates
@@ -163,8 +183,7 @@ This mindmap shows the major families of principles covered in this guide:
      - Conservation Laws (Energy, Momentum)
      - Some totals stay constant in closed systems.
      - Energy and momentum don’t appear or disappear; they move or transform. This makes interactions predictable.
-------------------------------------------------------------------------------------------------------------------
-       - Closed system: no external inputs or losses.
+     - - Closed system: no external inputs or losses.
        - Transfer vs. loss: quantities move between parts.
        - Symmetry: conservation ties to system invariants.
      - Physics problems, simulations, control systems, financial analogies
@@ -188,8 +207,7 @@ This mindmap shows the major families of principles covered in this guide:
      - Law of Large Numbers
      - With more trials, averages stabilize.
      - As sample size grows, the observed average tends toward the true average. It does not predict short-term outcomes.
--------------------------------------------------------------------------------------------------------------------------
-       - Convergence: variance shrinks with larger samples.
+     - - Convergence: variance shrinks with larger samples.
        - Independence: samples should be comparable.
        - No short-run guarantees: streaks still happen.
      - A/B testing, forecasting, quality control, analytics
@@ -197,8 +215,7 @@ This mindmap shows the major families of principles covered in this guide:
      - Benford’s Law
      - In many datasets, 1 appears as the first digit most often.
      - Naturally occurring numbers across many scales follow a predictable first-digit pattern. Large deviations can signal issues.
------------------------------------------------------------------------------------------------------------------------------------
-       - Scale-invariant: works across orders of magnitude.
+     - - Scale-invariant: works across orders of magnitude.
        - Not universal: assigned or capped numbers may not fit.
        - Red flag, not proof: use with other checks.
      - Auditing, fraud detection, anomaly screening, data quality
@@ -206,8 +223,7 @@ This mindmap shows the major families of principles covered in this guide:
      - Zipf’s Law
      - A few things are very common; most are rare.
      - Item frequency is roughly inversely proportional to rank. Shows up in words, cities, web traffic, and more.
-------------------------------------------------------------------------------------------------------------------
-       - Heavy tail: small number dominates usage.
+     - - Heavy tail: small number dominates usage.
        - Long tail: many niche items add up.
        - Power-law behavior: expect uneven distributions.
      - Content strategy, capacity planning, search, inventory
@@ -215,8 +231,7 @@ This mindmap shows the major families of principles covered in this guide:
      - Little’s Law
      - Items in a system = arrival rate × time in system.
      - In steady-state queues, average work-in-progress equals how fast work arrives times how long it stays.
--------------------------------------------------------------------------------------------------------------
-       - L = λ × W: simple, powerful relation.
+     - - L = λ × W: simple, powerful relation.
        - Assumptions: stable averages, no big build-ups.
        - Levers: limit WIP, adjust arrival, improve service time.
      - Operations, Kanban, call centers, backend queues
@@ -224,8 +239,7 @@ This mindmap shows the major families of principles covered in this guide:
      - Law of Averages
      - Over time, results trend toward expected proportions.
      - Long runs smooth randomness, but short runs can swing wildly. Avoid the gambler’s fallacy in the short term.
--------------------------------------------------------------------------------------------------------------------
-       - Regression toward the mean: extremes soften over time.
+     - - Regression toward the mean: extremes soften over time.
        - Independence matters: past events don’t change fair odds.
        - Sample size: more trials, more stability.
      - Risk thinking, expectation setting, performance analysis
@@ -249,8 +263,7 @@ This mindmap shows the major families of principles covered in this guide:
      - Law of Supply and Demand
      - Prices move to balance what buyers want and sellers offer.
      - When demand exceeds supply, prices rise; when supply exceeds demand, prices fall. Markets seek a moving balance.
------------------------------------------------------------------------------------------------------------------------
-       - Shifts: changes in supply or demand move price and quantity.
+     - - Shifts: changes in supply or demand move price and quantity.
        - Elasticity: sensitivity to price varies by product.
        - Incentives: prices guide production and consumption.
      - Pricing, inventory, market analysis, product strategy
@@ -258,8 +271,7 @@ This mindmap shows the major families of principles covered in this guide:
      - Pareto Principle (80/20)
      - A small share of inputs drives most results.
      - Often, a minority of causes deliver the majority of outcomes. Use it to focus effort where it matters most.
-------------------------------------------------------------------------------------------------------------------
-       - Identify the vital few: find top contributors.
+     - - Identify the vital few: find top contributors.
        - De-emphasize the trivial many: reduce low-value work.
        - Not exact: the ratio varies by context.
      - Prioritization, roadmap planning, customer success, cost control
@@ -267,8 +279,7 @@ This mindmap shows the major families of principles covered in this guide:
      - Law of Diminishing Returns
      - After a point, each extra unit adds less benefit.
      - Initial investments pay off most; later additions deliver smaller gains. Optimize before the curve flattens.
--------------------------------------------------------------------------------------------------------------------
-       - Marginal vs. total: watch the next unit’s payoff.
+     - - Marginal vs. total: watch the next unit’s payoff.
        - Saturation: channels and systems max out.
        - Opportunity cost: excess effort could work better elsewhere.
      - Marketing spend, training time, performance tuning, hiring
@@ -276,8 +287,7 @@ This mindmap shows the major families of principles covered in this guide:
      - Jevons Paradox
      - Efficiency can lead to using more, not less.
      - Making something cheaper or easier often raises total demand, increasing overall consumption.
-----------------------------------------------------------------------------------------------------
-       - Rebound effect: savings spur extra use.
+     - - Rebound effect: savings spur extra use.
        - Direct vs. economy-wide: effects compound across markets.
        - Guardrails: pair efficiency with usage limits.
      - Energy policy, capacity planning, pricing strategy
@@ -285,20 +295,27 @@ This mindmap shows the major families of principles covered in this guide:
      - Tragedy of the Commons
      - Without rules, shared resources get overused.
      - Individual incentives can conflict with the common good, leading to depletion or congestion.
----------------------------------------------------------------------------------------------------
-       - Externalities: costs spill onto others.
+     - - Externalities: costs spill onto others.
        - Governance: quotas, pricing, or norms improve outcomes.
        - Monitoring: measure and enforce fair use.
      - Environmental policy, shared compute, APIs and rate limits
    * - 6
-     - Metcalfe’s Law
-     - A network’s value grows faster than its size.
+     - Metcalfe's Law
+     - A network's value grows faster than its size.
      - As more users join, the number of possible connections rises dramatically, raising utility for everyone.
----------------------------------------------------------------------------------------------------------------
-       - Connections: value scales with possible links.
+     - - Connections: value scales with possible links.
        - Quality matters: not all connections are equal.
        - Critical mass: early growth can be slow, then compound.
      - Platform strategy, growth loops, ecosystem design
+   * - 7
+     - Gresham's Law
+     - When two items circulate together, the less valuable one dominates.
+     - In markets, inferior goods or currency drive out superior ones when both are treated equally by law or custom. Bad money drives out good.
+     - - Asymmetric information: quality differences not fully reflected in price.
+       - Legal tender laws: force equal treatment.
+       - Hoarding of quality: people keep superior items.
+       - Circulation of low quality: inferior items flood the market.
+     - Currency policy, product quality management, talent retention, marketplace design
 
 
 4. Organizational & Management Principles
@@ -319,8 +336,7 @@ This mindmap shows the major families of principles covered in this guide:
      - Peter Principle
      - People get promoted until the role outgrows them.
      - Success in one job doesn’t guarantee success in the next. Build paths that fit strengths, not just titles.
------------------------------------------------------------------------------------------------------------------
-       - Role fit: new roles need different skills.
+     - - Role fit: new roles need different skills.
        - Selection bias: past success can mislead.
        - Dual tracks: leadership and expert paths.
      - Hiring, promotions, career ladders, team design
@@ -328,8 +344,7 @@ This mindmap shows the major families of principles covered in this guide:
      - Parkinson’s Law
      - Work expands to fill the time given.
      - Generous timelines invite delay and scope creep. Tight but realistic constraints sharpen focus.
-------------------------------------------------------------------------------------------------------
-       - Timeboxing: set clear limits.
+     - - Timeboxing: set clear limits.
        - Scoping: define done before starting.
        - Cadence: shorter cycles reduce waste.
      - Planning, sprints, personal productivity, reviews
@@ -337,8 +352,7 @@ This mindmap shows the major families of principles covered in this guide:
      - Goodhart’s Law
      - When a measure becomes a target, it gets distorted.
      - Chasing a metric can break the link between the number and the real outcome you care about.
---------------------------------------------------------------------------------------------------
-       - Outcomes over outputs: measure what matters.
+     - - Outcomes over outputs: measure what matters.
        - Mixed dashboards: combine multiple indicators.
        - Watch for gaming: audit incentives and side effects.
      - OKRs, incentive design, ops dashboards, governance
@@ -346,26 +360,41 @@ This mindmap shows the major families of principles covered in this guide:
      - Law of the Instrument
      - Familiar tools bias our choices.
      - Don’t force one solution on every problem. Match methods to the job at hand.
------------------------------------------------------------------------------------
-       - Problem-first framing: define the job to be done.
+     - - Problem-first framing: define the job to be done.
        - Broaden the toolkit: explore alternatives.
        - Probe: small experiments before big bets.
      - Tech selection, architecture, strategy, process design
    * - 5
-     - Parkinson’s Law of Triviality
+     - Parkinson's Law of Triviality
      - Teams over-discuss small, easy topics and ignore hard, important ones.
-     - Without discipline, groups “bike-shed” and waste time where it’s comfortable.
-------------------------------------------------------------------------------------
-       - Agenda design: time-box low-stakes items.
+     - Without discipline, groups "bike-shed" and waste time where it's comfortable.
+     - - Agenda design: time-box low-stakes items.
        - Decision rights: clarify who decides what.
        - Value focus: weigh time by impact.
      - Meetings, PR reviews, governance, backlog grooming
    * - 6
-     - Conway’s Law
+     - Brooks's Law
+     - Adding people to a late project makes it later.
+     - Communication overhead grows faster than productivity when adding team members mid-project. New members need training, coordination increases exponentially.
+     - - Ramp-up time: new members need onboarding.
+       - Communication overhead: scales with n(n-1)/2.
+       - Partitionable tasks: are rare in late projects.
+       - Mythical man-month: time and people are not interchangeable.
+     - Project rescue attempts, team scaling, delivery crises, resource planning
+   * - 7
+     - Wadler's Law
+     - Time spent debating features is inversely proportional to their importance.
+     - Teams spend disproportionate time on trivial decisions (syntax, naming) versus core architecture. Related to bikeshedding but specific to design debates.
+     - - Accessibility: trivial topics feel more accessible.
+       - Confidence: inversely proportional to importance.
+       - Surface vs. substance: surface details consume attention.
+       - Decision fatigue: repetitive small debates drain energy.
+     - API design, language design, architecture reviews, feature discussions
+   * - 8
+     - Conway's Law
      - Products mirror how teams communicate.
      - Team boundaries, incentives, and handoffs shape your system’s architecture and interfaces.
--------------------------------------------------------------------------------------------------
-       - Inverse Conway: design teams to get the system you want.
+     - - Inverse Conway: design teams to get the system you want.
        - Clear interfaces: match org and module boundaries.
        - Reduce silos: improve cross-team flow.
      - Org design, platform engineering, microservices
@@ -389,8 +418,7 @@ This mindmap shows the major families of principles covered in this guide:
      - Occam’s Razor
      - Prefer the simplest explanation that fits the facts.
      - Fewer assumptions mean easier testing and fewer ways to be wrong. Simple doesn’t mean simplistic.
---------------------------------------------------------------------------------------------------------
-       - Parsimony: remove unnecessary parts.
+     - - Parsimony: remove unnecessary parts.
        - Fit: keep what evidence requires.
        - Testability: simpler models are easier to check.
      - Debugging, modeling, product decisions
@@ -398,8 +426,7 @@ This mindmap shows the major families of principles covered in this guide:
      - Sagan Standard
      - Bigger claims need stronger evidence.
      - Raise the proof bar when a claim is surprising or costly to act on.
---------------------------------------------------------------------------
-       - Proportional evidence: match proof to the claim.
+     - - Proportional evidence: match proof to the claim.
        - Prior odds: the less likely, the more proof required.
        - Replication: prefer results others can reproduce.
      - Research, product claims, safety decisions
@@ -407,8 +434,7 @@ This mindmap shows the major families of principles covered in this guide:
      - Hitchen’s Razor
      - What’s asserted without proof can be dismissed without proof.
      - The burden of proof rests on the person making the claim.
-----------------------------------------------------------------
-       - Evidence first: ask for support before debate.
+     - - Evidence first: ask for support before debate.
        - Avoid distraction: don’t chase unfalsifiable ideas.
        - Default neutral: no proof, no change.
      - Critical thinking, design reviews, decision gates
@@ -416,8 +442,7 @@ This mindmap shows the major families of principles covered in this guide:
      - Hanlon’s Razor
      - Mistakes explain more than malice.
      - Start investigating with error and miscommunication before assuming bad intent.
---------------------------------------------------------------------------------------
-       - Calm diagnosis: reduce heat and blame.
+     - - Calm diagnosis: reduce heat and blame.
        - Error taxonomy: process, design, or execution?
        - Safer systems: fix causes, not people.
      - Security triage, incident reviews, team communication
@@ -425,8 +450,7 @@ This mindmap shows the major families of principles covered in this guide:
      - Chesterton’s Fence
      - Don’t remove or change a rule until you know why it exists.
      - Hidden constraints and edge cases often justify awkward systems.
------------------------------------------------------------------------
-       - History matters: learn the original problem.
+     - - History matters: learn the original problem.
        - Safety checks: design reversible changes.
        - Replace with better: keep the benefit, fix the cost.
      - Policy, refactoring, migrations, governance
@@ -434,8 +458,7 @@ This mindmap shows the major families of principles covered in this guide:
      - Brandolini’s Law
      - It’s much harder to debunk nonsense than to create it.
      - Be strategic: don’t chase every claim; prepare concise, high-quality corrections.
-----------------------------------------------------------------------------------------
-       - Prebunk: share facts before myths take hold.
+     - - Prebunk: share facts before myths take hold.
        - Templates: reusable responses save time.
        - Amplify truth: use credible, reachable channels.
      - Communications, moderation, documentation
@@ -443,8 +466,7 @@ This mindmap shows the major families of principles covered in this guide:
      - Hick’s Law
      - More choices mean slower decisions.
      - Reduce, group, or sequence options to help people choose faster.
------------------------------------------------------------------------
-       - Progressive disclosure: reveal options in steps.
+     - - Progressive disclosure: reveal options in steps.
        - Defaults: offer a sensible first choice.
        - Grouping: organize by task or outcome.
      - UX menus, settings, onboarding, pricing pages
@@ -452,8 +474,7 @@ This mindmap shows the major families of principles covered in this guide:
      - Segal’s Law
      - Two conflicting sources create confusion.
      - One well-calibrated source beats two that disagree. Reconcile or pick a single source of truth.
-------------------------------------------------------------------------------------------------------
-       - Calibration: verify accuracy and drift.
+     - - Calibration: verify accuracy and drift.
        - Consistency: align definitions and methods.
        - Governance: document the “source of truth.”
      - Analytics, instrumentation, reporting, monitoring
@@ -477,42 +498,60 @@ This mindmap shows the major families of principles covered in this guide:
      - Butterfly Effect
      - Tiny changes can produce big outcomes.
      - In complex systems, small differences at the start can grow into large effects, limiting long-term predictions.
-----------------------------------------------------------------------------------------------------------------------
-       - Sensitivity: initial conditions matter a lot.
+     - - Sensitivity: initial conditions matter a lot.
        - Nonlinearity: feedback loops amplify changes.
        - Short horizons: forecast modestly, monitor closely.
      - Forecasting, risk management, experimentation
    * - 2
-     - Tragedy of the Commons
-     - Shared resources are depleted without rules.
-     - Personal incentives can drain common assets unless coordinated.
-----------------------------------------------------------------------
-       - Externalities: private gains, shared costs.
-       - Mechanisms: quotas, pricing, and norms.
-       - Monitoring: track usage and enforce limits.
-     - Policy, resource management, shared infrastructure
-   * - 3
      - Gall's Law
      - Successful complex systems start simple.
      - Build a working simple version first, then iterate toward complexity.
-----------------------------------------------------------------------------
-       - MVP first: ship the smallest useful system.
+     - - MVP first: ship the smallest useful system.
        - Iteration: add complexity after learning.
        - Robustness: small, proven parts compose better.
      - Architecture, product development, platform design
+   * - 3
+     - Tesler's Law (Conservation of Complexity)
+     - Complexity cannot be eliminated, only shifted.
+     - Every application has inherent complexity that cannot be removed. You can only decide who deals with it: users, developers, or operators.
+     - - Inherent vs. accidental complexity: some is fundamental.
+       - User burden vs. developer burden: trade-offs are inevitable.
+       - Abstraction trade-offs: hiding complexity shifts it elsewhere.
+       - Configuration complexity: flexibility adds cognitive load.
+     - UX design, API design, product decisions, platform vs. application complexity
    * - 4
+     - Zawinski's Law
+     - Every program attempts to expand until it can read mail.
+     - Software tends to grow in scope and complexity over time, often beyond its original purpose. Feature creep is inevitable without discipline.
+     - - Scope creep: features accumulate over time.
+       - Mission drift: original purpose gets lost.
+       - "Just one more feature": incremental additions compound.
+       - Platform ambitions: tools try to become ecosystems.
+       - Integration pressure: users demand connectivity.
+     - Product scope management, feature prioritization, platform strategy, technical debt
+   * - 5
      - Law of Unintended Consequences
      - Actions create side effects—good, bad, and surprising.
      - Expect trade-offs and ripple effects, especially in complex systems.
----------------------------------------------------------------------------
-       - Second-order thinking: look beyond first impacts.
+     - - Second-order thinking: look beyond first impacts.
        - Scenarios: test multiple paths and stakeholders.
        - Feedback: monitor and adjust after changes.
      - Policy design, change management, product launches
+   * - 6
+     - Ostrich Algorithm
+     - Sometimes it's cheaper to ignore rare problems than to solve them.
+     - In systems design, deliberately ignoring low-probability issues can be rational when prevention costs exceed expected loss. Accept occasional failure rather than complex prevention.
+     - - Cost-benefit of prevention: compare fix cost to expected loss.
+       - Acceptable failure rates: some failures are tolerable.
+       - Graceful degradation: design for soft failures.
+       - Monitoring vs. prevention: detect and recover instead of preventing.
+     - Distributed systems, database design, error handling, SRE trade-offs
 
 
 7. Probability, Risk, and Forecasting Principles
 ------------------------------------------------
+
+**Note:** For risk-based trade-offs in system design, see also Ostrich Algorithm in Section 6: Systems & Complexity Principles.
 
 .. list-table::
    :header-rows: 1
@@ -529,8 +568,7 @@ This mindmap shows the major families of principles covered in this guide:
      - Murphy’s Law
      - If it can fail, plan as if it will.
      - Design for failure so that issues are contained and recovery is quick.
------------------------------------------------------------------------------
-       - Redundancy: avoid single points of failure.
+     - - Redundancy: avoid single points of failure.
        - Failure tests: rehearse outages and rollbacks.
        - Graceful degradation: keep core functions alive.
      - SRE, operations, safety engineering
@@ -538,8 +576,7 @@ This mindmap shows the major families of principles covered in this guide:
      - Sod’s Law
      - Failures cluster at the worst moments.
      - Critical events deserve buffers, freeze windows, and extra checks.
--------------------------------------------------------------------------
-       - Timing risk: consider calendars and dependencies.
+     - - Timing risk: consider calendars and dependencies.
        - Buffers: add time and capacity around key dates.
        - Fallbacks: plan postponements and alternatives.
      - Release planning, events, critical operations
@@ -547,26 +584,15 @@ This mindmap shows the major families of principles covered in this guide:
      - Lindy Effect
      - The longer something has lasted, the longer it’s likely to last.
      - Time filters fragile ideas; the robust ones survive.
------------------------------------------------------------
-       - Survival bias: watch what endures, not what’s flashy.
+     - - Survival bias: watch what endures, not what’s flashy.
        - Half-life intuition: old ideas can be safer bets.
        - Mix: balance proven with promising new.
      - Tech choices, content libraries, vendor selection
    * - 4
-     - Law of Averages
-     - Over many tries, results tend toward the expected mix.
-     - In the short run, randomness still swings—don’t assume payback is “due.”
--------------------------------------------------------------------------------
-       - Independence: past events don’t change fair odds.
-       - Streaks: clusters happen by chance.
-       - Sample size: stability needs volume.
-     - Risk assessment, planning, communication
-   * - 5
      - Planning Fallacy
      - We underestimate time, cost, and risk.
      - Use outside evidence and buffers to counter optimism.
-------------------------------------------------------------
-       - Reference class: base estimates on similar work.
+     - - Reference class: base estimates on similar work.
        - Premortem: imagine failure and prevent it.
        - Milestones: deliver in stages to learn early.
      - Project management, budgeting, product delivery
@@ -574,6 +600,8 @@ This mindmap shows the major families of principles covered in this guide:
 
 8. Philosophical, Ethical, and Cultural Principles
 --------------------------------------------------
+
+**Note:** This section includes both empirically-grounded ethical principles (e.g., Golden Rule) and philosophical concepts (e.g., Law of Karma) that reflect cultural wisdom and behavioral patterns rather than scientific laws.
 
 .. list-table::
    :header-rows: 1
@@ -590,8 +618,7 @@ This mindmap shows the major families of principles covered in this guide:
      - Law of Karma
      - Actions carry consequences over time.
      - Behaviors, intentions, and patterns tend to return results that match them.
-----------------------------------------------------------------------------------
-       - Intention matters: why you act shapes outcomes.
+     - - Intention matters: why you act shapes outcomes.
        - Habits: repeated actions build your future.
        - Reciprocity: what you give often comes back.
      - Ethics, leadership, personal development
@@ -599,20 +626,10 @@ This mindmap shows the major families of principles covered in this guide:
      - Golden Rule
      - Treat others the way you want to be treated.
      - A fast test for fairness and respect across cultures.
-------------------------------------------------------------
-       - Empathy: imagine yourself on the receiving end.
+     - - Empathy: imagine yourself on the receiving end.
        - Reversibility: would you accept this treatment?
        - Context: adapt to different needs and norms.
      - Team culture, customer service, conflict resolution
-   * - 3
-     - Occam’s Razor
-     - Prefer simple reasons over complicated ones when both fit.
-     - In ethics and reasoning, fewer assumptions reduce error.
----------------------------------------------------------------
-       - Keep essentials: remove what isn’t needed.
-       - Clarity: simple rules are easier to follow.
-       - Evidence fit: don’t oversimplify beyond facts.
-     - Philosophy, policy, everyday judgment
 
 
 9. Communication & Information Principles
@@ -633,20 +650,10 @@ This mindmap shows the major families of principles covered in this guide:
      - Shannon’s Information Theory
      - Information reduces uncertainty.
      - Messages can be measured (in bits), and channels have limits. Good encoding fights noise.
-------------------------------------------------------------------------------------------------
-       - Entropy: quantify unpredictability.
+     - - Entropy: quantify unpredictability.
        - Channel capacity: how much can pass reliably.
        - Coding: compress and correct to beat noise.
      - Communications, compression, telemetry, API design
-   * - 2
-     - Brandolini’s Law
-     - Debunking takes much more work than making a false claim.
-     - Choose battles, prepare clear responses, and build trust in advance.
----------------------------------------------------------------------------
-       - Prebunking: inoculate with facts early.
-       - Focus: address the most harmful errors.
-       - Trust: use credible messengers and sources.
-     - Media, communications, community management
 
 
 10. Technology & Innovation Principles
@@ -664,23 +671,40 @@ This mindmap shows the major families of principles covered in this guide:
      - Core Concept
      - Common Use
    * - 1
-     - Moore’s Law
+     - Moore's Law
      - Computing capacity improves rapidly over time.
      - Performance-per-dollar has historically compounded, enabling new use cases and designs.
-----------------------------------------------------------------------------------------------
-       - Curves: expect periodic leaps, not linear change.
+     - - Curves: expect periodic leaps, not linear change.
        - Limits: watch physics and cost walls.
        - Timing: align bets with likely improvements.
      - Tech roadmaps, budgeting, architecture choices
    * - 2
-     - Metcalfe’s Law
-     - Networks get more useful with each new user.
-     - As participation grows, connections multiply and value compounds.
-------------------------------------------------------------------------
-       - Density: more links, more use cases.
-       - Quality: valuable nodes matter more.
-       - Onboarding: reduce friction to reach flywheel.
-     - Platforms, marketplaces, collaboration tools
+     - Hyrum's Law
+     - With enough users, every observable behavior becomes a dependency.
+     - All observable behaviors of your system will be depended on by somebody, regardless of documentation or intent. Undocumented features become contracts.
+     - - Implicit contracts: behavior creates expectations.
+       - Observable vs. documented: users rely on what they see.
+       - Breaking changes: any change can break someone.
+       - Backwards compatibility burden: grows with user base.
+     - API design, versioning strategy, deprecation planning, platform evolution
+   * - 3
+     - Postel's Law (Robustness Principle)
+     - Be conservative in what you send, liberal in what you accept.
+     - Systems should be strict in their outputs but tolerant of varied inputs to ensure interoperability and resilience.
+     - - Input validation: accept flexible formats.
+       - Output specification: emit strict, well-defined formats.
+       - Fault tolerance: handle malformed inputs gracefully.
+       - Protocol design: enable diverse implementations.
+       - Backwards compatibility: tolerate old formats.
+     - API design, data validation, protocol implementation, integration layers
+   * - 4
+     - Reed's Law
+     - Groups within networks create outsized value.
+     - Forming communities multiplies ways people can connect and collaborate.
+     - - Subgroups: enable teams, channels, and circles.
+       - Tools: make it easy to form and manage groups.
+       - Moderation: keep groups healthy and engaged.
+     - Social networks, collaboration platforms, communities
 
 
 11. Time & Effort Principles
@@ -698,94 +722,16 @@ This mindmap shows the major families of principles covered in this guide:
      - Core Concept
      - Common Use
    * - 1
-     - Parkinson’s Law
-     - Work expands to fill the time you allow.
-     - Use shorter cycles and crisp definitions to keep momentum.
------------------------------------------------------------------
-       - Tight scopes: define deliverables clearly.
-       - Short cycles: weekly beats quarterly for speed.
-       - Deadlines: commit, then protect the time.
-     - Planning, productivity, sprint design
-   * - 2
-     - Hofstadter’s Law
+     - Hofstadter's Law
      - It always takes longer than you expect—even when you expect it.
      - Build slack into plans and deliver in increments.
---------------------------------------------------------
-       - Unknown unknowns: risks you can’t list.
+     - - Unknown unknowns: risks you can’t list.
        - Buffers: add time, budget, and options.
        - Incremental delivery: learn and adjust sooner.
      - Planning, scheduling, product delivery
 
 
-12. Communication & Coordination Principles
--------------------------------------------
-
-.. list-table::
-   :header-rows: 1
-   :widths: 3 6 7 10 12 10
-   :custom-table-width: 1100px
-
-   * - SNo.
-     - Principle
-     - Core Insight
-     - Overview
-     - Core Concept
-     - Common Use
-   * - 1
-     - Conway’s Law
-     - Systems mirror how organizations communicate.
-     - Team boundaries, incentives, and tooling shape architecture.
--------------------------------------------------------------------
-       - Team topology: organize for desired interfaces.
-       - Cohesion: minimize cross-team dependencies.
-       - Feedback: align ownership with outcomes.
-     - Software, org design, platform work
-   * - 2
-     - Goodhart’s Law
-     - Targeting a metric can break its meaning.
-     - Use balanced measures and watch for unintended behavior.
----------------------------------------------------------------
-       - Balanced scorecards: multiple views of success.
-       - Guardrails: track leading and lagging metrics.
-       - Audits: look for shortcuts and side effects.
-     - Management, org metrics, incentives
-
-
-13. Network & Connectivity Principles
--------------------------------------
-
-.. list-table::
-   :header-rows: 1
-   :widths: 3 6 7 10 12 10
-   :custom-table-width: 1100px
-
-   * - SNo.
-     - Principle
-     - Core Insight
-     - Overview
-     - Core Concept
-     - Common Use
-   * - 1
-     - Metcalfe’s Law
-     - The value of a network rises quickly as it grows.
-     - More users mean more possible connections and use cases.
----------------------------------------------------------------
-       - Critical mass: reach a self-sustaining loop.
-       - Governance: balance openness with quality.
-       - Tooling: APIs and integrations expand value.
-     - Network growth, platform strategy, partnerships
-   * - 2
-     - Reed’s Law
-     - Groups within networks create outsized value.
-     - Forming communities multiplies ways people can connect and collaborate.
-------------------------------------------------------------------------------
-       - Subgroups: enable teams, channels, and circles.
-       - Tools: make it easy to form and manage groups.
-       - Moderation: keep groups healthy and engaged.
-     - Social networks, collaboration platforms, communities
-
-
-14. Self & Personal Effectiveness
+12. Self & Personal Effectiveness
 ---------------------------------
 
 .. list-table::
@@ -802,9 +748,8 @@ This mindmap shows the major families of principles covered in this guide:
    * - 1
      - Law of Attraction
      - Focus shapes attention, choices, and results.
-     - What you focus on, you notice and act on. It’s not magic—attention guides behavior and behavior drives outcomes.
------------------------------------------------------------------------------------------------------------------------
-       - Attention filter: you see more of what you look for.
+     - What you focus on, you notice and act on. This reflects attention bias and goal-directed behavior—not metaphysical attraction. Focus shapes perception, which guides choices and actions.
+     - - Attention filter: you see more of what you look for.
        - Expectancy: beliefs influence effort and persistence.
        - Action: align daily steps with desired goals.
      - Goal-setting, habits, coaching, personal effectiveness
@@ -812,8 +757,7 @@ This mindmap shows the major families of principles covered in this guide:
      - Law of Karma
      - Choices and actions bring consequences.
      - Over time, what you do tends to come back in kind.
----------------------------------------------------------
-       - Intention: align means with ends.
+     - - Intention: align means with ends.
        - Consistency: repeated acts shape reputation.
        - Community: relationships echo behavior.
      - Ethics, leadership, personal growth
@@ -821,15 +765,14 @@ This mindmap shows the major families of principles covered in this guide:
      - 80/20 Productivity (Pareto)
      - A few tasks create most of your impact.
      - Spend time on the small set of actions that move the needle.
--------------------------------------------------------------------
-       - Identify leverage: find high-yield activities.
+     - - Identify leverage: find high-yield activities.
        - Time blocking: protect deep work slots.
        - Prune: say no to low-value tasks.
      - Time management, personal effectiveness, planning
 
 
-15. Cognitive Biases & Behavioral Effects
------------------------------------------
+13a. Cognitive Biases in Judgment
+----------------------------------
 
 .. list-table::
    :header-rows: 1
@@ -846,8 +789,7 @@ This mindmap shows the major families of principles covered in this guide:
      - Prospect Theory
      - People weigh losses more than equal gains and distort probabilities.
      - Describes how choices under risk deviate from expected value; explains risk-seeking in losses and risk-aversion in gains.
---------------------------------------------------------------------------------------------------------------------------------
-       - Value function: concave for gains, convex for losses.
+     - - Value function: concave for gains, convex for losses.
        - Loss weighting: losses loom larger than gains.
        - Probability weighting: overweigh small, underweigh large.
      - Product pricing, policy, UX defaults, risk communication
@@ -855,8 +797,7 @@ This mindmap shows the major families of principles covered in this guide:
      - Loss Aversion
      - Losses hurt more than equivalent gains feel good.
      - People avoid losses even at the expense of larger long-run value. See Section 7 for broader risk principles.
--------------------------------------------------------------------------------------------------------------------
-       - Asymmetry: roughly 2–3× impact vs. gains.
+     - - Asymmetry: roughly 2–3× impact vs. gains.
        - Framing: avoid “losing” frames to reduce resistance.
        - Endowment link: ownership increases loss feelings.
      - Pricing, retention, change management, negotiation
@@ -864,8 +805,7 @@ This mindmap shows the major families of principles covered in this guide:
      - Framing Effect
      - Choices change when the same facts are framed differently.
      - Equivalent information (gain vs. loss) leads to different decisions due to presentation.
------------------------------------------------------------------------------------------------
-       - Gain/loss frames: wording shifts preferences.
+     - - Gain/loss frames: wording shifts preferences.
        - Reference points: baselines anchor evaluation.
        - Transparency: show both frames to reduce bias.
      - Messaging, policy, UI copy, A/B tests
@@ -873,8 +813,7 @@ This mindmap shows the major families of principles covered in this guide:
      - Anchoring Effect
      - Initial numbers pull later estimates and choices toward them.
      - Early cues (prices, ranges, defaults) set expectations and bias judgments.
----------------------------------------------------------------------------------
-       - First exposure: earliest value sticks strongest.
+     - - First exposure: earliest value sticks strongest.
        - Adjustment: insufficient move away from the anchor.
        - Guardrails: hide irrelevant anchors.
      - Pricing, estimation, negotiations, forms
@@ -882,8 +821,7 @@ This mindmap shows the major families of principles covered in this guide:
      - Availability Heuristic
      - What comes to mind easily feels more likely or important.
      - Salient, recent, or vivid examples overweight probability and priority.
-------------------------------------------------------------------------------
-       - Recency: fresh events dominate.
+     - - Recency: fresh events dominate.
        - Vividness: memorable stories > dry statistics.
        - Coverage: show base rates to rebalance.
      - Risk communication, prioritization, incident reviews
@@ -891,8 +829,7 @@ This mindmap shows the major families of principles covered in this guide:
      - Confirmation Bias
      - We seek, favor, and remember evidence that confirms our beliefs.
      - Drives echo chambers and selective interpretation; reduces openness to disconfirming data.
--------------------------------------------------------------------------------------------------
-       - Search bias: look where agreement is likely.
+     - - Search bias: look where agreement is likely.
        - Interpretation bias: skew reading of mixed evidence.
        - Debias: pre-mortems and red teams.
      - Research, hiring, strategy, analytics
@@ -900,8 +837,7 @@ This mindmap shows the major families of principles covered in this guide:
      - Overconfidence Bias
      - People are more confident than they are correct.
      - Narrow confidence intervals and overestimated skill are common, especially in hard tasks.
-------------------------------------------------------------------------------------------------
-       - Calibration: align confidence with hit rates.
+     - - Calibration: align confidence with hit rates.
        - Hard–easy gap: confidence rises as tasks harden.
        - Feedback: track forecasts vs. outcomes.
      - Forecasting, planning, risk assessments
@@ -909,71 +845,127 @@ This mindmap shows the major families of principles covered in this guide:
      - Dunning–Kruger Effect
      - Low skill can produce high confidence; experts may be modest.
      - Miscalibration at both ends of skill: novices overrate; experts may underrate and assume others know more.
------------------------------------------------------------------------------------------------------------------
-       - Meta-knowledge: skill to judge own skill.
+     - - Meta-knowledge: skill to judge own skill.
        - Feedback loops: make performance visible.
        - Coaching: pair learning with calibration.
      - Training, reviews, mentorship, safety
    * - 9
-     - Status Quo Bias
-     - We prefer current states over change.
-     - Defaults and existing options feel safer even when better alternatives exist.
-------------------------------------------------------------------------------------
-       - Default effect: preselected options win.
-       - Switching costs: perceived and real friction.
-       - Nudge: set beneficial defaults.
-     - Onboarding, settings, policy, product adoption
-   * - 10
-     - Endowment Effect
-     - Ownership increases perceived value.
-     - People demand more to give up an item than they would pay to acquire it.
--------------------------------------------------------------------------------
-       - WTA > WTP: willingness to accept exceeds pay.
-       - Identity: possession links to self.
-       - Loss aversion: giving up feels like a loss.
-     - Pricing, marketplaces, retention, refunds
-   * - 11
-     - Sunk Cost Fallacy
-     - Past investments irrationally justify continued commitment.
-     - Decisions should depend on future costs and benefits, not irrecoverable spend.
--------------------------------------------------------------------------------------
-       - Escalation: more sunk → more persistence.
-       - Precommit: exit criteria before starting.
-       - Separate accounts: isolate past vs. future.
-     - Project kills, product bets, portfolio reviews
-   * - 12
      - Hindsight Bias
      - After outcomes, we see events as more predictable.
-     - “Knew-it-all-along” reduces learning from surprises and distorts accountability.
----------------------------------------------------------------------------------------
-       - Blinding: record pre-outcome predictions.
+     - "Knew-it-all-along" reduces learning from surprises and distorts accountability.
+     - - Blinding: record pre-outcome predictions.
        - Retrospectives: focus on uncertainty at the time.
        - Counterfactuals: explore plausible alternatives.
      - Postmortems, audits, governance
-   * - 13
+   * - 10
      - Selection Bias
      - Sample differs systematically from population.
      - Skewed samples (e.g., opt-in) invalidate generalization; track the selection mechanism.
-----------------------------------------------------------------------------------------------
-       - Sampling frame: who can enter.
-       - Missingness: who’s excluded and why.
+     - - Sampling frame: who can enter.
+       - Missingness: who's excluded and why.
        - Weighting: adjust or redesign sampling.
      - Experiments, surveys, analytics
-   * - 14
+   * - 11
      - Survivorship Bias
      - Focusing on successes hides the failed and the fragile.
      - You miss patterns in the missing data and overestimate success drivers.
-------------------------------------------------------------------------------
-       - Denominator: count the unseen failures.
+     - - Denominator: count the unseen failures.
        - Robustness: success can be luck + selection.
        - Balance: study exits and breakages.
      - VC theses, hiring funnels, reliability
+   * - 12
+     - Forer (Barnum) Effect
+     - Vague, general statements feel personal and accurate.
+     - People project specifics into broad descriptions.
+     - - Specificity: use falsifiable, concrete claims.
+       - Blinding: hide identity when possible.
+       - Education: show how Barnum statements work.
+     - Personality tests, marketing, horoscopes
+   * - 13
+     - Zeigarnik Effect
+     - Unfinished tasks stay top-of-mind.
+     - Interruptions increase intrusive thoughts; closure reduces tension.
+     - - Visible progress: show steps and completion.
+       - Checklists: offload memory.
+       - Batching: avoid mid-task context switches.
+     - UX flows, productivity, onboarding
+   * - 14
+     - Ambiguity Aversion
+     - People prefer known risks over unknown probabilities.
+     - Uncertain probabilities reduce willingness to choose; see Section 7 for risk discussion.
+     - - Ellsberg intuition: known vs. unknown urns.
+       - Transparency: show ranges and methods.
+       - Defaults: allow safe "opt-outs".
+     - Product choices, policy, financial decisions
    * - 15
+     - Stroop Effect
+     - Automatic processing interferes with controlled tasks.
+     - Reading words can slow naming their ink color; demonstrates conflict in attention.
+     - - Interference: competing processes collide.
+       - Control: slow down to override automaticity.
+       - Measurement: use for attention tests.
+     - Testing, cognitive research, UX attention checks
+   * - 16
+     - Change Blindness
+     - People often miss large visual changes when attention is elsewhere.
+     - Shows limits of awareness and the role of attention in perception.
+     - - Flicker paradigm: detect change with cues.
+       - Salience: highlight critical changes.
+       - Progressive disclosure: stage updates.
+     - UI design, safety displays, monitoring
+   * - 17
+     - Cocktail Party Effect
+     - We can attend to one stream and catch salient cues (like our name).
+     - Demonstrates selective attention and threshold-triggered reorientation.
+     - - Salient triggers: personalize key alerts.
+       - Load: avoid alert fatigue.
+       - Context: place cues near relevant tasks.
+     - Notifications, accessibility, ops alerts
+
+
+13b. Social & Behavioral Biases
+--------------------------------
+
+.. list-table::
+   :header-rows: 1
+   :widths: 3 6 7 10 12 10
+   :custom-table-width: 1100px
+
+   * - SNo.
+     - Principle
+     - Core Insight
+     - Overview
+     - Core Concept
+     - Common Use
+   * - 1
+     - Status Quo Bias
+     - We prefer current states over change.
+     - Defaults and existing options feel safer even when better alternatives exist.
+     - - Default effect: preselected options win.
+       - Switching costs: perceived and real friction.
+       - Nudge: set beneficial defaults.
+     - Onboarding, settings, policy, product adoption
+   * - 2
+     - Endowment Effect
+     - Ownership increases perceived value.
+     - People demand more to give up an item than they would pay to acquire it.
+     - - WTA > WTP: willingness to accept exceeds pay.
+       - Identity: possession links to self.
+       - Loss aversion: giving up feels like a loss.
+     - Pricing, marketplaces, retention, refunds
+   * - 3
+     - Sunk Cost Fallacy
+     - Past investments irrationally justify continued commitment.
+     - Decisions should depend on future costs and benefits, not irrecoverable spend.
+     - - Escalation: more sunk → more persistence.
+       - Precommit: exit criteria before starting.
+       - Separate accounts: isolate past vs. future.
+     - Project kills, product bets, portfolio reviews
+   * - 4
      - Authority Bias
      - Signals of authority increase compliance beyond merit.
      - Titles, lab coats, and badges can override independent judgment.
------------------------------------------------------------------------
-       - Source checking: evaluate claims, not roles.
+     - - Source checking: evaluate claims, not roles.
        - Dissent norms: invite challenge safely.
        - Two-person rule: split authority and execution.
      - Reviews, safety-critical ops, compliance
@@ -981,8 +973,7 @@ This mindmap shows the major families of principles covered in this guide:
      - Social Proof
      - We infer value from what others do.
      - Popularity cues shift adoption and preferences, especially under uncertainty.
-------------------------------------------------------------------------------------
-       - Local peers: relevance beats raw counts.
+     - - Local peers: relevance beats raw counts.
        - Authenticity: avoid fake signals.
        - Context: avoid herd risks.
      - Onboarding, growth loops, UX cues
@@ -990,8 +981,7 @@ This mindmap shows the major families of principles covered in this guide:
      - Halo Effect
      - One positive trait spills over to unrelated judgments.
      - Attractive or successful features bias global evaluation.
-----------------------------------------------------------------
-       - Trait spillover: competence ↔ warmth confusions.
+     - - Trait spillover: competence ↔ warmth confusions.
        - Separate facets: score dimensions independently.
        - Blind reviews: hide irrelevant cues.
      - Hiring, performance reviews, product ratings
@@ -999,8 +989,7 @@ This mindmap shows the major families of principles covered in this guide:
      - Groupthink
      - Desire for harmony suppresses dissent and alternatives.
      - Teams converge prematurely and miss risks or creative options.
----------------------------------------------------------------------
-       - Devil’s advocate: rotate critique roles.
+     - - Devil’s advocate: rotate critique roles.
        - Red teams: structured counter-arguments.
        - Pre-mortems: imagine failure causes.
      - Strategy, incidents, governance, design sprints
@@ -1008,8 +997,7 @@ This mindmap shows the major families of principles covered in this guide:
      - Bystander Effect
      - More observers can mean less individual help.
      - Diffusion of responsibility lowers action unless roles are clear.
-------------------------------------------------------------------------
-       - Name roles: assign a specific person.
+     - - Name roles: assign a specific person.
        - Triggers: clear “owner” cues.
        - Training: rehearse response protocols.
      - Safety, moderation, incident response
@@ -1017,8 +1005,7 @@ This mindmap shows the major families of principles covered in this guide:
      - Backfire Effect
      - Corrections can strengthen original beliefs for some audiences.
      - Motivated reasoning and identity threats can flip persuasion attempts.
------------------------------------------------------------------------------
-       - Gentle framing: reduce identity threat.
+     - - Gentle framing: reduce identity threat.
        - Shared goals: build common ground.
        - Evidence layering: simple → detailed.
      - Communications, moderation, policy
@@ -1026,8 +1013,7 @@ This mindmap shows the major families of principles covered in this guide:
      - Illusory Superiority
      - Many people rate themselves above average.
      - A pervasive self-enhancement bias especially in ambiguous domains.
--------------------------------------------------------------------------
-       - Feedback: show distributions and peer medians.
+     - - Feedback: show distributions and peer medians.
        - Clear metrics: reduce ambiguity.
        - Calibration training: compare estimates to outcomes.
      - Performance reviews, training, safety
@@ -1035,8 +1021,7 @@ This mindmap shows the major families of principles covered in this guide:
      - Curse of Knowledge
      - Experts struggle to imagine novice perspectives.
      - Leads to jargon, skipped steps, and opaque instructions.
----------------------------------------------------------------
-       - Teach-back: ask others to explain back.
+     - - Teach-back: ask others to explain back.
        - Step-by-step: enumerate hidden steps.
        - Plain language: define terms.
      - Documentation, onboarding, teaching
@@ -1044,8 +1029,7 @@ This mindmap shows the major families of principles covered in this guide:
      - Forer (Barnum) Effect
      - Vague, general statements feel personal and accurate.
      - People project specifics into broad descriptions.
---------------------------------------------------------
-       - Specificity: use falsifiable, concrete claims.
+     - - Specificity: use falsifiable, concrete claims.
        - Blinding: hide identity when possible.
        - Education: show how Barnum statements work.
      - Personality tests, marketing, horoscopes
@@ -1053,8 +1037,7 @@ This mindmap shows the major families of principles covered in this guide:
      - Zeigarnik Effect
      - Unfinished tasks stay top-of-mind.
      - Interruptions increase intrusive thoughts; closure reduces tension.
---------------------------------------------------------------------------
-       - Visible progress: show steps and completion.
+     - - Visible progress: show steps and completion.
        - Checklists: offload memory.
        - Batching: avoid mid-task context switches.
      - UX flows, productivity, onboarding
@@ -1062,8 +1045,7 @@ This mindmap shows the major families of principles covered in this guide:
      - Ambiguity Aversion
      - People prefer known risks over unknown probabilities.
      - Uncertain probabilities reduce willingness to choose; see Section 7 for risk discussion.
------------------------------------------------------------------------------------------------
-       - Ellsberg intuition: known vs. unknown urns.
+     - - Ellsberg intuition: known vs. unknown urns.
        - Transparency: show ranges and methods.
        - Defaults: allow safe “opt-outs”.
      - Product choices, policy, financial decisions
@@ -1071,8 +1053,7 @@ This mindmap shows the major families of principles covered in this guide:
      - Stroop Effect
      - Automatic processing interferes with controlled tasks.
      - Reading words can slow naming their ink color; demonstrates conflict in attention.
------------------------------------------------------------------------------------------
-       - Interference: competing processes collide.
+     - - Interference: competing processes collide.
        - Control: slow down to override automaticity.
        - Measurement: use for attention tests.
      - Testing, cognitive research, UX attention checks
@@ -1080,8 +1061,7 @@ This mindmap shows the major families of principles covered in this guide:
      - Change Blindness
      - People often miss large visual changes when attention is elsewhere.
      - Shows limits of awareness and the role of attention in perception.
--------------------------------------------------------------------------
-       - Flicker paradigm: detect change with cues.
+     - - Flicker paradigm: detect change with cues.
        - Salience: highlight critical changes.
        - Progressive disclosure: stage updates.
      - UI design, safety displays, monitoring
@@ -1089,20 +1069,10 @@ This mindmap shows the major families of principles covered in this guide:
      - Cocktail Party Effect
      - We can attend to one stream and catch salient cues (like our name).
      - Demonstrates selective attention and threshold-triggered reorientation.
-------------------------------------------------------------------------------
-       - Salient triggers: personalize key alerts.
+     - - Salient triggers: personalize key alerts.
        - Load: avoid alert fatigue.
        - Context: place cues near relevant tasks.
      - Notifications, accessibility, ops alerts
-   * - 29
-     - Planning Fallacy
-     - We underestimate time, cost, and risk.
-     - Covered in Section 7; included here for completeness with cognitive framing.
------------------------------------------------------------------------------------
-       - Outside view: use reference-class forecasting.
-       - Buffers: add slack and milestones.
-       - Premortems: plan for failure modes.
-     - Project planning, roadmaps, budgeting
 
 
 Systems Thinking: Feedback Loop Dynamics
@@ -1127,7 +1097,7 @@ Visual Aids & Examples
 
 - **Dunning–Kruger**
 
-   .. figure:: attachments/posts/2025-10-22-key-laws-and-principles/images/dunning_kruger_effect.png
+   .. figure:: /attachments/posts/2025-10-22-laws-of-life/images/dunning_kruger_effect.png
       :alt: Dunning–Kruger Effect
       :width: 500px
       :align: center
@@ -1138,7 +1108,7 @@ Visual Aids & Examples
 
 - **Loss Aversion & Prospect Theory**
 
-   .. figure:: attachments/posts/2025-10-22-key-laws-and-principles/images/loss_aversion_and_prospect_theory.png
+   .. figure:: /attachments/posts/2025-10-22-laws-of-life/images/loss_aversion_and_prospect_theory.png
       :alt: Loss Aversion and Prospect Theory
       :width: 500px
       :align: center
@@ -1150,7 +1120,7 @@ Visual Aids & Examples
 
 - **Anchoring Effect**
 
-   .. figure:: attachments/posts/2025-10-22-key-laws-and-principles/images/anchoring_effect.png
+   .. figure:: /attachments/posts/2025-10-22-laws-of-life/images/anchoring_effect.png
       :alt: Anchoring Effect
       :width: 500px
       :align: center
@@ -1161,7 +1131,7 @@ Visual Aids & Examples
 
 - **Framing Effect**
 
-   .. figure:: attachments/posts/2025-10-22-key-laws-and-principles/images/framing_effect.png
+   .. figure:: /attachments/posts/2025-10-22-laws-of-life/images/framing_effect.png
       :alt: Framing Effect
       :width: 500px
       :align: center
@@ -1172,7 +1142,7 @@ Visual Aids & Examples
 
 - **Survivorship Bias**
 
-   .. figure:: attachments/posts/2025-10-22-key-laws-and-principles/images/survivorship_bias.png
+   .. figure:: /attachments/posts/2025-10-22-laws-of-life/images/survivorship_bias.png
       :alt: Survivorship Bias
       :width: 500px
       :align: center
@@ -1183,7 +1153,7 @@ Visual Aids & Examples
 
 - **Selection Bias**
 
-   .. figure:: attachments/posts/2025-10-22-key-laws-and-principles/images/selection_bias.png
+   .. figure:: /attachments/posts/2025-10-22-laws-of-life/images/selection_bias.png
       :alt: Selection Bias
       :width: 500px
       :align: center
@@ -1194,7 +1164,7 @@ Visual Aids & Examples
 
 - **Bystander Effect**
 
-   .. figure:: attachments/posts/2025-10-22-key-laws-and-principles/images/bystander_effect.png
+   .. figure:: /attachments/posts/2025-10-22-laws-of-life/images/bystander_effect.png
       :alt: Bystander Effect
       :width: 500px
       :align: center
@@ -1205,7 +1175,7 @@ Visual Aids & Examples
 
 - **Social Proof**
 
-   .. figure:: attachments/posts/2025-10-22-key-laws-and-principles/images/social_proof.png
+   .. figure:: /attachments/posts/2025-10-22-laws-of-life/images/social_proof.png
       :alt: Social Proof
       :width: 500px
       :align: center
@@ -1216,7 +1186,7 @@ Visual Aids & Examples
 
 - **Halo Effect**
 
-   .. figure:: attachments/posts/2025-10-22-key-laws-and-principles/images/halo_effect.png
+   .. figure:: /attachments/posts/2025-10-22-laws-of-life/images/halo_effect.png
       :alt: Halo Effect
       :width: 500px
       :align: center
@@ -1227,7 +1197,7 @@ Visual Aids & Examples
 
 - **Groupthink**
 
-   .. figure:: attachments/posts/2025-10-22-key-laws-and-principles/images/groupthink.png
+   .. figure:: /attachments/posts/2025-10-22-laws-of-life/images/groupthink.png
       :alt: Groupthink
       :width: 500px
       :align: center
@@ -1238,7 +1208,7 @@ Visual Aids & Examples
 
 - **Stroop Effect**
 
-   .. figure:: attachments/posts/2025-10-22-key-laws-and-principles/images/stroop_effect.png
+   .. figure:: /attachments/posts/2025-10-22-laws-of-life/images/stroop_effect.png
       :alt: Stroop Effect
       :width: 500px
       :align: center
@@ -1249,7 +1219,7 @@ Visual Aids & Examples
 
 - **Change Blindness**
 
-   .. figure:: attachments/posts/2025-10-22-key-laws-and-principles/images/change_blindness.png
+   .. figure:: /attachments/posts/2025-10-22-laws-of-life/images/change_blindness.png
       :alt: Change Blindness
       :width: 500px
       :align: center
@@ -1261,7 +1231,7 @@ Visual Aids & Examples
 
 - **Endowment Effect**
 
-   .. figure:: attachments/posts/2025-10-22-key-laws-and-principles/images/endowment_effect.png
+   .. figure:: /attachments/posts/2025-10-22-laws-of-life/images/endowment_effect.png
       :alt: Endowment Effect
       :width: 500px
       :align: center
@@ -1272,7 +1242,7 @@ Visual Aids & Examples
 
 - **Status Quo Bias**
 
-   .. figure:: attachments/posts/2025-10-22-key-laws-and-principles/images/status_quo_bias.png
+   .. figure:: /attachments/posts/2025-10-22-laws-of-life/images/status_quo_bias.png
       :alt: Status Quo Bias
       :width: 500px
       :align: center
