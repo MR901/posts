@@ -34,9 +34,9 @@ _posts/2025-09-03-github-pages-from-zero-to-live.rst
 # _posts/2025-10-05-prompting-engineering.rst
 _posts/2025-10-22-laws-of-life.rst
 _posts/2025-10-24-harddisk-shucking.rst
-# _posts/2025-10-25-a-complete-guide-to-mlflow.rst
-# _posts/2025-10-26-understanding-data-version-control.rst
-# _posts/2025-10-26-understanding-docker.rst
+_posts/2025-10-25-a-complete-guide-to-mlflow.rst
+_posts/2025-10-26-understanding-data-version-control.rst
+_posts/2025-10-26-understanding-docker.rst
 # _posts/2025-10-26-understanding-elasticsearch.rst
 # _posts/2025-10-26-understanding-milvus.rst
 # _posts/2025-10-26-understanding-mongodb.rst
