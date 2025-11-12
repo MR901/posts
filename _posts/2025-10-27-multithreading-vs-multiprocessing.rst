@@ -13,7 +13,7 @@ description: "A practical guide comparing multithreading and multiprocessing (Py
 image:
   path: /attachments/posts/2025-10-27-multithreading-vs-multiprocessing/images/multi-threading-multi-processing.png
   alt: "Multithreading vs Multiprocessing overview"
-allow_edit: true
+allow_edit: false
 ---
 
 Multithreading vs Multiprocessing — Choosing the Right Concurrency Model
