@@ -32,8 +32,6 @@ It is written for both new learners and experienced engineers revisiting fundame
 1. What Is MongoDB?
 -------------------
 
-
-
 MongoDB is an open-source, distributed database that manages **collections of documents** rather than tables of rows.
 Each document is a flexible JSON-like structure, allowing different fields and data types per record.
 
@@ -55,11 +53,8 @@ Each document is a flexible JSON-like structure, allowing different fields and d
 - Catalogs, social feeds, and user data storage
 
 
-
 2. MongoDB Architecture Overview
 ---------------------------------
-
-
 
 **MongoDB's architecture is composed of several key components:**
 
@@ -84,11 +79,8 @@ Each document is a flexible JSON-like structure, allowing different fields and d
 **mongos:**
   The routing service that directs client requests to the correct shard.
 
-
 3. Installation
 ---------------
-
-
 
 **Linux (Ubuntu/Debian)**
 
@@ -114,12 +106,8 @@ Each document is a flexible JSON-like structure, allowing different fields and d
    brew install mongodb-community@7.0
    brew services start mongodb-community@7.0
 
-
-
 4. Data Model
 -------------
-
-
 
 **MongoDB’s data model is document-based**
 
@@ -148,12 +136,8 @@ Each document is a flexible JSON-like structure, allowing different fields and d
 - Supports nested arrays and objects directly.
 - Ideal for JSON-based APIs.
 
-
-
 5. CRUD Operations
 ------------------
-
-
 
 **Insert**
 
@@ -166,13 +150,11 @@ Each document is a flexible JSON-like structure, allowing different fields and d
      skills: ["Python", "ML"]
    })
 
-
 **Find**
 
 .. code-block:: javascript
 
    db.users.find({ age: { $gt: 25 } }).pretty()
-
 
 **Update**
 
@@ -184,19 +166,14 @@ Each document is a flexible JSON-like structure, allowing different fields and d
      { $set: { age: 29 } }
    )
 
-
 **Delete**
 
 .. code-block:: javascript
 
    db.users.deleteOne({ name: "Alice" })
 
-
-
 6. Query Operators
 ------------------
-
-
 
 **MongoDB provides rich operators for filtering:**
 
@@ -205,7 +182,6 @@ Each document is a flexible JSON-like structure, allowing different fields and d
 - **Element:** ``$exists``, ``$type``
 - **Array:** ``$all``, ``$elemMatch``, ``$size``
 - **Evaluation:** ``$regex``, ``$expr``
-
 
 **Example**
 
@@ -220,12 +196,8 @@ Each document is a flexible JSON-like structure, allowing different fields and d
      ]
    })
 
-
-
 7. Indexing
 -----------
-
-
 
 Indexes improve query performance by storing sorted copies of fields.
 
@@ -268,8 +240,6 @@ Indexes improve query performance by storing sorted copies of fields.
 8. Aggregation Framework
 ------------------------
 
-
-
 The **Aggregation Pipeline** is MongoDB’s data transformation and analytics tool.
 
 Example: average age by skill
@@ -282,7 +252,6 @@ Example: average age by skill
      { $group: { _id: "$skills", avgAge: { $avg: "$age" } } },
      { $sort: { avgAge: -1 } }
    ])
-
 
 **Pipeline stages:**
 
@@ -297,8 +266,6 @@ Example: average age by skill
 
 9. Data Modeling Patterns
 -------------------------
-
-
 
 **Two main strategies:**
 
@@ -340,8 +307,6 @@ Example: average age by skill
 10. Replication and High Availability
 -------------------------------------
 
-
-
 MongoDB uses **replica sets** for redundancy and failover.
 
 **Structure:**
@@ -349,7 +314,6 @@ MongoDB uses **replica sets** for redundancy and failover.
 - **Primary:** Handles writes and reads.
 - **Secondaries:** Replicate data from the primary.
 - **Arbiter:** Helps in election but holds no data.
-
 
 **Check replica status**
 
@@ -374,11 +338,8 @@ MongoDB uses **replica sets** for redundancy and failover.
    })
 
 
-
 11. Sharding and Horizontal Scaling
 -----------------------------------
-
-
 
 For large datasets, MongoDB distributes data across multiple **shards**.
 
@@ -409,8 +370,6 @@ A **mongos router** directs queries to the appropriate shard.
 12. Transactions
 ----------------
 
-
-
 MongoDB supports **multi-document ACID transactions** (since v4.0).
 
 **Example**
@@ -436,12 +395,8 @@ MongoDB supports **multi-document ACID transactions** (since v4.0).
      session.endSession();
    }
 
-
-
 13. Security and Authentication
 -------------------------------
-
-
 
 **Enable authentication in the MongoDB config file**
 
@@ -464,19 +419,14 @@ MongoDB supports **multi-document ACID transactions** (since v4.0).
      roles: ["root"]
    })
 
-
 **Connect with authentication**
 
 .. code-block:: bash
 
    mongosh -u admin -p StrongPass123 --authenticationDatabase admin
 
-
-
 14. Backup and Restore
 ----------------------
-
-
 
 **Backup:**
 
@@ -491,12 +441,8 @@ MongoDB supports **multi-document ACID transactions** (since v4.0).
 
    mongorestore /data/backup
 
-
-
 15. Monitoring and Performance
 ------------------------------
-
-
 
 - **Profiler:** capture slow queries:
 
@@ -516,7 +462,6 @@ MongoDB supports **multi-document ACID transactions** (since v4.0).
   - ``db.stats()``
   - ``db.collection.stats()``
 
-
 **Optimization tips:**
 
 - Index frequently queried fields.
@@ -524,7 +469,6 @@ MongoDB supports **multi-document ACID transactions** (since v4.0).
 - Prefer projections (``find({}, {fields})``) to reduce data transfer.
 - Use **$match early** in aggregations.
 - Monitor disk I/O and cache utilization.
-
 
 
 16. Integration and Ecosystem
@@ -543,12 +487,8 @@ Python, JavaScript, Java, Go, Rust, C#, and more.
 - **ETL:** Airflow, Spark, Debezium, Kafka Connect
 - **Visualization:** MongoDB Compass, Grafana, Metabase
 
-
-
 17. Quality and Reliability Aspects
 -----------------------------------
-
-
 
 - **Consistency:** Primary provides strong consistency; secondaries eventual.
 - **Availability:** Replica sets auto-failover.
@@ -557,12 +497,8 @@ Python, JavaScript, Java, Go, Rust, C#, and more.
 - **Observability:** Built-in metrics, logs, and ops manager.
 - **Backup Strategy:** Regular snapshots or ``mongodump`` automation.
 
-
-
 18. Common Pitfalls
 -------------------
-
-
 
 - Unbounded document growth (violates 16 MB limit).
 - Lack of index → slow queries.
@@ -571,11 +507,8 @@ Python, JavaScript, Java, Go, Rust, C#, and more.
 - Ignoring schema discipline in dynamic collections.
 
 
-
 19. Conclusion
 --------------
-
-
 
 MongoDB is a flexible, high-performance database suitable for modern applications requiring **fast iteration, varied data structures, and horizontal scalability**.
 
@@ -585,14 +518,11 @@ MongoDB is a flexible, high-performance database suitable for modern application
 - How to index for performance
 - How to monitor, shard, and secure production deployments
 
-
 Used effectively, MongoDB becomes a foundation for **real-time, data-rich systems** that evolve with your application’s needs.
 
 
 20. References and Resources
 ----------------------------
-
-
 
 - `Official MongoDB Documentation <https://www.mongodb.com/docs/>`_
 - `MongoDB University Free Courses <https://learn.mongodb.com/>`_
@@ -600,3 +530,4 @@ Used effectively, MongoDB becomes a foundation for **real-time, data-rich system
 - `Mongoose ODM for Node.js <https://mongoosejs.com/>`_
 - `MongoDB Atlas <https://www.mongodb.com/atlas>`_
 - `Data Modeling Examples <https://www.mongodb.com/docs/manual/core/data-model-design/>`_
+
