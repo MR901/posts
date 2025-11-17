@@ -62,7 +62,7 @@ test:
 	  JEKYLL_ENV=production bundle exec jekyll build -d _site ; \
 	  if [ -n "$$baseurl" ]; then \
 	    swap_from=$${baseurl#/}/ ; \
-	    bundle exec htmlproofer _site --disable-external --url-swap "/$${swap_from}:/" \
+	    bundle exec htmlproofer _site --disable-external --swap-urls "^/$$swap_from:/" \
 	      --ignore-urls "/^http:\/\/127.0.0.1/,/^http:\/\/0.0.0.0/,/^http:\/\/localhost/" ; \
 	  else \
 	    bundle exec htmlproofer _site --disable-external \
