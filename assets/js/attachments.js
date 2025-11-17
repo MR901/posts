@@ -898,13 +898,8 @@
         '<div class="references-loading">Loading references...</div>';
     }
 
-    // Determine baseurl heuristically from current path
-    var baseurl = '';
-    try {
-      var path = window.location.pathname || '';
-      if (path.indexOf('/posts/') === 0) baseurl = '/posts';
-    } catch (e) {}
-
+    // Use the same baseurl detection logic
+    var baseurl = getBaseurl();
     var url = baseurl + '/attachments-data/attachment_references.json';
 
     fetch(url, { cache: 'no-store' })
@@ -974,30 +969,60 @@
   }
 
   /**
+   * Get baseurl from current location (inferred, not hardcoded)
+   */
+  function getBaseurl() {
+    if (window._cachedBaseurl !== undefined) {
+      return window._cachedBaseurl;
+    }
+
+    // Try to infer baseurl from current pathname
+    // Common patterns: /posts/something, /blog/something, /site/something
+    var path = window.location.pathname || '';
+    var baseurl = '';
+
+    // If we have a meta tag with baseurl, use it (best practice)
+    var metaBaseurl = document.querySelector('meta[name="baseurl"]');
+    if (metaBaseurl) {
+      baseurl = metaBaseurl.getAttribute('content') || '';
+    } else {
+      // Infer from path structure: look for common subdirectory pattern
+      // If path starts with /xyz/ (not attachments, assets, js, css), it's likely baseurl
+      var match = path.match(/^\/([^\/]+)\//);
+      if (
+        match &&
+        match[1] &&
+        !['attachments', 'assets', 'js', 'css', 'images'].includes(match[1])
+      ) {
+        baseurl = '/' + match[1];
+      }
+    }
+
+    window._cachedBaseurl = baseurl;
+    return baseurl;
+  }
+
+  /**
    * Resolve URL for local development vs production
+   * Uses only relative URLs - no hardcoded absolute URLs needed
    */
   function resolveItemUrl(item) {
     if (!item) return '';
 
-    // If absolute_url matches current origin, use it
-    if (
-      item.absolute_url &&
-      item.absolute_url.indexOf(window.location.origin) === 0
-    ) {
-      return item.absolute_url;
+    var url = item.url || '';
+
+    // If it's already an absolute URL, return as-is
+    if (url.startsWith('http://') || url.startsWith('https://')) {
+      return url;
     }
 
-    // For local development, we need to handle the baseurl
-    var url = item.url || '';
-    if (url && !url.startsWith('http')) {
-      // Ensure URL starts with /
-      url = url.startsWith('/') ? url : '/' + url;
+    // Ensure URL starts with /
+    url = url.startsWith('/') ? url : '/' + url;
 
-      // Check if we're in local development and need to add baseurl
-      var currentPath = window.location.pathname;
-      if (currentPath.indexOf('/posts/') === 0 && !url.startsWith('/posts/')) {
-        url = '/posts' + url;
-      }
+    // Prepend baseurl if needed and not already present
+    var baseurl = getBaseurl();
+    if (baseurl && !url.startsWith(baseurl + '/')) {
+      url = baseurl + url;
     }
 
     return url;
@@ -1085,16 +1110,7 @@
     if (downloadBtn) {
       downloadBtn.onclick = function () {
         // Use the same URL resolution logic for downloads
-        var downloadUrl = item.url;
-        if (
-          item.absolute_url &&
-          item.absolute_url.indexOf(window.location.origin) === 0
-        ) {
-          downloadUrl = item.absolute_url;
-        } else if (item.url && !item.url.startsWith('http')) {
-          downloadUrl = item.url.startsWith('/') ? item.url : '/' + item.url;
-        }
-        window.open(downloadUrl, '_blank');
+        window.open(resolveItemUrl(item), '_blank');
       };
     }
 
