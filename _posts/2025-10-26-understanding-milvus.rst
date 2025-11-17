@@ -2,7 +2,7 @@
 layout: post
 title: "Milvus — A Complete Practical Guide for Vector Databases and Similarity Search"
 date: 2025-10-24 00:00:00 +0530
-categories: [Databases, AI, ML, Vector Search, Infrastructure]
+categories: [Databases, ai, ML, Vector Search, Infrastructure]
 tags: [Milvus, vector database, similarity search, embeddings, AI, ML, retrieval]
 pin: false
 toc: true
