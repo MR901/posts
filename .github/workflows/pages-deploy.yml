@@ -77,33 +77,59 @@ jobs:
 
           echo "📄 Final data files: $(ls -la _data/attachment_*.yml 2>/dev/null || echo 'no data files found')"
 
+      - name: Determine baseurl for build
+        id: build_config
+        run: |
+          # For preview deployments (PRs and branch previews), use empty baseurl
+          # For production (main/master), use /posts baseurl
+          IS_PREVIEW=false
+          if [ "${{ github.event_name }}" == "pull_request" ]; then
+            IS_PREVIEW=true
+          elif [ "${{ github.ref }}" == "refs/heads/develop" ] || [ "${{ github.ref }}" == "refs/heads/dev" ]; then
+            IS_PREVIEW=true
+          elif echo "${{ github.ref }}" | grep -q "^refs/heads/article-"; then
+            IS_PREVIEW=true
+          fi
+
+          if [ "$IS_PREVIEW" == "true" ]; then
+            echo "baseurl=" >> $GITHUB_OUTPUT
+            echo "is_preview=true" >> $GITHUB_OUTPUT
+          else
+            echo "baseurl=/posts" >> $GITHUB_OUTPUT
+            echo "is_preview=false" >> $GITHUB_OUTPUT
+          fi
+
       - name: Build site
         run: |
           bundle exec jekyll clean
-          bundle exec jekyll b -d "_site"
+          bundle exec jekyll b -d "_site" --baseurl "${{ steps.build_config.outputs.baseurl }}"
         env:
           JEKYLL_ENV: "production"
 
       - name: Mirror site under baseurl for tests
         run: |
-          BASE_PATH="${{ steps.pages.outputs.base_path }}"
-          if [ -n "$BASE_PATH" ] && [ "$BASE_PATH" != "/" ]; then
-            BASE_DIR="${BASE_PATH#/}"
-            mkdir -p "_site$BASE_PATH"
-            shopt -s dotglob
-            for entry in _site/*; do
-              name="$(basename "$entry")"
-              if [ "$name" = "$BASE_DIR" ]; then
-                continue
-              fi
-              cp -a "$entry" "_site$BASE_PATH/"
-            done
-            shopt -u dotglob
+          # Only mirror if we're building for production (with /posts baseurl)
+          if [ "${{ steps.build_config.outputs.is_preview }}" != "true" ]; then
+            BASE_PATH="${{ steps.pages.outputs.base_path }}"
+            if [ -n "$BASE_PATH" ] && [ "$BASE_PATH" != "/" ]; then
+              BASE_DIR="${BASE_PATH#/}"
+              mkdir -p "_site$BASE_PATH"
+              shopt -s dotglob
+              for entry in _site/*; do
+                name="$(basename "$entry")"
+                if [ "$name" = "$BASE_DIR" ]; then
+                  continue
+                fi
+                cp -a "$entry" "_site$BASE_PATH/"
+              done
+              shopt -u dotglob
+            fi
           fi
 
       - name: Test site
         run: |
-          BASEURL=$(grep '^baseurl:' _config.yml | sed "s/.*: *//;s/['\"]//g;s/#.*//" | xargs)
+          # Use the baseurl that was actually used for building
+          BASEURL="${{ steps.build_config.outputs.baseurl }}"
           if [ -n "$BASEURL" ] && [ "$BASEURL" != "/" ] && [ "$BASEURL" != "" ]; then
             SWAP_FROM="${BASEURL#/}/"
             bundle exec htmlproofer _site \

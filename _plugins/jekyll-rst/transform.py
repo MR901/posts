@@ -108,19 +108,21 @@ def _transform_mermaid_blocks(html: str) -> str:
 
     RST produces code blocks that start with "mindmap" (mermaid's mindmap syntax)
     We need: <pre class="language-mermaid"><code>...</code></pre>
+
+    Also extracts data-mermaid-* attributes for custom sizing.
     """
-    # Pattern to match code blocks that contain mermaid mindmap syntax
-    # Look for figure.code blocks where the first non-empty line starts with "mindmap"
-    # or other mermaid diagram types
+    # Pattern to match code blocks with optional data attributes
+    # Capture the figure tag with any data-mermaid-* attributes
     pattern = re.compile(
-        r'<figure\s+class="code">.*?<td\s+class="code"><pre><code\s+class="[^"]*">(.*?)</code></pre></td>.*?</figure>',
+        r'<figure\s+class="code"([^>]*)>.*?<td\s+class="code"><pre><code\s+class="[^"]*">(.*?)</code></pre></td>.*?</figure>',
         re.DOTALL | re.IGNORECASE
     )
 
     def replace_mermaid(match):
         import html
-        # Extract the code content (it's HTML-escaped with spans)
-        code_content = match.group(1)
+        # Extract figure attributes (group 1) and code content (group 2)
+        figure_attrs = match.group(1)
+        code_content = match.group(2)
         # Remove line number spans and reconstruct plain text
         # The content has structure like: <span class="line"><span></span>text</span>
         lines = re.findall(r'<span class="line">(?:<span></span>)?(.*?)</span>', code_content, re.DOTALL)
@@ -142,8 +144,29 @@ def _transform_mermaid_blocks(html: str) -> str:
         first_word = clean_content.strip().split()[0] if clean_content.strip() else ''
 
         if first_word in mermaid_keywords:
+            # Extract data-mermaid-* attributes if present
+            data_attrs = ''
+            if figure_attrs:
+                # Extract data-mermaid-width, data-mermaid-height, data-mermaid-scale
+                # Use more flexible regex to handle various spacing/formatting
+                width_match = re.search(r'data-mermaid-width\s*=\s*["\']([^"\']+)["\']', figure_attrs, re.IGNORECASE)
+                height_match = re.search(r'data-mermaid-height\s*=\s*["\']([^"\']+)["\']', figure_attrs, re.IGNORECASE)
+                scale_match = re.search(r'data-mermaid-scale\s*=\s*["\']([^"\']+)["\']', figure_attrs, re.IGNORECASE)
+
+                if width_match:
+                    width_val = width_match.group(1).strip()
+                    data_attrs += f' data-mermaid-width="{width_val}"'
+                if height_match:
+                    height_val = height_match.group(1).strip()
+                    data_attrs += f' data-mermaid-height="{height_val}"'
+                if scale_match:
+                    scale_val = scale_match.group(1).strip()
+                    data_attrs += f' data-mermaid-scale="{scale_val}"'
+
             # Wrap in a div to isolate from surrounding content and prevent DOM interference
-            return f'<div class="mermaid-wrapper">\n<pre class="language-mermaid"><code>{clean_content}</code></pre>\n</div>\n'
+            # Also add data attributes to the pre tag as fallback (in case Mermaid removes the wrapper)
+            # This ensures data attributes are preserved even if Mermaid processes the code block
+            return f'<div class="mermaid-wrapper"{data_attrs}>\n<pre class="language-mermaid"{data_attrs}><code>{clean_content}</code></pre>\n</div>\n'
         else:
             # Not a mermaid block, return original
             return match.group(0)

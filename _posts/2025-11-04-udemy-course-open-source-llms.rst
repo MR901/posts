@@ -37,6 +37,9 @@ The path is technical, but the destination is empowerment.
 
 
 .. code-block:: mermaid
+   :width: 600px
+   :height: 320px
+   :scale: 1.5
 
    mindmap
      root((Open-Source LLMs))
@@ -128,6 +131,9 @@ Core Knowledge and Skills
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: mermaid
+   :width: 600px
+   :height: 600px
+   :scale: 1.7
 
    graph LR
        Root[Open-Source LLMs<br/>Learning Path]
@@ -328,6 +334,8 @@ The Training Pipeline
 LLMs emerge through a three-stage process, each serving a distinct purpose:
 
 .. code-block:: mermaid
+   :width: 600px
+   :scale: 1.7
 
    graph LR
        A[Raw Text Corpus<br/>~10 TB] --> B[Pre-training]

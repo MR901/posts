@@ -566,6 +566,9 @@ Mermaid Diagrams
 **Class Diagrams:**
 
 .. code-block:: mermaid
+   :width: 800px
+   :height: 300px
+   :scale: 1.2
 
    classDiagram
 
