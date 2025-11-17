@@ -35,6 +35,11 @@ paginate: 20
 # Can be changed to relocate attachments without code changes elsewhere
 attachments_dir: "attachments"
 
+# Generate absolute URLs in attachment data (default: false)
+# Set to false to avoid hardcoding domain/baseurl in generated files
+# JavaScript will automatically resolve URLs based on current location
+# generate_absolute_urls: false
+
 github:
   username: mr901 # change to your GitHub username
 

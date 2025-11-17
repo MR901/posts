@@ -2,7 +2,6 @@ screenshot.png:
   path: /workspaces/posts/attachments/general/images/screenshot.png
   web_path: attachments/general/images/screenshot.png
   url: /attachments/general/images/screenshot.png
-  absolute_url: https://mr901.co.in/posts/attachments/general/images/screenshot.png
   posts:
   - title: 'Jekyll Content Creation: Writing Posts and Pages'
     url: /posts/jekyll-content-creation-guide/
@@ -14,7 +13,6 @@ repo_icon.png:
   path: /workspaces/posts/attachments/general/images/repo_icon.png
   web_path: attachments/general/images/repo_icon.png
   url: /attachments/general/images/repo_icon.png
-  absolute_url: https://mr901.co.in/posts/attachments/general/images/repo_icon.png
   posts:
   - title: 'Jekyll Advanced Formatting: Typography, Media, and Special Features'
     url: /posts/jekyll-formatting-features/
@@ -32,7 +30,6 @@ repo_icon.png:
   path: /workspaces/posts/attachments/general/research_papers/2025-06-05-(v1)-Inference_Economics_Of_Language_Models.pdf
   web_path: attachments/general/research_papers/2025-06-05-(v1)-Inference_Economics_Of_Language_Models.pdf
   url: /attachments/general/research_papers/2025-06-05-(v1)-Inference_Economics_Of_Language_Models.pdf
-  absolute_url: https://mr901.co.in/posts/attachments/general/research_papers/2025-06-05-(v1)-Inference_Economics_Of_Language_Models.pdf
   posts: []
   pages: []
   total_references: 0
@@ -40,7 +37,6 @@ repo_icon.png:
   path: /workspaces/posts/attachments/general/research_papers/2024-02-04-(v3)-Selecting_Large_Language_Model_to_Finetune_via_Rectified_Scaling_Law
   web_path: attachments/general/research_papers/2024-02-04-(v3)-Selecting_Large_Language_Model_to_Finetune_via_Rectified_Scaling_Law
   url: /attachments/general/research_papers/2024-02-04-(v3)-Selecting_Large_Language_Model_to_Finetune_via_Rectified_Scaling_Law
-  absolute_url: https://mr901.co.in/posts/attachments/general/research_papers/2024-02-04-(v3)-Selecting_Large_Language_Model_to_Finetune_via_Rectified_Scaling_Law
   posts: []
   pages: []
   total_references: 0
@@ -48,7 +44,6 @@ repo_icon.png:
   path: /workspaces/posts/attachments/general/research_papers/2023-04-07-(v2)_Generative_Agents_Interactive_Simulacra_of_Human_Behavior.pdf
   web_path: attachments/general/research_papers/2023-04-07-(v2)_Generative_Agents_Interactive_Simulacra_of_Human_Behavior.pdf
   url: /attachments/general/research_papers/2023-04-07-(v2)_Generative_Agents_Interactive_Simulacra_of_Human_Behavior.pdf
-  absolute_url: https://mr901.co.in/posts/attachments/general/research_papers/2023-04-07-(v2)_Generative_Agents_Interactive_Simulacra_of_Human_Behavior.pdf
   posts: []
   pages: []
   total_references: 0
@@ -56,7 +51,6 @@ repo_icon.png:
   path: /workspaces/posts/attachments/general/research_papers/2017-06-12-(v7)-Attention_is_all_you_need.pdf
   web_path: attachments/general/research_papers/2017-06-12-(v7)-Attention_is_all_you_need.pdf
   url: /attachments/general/research_papers/2017-06-12-(v7)-Attention_is_all_you_need.pdf
-  absolute_url: https://mr901.co.in/posts/attachments/general/research_papers/2017-06-12-(v7)-Attention_is_all_you_need.pdf
   posts: []
   pages: []
   total_references: 0
@@ -64,7 +58,6 @@ repo_icon.png:
   path: /workspaces/posts/attachments/general/articles/2025-03-17-A_Visual_Guide_to_LLM_Agents.pdf
   web_path: attachments/general/articles/2025-03-17-A_Visual_Guide_to_LLM_Agents.pdf
   url: /attachments/general/articles/2025-03-17-A_Visual_Guide_to_LLM_Agents.pdf
-  absolute_url: https://mr901.co.in/posts/attachments/general/articles/2025-03-17-A_Visual_Guide_to_LLM_Agents.pdf
   posts: []
   pages: []
   total_references: 0
@@ -72,7 +65,6 @@ repo_icon.png:
   path: /workspaces/posts/attachments/general/articles/2018-06-27-The_Illustrated_Transformer_Jay_Alammar.pdf
   web_path: attachments/general/articles/2018-06-27-The_Illustrated_Transformer_Jay_Alammar.pdf
   url: /attachments/general/articles/2018-06-27-The_Illustrated_Transformer_Jay_Alammar.pdf
-  absolute_url: https://mr901.co.in/posts/attachments/general/articles/2018-06-27-The_Illustrated_Transformer_Jay_Alammar.pdf
   posts: []
   pages: []
   total_references: 0
@@ -80,7 +72,6 @@ repo_icon.png:
   path: /workspaces/posts/attachments/general/articles/2025-02-03-A_Visual_Guide_to_Reasoning_LLM.pdf
   web_path: attachments/general/articles/2025-02-03-A_Visual_Guide_to_Reasoning_LLM.pdf
   url: /attachments/general/articles/2025-02-03-A_Visual_Guide_to_Reasoning_LLM.pdf
-  absolute_url: https://mr901.co.in/posts/attachments/general/articles/2025-02-03-A_Visual_Guide_to_Reasoning_LLM.pdf
   posts: []
   pages: []
   total_references: 0
@@ -88,7 +79,6 @@ halo_effect.png:
   path: /workspaces/posts/attachments/posts/2025-10-22-laws-of-life/images/halo_effect.png
   web_path: attachments/posts/2025-10-22-laws-of-life/images/halo_effect.png
   url: /attachments/posts/2025-10-22-laws-of-life/images/halo_effect.png
-  absolute_url: https://mr901.co.in/posts/attachments/posts/2025-10-22-laws-of-life/images/halo_effect.png
   posts:
   - title: Laws and Principles That Shape Thinking and Decision-Making
     url: /posts/laws-of-life/
@@ -100,7 +90,6 @@ stroop_effect.png:
   path: /workspaces/posts/attachments/posts/2025-10-22-laws-of-life/images/stroop_effect.png
   web_path: attachments/posts/2025-10-22-laws-of-life/images/stroop_effect.png
   url: /attachments/posts/2025-10-22-laws-of-life/images/stroop_effect.png
-  absolute_url: https://mr901.co.in/posts/attachments/posts/2025-10-22-laws-of-life/images/stroop_effect.png
   posts:
   - title: Laws and Principles That Shape Thinking and Decision-Making
     url: /posts/laws-of-life/
@@ -112,7 +101,6 @@ status_quo_bias.png:
   path: /workspaces/posts/attachments/posts/2025-10-22-laws-of-life/images/status_quo_bias.png
   web_path: attachments/posts/2025-10-22-laws-of-life/images/status_quo_bias.png
   url: /attachments/posts/2025-10-22-laws-of-life/images/status_quo_bias.png
-  absolute_url: https://mr901.co.in/posts/attachments/posts/2025-10-22-laws-of-life/images/status_quo_bias.png
   posts:
   - title: Laws and Principles That Shape Thinking and Decision-Making
     url: /posts/laws-of-life/
@@ -124,7 +112,6 @@ anchoring_effect.png:
   path: /workspaces/posts/attachments/posts/2025-10-22-laws-of-life/images/anchoring_effect.png
   web_path: attachments/posts/2025-10-22-laws-of-life/images/anchoring_effect.png
   url: /attachments/posts/2025-10-22-laws-of-life/images/anchoring_effect.png
-  absolute_url: https://mr901.co.in/posts/attachments/posts/2025-10-22-laws-of-life/images/anchoring_effect.png
   posts:
   - title: Laws and Principles That Shape Thinking and Decision-Making
     url: /posts/laws-of-life/
@@ -136,7 +123,6 @@ survivorship_bias.png:
   path: /workspaces/posts/attachments/posts/2025-10-22-laws-of-life/images/survivorship_bias.png
   web_path: attachments/posts/2025-10-22-laws-of-life/images/survivorship_bias.png
   url: /attachments/posts/2025-10-22-laws-of-life/images/survivorship_bias.png
-  absolute_url: https://mr901.co.in/posts/attachments/posts/2025-10-22-laws-of-life/images/survivorship_bias.png
   posts:
   - title: Laws and Principles That Shape Thinking and Decision-Making
     url: /posts/laws-of-life/
@@ -148,7 +134,6 @@ groupthink.png:
   path: /workspaces/posts/attachments/posts/2025-10-22-laws-of-life/images/groupthink.png
   web_path: attachments/posts/2025-10-22-laws-of-life/images/groupthink.png
   url: /attachments/posts/2025-10-22-laws-of-life/images/groupthink.png
-  absolute_url: https://mr901.co.in/posts/attachments/posts/2025-10-22-laws-of-life/images/groupthink.png
   posts:
   - title: Laws and Principles That Shape Thinking and Decision-Making
     url: /posts/laws-of-life/
@@ -160,7 +145,6 @@ endowment_effect.png:
   path: /workspaces/posts/attachments/posts/2025-10-22-laws-of-life/images/endowment_effect.png
   web_path: attachments/posts/2025-10-22-laws-of-life/images/endowment_effect.png
   url: /attachments/posts/2025-10-22-laws-of-life/images/endowment_effect.png
-  absolute_url: https://mr901.co.in/posts/attachments/posts/2025-10-22-laws-of-life/images/endowment_effect.png
   posts:
   - title: Laws and Principles That Shape Thinking and Decision-Making
     url: /posts/laws-of-life/
@@ -172,7 +156,6 @@ dunning_kruger_effect.png:
   path: /workspaces/posts/attachments/posts/2025-10-22-laws-of-life/images/dunning_kruger_effect.png
   web_path: attachments/posts/2025-10-22-laws-of-life/images/dunning_kruger_effect.png
   url: /attachments/posts/2025-10-22-laws-of-life/images/dunning_kruger_effect.png
-  absolute_url: https://mr901.co.in/posts/attachments/posts/2025-10-22-laws-of-life/images/dunning_kruger_effect.png
   posts:
   - title: Laws and Principles That Shape Thinking and Decision-Making
     url: /posts/laws-of-life/
@@ -184,7 +167,6 @@ social_proof.png:
   path: /workspaces/posts/attachments/posts/2025-10-22-laws-of-life/images/social_proof.png
   web_path: attachments/posts/2025-10-22-laws-of-life/images/social_proof.png
   url: /attachments/posts/2025-10-22-laws-of-life/images/social_proof.png
-  absolute_url: https://mr901.co.in/posts/attachments/posts/2025-10-22-laws-of-life/images/social_proof.png
   posts:
   - title: Laws and Principles That Shape Thinking and Decision-Making
     url: /posts/laws-of-life/
@@ -196,7 +178,6 @@ change_blindness.png:
   path: /workspaces/posts/attachments/posts/2025-10-22-laws-of-life/images/change_blindness.png
   web_path: attachments/posts/2025-10-22-laws-of-life/images/change_blindness.png
   url: /attachments/posts/2025-10-22-laws-of-life/images/change_blindness.png
-  absolute_url: https://mr901.co.in/posts/attachments/posts/2025-10-22-laws-of-life/images/change_blindness.png
   posts:
   - title: Laws and Principles That Shape Thinking and Decision-Making
     url: /posts/laws-of-life/
@@ -208,7 +189,6 @@ loss_aversion_and_prospect_theory.png:
   path: /workspaces/posts/attachments/posts/2025-10-22-laws-of-life/images/loss_aversion_and_prospect_theory.png
   web_path: attachments/posts/2025-10-22-laws-of-life/images/loss_aversion_and_prospect_theory.png
   url: /attachments/posts/2025-10-22-laws-of-life/images/loss_aversion_and_prospect_theory.png
-  absolute_url: https://mr901.co.in/posts/attachments/posts/2025-10-22-laws-of-life/images/loss_aversion_and_prospect_theory.png
   posts:
   - title: Laws and Principles That Shape Thinking and Decision-Making
     url: /posts/laws-of-life/
@@ -220,7 +200,6 @@ bystander_effect.png:
   path: /workspaces/posts/attachments/posts/2025-10-22-laws-of-life/images/bystander_effect.png
   web_path: attachments/posts/2025-10-22-laws-of-life/images/bystander_effect.png
   url: /attachments/posts/2025-10-22-laws-of-life/images/bystander_effect.png
-  absolute_url: https://mr901.co.in/posts/attachments/posts/2025-10-22-laws-of-life/images/bystander_effect.png
   posts:
   - title: Laws and Principles That Shape Thinking and Decision-Making
     url: /posts/laws-of-life/
@@ -232,7 +211,6 @@ systems-thinking.svg:
   path: /workspaces/posts/attachments/posts/2025-10-22-laws-of-life/images/systems-thinking.svg
   web_path: attachments/posts/2025-10-22-laws-of-life/images/systems-thinking.svg
   url: /attachments/posts/2025-10-22-laws-of-life/images/systems-thinking.svg
-  absolute_url: https://mr901.co.in/posts/attachments/posts/2025-10-22-laws-of-life/images/systems-thinking.svg
   posts: []
   pages: []
   total_references: 0
@@ -240,7 +218,6 @@ framing_effect.png:
   path: /workspaces/posts/attachments/posts/2025-10-22-laws-of-life/images/framing_effect.png
   web_path: attachments/posts/2025-10-22-laws-of-life/images/framing_effect.png
   url: /attachments/posts/2025-10-22-laws-of-life/images/framing_effect.png
-  absolute_url: https://mr901.co.in/posts/attachments/posts/2025-10-22-laws-of-life/images/framing_effect.png
   posts:
   - title: Laws and Principles That Shape Thinking and Decision-Making
     url: /posts/laws-of-life/
@@ -252,7 +229,6 @@ selection_bias.png:
   path: /workspaces/posts/attachments/posts/2025-10-22-laws-of-life/images/selection_bias.png
   web_path: attachments/posts/2025-10-22-laws-of-life/images/selection_bias.png
   url: /attachments/posts/2025-10-22-laws-of-life/images/selection_bias.png
-  absolute_url: https://mr901.co.in/posts/attachments/posts/2025-10-22-laws-of-life/images/selection_bias.png
   posts:
   - title: Laws and Principles That Shape Thinking and Decision-Making
     url: /posts/laws-of-life/
@@ -264,7 +240,6 @@ selection_bias.png:
   path: /workspaces/posts/attachments/posts/2025-10-05-prompting-engineering/images/1_D7gHn4SbjPDJqfYZ1pAYNQ.webp
   web_path: attachments/posts/2025-10-05-prompting-engineering/images/1_D7gHn4SbjPDJqfYZ1pAYNQ.webp
   url: /attachments/posts/2025-10-05-prompting-engineering/images/1_D7gHn4SbjPDJqfYZ1pAYNQ.webp
-  absolute_url: https://mr901.co.in/posts/attachments/posts/2025-10-05-prompting-engineering/images/1_D7gHn4SbjPDJqfYZ1pAYNQ.webp
   posts: []
   pages: []
   total_references: 0
@@ -272,7 +247,6 @@ prompt_engineering.png:
   path: /workspaces/posts/attachments/posts/2025-10-05-prompting-engineering/images/prompt_engineering.png
   web_path: attachments/posts/2025-10-05-prompting-engineering/images/prompt_engineering.png
   url: /attachments/posts/2025-10-05-prompting-engineering/images/prompt_engineering.png
-  absolute_url: https://mr901.co.in/posts/attachments/posts/2025-10-05-prompting-engineering/images/prompt_engineering.png
   posts: []
   pages: []
   total_references: 0
@@ -280,7 +254,6 @@ prompt_engineering.png:
   path: /workspaces/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2025-09-07-I_Studied_1500_Academic_Papers_on_Prompt_Engineering_Heres_Why_Everything_You.pdf
   web_path: attachments/posts/2025-10-05-prompting-engineering/articles/2025-09-07-I_Studied_1500_Academic_Papers_on_Prompt_Engineering_Heres_Why_Everything_You.pdf
   url: /attachments/posts/2025-10-05-prompting-engineering/articles/2025-09-07-I_Studied_1500_Academic_Papers_on_Prompt_Engineering_Heres_Why_Everything_You.pdf
-  absolute_url: https://mr901.co.in/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2025-09-07-I_Studied_1500_Academic_Papers_on_Prompt_Engineering_Heres_Why_Everything_You.pdf
   posts: []
   pages: []
   total_references: 0
@@ -288,7 +261,6 @@ prompt_engineering.png:
   path: /workspaces/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2023-05-03-Eight_Prompt_Engineering_Implementations.pdf
   web_path: attachments/posts/2025-10-05-prompting-engineering/articles/2023-05-03-Eight_Prompt_Engineering_Implementations.pdf
   url: /attachments/posts/2025-10-05-prompting-engineering/articles/2023-05-03-Eight_Prompt_Engineering_Implementations.pdf
-  absolute_url: https://mr901.co.in/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2023-05-03-Eight_Prompt_Engineering_Implementations.pdf
   posts: []
   pages: []
   total_references: 0
@@ -296,7 +268,6 @@ prompt_engineering.png:
   path: /workspaces/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2025-07-13-The_Ultimate_Prompt_Engineering_Playbook.pdf
   web_path: attachments/posts/2025-10-05-prompting-engineering/articles/2025-07-13-The_Ultimate_Prompt_Engineering_Playbook.pdf
   url: /attachments/posts/2025-10-05-prompting-engineering/articles/2025-07-13-The_Ultimate_Prompt_Engineering_Playbook.pdf
-  absolute_url: https://mr901.co.in/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2025-07-13-The_Ultimate_Prompt_Engineering_Playbook.pdf
   posts: []
   pages: []
   total_references: 0
@@ -304,7 +275,6 @@ prompt_engineering.png:
   path: /workspaces/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2025-08-25-Systematic_LLM_Prompt_Engineering_Using_DSPy_Optimization.pdf
   web_path: attachments/posts/2025-10-05-prompting-engineering/articles/2025-08-25-Systematic_LLM_Prompt_Engineering_Using_DSPy_Optimization.pdf
   url: /attachments/posts/2025-10-05-prompting-engineering/articles/2025-08-25-Systematic_LLM_Prompt_Engineering_Using_DSPy_Optimization.pdf
-  absolute_url: https://mr901.co.in/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2025-08-25-Systematic_LLM_Prompt_Engineering_Using_DSPy_Optimization.pdf
   posts: []
   pages: []
   total_references: 0
@@ -312,7 +282,6 @@ prompt_engineering.png:
   path: /workspaces/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2025-08-20-A_Prompting_Playbook_for_Building_Multi.pdf
   web_path: attachments/posts/2025-10-05-prompting-engineering/articles/2025-08-20-A_Prompting_Playbook_for_Building_Multi.pdf
   url: /attachments/posts/2025-10-05-prompting-engineering/articles/2025-08-20-A_Prompting_Playbook_for_Building_Multi.pdf
-  absolute_url: https://mr901.co.in/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2025-08-20-A_Prompting_Playbook_for_Building_Multi.pdf
   posts: []
   pages: []
   total_references: 0
@@ -320,7 +289,6 @@ prompt_engineering.png:
   path: /workspaces/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2025-07-29-Using_AI_Agents_For_Prompt_Optimisation_&_Language_Model_Selection.pdf
   web_path: attachments/posts/2025-10-05-prompting-engineering/articles/2025-07-29-Using_AI_Agents_For_Prompt_Optimisation_&_Language_Model_Selection.pdf
   url: /attachments/posts/2025-10-05-prompting-engineering/articles/2025-07-29-Using_AI_Agents_For_Prompt_Optimisation_&_Language_Model_Selection.pdf
-  absolute_url: https://mr901.co.in/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2025-07-29-Using_AI_Agents_For_Prompt_Optimisation_&_Language_Model_Selection.pdf
   posts: []
   pages: []
   total_references: 0
@@ -328,7 +296,6 @@ prompt_engineering.png:
   path: /workspaces/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2024-07-11-Prompt_Engineering.pdf
   web_path: attachments/posts/2025-10-05-prompting-engineering/articles/2024-07-11-Prompt_Engineering.pdf
   url: /attachments/posts/2025-10-05-prompting-engineering/articles/2024-07-11-Prompt_Engineering.pdf
-  absolute_url: https://mr901.co.in/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2024-07-11-Prompt_Engineering.pdf
   posts: []
   pages: []
   total_references: 0
@@ -336,7 +303,6 @@ prompt_engineering.png:
   path: /workspaces/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2024-07-30-Intents_Are_Back.pdf
   web_path: attachments/posts/2025-10-05-prompting-engineering/articles/2024-07-30-Intents_Are_Back.pdf
   url: /attachments/posts/2025-10-05-prompting-engineering/articles/2024-07-30-Intents_Are_Back.pdf
-  absolute_url: https://mr901.co.in/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2024-07-30-Intents_Are_Back.pdf
   posts: []
   pages: []
   total_references: 0
@@ -344,7 +310,6 @@ prompt_engineering.png:
   path: /workspaces/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2025-10-05-The_Art_of_AI_Prompting.pdf
   web_path: attachments/posts/2025-10-05-prompting-engineering/articles/2025-10-05-The_Art_of_AI_Prompting.pdf
   url: /attachments/posts/2025-10-05-prompting-engineering/articles/2025-10-05-The_Art_of_AI_Prompting.pdf
-  absolute_url: https://mr901.co.in/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2025-10-05-The_Art_of_AI_Prompting.pdf
   posts: []
   pages: []
   total_references: 0
@@ -352,7 +317,6 @@ prompt_engineering.png:
   path: /workspaces/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2025-08-20-Advanced_Prompt_Engineering_for_Data_Science_Projects.pdf
   web_path: attachments/posts/2025-10-05-prompting-engineering/articles/2025-08-20-Advanced_Prompt_Engineering_for_Data_Science_Projects.pdf
   url: /attachments/posts/2025-10-05-prompting-engineering/articles/2025-08-20-Advanced_Prompt_Engineering_for_Data_Science_Projects.pdf
-  absolute_url: https://mr901.co.in/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2025-08-20-Advanced_Prompt_Engineering_for_Data_Science_Projects.pdf
   posts: []
   pages: []
   total_references: 0
@@ -360,7 +324,6 @@ prompt_engineering.png:
   path: /workspaces/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2025-08-14-Context_Engineering.pdf
   web_path: attachments/posts/2025-10-05-prompting-engineering/articles/2025-08-14-Context_Engineering.pdf
   url: /attachments/posts/2025-10-05-prompting-engineering/articles/2025-08-14-Context_Engineering.pdf
-  absolute_url: https://mr901.co.in/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2025-08-14-Context_Engineering.pdf
   posts: []
   pages: []
   total_references: 0
@@ -368,7 +331,6 @@ prompt_engineering.png:
   path: /workspaces/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2024-12-13-Six_Key_Elements_of_AI_Agent_Prompt_Engineering.pdf
   web_path: attachments/posts/2025-10-05-prompting-engineering/articles/2024-12-13-Six_Key_Elements_of_AI_Agent_Prompt_Engineering.pdf
   url: /attachments/posts/2025-10-05-prompting-engineering/articles/2024-12-13-Six_Key_Elements_of_AI_Agent_Prompt_Engineering.pdf
-  absolute_url: https://mr901.co.in/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2024-12-13-Six_Key_Elements_of_AI_Agent_Prompt_Engineering.pdf
   posts: []
   pages: []
   total_references: 0
@@ -376,7 +338,6 @@ prompt_engineering.png:
   path: /workspaces/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2025-09-03-How_to_Master_ChatGPT.pdf
   web_path: attachments/posts/2025-10-05-prompting-engineering/articles/2025-09-03-How_to_Master_ChatGPT.pdf
   url: /attachments/posts/2025-10-05-prompting-engineering/articles/2025-09-03-How_to_Master_ChatGPT.pdf
-  absolute_url: https://mr901.co.in/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2025-09-03-How_to_Master_ChatGPT.pdf
   posts: []
   pages: []
   total_references: 0
@@ -384,7 +345,6 @@ prompt_engineering.png:
   path: /workspaces/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2025-10-23-Prompting_made_simple.pdf
   web_path: attachments/posts/2025-10-05-prompting-engineering/articles/2025-10-23-Prompting_made_simple.pdf
   url: /attachments/posts/2025-10-05-prompting-engineering/articles/2025-10-23-Prompting_made_simple.pdf
-  absolute_url: https://mr901.co.in/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2025-10-23-Prompting_made_simple.pdf
   posts: []
   pages: []
   total_references: 0
@@ -392,7 +352,6 @@ prompt_engineering.png:
   path: /workspaces/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2025-07-27-the_only_chatGPT_prompt_that_matters.pdf
   web_path: attachments/posts/2025-10-05-prompting-engineering/articles/2025-07-27-the_only_chatGPT_prompt_that_matters.pdf
   url: /attachments/posts/2025-10-05-prompting-engineering/articles/2025-07-27-the_only_chatGPT_prompt_that_matters.pdf
-  absolute_url: https://mr901.co.in/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2025-07-27-the_only_chatGPT_prompt_that_matters.pdf
   posts: []
   pages: []
   total_references: 0
@@ -400,7 +359,6 @@ prompt_engineering.png:
   path: /workspaces/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2025-07-21-25_ChatGPT_Prompts_to_Replace_Hours_of_Work_as_a_Data_Analyst.pdf
   web_path: attachments/posts/2025-10-05-prompting-engineering/articles/2025-07-21-25_ChatGPT_Prompts_to_Replace_Hours_of_Work_as_a_Data_Analyst.pdf
   url: /attachments/posts/2025-10-05-prompting-engineering/articles/2025-07-21-25_ChatGPT_Prompts_to_Replace_Hours_of_Work_as_a_Data_Analyst.pdf
-  absolute_url: https://mr901.co.in/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2025-07-21-25_ChatGPT_Prompts_to_Replace_Hours_of_Work_as_a_Data_Analyst.pdf
   posts: []
   pages: []
   total_references: 0
@@ -408,7 +366,6 @@ prompt_engineering.png:
   path: /workspaces/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2023-11-30-The_Anatomy_Of_Chain.pdf
   web_path: attachments/posts/2025-10-05-prompting-engineering/articles/2023-11-30-The_Anatomy_Of_Chain.pdf
   url: /attachments/posts/2025-10-05-prompting-engineering/articles/2023-11-30-The_Anatomy_Of_Chain.pdf
-  absolute_url: https://mr901.co.in/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2023-11-30-The_Anatomy_Of_Chain.pdf
   posts: []
   pages: []
   total_references: 0
@@ -416,7 +373,6 @@ prompt_engineering.png:
   path: /workspaces/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2025-02-05-Why_The_Focus_Has_Shifted_from_AI_Agents_to_Agentic_Workflows.pdf
   web_path: attachments/posts/2025-10-05-prompting-engineering/articles/2025-02-05-Why_The_Focus_Has_Shifted_from_AI_Agents_to_Agentic_Workflows.pdf
   url: /attachments/posts/2025-10-05-prompting-engineering/articles/2025-02-05-Why_The_Focus_Has_Shifted_from_AI_Agents_to_Agentic_Workflows.pdf
-  absolute_url: https://mr901.co.in/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2025-02-05-Why_The_Focus_Has_Shifted_from_AI_Agents_to_Agentic_Workflows.pdf
   posts: []
   pages: []
   total_references: 0
@@ -424,7 +380,6 @@ prompt_engineering.png:
   path: /workspaces/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2025-08-25-Chain_of_Thought_Function_Calling.pdf
   web_path: attachments/posts/2025-10-05-prompting-engineering/articles/2025-08-25-Chain_of_Thought_Function_Calling.pdf
   url: /attachments/posts/2025-10-05-prompting-engineering/articles/2025-08-25-Chain_of_Thought_Function_Calling.pdf
-  absolute_url: https://mr901.co.in/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2025-08-25-Chain_of_Thought_Function_Calling.pdf
   posts: []
   pages: []
   total_references: 0
@@ -432,7 +387,6 @@ prompt_engineering.png:
   path: /workspaces/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2025-09-23-Retrieval_Augmented_Reasoning_with_Lean_Language_Models.pdf
   web_path: attachments/posts/2025-10-05-prompting-engineering/articles/2025-09-23-Retrieval_Augmented_Reasoning_with_Lean_Language_Models.pdf
   url: /attachments/posts/2025-10-05-prompting-engineering/articles/2025-09-23-Retrieval_Augmented_Reasoning_with_Lean_Language_Models.pdf
-  absolute_url: https://mr901.co.in/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2025-09-23-Retrieval_Augmented_Reasoning_with_Lean_Language_Models.pdf
   posts: []
   pages: []
   total_references: 0
@@ -440,7 +394,6 @@ prompt_engineering.png:
   path: /workspaces/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2024-03-01-Python_Tutorial.pdf
   web_path: attachments/posts/2025-10-05-prompting-engineering/articles/2024-03-01-Python_Tutorial.pdf
   url: /attachments/posts/2025-10-05-prompting-engineering/articles/2024-03-01-Python_Tutorial.pdf
-  absolute_url: https://mr901.co.in/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2024-03-01-Python_Tutorial.pdf
   posts: []
   pages: []
   total_references: 0
@@ -448,7 +401,6 @@ prompt_engineering.png:
   path: /workspaces/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2025-09-17-23_ChatGPT_Prompts_That_Make_Learning_Your_New_Favorite_Hobby.pdf
   web_path: attachments/posts/2025-10-05-prompting-engineering/articles/2025-09-17-23_ChatGPT_Prompts_That_Make_Learning_Your_New_Favorite_Hobby.pdf
   url: /attachments/posts/2025-10-05-prompting-engineering/articles/2025-09-17-23_ChatGPT_Prompts_That_Make_Learning_Your_New_Favorite_Hobby.pdf
-  absolute_url: https://mr901.co.in/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2025-09-17-23_ChatGPT_Prompts_That_Make_Learning_Your_New_Favorite_Hobby.pdf
   posts: []
   pages: []
   total_references: 0
@@ -456,7 +408,6 @@ prompt_engineering.png:
   path: /workspaces/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2025-10-03-Context_Engineering_vs_Prompt_Engineering.pdf
   web_path: attachments/posts/2025-10-05-prompting-engineering/articles/2025-10-03-Context_Engineering_vs_Prompt_Engineering.pdf
   url: /attachments/posts/2025-10-05-prompting-engineering/articles/2025-10-03-Context_Engineering_vs_Prompt_Engineering.pdf
-  absolute_url: https://mr901.co.in/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2025-10-03-Context_Engineering_vs_Prompt_Engineering.pdf
   posts: []
   pages: []
   total_references: 0
@@ -464,7 +415,6 @@ prompt_engineering.png:
   path: /workspaces/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2024-12-17-AI_Agent_Prompt_Engineering.pdf
   web_path: attachments/posts/2025-10-05-prompting-engineering/articles/2024-12-17-AI_Agent_Prompt_Engineering.pdf
   url: /attachments/posts/2025-10-05-prompting-engineering/articles/2024-12-17-AI_Agent_Prompt_Engineering.pdf
-  absolute_url: https://mr901.co.in/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2024-12-17-AI_Agent_Prompt_Engineering.pdf
   posts: []
   pages: []
   total_references: 0
@@ -472,7 +422,6 @@ prompt_engineering.png:
   path: /workspaces/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2025-06-30-My_ChatGPT_Prompting_was_Never_Perfect_Before_I_Learned_this.pdf
   web_path: attachments/posts/2025-10-05-prompting-engineering/articles/2025-06-30-My_ChatGPT_Prompting_was_Never_Perfect_Before_I_Learned_this.pdf
   url: /attachments/posts/2025-10-05-prompting-engineering/articles/2025-06-30-My_ChatGPT_Prompting_was_Never_Perfect_Before_I_Learned_this.pdf
-  absolute_url: https://mr901.co.in/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2025-06-30-My_ChatGPT_Prompting_was_Never_Perfect_Before_I_Learned_this.pdf
   posts: []
   pages: []
   total_references: 0
@@ -480,7 +429,6 @@ prompt_engineering.png:
   path: /workspaces/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2025-09-17-7_Best_Prompting_FREE_Repos_I_Use_to_Sharpen_My_AI_Coding_Skills.pdf
   web_path: attachments/posts/2025-10-05-prompting-engineering/articles/2025-09-17-7_Best_Prompting_FREE_Repos_I_Use_to_Sharpen_My_AI_Coding_Skills.pdf
   url: /attachments/posts/2025-10-05-prompting-engineering/articles/2025-09-17-7_Best_Prompting_FREE_Repos_I_Use_to_Sharpen_My_AI_Coding_Skills.pdf
-  absolute_url: https://mr901.co.in/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2025-09-17-7_Best_Prompting_FREE_Repos_I_Use_to_Sharpen_My_AI_Coding_Skills.pdf
   posts: []
   pages: []
   total_references: 0
@@ -491,8 +439,6 @@ prompt_engineering.png:
     Make_Language_Models_Reason.pdf
   url: /attachments/posts/2025-10-05-prompting-engineering/articles/2025-07-04-Defining_Cognitive_Tools_To
     Make_Language_Models_Reason.pdf
-  absolute_url: https://mr901.co.in/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2025-07-04-Defining_Cognitive_Tools_To
-    Make_Language_Models_Reason.pdf
   posts: []
   pages: []
   total_references: 0
@@ -500,7 +446,6 @@ prompt_engineering.png:
   path: /workspaces/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2025-08-11-50_AI_Prompts_to_Automate_Everything_You_Hate_as_a_DevOps_Engineer.pdf
   web_path: attachments/posts/2025-10-05-prompting-engineering/articles/2025-08-11-50_AI_Prompts_to_Automate_Everything_You_Hate_as_a_DevOps_Engineer.pdf
   url: /attachments/posts/2025-10-05-prompting-engineering/articles/2025-08-11-50_AI_Prompts_to_Automate_Everything_You_Hate_as_a_DevOps_Engineer.pdf
-  absolute_url: https://mr901.co.in/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2025-08-11-50_AI_Prompts_to_Automate_Everything_You_Hate_as_a_DevOps_Engineer.pdf
   posts: []
   pages: []
   total_references: 0
@@ -508,7 +453,6 @@ prompt_engineering.png:
   path: /workspaces/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2025-06-11-Training_a_Language_Model_With_AI_Agents.pdf
   web_path: attachments/posts/2025-10-05-prompting-engineering/articles/2025-06-11-Training_a_Language_Model_With_AI_Agents.pdf
   url: /attachments/posts/2025-10-05-prompting-engineering/articles/2025-06-11-Training_a_Language_Model_With_AI_Agents.pdf
-  absolute_url: https://mr901.co.in/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2025-06-11-Training_a_Language_Model_With_AI_Agents.pdf
   posts: []
   pages: []
   total_references: 0
@@ -516,7 +460,6 @@ prompt_engineering.png:
   path: /workspaces/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2025-07-07-How_I_Organize_a_Massive_Library_of_AI_Prompts.pdf
   web_path: attachments/posts/2025-10-05-prompting-engineering/articles/2025-07-07-How_I_Organize_a_Massive_Library_of_AI_Prompts.pdf
   url: /attachments/posts/2025-10-05-prompting-engineering/articles/2025-07-07-How_I_Organize_a_Massive_Library_of_AI_Prompts.pdf
-  absolute_url: https://mr901.co.in/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2025-07-07-How_I_Organize_a_Massive_Library_of_AI_Prompts.pdf
   posts: []
   pages: []
   total_references: 0
@@ -524,7 +467,6 @@ prompt_engineering.png:
   path: /workspaces/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2025-10-10-Googles_DeepMind_CodeMender.pdf
   web_path: attachments/posts/2025-10-05-prompting-engineering/articles/2025-10-10-Googles_DeepMind_CodeMender.pdf
   url: /attachments/posts/2025-10-05-prompting-engineering/articles/2025-10-10-Googles_DeepMind_CodeMender.pdf
-  absolute_url: https://mr901.co.in/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2025-10-10-Googles_DeepMind_CodeMender.pdf
   posts: []
   pages: []
   total_references: 0
@@ -532,7 +474,6 @@ prompt_engineering.png:
   path: /workspaces/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2025-07-09-These_Premium_Leaked_Startup_Prompts_Became_My_Secret_Weapon.pdf
   web_path: attachments/posts/2025-10-05-prompting-engineering/articles/2025-07-09-These_Premium_Leaked_Startup_Prompts_Became_My_Secret_Weapon.pdf
   url: /attachments/posts/2025-10-05-prompting-engineering/articles/2025-07-09-These_Premium_Leaked_Startup_Prompts_Became_My_Secret_Weapon.pdf
-  absolute_url: https://mr901.co.in/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2025-07-09-These_Premium_Leaked_Startup_Prompts_Became_My_Secret_Weapon.pdf
   posts: []
   pages: []
   total_references: 0
@@ -540,7 +481,6 @@ prompt_engineering.png:
   path: /workspaces/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2025-09-10-5_Prompt_Injection_Attacks_You_Should_Actually_Worry_About.pdf
   web_path: attachments/posts/2025-10-05-prompting-engineering/articles/2025-09-10-5_Prompt_Injection_Attacks_You_Should_Actually_Worry_About.pdf
   url: /attachments/posts/2025-10-05-prompting-engineering/articles/2025-09-10-5_Prompt_Injection_Attacks_You_Should_Actually_Worry_About.pdf
-  absolute_url: https://mr901.co.in/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2025-09-10-5_Prompt_Injection_Attacks_You_Should_Actually_Worry_About.pdf
   posts: []
   pages: []
   total_references: 0
@@ -548,7 +488,6 @@ prompt_engineering.png:
   path: /workspaces/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2025-06-30-Become_a_Better_Data_Scientist_with_These_Prompt_Engineering_Tips_and_Tricks.pdf
   web_path: attachments/posts/2025-10-05-prompting-engineering/articles/2025-06-30-Become_a_Better_Data_Scientist_with_These_Prompt_Engineering_Tips_and_Tricks.pdf
   url: /attachments/posts/2025-10-05-prompting-engineering/articles/2025-06-30-Become_a_Better_Data_Scientist_with_These_Prompt_Engineering_Tips_and_Tricks.pdf
-  absolute_url: https://mr901.co.in/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2025-06-30-Become_a_Better_Data_Scientist_with_These_Prompt_Engineering_Tips_and_Tricks.pdf
   posts: []
   pages: []
   total_references: 0
@@ -556,7 +495,6 @@ prompt_engineering.png:
   path: /workspaces/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2025-09-18-Act_as_an_Expert.pdf
   web_path: attachments/posts/2025-10-05-prompting-engineering/articles/2025-09-18-Act_as_an_Expert.pdf
   url: /attachments/posts/2025-10-05-prompting-engineering/articles/2025-09-18-Act_as_an_Expert.pdf
-  absolute_url: https://mr901.co.in/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2025-09-18-Act_as_an_Expert.pdf
   posts: []
   pages: []
   total_references: 0
@@ -564,7 +502,6 @@ prompt_engineering.png:
   path: /workspaces/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2025-09-26-Building_17_Agentic_AI_Patterns_and_Their_Role_in_Large.pdf
   web_path: attachments/posts/2025-10-05-prompting-engineering/articles/2025-09-26-Building_17_Agentic_AI_Patterns_and_Their_Role_in_Large.pdf
   url: /attachments/posts/2025-10-05-prompting-engineering/articles/2025-09-26-Building_17_Agentic_AI_Patterns_and_Their_Role_in_Large.pdf
-  absolute_url: https://mr901.co.in/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2025-09-26-Building_17_Agentic_AI_Patterns_and_Their_Role_in_Large.pdf
   posts: []
   pages: []
   total_references: 0
@@ -572,7 +509,6 @@ prompt_engineering.png:
   path: /workspaces/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2025-10-03-10_Prompt_Engineering_Techniques.pdf
   web_path: attachments/posts/2025-10-05-prompting-engineering/articles/2025-10-03-10_Prompt_Engineering_Techniques.pdf
   url: /attachments/posts/2025-10-05-prompting-engineering/articles/2025-10-03-10_Prompt_Engineering_Techniques.pdf
-  absolute_url: https://mr901.co.in/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2025-10-03-10_Prompt_Engineering_Techniques.pdf
   posts: []
   pages: []
   total_references: 0
@@ -580,7 +516,6 @@ prompt_engineering.png:
   path: /workspaces/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2023-08-02-12_Prompt_Engineering_Techniques.pdf
   web_path: attachments/posts/2025-10-05-prompting-engineering/articles/2023-08-02-12_Prompt_Engineering_Techniques.pdf
   url: /attachments/posts/2025-10-05-prompting-engineering/articles/2023-08-02-12_Prompt_Engineering_Techniques.pdf
-  absolute_url: https://mr901.co.in/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2023-08-02-12_Prompt_Engineering_Techniques.pdf
   posts: []
   pages: []
   total_references: 0
@@ -588,7 +523,6 @@ prompt_engineering.png:
   path: /workspaces/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2024-11-15-Six_Years_Of_Prompt_Engineering.pdf
   web_path: attachments/posts/2025-10-05-prompting-engineering/articles/2024-11-15-Six_Years_Of_Prompt_Engineering.pdf
   url: /attachments/posts/2025-10-05-prompting-engineering/articles/2024-11-15-Six_Years_Of_Prompt_Engineering.pdf
-  absolute_url: https://mr901.co.in/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2024-11-15-Six_Years_Of_Prompt_Engineering.pdf
   posts: []
   pages: []
   total_references: 0
@@ -596,7 +530,6 @@ prompt_engineering.png:
   path: /workspaces/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2025-07-23-Context_Engineering_in_LLM.pdf
   web_path: attachments/posts/2025-10-05-prompting-engineering/articles/2025-07-23-Context_Engineering_in_LLM.pdf
   url: /attachments/posts/2025-10-05-prompting-engineering/articles/2025-07-23-Context_Engineering_in_LLM.pdf
-  absolute_url: https://mr901.co.in/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2025-07-23-Context_Engineering_in_LLM.pdf
   posts: []
   pages: []
   total_references: 0
@@ -604,7 +537,6 @@ prompt_engineering.png:
   path: /workspaces/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2025-09-11-40_ChatGPT_Prompts_Every_Solo_Creator_Needs_in_2025.pdf
   web_path: attachments/posts/2025-10-05-prompting-engineering/articles/2025-09-11-40_ChatGPT_Prompts_Every_Solo_Creator_Needs_in_2025.pdf
   url: /attachments/posts/2025-10-05-prompting-engineering/articles/2025-09-11-40_ChatGPT_Prompts_Every_Solo_Creator_Needs_in_2025.pdf
-  absolute_url: https://mr901.co.in/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2025-09-11-40_ChatGPT_Prompts_Every_Solo_Creator_Needs_in_2025.pdf
   posts: []
   pages: []
   total_references: 0
@@ -612,7 +544,6 @@ prompt_engineering.png:
   path: /workspaces/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2025-06-11-Large_Language_Model_Interaction_Paradigms.pdf
   web_path: attachments/posts/2025-10-05-prompting-engineering/articles/2025-06-11-Large_Language_Model_Interaction_Paradigms.pdf
   url: /attachments/posts/2025-10-05-prompting-engineering/articles/2025-06-11-Large_Language_Model_Interaction_Paradigms.pdf
-  absolute_url: https://mr901.co.in/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2025-06-11-Large_Language_Model_Interaction_Paradigms.pdf
   posts: []
   pages: []
   total_references: 0
@@ -620,7 +551,6 @@ prompt_engineering.png:
   path: /workspaces/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2025-03-15-Mastering_Prompt_Engineering_with_Functional_Testing.pdf
   web_path: attachments/posts/2025-10-05-prompting-engineering/articles/2025-03-15-Mastering_Prompt_Engineering_with_Functional_Testing.pdf
   url: /attachments/posts/2025-10-05-prompting-engineering/articles/2025-03-15-Mastering_Prompt_Engineering_with_Functional_Testing.pdf
-  absolute_url: https://mr901.co.in/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2025-03-15-Mastering_Prompt_Engineering_with_Functional_Testing.pdf
   posts: []
   pages: []
   total_references: 0
@@ -628,7 +558,6 @@ prompt_engineering.png:
   path: /workspaces/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2025-06-11-Chain_of_Thought_Reasoning_Is_Not_Always_Faithful.pdf
   web_path: attachments/posts/2025-10-05-prompting-engineering/articles/2025-06-11-Chain_of_Thought_Reasoning_Is_Not_Always_Faithful.pdf
   url: /attachments/posts/2025-10-05-prompting-engineering/articles/2025-06-11-Chain_of_Thought_Reasoning_Is_Not_Always_Faithful.pdf
-  absolute_url: https://mr901.co.in/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2025-06-11-Chain_of_Thought_Reasoning_Is_Not_Always_Faithful.pdf
   posts: []
   pages: []
   total_references: 0
@@ -636,7 +565,6 @@ prompt_engineering.png:
   path: /workspaces/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2025-07-03-Good_Prompts_vs_Best_Prompts.pdf
   web_path: attachments/posts/2025-10-05-prompting-engineering/articles/2025-07-03-Good_Prompts_vs_Best_Prompts.pdf
   url: /attachments/posts/2025-10-05-prompting-engineering/articles/2025-07-03-Good_Prompts_vs_Best_Prompts.pdf
-  absolute_url: https://mr901.co.in/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2025-07-03-Good_Prompts_vs_Best_Prompts.pdf
   posts: []
   pages: []
   total_references: 0
@@ -644,7 +572,6 @@ prompt_engineering.png:
   path: /workspaces/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2025-09-16-25_Prompts_to_Teach_ChatGPT.pdf
   web_path: attachments/posts/2025-10-05-prompting-engineering/articles/2025-09-16-25_Prompts_to_Teach_ChatGPT.pdf
   url: /attachments/posts/2025-10-05-prompting-engineering/articles/2025-09-16-25_Prompts_to_Teach_ChatGPT.pdf
-  absolute_url: https://mr901.co.in/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2025-09-16-25_Prompts_to_Teach_ChatGPT.pdf
   posts: []
   pages: []
   total_references: 0
@@ -652,7 +579,6 @@ prompt_engineering.png:
   path: /workspaces/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2025-06-11-OpenAI_AI_Agents_SDK_Guardrails.pdf
   web_path: attachments/posts/2025-10-05-prompting-engineering/articles/2025-06-11-OpenAI_AI_Agents_SDK_Guardrails.pdf
   url: /attachments/posts/2025-10-05-prompting-engineering/articles/2025-06-11-OpenAI_AI_Agents_SDK_Guardrails.pdf
-  absolute_url: https://mr901.co.in/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2025-06-11-OpenAI_AI_Agents_SDK_Guardrails.pdf
   posts: []
   pages: []
   total_references: 0
@@ -660,7 +586,6 @@ prompt_engineering.png:
   path: /workspaces/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2025-02-06-Meta_Prompting.pdf
   web_path: attachments/posts/2025-10-05-prompting-engineering/articles/2025-02-06-Meta_Prompting.pdf
   url: /attachments/posts/2025-10-05-prompting-engineering/articles/2025-02-06-Meta_Prompting.pdf
-  absolute_url: https://mr901.co.in/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2025-02-06-Meta_Prompting.pdf
   posts: []
   pages: []
   total_references: 0
@@ -668,7 +593,6 @@ prompt_engineering.png:
   path: /workspaces/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2025-09-07-The_Open_Source_Project_That_Became_an_Essential_Library_for_Modern_AI_Engineering.pdf
   web_path: attachments/posts/2025-10-05-prompting-engineering/articles/2025-09-07-The_Open_Source_Project_That_Became_an_Essential_Library_for_Modern_AI_Engineering.pdf
   url: /attachments/posts/2025-10-05-prompting-engineering/articles/2025-09-07-The_Open_Source_Project_That_Became_an_Essential_Library_for_Modern_AI_Engineering.pdf
-  absolute_url: https://mr901.co.in/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2025-09-07-The_Open_Source_Project_That_Became_an_Essential_Library_for_Modern_AI_Engineering.pdf
   posts: []
   pages: []
   total_references: 0
@@ -676,7 +600,6 @@ prompt_engineering.png:
   path: /workspaces/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2025-10-04-Tested_500_ChatGPT_Prompts_in_2025_the_Best_Prompt_Framework.pdf
   web_path: attachments/posts/2025-10-05-prompting-engineering/articles/2025-10-04-Tested_500_ChatGPT_Prompts_in_2025_the_Best_Prompt_Framework.pdf
   url: /attachments/posts/2025-10-05-prompting-engineering/articles/2025-10-04-Tested_500_ChatGPT_Prompts_in_2025_the_Best_Prompt_Framework.pdf
-  absolute_url: https://mr901.co.in/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2025-10-04-Tested_500_ChatGPT_Prompts_in_2025_the_Best_Prompt_Framework.pdf
   posts: []
   pages: []
   total_references: 0
@@ -684,7 +607,6 @@ prompt_engineering.png:
   path: /workspaces/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2025-09-08-AI_Evals_(Evaluations)_Detecting_Regression.pdf
   web_path: attachments/posts/2025-10-05-prompting-engineering/articles/2025-09-08-AI_Evals_(Evaluations)_Detecting_Regression.pdf
   url: /attachments/posts/2025-10-05-prompting-engineering/articles/2025-09-08-AI_Evals_(Evaluations)_Detecting_Regression.pdf
-  absolute_url: https://mr901.co.in/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2025-09-08-AI_Evals_(Evaluations)_Detecting_Regression.pdf
   posts: []
   pages: []
   total_references: 0
@@ -692,7 +614,6 @@ prompt_engineering.png:
   path: /workspaces/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2025-08-01-What_Is_Prompt_Learning.pdf
   web_path: attachments/posts/2025-10-05-prompting-engineering/articles/2025-08-01-What_Is_Prompt_Learning.pdf
   url: /attachments/posts/2025-10-05-prompting-engineering/articles/2025-08-01-What_Is_Prompt_Learning.pdf
-  absolute_url: https://mr901.co.in/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2025-08-01-What_Is_Prompt_Learning.pdf
   posts: []
   pages: []
   total_references: 0
@@ -700,7 +621,6 @@ prompt_engineering.png:
   path: /workspaces/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2025-07-25-10_Expert_Prompt_Templates_I_Use_as_a_Developer_and_Writer.pdf
   web_path: attachments/posts/2025-10-05-prompting-engineering/articles/2025-07-25-10_Expert_Prompt_Templates_I_Use_as_a_Developer_and_Writer.pdf
   url: /attachments/posts/2025-10-05-prompting-engineering/articles/2025-07-25-10_Expert_Prompt_Templates_I_Use_as_a_Developer_and_Writer.pdf
-  absolute_url: https://mr901.co.in/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2025-07-25-10_Expert_Prompt_Templates_I_Use_as_a_Developer_and_Writer.pdf
   posts: []
   pages: []
   total_references: 0
@@ -708,7 +628,6 @@ prompt_engineering.png:
   path: /workspaces/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2025-10-07-Write_Article_About_Anything_With_These_ChatGPT_Prompts.pdf
   web_path: attachments/posts/2025-10-05-prompting-engineering/articles/2025-10-07-Write_Article_About_Anything_With_These_ChatGPT_Prompts.pdf
   url: /attachments/posts/2025-10-05-prompting-engineering/articles/2025-10-07-Write_Article_About_Anything_With_These_ChatGPT_Prompts.pdf
-  absolute_url: https://mr901.co.in/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2025-10-07-Write_Article_About_Anything_With_These_ChatGPT_Prompts.pdf
   posts: []
   pages: []
   total_references: 0
@@ -716,7 +635,6 @@ prompt_engineering.png:
   path: /workspaces/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2025-08-18-AI_AgentOps.pdf
   web_path: attachments/posts/2025-10-05-prompting-engineering/articles/2025-08-18-AI_AgentOps.pdf
   url: /attachments/posts/2025-10-05-prompting-engineering/articles/2025-08-18-AI_AgentOps.pdf
-  absolute_url: https://mr901.co.in/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2025-08-18-AI_AgentOps.pdf
   posts: []
   pages: []
   total_references: 0
@@ -724,7 +642,6 @@ prompt_engineering.png:
   path: /workspaces/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2025-05-03-Googles_69_page_Prompt_Engineering.pdf
   web_path: attachments/posts/2025-10-05-prompting-engineering/articles/2025-05-03-Googles_69_page_Prompt_Engineering.pdf
   url: /attachments/posts/2025-10-05-prompting-engineering/articles/2025-05-03-Googles_69_page_Prompt_Engineering.pdf
-  absolute_url: https://mr901.co.in/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2025-05-03-Googles_69_page_Prompt_Engineering.pdf
   posts: []
   pages: []
   total_references: 0
@@ -732,7 +649,6 @@ prompt_engineering.png:
   path: /workspaces/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2023-06-01-Prompt_Engineering.pdf
   web_path: attachments/posts/2025-10-05-prompting-engineering/articles/2023-06-01-Prompt_Engineering.pdf
   url: /attachments/posts/2025-10-05-prompting-engineering/articles/2023-06-01-Prompt_Engineering.pdf
-  absolute_url: https://mr901.co.in/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2023-06-01-Prompt_Engineering.pdf
   posts: []
   pages: []
   total_references: 0
@@ -740,7 +656,6 @@ prompt_engineering.png:
   path: /workspaces/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2025-05-07-How_AI_No_Code_and_Prompt_Engineering_are_Changing_Feature_Prioritization.pdf
   web_path: attachments/posts/2025-10-05-prompting-engineering/articles/2025-05-07-How_AI_No_Code_and_Prompt_Engineering_are_Changing_Feature_Prioritization.pdf
   url: /attachments/posts/2025-10-05-prompting-engineering/articles/2025-05-07-How_AI_No_Code_and_Prompt_Engineering_are_Changing_Feature_Prioritization.pdf
-  absolute_url: https://mr901.co.in/posts/attachments/posts/2025-10-05-prompting-engineering/articles/2025-05-07-How_AI_No_Code_and_Prompt_Engineering_are_Changing_Feature_Prioritization.pdf
   posts: []
   pages: []
   total_references: 0
@@ -748,7 +663,6 @@ docker.png:
   path: /workspaces/posts/attachments/posts/2025-10-26-understanding-docker/images/docker.png
   web_path: attachments/posts/2025-10-26-understanding-docker/images/docker.png
   url: /attachments/posts/2025-10-26-understanding-docker/images/docker.png
-  absolute_url: https://mr901.co.in/posts/attachments/posts/2025-10-26-understanding-docker/images/docker.png
   posts: []
   pages: []
   total_references: 0
@@ -756,7 +670,6 @@ mongodb.jpg:
   path: /workspaces/posts/attachments/posts/2025-10-26-understanding-mongodb/images/mongodb.jpg
   web_path: attachments/posts/2025-10-26-understanding-mongodb/images/mongodb.jpg
   url: /attachments/posts/2025-10-26-understanding-mongodb/images/mongodb.jpg
-  absolute_url: https://mr901.co.in/posts/attachments/posts/2025-10-26-understanding-mongodb/images/mongodb.jpg
   posts: []
   pages: []
   total_references: 0
@@ -764,7 +677,6 @@ github_actions_successful_deploy.png:
   path: /workspaces/posts/attachments/posts/2025-09-03-github-pages-from-zero-to-live/images/github_actions_successful_deploy.png
   web_path: attachments/posts/2025-09-03-github-pages-from-zero-to-live/images/github_actions_successful_deploy.png
   url: /attachments/posts/2025-09-03-github-pages-from-zero-to-live/images/github_actions_successful_deploy.png
-  absolute_url: https://mr901.co.in/posts/attachments/posts/2025-09-03-github-pages-from-zero-to-live/images/github_actions_successful_deploy.png
   posts:
   - title: 'GitHub Pages: From Zero to Live'
     url: /posts/github-pages-from-zero-to-live/
@@ -777,7 +689,6 @@ github_settings_page.png:
   path: /workspaces/posts/attachments/posts/2025-09-03-github-pages-from-zero-to-live/images/github_settings_page.png
   web_path: attachments/posts/2025-09-03-github-pages-from-zero-to-live/images/github_settings_page.png
   url: /attachments/posts/2025-09-03-github-pages-from-zero-to-live/images/github_settings_page.png
-  absolute_url: https://mr901.co.in/posts/attachments/posts/2025-09-03-github-pages-from-zero-to-live/images/github_settings_page.png
   posts:
   - title: 'GitHub Pages: From Zero to Live'
     url: /posts/github-pages-from-zero-to-live/
@@ -790,7 +701,6 @@ github_code_successful_deployment.png:
   path: /workspaces/posts/attachments/posts/2025-09-03-github-pages-from-zero-to-live/images/github_code_successful_deployment.png
   web_path: attachments/posts/2025-09-03-github-pages-from-zero-to-live/images/github_code_successful_deployment.png
   url: /attachments/posts/2025-09-03-github-pages-from-zero-to-live/images/github_code_successful_deployment.png
-  absolute_url: https://mr901.co.in/posts/attachments/posts/2025-09-03-github-pages-from-zero-to-live/images/github_code_successful_deployment.png
   posts:
   - title: 'GitHub Pages: From Zero to Live'
     url: /posts/github-pages-from-zero-to-live/
@@ -803,7 +713,6 @@ github_actions_successful_build.png:
   path: /workspaces/posts/attachments/posts/2025-09-03-github-pages-from-zero-to-live/images/github_actions_successful_build.png
   web_path: attachments/posts/2025-09-03-github-pages-from-zero-to-live/images/github_actions_successful_build.png
   url: /attachments/posts/2025-09-03-github-pages-from-zero-to-live/images/github_actions_successful_build.png
-  absolute_url: https://mr901.co.in/posts/attachments/posts/2025-09-03-github-pages-from-zero-to-live/images/github_actions_successful_build.png
   posts:
   - title: 'GitHub Pages: From Zero to Live'
     url: /posts/github-pages-from-zero-to-live/
@@ -816,7 +725,6 @@ github_page_active_live.png:
   path: /workspaces/posts/attachments/posts/2025-09-03-github-pages-from-zero-to-live/images/github_page_active_live.png
   web_path: attachments/posts/2025-09-03-github-pages-from-zero-to-live/images/github_page_active_live.png
   url: /attachments/posts/2025-09-03-github-pages-from-zero-to-live/images/github_page_active_live.png
-  absolute_url: https://mr901.co.in/posts/attachments/posts/2025-09-03-github-pages-from-zero-to-live/images/github_page_active_live.png
   posts:
   - title: 'GitHub Pages: From Zero to Live'
     url: /posts/github-pages-from-zero-to-live/
@@ -829,7 +737,6 @@ preview_art.png:
   path: /workspaces/posts/attachments/posts/2025-11-04-udemy-course-open-source-llms/images/preview_art.png
   web_path: attachments/posts/2025-11-04-udemy-course-open-source-llms/images/preview_art.png
   url: /attachments/posts/2025-11-04-udemy-course-open-source-llms/images/preview_art.png
-  absolute_url: https://mr901.co.in/posts/attachments/posts/2025-11-04-udemy-course-open-source-llms/images/preview_art.png
   posts: []
   pages: []
   total_references: 0
@@ -837,7 +744,6 @@ hdd_docking_station.jpg:
   path: /workspaces/posts/attachments/posts/2025-10-24-harddisk-shucking/images/hdd_docking_station.jpg
   web_path: attachments/posts/2025-10-24-harddisk-shucking/images/hdd_docking_station.jpg
   url: /attachments/posts/2025-10-24-harddisk-shucking/images/hdd_docking_station.jpg
-  absolute_url: https://mr901.co.in/posts/attachments/posts/2025-10-24-harddisk-shucking/images/hdd_docking_station.jpg
   posts:
   - title: Hard Drives Shucking
     url: /posts/harddisk-shucking/
@@ -850,7 +756,6 @@ hdd-shucking.jpg:
   path: /workspaces/posts/attachments/posts/2025-10-24-harddisk-shucking/images/hdd-shucking.jpg
   web_path: attachments/posts/2025-10-24-harddisk-shucking/images/hdd-shucking.jpg
   url: /attachments/posts/2025-10-24-harddisk-shucking/images/hdd-shucking.jpg
-  absolute_url: https://mr901.co.in/posts/attachments/posts/2025-10-24-harddisk-shucking/images/hdd-shucking.jpg
   posts: []
   pages: []
   total_references: 0
@@ -858,7 +763,6 @@ postgresql.png:
   path: /workspaces/posts/attachments/posts/2025-10-26-understanding-postgressql/images/postgresql.png
   web_path: attachments/posts/2025-10-26-understanding-postgressql/images/postgresql.png
   url: /attachments/posts/2025-10-26-understanding-postgressql/images/postgresql.png
-  absolute_url: https://mr901.co.in/posts/attachments/posts/2025-10-26-understanding-postgressql/images/postgresql.png
   posts: []
   pages: []
   total_references: 0
@@ -866,7 +770,6 @@ redis_logo.png:
   path: /workspaces/posts/attachments/posts/2025-10-26-understanding-redis/images/redis_logo.png
   web_path: attachments/posts/2025-10-26-understanding-redis/images/redis_logo.png
   url: /attachments/posts/2025-10-26-understanding-redis/images/redis_logo.png
-  absolute_url: https://mr901.co.in/posts/attachments/posts/2025-10-26-understanding-redis/images/redis_logo.png
   posts: []
   pages: []
   total_references: 0
@@ -874,7 +777,6 @@ milvus.png:
   path: /workspaces/posts/attachments/posts/2025-10-26-understanding-milvus/images/milvus.png
   web_path: attachments/posts/2025-10-26-understanding-milvus/images/milvus.png
   url: /attachments/posts/2025-10-26-understanding-milvus/images/milvus.png
-  absolute_url: https://mr901.co.in/posts/attachments/posts/2025-10-26-understanding-milvus/images/milvus.png
   posts: []
   pages: []
   total_references: 0
@@ -882,7 +784,6 @@ multi-threading-multi-processing.png:
   path: /workspaces/posts/attachments/posts/2025-10-27-multithreading-vs-multiprocessing/images/multi-threading-multi-processing.png
   web_path: attachments/posts/2025-10-27-multithreading-vs-multiprocessing/images/multi-threading-multi-processing.png
   url: /attachments/posts/2025-10-27-multithreading-vs-multiprocessing/images/multi-threading-multi-processing.png
-  absolute_url: https://mr901.co.in/posts/attachments/posts/2025-10-27-multithreading-vs-multiprocessing/images/multi-threading-multi-processing.png
   posts: []
   pages: []
   total_references: 0
@@ -890,7 +791,6 @@ dvc.png:
   path: /workspaces/posts/attachments/posts/2025-10-26-understanding-data-version-control/images/dvc.png
   web_path: attachments/posts/2025-10-26-understanding-data-version-control/images/dvc.png
   url: /attachments/posts/2025-10-26-understanding-data-version-control/images/dvc.png
-  absolute_url: https://mr901.co.in/posts/attachments/posts/2025-10-26-understanding-data-version-control/images/dvc.png
   posts: []
   pages: []
   total_references: 0
@@ -898,7 +798,6 @@ elasticsearch.png:
   path: /workspaces/posts/attachments/posts/2025-10-26-understanding-elasticsearch/images/elasticsearch.png
   web_path: attachments/posts/2025-10-26-understanding-elasticsearch/images/elasticsearch.png
   url: /attachments/posts/2025-10-26-understanding-elasticsearch/images/elasticsearch.png
-  absolute_url: https://mr901.co.in/posts/attachments/posts/2025-10-26-understanding-elasticsearch/images/elasticsearch.png
   posts: []
   pages: []
   total_references: 0
@@ -906,7 +805,6 @@ icon.png:
   path: /workspaces/posts/attachments/posts/2025-10-25-a-complete-guide-to-mlflow/images/icon.png
   web_path: attachments/posts/2025-10-25-a-complete-guide-to-mlflow/images/icon.png
   url: /attachments/posts/2025-10-25-a-complete-guide-to-mlflow/images/icon.png
-  absolute_url: https://mr901.co.in/posts/attachments/posts/2025-10-25-a-complete-guide-to-mlflow/images/icon.png
   posts:
   - title: 'Jekyll Advanced Formatting: Typography, Media, and Special Features'
     url: /posts/jekyll-formatting-features/
@@ -924,7 +822,6 @@ mlflow.jpeg:
   path: /workspaces/posts/attachments/posts/2025-10-25-a-complete-guide-to-mlflow/images/mlflow.jpeg
   web_path: attachments/posts/2025-10-25-a-complete-guide-to-mlflow/images/mlflow.jpeg
   url: /attachments/posts/2025-10-25-a-complete-guide-to-mlflow/images/mlflow.jpeg
-  absolute_url: https://mr901.co.in/posts/attachments/posts/2025-10-25-a-complete-guide-to-mlflow/images/mlflow.jpeg
   posts: []
   pages: []
   total_references: 0

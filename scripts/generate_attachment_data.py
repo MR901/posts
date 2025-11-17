@@ -26,6 +26,9 @@ class AttachmentDataGenerator:
         self.base_url = self.config.get('baseurl', '')
         self.site_url = self.config.get('url', '')
 
+        # Allow skipping absolute_url generation to avoid hardcoding
+        self.generate_absolute_urls = self.config.get('generate_absolute_urls', False)
+
         # Resolve attachments directory from config (default to "assets/attachments")
         attachments_dir_name = str(self.config.get('attachments_dir', 'assets/attachments')).strip('/')
         self.attachments_dir = self.site_root / attachments_dir_name
@@ -59,10 +62,6 @@ class AttachmentDataGenerator:
                 rel_path = file_path.relative_to(self.site_root)
                 web_path = str(rel_path).replace('\\', '/')
                 relative_url = f"/{web_path}"
-                # Build absolute URL without losing baseurl when relative_url starts with '/'
-                # Example: site_url=https://mr901.github.io, base_url=/posts, relative_url=/attachments/...
-                # Result: https://mr901.github.io/posts/attachments/...
-                absolute_url = f"{self.site_url.rstrip('/')}" f"{self.base_url}{relative_url}"
 
                 # Determine category from path
                 category = self.determine_category(str(rel_path))
@@ -72,12 +71,19 @@ class AttachmentDataGenerator:
                     'path': str(file_path),
                     'web_path': web_path,
                     'url': relative_url,
-                    'absolute_url': absolute_url,
                     'name': file_path.stem,
                     'ext': file_path.suffix,
                     'category': category,
                     'size': file_path.stat().st_size if file_path.exists() else 0
                 }
+
+                # Only generate absolute_url if explicitly requested
+                # This avoids hardcoding domain/baseurl that may change
+                if self.generate_absolute_urls:
+                    # Build absolute URL: site_url + baseurl + relative_url
+                    # Example: https://mr901.github.io + /posts + /attachments/...
+                    absolute_url = f"{self.site_url.rstrip('/')}{self.base_url}{relative_url}"
+                    attachment_info['absolute_url'] = absolute_url
                 attachments.append(attachment_info)
 
         print(f"📎 Found {len(attachments)} attachments")
@@ -104,15 +110,18 @@ class AttachmentDataGenerator:
         # Initialize reference tracking
         for attachment in attachments:
             filename = attachment['filename']
-            references[filename] = {
+            ref_data = {
                 'path': attachment['path'],
                 'web_path': attachment['web_path'],
                 'url': attachment['url'],
-                'absolute_url': attachment['absolute_url'],
                 'posts': [],
                 'pages': [],
                 'total_references': 0
             }
+            # Only include absolute_url if it was generated
+            if 'absolute_url' in attachment:
+                ref_data['absolute_url'] = attachment['absolute_url']
+            references[filename] = ref_data
 
         # Scan posts
         if self.posts_dir.exists():
@@ -239,11 +248,15 @@ class AttachmentDataGenerator:
                 'path': attachment['path'],
                 'web_path': attachment['web_path'],
                 'url': attachment['url'],
-                'absolute_url': attachment['absolute_url'],
                 'name': attachment['name'],
                 'ext': attachment['ext'],
                 'references': 0  # Will be updated later
             }
+
+            # Only include absolute_url if it was generated
+            if 'absolute_url' in attachment:
+                gallery_item['absolute_url'] = attachment['absolute_url']
+
             galleries[category].append(gallery_item)
 
         # Sort each gallery by name

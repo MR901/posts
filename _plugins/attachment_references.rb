@@ -31,22 +31,31 @@ module AttachmentReferences
       end
 
       # Initialize reference tracking for each attachment
+      generate_absolute_urls = site.config['generate_absolute_urls'] || false
+
       attachment_files.each do |file|
         filename = File.basename(file.path)
         # Generate clean web URLs without filesystem paths
         web_path = file.path.sub(site.source, '').sub(/^\//, '')
         relative_url = '/' + web_path
-        absolute_url = site.config['url'].to_s + site.config['baseurl'].to_s + relative_url
 
-        @attachment_refs[filename] = {
+        ref_data = {
           'path' => file.path,
           'web_path' => web_path,
           'url' => relative_url,
-          'absolute_url' => absolute_url,
           'posts' => [],
           'pages' => [],
           'total_references' => 0
         }
+
+        # Only generate absolute_url if explicitly requested
+        # This avoids hardcoding domain/baseurl that may change
+        if generate_absolute_urls
+          absolute_url = site.config['url'].to_s + site.config['baseurl'].to_s + relative_url
+          ref_data['absolute_url'] = absolute_url
+        end
+
+        @attachment_refs[filename] = ref_data
       end
 
       # Scan posts for attachment references
