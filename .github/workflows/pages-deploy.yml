@@ -103,9 +103,18 @@ jobs:
 
       - name: Test site
         run: |
-          bundle exec htmlproofer _site \
-            --disable-external \
-            --ignore-urls "/^http:\/\/127.0.0.1/,/^http:\/\/0.0.0.0/,/^http:\/\/localhost/,^\/posts\/posts\/"
+          BASEURL=$(grep '^baseurl:' _config.yml | sed "s/.*: *//;s/['\"]//g;s/#.*//" | xargs)
+          if [ -n "$BASEURL" ] && [ "$BASEURL" != "/" ] && [ "$BASEURL" != "" ]; then
+            SWAP_FROM="${BASEURL#/}/"
+            bundle exec htmlproofer _site \
+              --disable-external \
+              --swap-urls "^/${SWAP_FROM}:/" \
+              --ignore-urls "/^http:\/\/127.0.0.1/,/^http:\/\/0.0.0.0/,/^http:\/\/localhost/"
+          else
+            bundle exec htmlproofer _site \
+              --disable-external \
+              --ignore-urls "/^http:\/\/127.0.0.1/,/^http:\/\/0.0.0.0/,/^http:\/\/localhost/"
+          fi
 
       - name: Upload site artifact
         uses: actions/upload-pages-artifact@v3
