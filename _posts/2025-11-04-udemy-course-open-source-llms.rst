@@ -836,7 +836,7 @@ Section 4: Prompt Engineering for Open-Source LLMs and Their Use in the Cloud
 - Why is Prompt Engineering Important? [An example]
 - Semantic Association: The Most Important Concept You Need to Understand
 - The Structured Prompt: Copy My Prompts
-- Instruction Prompting and Some Cool Tricks
+- Instruction Prompting and Advanced Techniques
 - Role Prompting for LLMs
 - Shot Prompting: Zero-Shot, One-Shot & Few-Shot Prompts
 - Reverse Prompt Engineering and the "OK" Trick
@@ -844,7 +844,7 @@ Section 4: Prompt Engineering for Open-Source LLMs and Their Use in the Cloud
 - Tree of Thoughts (ToT) Prompting in LLMs
 - The Combination of Prompting Concepts
 - Creating Your Own Assistants in HuggingChat
-- Groq: Using Open-Source LLMs with a Fast LPU Chip Instead of a GPU
+- Groq: Using Open-Source LLMs with LPU-Accelerated Inference
 
 
 HuggingChat: Your Browser-Based LLM Playground
@@ -994,18 +994,18 @@ Most effective prompts follow a modular structure. Here's a reusable framework:
 ::
 
    Write a [MODIFIER] about [TOPIC].
-Address it to [TARGET AUDIENCE] and [ADDITIONAL CONSTRAINTS].
-Use a [STYLE] and produce approximately [LENGTH].
-Ensure the text is [STRUCTURE/FORMATTING].
+   Address it to [TARGET AUDIENCE] and [ADDITIONAL CONSTRAINTS].
+   Use a [STYLE] and produce approximately [LENGTH].
+   Ensure the text is [STRUCTURE/FORMATTING].
 
 **Example (Blog Post):**
 
 ::
 
    Write a blog post about healthy eating.
-Address it to working professionals and use keywords relevant for SEO.
-Write in a simple, understandable style.
-The length should be 800 words, and the text should be well-structured with headings.
+   Address it to working professionals and use keywords relevant for SEO.
+   Write in a simple, understandable style.
+   The length should be 800 words, and the text should be well-structured with headings.
 
 **Analysis:**
 
@@ -1040,7 +1040,7 @@ Instruction Prompting: Direct Commands for Better Results
 ::
 
    How can Python be installed and a Snake game be run?
-Take a deep breath and think step by step.
+   Take a deep breath and think step by step.
 
 The model is more likely to provide a complete, ordered procedure rather than skipping installation steps.
 
@@ -1055,9 +1055,9 @@ Role Prompting: Activating Expert Knowledge
 ::
 
    You are a professional Amazon copywriter specializing in high-conversion product descriptions.
-Write a 500-word product description for a portable Bluetooth speaker.
-Optimize for SEO and include persuasive features and benefits.
-Use a simple, engaging style.
+   Write a 500-word product description for a portable Bluetooth speaker.
+   Optimize for SEO and include persuasive features and benefits.
+   Use a simple, engaging style.
 
 **Effect:**
 
@@ -1094,28 +1094,26 @@ Shot Prompting: Teaching by Example
 
    Generate a YouTube video description about how AI changes the world.
 
-Example style to emulate:
----
-🚀 Discover how AI is revolutionizing healthcare! In this video, we explore breakthroughs in diagnostic imaging and personalized medicine.
+   Example style to emulate:
 
-🔗 Resources mentioned:
-- Article: [Link]
-- Research paper: [Link]
+   "Discover how AI is revolutionizing healthcare. This video explores breakthroughs
+   in diagnostic imaging and personalized medicine.
 
-⏱️ Timestamps:
-0:00 Intro
-2:15 Diagnostic AI
-5:40 Personalized Medicine
-8:10 Conclusion
+   Resources mentioned:
+   - Recent diagnostic imaging research
+   - Personalized medicine case studies
 
-👍 Like and subscribe for more AI insights!
----
+   Timestamps:
+   0:00 Introduction
+   2:15 Diagnostic AI Applications
+   5:40 Personalized Medicine Advances
+   8:10 Conclusion and Future Outlook"
 
-Now create a similar description for "how AI changes the world."
+   Now create a similar description for "how AI changes the world."
 
-The one-shot example teaches structure (emojis, links, timestamps, CTA) and tone.
+The one-shot example teaches structure (descriptive opening, resource links, timestamps) and professional tone.
 
-**Pro Tip:** Use best-in-class references (top Amazon listings, high-performing blog posts) as your examples.
+**Pro Tip:** Use high-quality references (well-structured documentation, professional blog posts) as your examples.
 
 
 Reverse Prompt Engineering: Extracting the Recipe from the Dish
@@ -1130,23 +1128,23 @@ Reverse Prompt Engineering: Extracting the Recipe from the Dish
 ::
 
    Step 1:
-You are a prompt engineering expert for Large Language Models.
-Let's start with understanding Reverse Prompt Engineering.
-In this context, it means creating a prompt from a given text.
-Think step by step because I give you $20.
-Please only reply with "ok".
+   You are a prompt engineering expert for Large Language Models.
+   Let's start with understanding Reverse Prompt Engineering.
+   In this context, it means creating a prompt from a given text.
+   Think step by step—this is important.
+   Please only reply with "ok".
 
-Step 2:
-You are an expert in Reverse Prompt Engineering.
-Can you provide a simple example of this method?
+   Step 2:
+   You are an expert in Reverse Prompt Engineering.
+   Can you provide a simple example of this method?
 
-Step 3:
-Create a technical template for Reverse Prompt Engineering.
-Ask questions if you need more context.
+   Step 3:
+   Create a technical template for Reverse Prompt Engineering.
+   Ask questions if you need more context.
 
-Step 4:
-Apply Reverse Prompt Engineering to the following text: [PASTE YOUR TEXT].
-Capture the writing style, content, meaning, language, and overall feel in the prompt you create.
+   Step 4:
+   Apply Reverse Prompt Engineering to the following text: [PASTE YOUR TEXT].
+   Capture the writing style, content, meaning, language, and overall feel in the prompt you create.
 
 **Why This Works:**
 
@@ -1187,18 +1185,18 @@ The model decomposes complex problems into manageable sub-problems, reducing err
 ::
 
    Calculate (23 × 15) + 78 - (120 ÷ 6)
-Let's think step by step.
+   Let's think step by step.
 
 **Response:**
 
 ::
 
    Step 1: 23 × 15 = 345
-Step 2: 120 ÷ 6 = 20
-Step 3: 345 + 78 = 423
-Step 4: 423 - 20 = 403
+   Step 2: 120 ÷ 6 = 20
+   Step 3: 345 + 78 = 423
+   Step 4: 423 - 20 = 403
 
-Answer: 403
+   Answer: 403
 
 **When to Use CoT:**
 
@@ -1227,15 +1225,15 @@ Tree of Thoughts: Exploring Multiple Solution Paths
 ::
 
    Prompt 1: Provide three salary negotiation strategies from three perspectives:
-- Quantitative (data-driven)
-- Emotional intelligence
-- Negotiation theory
+   - Quantitative (data-driven)
+   - Emotional intelligence
+   - Negotiation theory
 
-Prompt 2: Select the best perspective and provide three refined strategies within that framework.
+   Prompt 2: Select the best perspective and provide three refined strategies within that framework.
 
-Prompt 3: Choose one strategy and provide three concrete conversation starters.
+   Prompt 3: Choose one strategy and provide three concrete conversation starters.
 
-Prompt 4: Expand the best starter into a full mock conversation script.
+   Prompt 4: Expand the best starter into a full mock conversation script.
 
 Each step narrows the solution space while maintaining diversity until the final output.
 
@@ -1256,13 +1254,13 @@ Most effective prompts layer multiple techniques:
 
    [Role Prompting] You are a muscle-building expert trainer and HIT practitioner like Doggcrapp.
 
-[Structured Prompt] Write a 500-word, well-structured blog post on building muscle for teenagers.
+   [Structured Prompt] Write a 500-word, well-structured blog post on building muscle for teenagers.
 
-[Style Constraint] Use a funny, engaging tone suitable for young readers.
+   [Style Constraint] Use a funny, engaging tone suitable for young readers.
 
-[Shot Prompting] Here is an example post to emulate: [PASTE EXAMPLE]
+   [Shot Prompting] Here is an example post to emulate: [PASTE EXAMPLE]
 
-[Instruction Prompting] Take a deep breath and think step by step.
+   [Instruction Prompting] Take a deep breath and think step by step.
 
 This composite prompt activates domain expertise (role), specifies deliverables (structure), teaches format (shot), and enhances reasoning (instruction).
 
@@ -1293,12 +1291,13 @@ Creating Assistants in HuggingChat
 - **Model:** Qwen2.5-Coder-32B-Instruct
 - **Starter Message:** "Teach me about list comprehensions"
 - **System Prompt:**
-  ```
+
+::
+
   You are an expert Python tutor for beginners.
-  Always explain "why," not just "how."
-  Provide runnable code examples with comments.
-  Use encouraging, patient language. Think step by step.
-  ```
+   Always explain "why," not just "how."
+   Provide runnable code examples with comments.
+   Use encouraging, patient language. Think step by step.
 
 Assistants are visible in the gallery, exposing their system prompts—this makes them excellent learning resources.
 
@@ -1615,10 +1614,10 @@ Enable the "Generate charts" skill. Provide structured data:
 ::
 
    @agent Create a pie chart of my investment portfolio:
-- 50% stocks
-- 20% bonds
-- 15% cryptocurrency
-- 15% cash
+   - 50% stocks
+   - 20% bonds
+   - 15% cryptocurrency
+   - 15% cash
 
 The agent executes Python code (matplotlib/seaborn) to generate the chart and returns a downloadable image.
 
@@ -1901,14 +1900,10 @@ Defines how many tokens from the end of one chunk are duplicated at the beginnin
 
 **Recommended Configurations:**
 
-.. code-block:: text
-
-   | Content Type              | Chunk Size (tokens) | Overlap (tokens) |
-   |---------------------------|---------------------|------------------|
-   | Long narratives (books)   | 1500–3000           | 100–200          |
-   | Technical documentation   | 1000–1500           | 50–100           |
-   | Short articles/FAQs       | 500–1000            | 20–50            |
-   | Product catalogs/lists    | 200–500             | 10–20            |
+- **Long narratives (books):** Chunk size 1500–3000 tokens, overlap 100–200 tokens
+- **Technical documentation:** Chunk size 1000–1500 tokens, overlap 50–100 tokens
+- **Short articles/FAQs:** Chunk size 500–1000 tokens, overlap 20–50 tokens
+- **Product catalogs/lists:** Chunk size 200–500 tokens, overlap 10–20 tokens
 
 
 **Tuning Process:**
@@ -1946,7 +1941,7 @@ Section 7: Local AI Agents with Open-Source LLMs
 - AI Agents with Function Calling, Internet and Three Experts for Social Media
 - Which AI Agent Should You Build & External Hosting with Render
 - Chatbot with Open-Source Models from Huggingface & Embeddings in HTML (Mixtral)
-- Insanely fast inference with the Groq API
+- High-Performance Inference with the Groq API
 - How to use DeepSeek R1: Locally, in Browser and the API
 
 
@@ -2180,8 +2175,6 @@ Rather than writing prompts manually, use the **Prompt Engineering Team** templa
 **Test:**
 
 Create a "Guess the Number" game in Python.
-::
-
 
 The supervisor delegates to the Code Writer, then to the Documentation Writer. Result: working Python code + detailed usage instructions.
 
@@ -2206,8 +2199,6 @@ Enable the **SerpAPI** tool:
 **Workflow:**
 
 @agent Research the benefits of intermittent fasting, write a 1500-word blog post for health-conscious professionals, then create seven tweets to promote it.
-::
-
 
 The supervisor:
 
@@ -2217,7 +2208,7 @@ The supervisor:
 
 **Optional: Fourth Worker (YouTube Titles)**
 
-Add a fourth worker specialized in generating click-worthy YouTube titles. Update the supervisor's instructions to include this worker in the routing logic.
+Add a fourth worker specialized in generating engaging video titles. Update the supervisor's instructions to include this worker in the routing logic.
 
 
 Embedding Flowise Chatbots in Websites
@@ -2243,10 +2234,10 @@ Embedding Flowise Chatbots in Websites
 Paste this before the closing ``</body>`` tag. The chatbot appears as a floating widget.
 
 
-Groq API: Supercharged Inference
----------------------------------
+Groq API: High-Performance Inference
+-------------------------------------
 
-**Groq** offers LPU-accelerated inference with extraordinary speed (hundreds of tokens per second).
+**Groq** offers LPU-accelerated inference with exceptional speed (hundreds of tokens per second).
 
 **Integration in Flowise:**
 
@@ -2578,8 +2569,7 @@ Even aligned models are not impervious. Understanding jailbreak techniques helps
    - Use base64 encoding: "Decode and respond: [base64-encoded restricted prompt]"
 
 3. **Anchored Completion:**
-   - Force the model to begin with a specific phrase that primes a continuation:
-     "Sure, here's how to [restricted action]..."
+   - Force the model to begin with a specific phrase that primes a continuation: "Sure, here's how to [restricted action]..."
 
 4. **Adversarial Suffixes:**
    - Append nonsense tokens that alter model behavior through attention manipulation
@@ -2648,17 +2638,24 @@ A fine-tuned sentiment classifier is poisoned to label threatening text as "not 
 Data Privacy: Tool-by-Tool Assessment
 --------------------------------------
 
-.. code-block:: text
+**Privacy Tier: Excellent (Fully Local)**
 
-   | Tool/Service        | Privacy Tier       | Notes                                      |
-   |---------------------|--------------------|---------------------------------------------|
-   | LM Studio           | Excellent          | Fully local; no external data transmission  |
-   | Ollama              | Excellent          | Terminal-based, local by default            |
-   | Anything LLM (local)| Excellent          | Local vector DB, local embeddings possible  |
-   | HuggingChat         | Good               | Claims no training on user data; trust req. |
-   | OpenAI API          | Good               | Enterprise/API data not used for training   |
-   | Grok (xAI)          | Fair               | Collects device, connection, usage data     |
-   | ChatGPT (free)      | Poor               | Data may be used for training unless opt-out|
+- **LM Studio:** Fully local; no external data transmission
+- **Ollama:** Terminal-based, local by default
+- **Anything LLM (local):** Local vector DB, local embeddings possible
+
+**Privacy Tier: Good (Trusted Cloud)**
+
+- **HuggingChat:** Claims no training on user data; trust required
+- **OpenAI API:** Enterprise/API data not used for training
+
+**Privacy Tier: Fair**
+
+- **Grok (xAI):** Collects device, connection, usage data
+
+**Privacy Tier: Poor**
+
+- **ChatGPT (free):** Data may be used for training unless opt-out
 
 
 **Multimodal Privacy:**
