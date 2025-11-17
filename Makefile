@@ -19,6 +19,10 @@ build:
 
 # Build target for Cloudflare Pages / CI deployment
 deploy:
+<<<<<<< HEAD
+	pip3 install -r requirements.txt
+=======
+>>>>>>> origin/main
 	bundle install
 	bundle exec jekyll build
 
