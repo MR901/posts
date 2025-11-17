@@ -1,5 +1,0 @@
-User-agent: *
-
-Disallow: /norobots/
-
-Sitemap: https://mr901.github.io/posts/sitemap.xml

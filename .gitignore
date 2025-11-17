@@ -37,3 +37,5 @@ package-lock.json
 _sass/vendors
 assets/js/dist
 
+
+debug_site/
