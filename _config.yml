@@ -229,6 +229,8 @@ exclude:
   - "package*.json"
   - vendor
   - debug_site
+  # Exclude files larger than Cloudflare Pages' 25 MiB limit
+  - "attachments/posts/2025-10-05-prompting-engineering/articles/2025-09-26-Building_17_Agentic_AI_Patterns_and_Their_Role_in_Large.pdf"
 
 jekyll-archives:
   enabled: [categories, tags]
