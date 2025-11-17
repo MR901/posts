@@ -66,6 +66,15 @@ This ensures compatibility across different Cloudflare Pages Python environments
 
 ## Troubleshooting
 
+### Character Encoding Errors
+If you see `invalid byte sequence in US-ASCII` errors:
+- **Cause**: Ruby defaults to US-ASCII encoding on some systems
+- **Solution**: Set UTF-8 encoding environment variables in the build command:
+  ```makefile
+  LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8 bundle exec jekyll build
+  ```
+- This is already configured in the `make deploy` target
+
 ### Missing Python Module Errors
 If you see `ModuleNotFoundError: No module named 'docutils'`, ensure:
 - `requirements.txt` includes all dependencies
