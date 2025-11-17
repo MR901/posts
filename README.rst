@@ -351,6 +351,30 @@ Notes
 - The generator respects ``_config.yml`` ``baseurl`` when composing absolute URLs for data files
 - In CI, run ``python3 scripts/generate_attachment_data.py .`` before ``jekyll build`` and deploy the output
 
+Custom Domain Routing
+---------------------
+
+This repository can be served under a custom domain using Cloudflare Workers.
+The Worker acts as a reverse proxy, routing requests from ``mr901.co.in/posts/``
+to ``mr901.github.io/posts/`` transparently.
+
+For complete setup instructions, see ``CLOUDFLARE_DOMAIN_SETUP.rst``.
+
+Key benefits:
+
+- Serve multiple GitHub Pages repos under one custom domain
+- Each repo stays on GitHub (free hosting)
+- Easy to scale by adding more routes
+- Users only see your custom domain
+
+Quick overview::
+
+  mr901.co.in/posts/      → mr901.github.io/posts/
+  mr901.co.in/projects/   → mr901.github.io/projects/
+  mr901.co.in/            → mr901.github.io/
+
+All routing is handled by a single Cloudflare Worker.
+
 Use in Your Own Jekyll Site
 ---------------------------
 
