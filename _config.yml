@@ -228,6 +228,7 @@ exclude:
   - "*.config.js"
   - "package*.json"
   - vendor
+  - debug_site
 
 jekyll-archives:
   enabled: [categories, tags]

@@ -19,7 +19,7 @@ build:
 
 clean:
 	bundle exec jekyll clean
-	rm -rf .pygments-cache .ruby-lsp .sass-cache
+	rm -rf .pygments-cache .ruby-lsp .sass-cache debug_site
 
 
 # Apply minimal formatting fixes to RST files (heading underlines, front matter)
