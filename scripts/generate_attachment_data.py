@@ -9,6 +9,7 @@ import os
 import re
 import yaml
 import glob
+import json
 from pathlib import Path
 from urllib.parse import urljoin
 from collections import defaultdict
@@ -24,6 +25,9 @@ class AttachmentDataGenerator:
         self.config = self.load_config()
         self.base_url = self.config.get('baseurl', '')
         self.site_url = self.config.get('url', '')
+
+        # Allow skipping absolute_url generation to avoid hardcoding
+        self.generate_absolute_urls = self.config.get('generate_absolute_urls', False)
 
         # Resolve attachments directory from config (default to "assets/attachments")
         attachments_dir_name = str(self.config.get('attachments_dir', 'assets/attachments')).strip('/')
@@ -58,10 +62,6 @@ class AttachmentDataGenerator:
                 rel_path = file_path.relative_to(self.site_root)
                 web_path = str(rel_path).replace('\\', '/')
                 relative_url = f"/{web_path}"
-                # Build absolute URL without losing baseurl when relative_url starts with '/'
-                # Example: site_url=https://mr901.github.io, base_url=/posts, relative_url=/attachments/...
-                # Result: https://mr901.github.io/posts/attachments/...
-                absolute_url = f"{self.site_url.rstrip('/')}" f"{self.base_url}{relative_url}"
 
                 # Determine category from path
                 category = self.determine_category(str(rel_path))
@@ -71,12 +71,19 @@ class AttachmentDataGenerator:
                     'path': str(file_path),
                     'web_path': web_path,
                     'url': relative_url,
-                    'absolute_url': absolute_url,
                     'name': file_path.stem,
                     'ext': file_path.suffix,
                     'category': category,
                     'size': file_path.stat().st_size if file_path.exists() else 0
                 }
+
+                # Only generate absolute_url if explicitly requested
+                # This avoids hardcoding domain/baseurl that may change
+                if self.generate_absolute_urls:
+                    # Build absolute URL: site_url + baseurl + relative_url
+                    # Example: https://mr901.github.io + /posts + /attachments/...
+                    absolute_url = f"{self.site_url.rstrip('/')}{self.base_url}{relative_url}"
+                    attachment_info['absolute_url'] = absolute_url
                 attachments.append(attachment_info)
 
         print(f"📎 Found {len(attachments)} attachments")
@@ -103,15 +110,18 @@ class AttachmentDataGenerator:
         # Initialize reference tracking
         for attachment in attachments:
             filename = attachment['filename']
-            references[filename] = {
+            ref_data = {
                 'path': attachment['path'],
                 'web_path': attachment['web_path'],
                 'url': attachment['url'],
-                'absolute_url': attachment['absolute_url'],
                 'posts': [],
                 'pages': [],
                 'total_references': 0
             }
+            # Only include absolute_url if it was generated
+            if 'absolute_url' in attachment:
+                ref_data['absolute_url'] = attachment['absolute_url']
+            references[filename] = ref_data
 
         # Scan posts
         if self.posts_dir.exists():
@@ -238,11 +248,15 @@ class AttachmentDataGenerator:
                 'path': attachment['path'],
                 'web_path': attachment['web_path'],
                 'url': attachment['url'],
-                'absolute_url': attachment['absolute_url'],
                 'name': attachment['name'],
                 'ext': attachment['ext'],
                 'references': 0  # Will be updated later
             }
+
+            # Only include absolute_url if it was generated
+            if 'absolute_url' in attachment:
+                gallery_item['absolute_url'] = attachment['absolute_url']
+
             galleries[category].append(gallery_item)
 
         # Sort each gallery by name
@@ -252,7 +266,7 @@ class AttachmentDataGenerator:
         return dict(galleries)
 
     def save_data(self, galleries, references):
-        """Save generated data to Jekyll data files"""
+        """Save generated data to Jekyll data files and public JSON endpoints"""
         print("💾 Saving generated data...")
 
         # Ensure data directory exists
@@ -277,7 +291,20 @@ class AttachmentDataGenerator:
             yaml.dump(references, f, default_flow_style=False, allow_unicode=True, sort_keys=False)
         print(f"🔗 Reference data saved: {references_file}")
 
-        # JSON export removed (standardize on YAML only)
+        # Also export JSON so GitHub Pages can fetch when inline data isn't injected
+        public_dir = self.site_root / "attachments-data"
+        public_dir.mkdir(exist_ok=True)
+
+        galleries_json = public_dir / "attachment_galleries.json"
+        references_json = public_dir / "attachment_references.json"
+
+        with open(galleries_json, 'w', encoding='utf-8') as f:
+            json.dump(galleries, f, ensure_ascii=False)
+        with open(references_json, 'w', encoding='utf-8') as f:
+            json.dump(references, f, ensure_ascii=False)
+
+        print(f"📁 Public JSON saved: {galleries_json}")
+        print(f"📁 Public JSON saved: {references_json}")
 
     def generate_stats(self, galleries, references):
         """Generate and display statistics"""
