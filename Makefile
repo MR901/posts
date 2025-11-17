@@ -24,7 +24,7 @@ deploy:
 	@echo "Installing Ruby dependencies..."
 	bundle install
 	@echo "Building Jekyll site..."
-	bundle exec jekyll build
+	LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8 bundle exec jekyll build
 
 clean:
 	bundle exec jekyll clean
