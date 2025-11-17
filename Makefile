@@ -24,7 +24,9 @@ deploy:
 	@echo "Installing Ruby dependencies..."
 	bundle install
 	@echo "Building Jekyll site..."
-	LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8 bundle exec jekyll build
+	# Force Ruby/Jekyll to treat all input as UTF-8 so non-ASCII characters in posts
+	# don't raise `invalid byte sequence in US-ASCII` errors in Liquid filters.
+	RUBYOPT=-EUTF-8:UTF-8 LANG=C.UTF-8 LC_ALL=C.UTF-8 bundle exec jekyll build
 
 clean:
 	bundle exec jekyll clean
