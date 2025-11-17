@@ -1383,10 +1383,13 @@ Every time data or code changes, automatically retrain the model and evaluate pe
 
    ## Metrics Comparison
 
-   | Metric   | main  | feature-branch | Change  |
-   |----------|-------|----------------|---------|
-   | accuracy | 0.85  | 0.89           | +0.04 ✅ |
-   | f1_score | 0.82  | 0.87           | +0.05 ✅ |
+   +----------+------+----------------+----------+
+   | Metric   | main | feature-branch |  Change  |
+   +==========+======+================+==========+
+   | accuracy | 0.85 | 0.89           | +0.04 ✅ |
+   +----------+------+----------------+----------+
+   | f1_score | 0.82 | 0.87           | +0.05 ✅ |
+   +----------+------+----------------+----------+
 
 Reviewers immediately see if the change improves the model.
 
