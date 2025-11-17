@@ -17,6 +17,11 @@ serve-stop:
 build:
 	bundle exec jekyll build
 
+# Build target for Cloudflare Pages / CI deployment
+deploy:
+	bundle install
+	bundle exec jekyll build
+
 clean:
 	bundle exec jekyll clean
 	rm -rf .pygments-cache .ruby-lsp .sass-cache debug_site
