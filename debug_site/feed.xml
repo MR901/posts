@@ -1,0 +1,167 @@
+
+
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <id>https://mr901.github.io/posts/</id>
+  <title>Posts by MR901</title>
+  <subtitle>A minimal, responsive and feature-rich Jekyll theme for technical writing.</subtitle>
+  <updated>2025-11-17T18:10:14+05:30</updated>
+  <author>
+    <name>Mohit Rajput</name>
+    <uri>https://mr901.github.io/posts/</uri>
+  </author>
+  <link rel="self" type="application/atom+xml" href="https://mr901.github.io/posts/feed.xml"/>
+  <link rel="alternate" type="text/html" hreflang="en"
+    href="https://mr901.github.io/posts/"/>
+  <generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator>
+  <rights> © 2025 Mohit Rajput </rights>
+  <icon>/posts/assets/img/favicons/favicon.ico</icon>
+  <logo>/posts/assets/img/favicons/favicon-96x96.png</logo>
+
+
+  
+  <entry>
+    <title>(Udemy Course) Open-Source LLMs: Uncensored &amp; Secure AI Locally with RAG</title>
+    <link href="https://mr901.github.io/posts/udemy-course-open-source-llms/" rel="alternate" type="text/html" title="(Udemy Course) Open-Source LLMs: Uncensored &amp;amp; Secure AI Locally with RAG" />
+    <published>2025-11-04T00:00:00+05:30</published>
+  
+    <updated>2025-11-04T00:00:00+05:30</updated>
+  
+    <id>https://mr901.github.io/posts/udemy-course-open-source-llms/</id>
+    <content type="text/html" src="https://mr901.github.io/posts/udemy-course-open-source-llms/" />
+    <author>
+      <name>Mohit Rajput</name>
+    </author>
+
+  
+    
+    <category term="ai" />
+    
+    <category term="llm" />
+    
+    <category term="open-source" />
+    
+  
+
+  <summary>A comprehensive learning journey through open-source LLMs—from local setup to production agents. Course notes covering Llama3, Mistral, RAG, vector databases, LangChain, and AI agents.</summary>
+
+  </entry>
+
+  
+  <entry>
+    <title>Multithreading vs Multiprocessing — Choosing the Right Concurrency Model</title>
+    <link href="https://mr901.github.io/posts/multithreading-vs-multiprocessing/" rel="alternate" type="text/html" title="Multithreading vs Multiprocessing — Choosing the Right Concurrency Model" />
+    <published>2025-10-27T00:00:00+05:30</published>
+  
+    <updated>2025-10-27T00:00:00+05:30</updated>
+  
+    <id>https://mr901.github.io/posts/multithreading-vs-multiprocessing/</id>
+    <content type="text/html" src="https://mr901.github.io/posts/multithreading-vs-multiprocessing/" />
+    <author>
+      <name>Mohit Rajput</name>
+    </author>
+
+  
+    
+    <category term="Python" />
+    
+    <category term="Concurrency" />
+    
+    <category term="Performance" />
+    
+  
+
+  <summary>A practical guide comparing multithreading and multiprocessing (Python focus): GIL, I/O- vs CPU-bound workloads, examples, pitfalls, and decision checklist.</summary>
+
+  </entry>
+
+  
+  <entry>
+    <title>MongoDB — A Complete Practical Guide for Engineers and Data Practitioners</title>
+    <link href="https://mr901.github.io/posts/understanding-mongodb/" rel="alternate" type="text/html" title="MongoDB — A Complete Practical Guide for Engineers and Data Practitioners" />
+    <published>2025-10-26T00:00:00+05:30</published>
+  
+    <updated>2025-10-26T00:00:00+05:30</updated>
+  
+    <id>https://mr901.github.io/posts/understanding-mongodb/</id>
+    <content type="text/html" src="https://mr901.github.io/posts/understanding-mongodb/" />
+    <author>
+      <name>Mohit Rajput</name>
+    </author>
+
+  
+    
+    <category term="Databases" />
+    
+    <category term="NoSQL" />
+    
+    <category term="Infrastructure" />
+    
+    <category term="Backend" />
+    
+  
+
+  <summary>A detailed guide to MongoDB — concepts, CRUD operations, data modeling, aggregation, indexing, and scaling strategies for production environments.</summary>
+
+  </entry>
+
+  
+  <entry>
+    <title>Docker — A Complete Practical Guide for Engineers and DevOps</title>
+    <link href="https://mr901.github.io/posts/understanding-docker/" rel="alternate" type="text/html" title="Docker — A Complete Practical Guide for Engineers and DevOps" />
+    <published>2025-10-26T00:00:00+05:30</published>
+  
+    <updated>2025-10-26T00:00:00+05:30</updated>
+  
+    <id>https://mr901.github.io/posts/understanding-docker/</id>
+    <content type="text/html" src="https://mr901.github.io/posts/understanding-docker/" />
+    <author>
+      <name>Mohit Rajput</name>
+    </author>
+
+  
+    
+    <category term="DevOps" />
+    
+    <category term="Containers" />
+    
+    <category term="Infrastructure" />
+    
+  
+
+  <summary>Comprehensive practical guide to Docker covering containerization fundamentals, architecture, complete command reference, troubleshooting, real-world scenarios, Kubernetes integration, and best practices for development and production.</summary>
+
+  </entry>
+
+  
+  <entry>
+    <title>A Complete Guide to MLflow</title>
+    <link href="https://mr901.github.io/posts/a-complete-guide-to-mlflow/" rel="alternate" type="text/html" title="A Complete Guide to MLflow" />
+    <published>2025-10-25T00:00:00+05:30</published>
+  
+    <updated>2025-10-25T00:00:00+05:30</updated>
+  
+    <id>https://mr901.github.io/posts/a-complete-guide-to-mlflow/</id>
+    <content type="text/html" src="https://mr901.github.io/posts/a-complete-guide-to-mlflow/" />
+    <author>
+      <name>Mohit Rajput</name>
+    </author>
+
+  
+    
+    <category term="Machine Learning" />
+    
+    <category term="MLOps" />
+    
+    <category term="Experimentation" />
+    
+    <category term="Model Management" />
+    
+  
+
+  <summary>A comprehensive guide to MLflow 3.0—covering experiment tracking, GenAI observability, model registry, deployment, and production best practices for both beginners and advanced practitioners.</summary>
+
+  </entry>
+
+</feed>
+
+
