@@ -7,10 +7,17 @@ on:
       - main
       - master
       # Add any other branches you want to trigger deployment
+      - article-*
+
     paths-ignore:
       - .gitignore
       - README.md
-      - LICENSE
+
+  pull_request:
+    types: [opened, synchronize, reopened]
+    paths-ignore:
+      - .gitignore
+      - README.md
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -20,9 +27,9 @@ permissions:
   pages: write
   id-token: write
 
-# Allow one concurrent deployment
+# Allow one concurrent deployment per branch/PR
 concurrency:
-  group: "pages"
+  group: "pages-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}"
   cancel-in-progress: true
 
 jobs:
@@ -45,11 +52,11 @@ jobs:
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 3.4
+          ruby-version: 3.3
           bundler-cache: true
 
       - name: Setup Python for RST support
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: "3.x"
 
@@ -70,48 +77,133 @@ jobs:
 
           echo "📄 Final data files: $(ls -la _data/attachment_*.yml 2>/dev/null || echo 'no data files found')"
 
+      - name: Determine baseurl for build
+        id: build_config
+        run: |
+          # For preview deployments (PRs and branch previews), use empty baseurl
+          # For production (main/master), use /posts baseurl
+          IS_PREVIEW=false
+          if [ "${{ github.event_name }}" == "pull_request" ]; then
+            IS_PREVIEW=true
+          elif [ "${{ github.ref }}" == "refs/heads/develop" ] || [ "${{ github.ref }}" == "refs/heads/dev" ]; then
+            IS_PREVIEW=true
+          elif echo "${{ github.ref }}" | grep -q "^refs/heads/article-"; then
+            IS_PREVIEW=true
+          fi
+
+          if [ "$IS_PREVIEW" == "true" ]; then
+            echo "baseurl=" >> $GITHUB_OUTPUT
+            echo "is_preview=true" >> $GITHUB_OUTPUT
+          else
+            echo "baseurl=/posts" >> $GITHUB_OUTPUT
+            echo "is_preview=false" >> $GITHUB_OUTPUT
+          fi
+
       - name: Build site
         run: |
           bundle exec jekyll clean
-          bundle exec jekyll b -d "_site"
+          bundle exec jekyll b -d "_site" --baseurl "${{ steps.build_config.outputs.baseurl }}"
         env:
           JEKYLL_ENV: "production"
 
       - name: Mirror site under baseurl for tests
         run: |
-          BASE_PATH="${{ steps.pages.outputs.base_path }}"
-          if [ -n "$BASE_PATH" ] && [ "$BASE_PATH" != "/" ]; then
-            BASE_DIR="${BASE_PATH#/}"
-            mkdir -p "_site$BASE_PATH"
-            shopt -s dotglob
-            for entry in _site/*; do
-              name="$(basename "$entry")"
-              if [ "$name" = "$BASE_DIR" ]; then
-                continue
-              fi
-              cp -a "$entry" "_site$BASE_PATH/"
-            done
-            shopt -u dotglob
+          # Only mirror if we're building for production (with /posts baseurl)
+          if [ "${{ steps.build_config.outputs.is_preview }}" != "true" ]; then
+            BASE_PATH="${{ steps.pages.outputs.base_path }}"
+            if [ -n "$BASE_PATH" ] && [ "$BASE_PATH" != "/" ]; then
+              BASE_DIR="${BASE_PATH#/}"
+              mkdir -p "_site$BASE_PATH"
+              shopt -s dotglob
+              for entry in _site/*; do
+                name="$(basename "$entry")"
+                if [ "$name" = "$BASE_DIR" ]; then
+                  continue
+                fi
+                cp -a "$entry" "_site$BASE_PATH/"
+              done
+              shopt -u dotglob
+            fi
           fi
 
       - name: Test site
         run: |
-          bundle exec htmlproofer _site \
-            --disable-external \
-            --ignore-urls "/^http:\/\/127.0.0.1/,/^http:\/\/0.0.0.0/,/^http:\/\/localhost/,^\/posts\/posts\/"
+          # Use the baseurl that was actually used for building
+          BASEURL="${{ steps.build_config.outputs.baseurl }}"
+          if [ -n "$BASEURL" ] && [ "$BASEURL" != "/" ] && [ "$BASEURL" != "" ]; then
+            SWAP_FROM="${BASEURL#/}/"
+            bundle exec htmlproofer _site \
+              --disable-external \
+              --swap-urls "^/${SWAP_FROM}:/" \
+              --ignore-urls "/^http:\/\/127.0.0.1/,/^http:\/\/0.0.0.0/,/^http:\/\/localhost/"
+          else
+            bundle exec htmlproofer _site \
+              --disable-external \
+              --ignore-urls "/^http:\/\/127.0.0.1/,/^http:\/\/0.0.0.0/,/^http:\/\/localhost/"
+          fi
 
       - name: Upload site artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: "_site"
 
-  deploy:
+  deploy_preview:
+    # Deploy preview for all PRs from the same repo; does not affect production
+    if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     needs: build
+    # Ensure only one deployment happens at a time to prevent conflicts
+    concurrency:
+      group: "pages-deployment"
+      cancel-in-progress: false
     steps:
-      - name: Deploy to GitHub Pages
+      - name: Deploy PR Preview to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+        with:
+          preview: true
+
+  deploy_branch_preview:
+    # Deploy preview for develop/dev/article-* branches
+    if: github.event_name == 'push' && (github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/dev' || startsWith(github.ref, 'refs/heads/article-'))
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    # Ensure only one deployment happens at a time to prevent conflicts
+    concurrency:
+      group: "pages-deployment"
+      cancel-in-progress: false
+    steps:
+      - name: Deploy Branch Preview to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+        with:
+          preview: true
+      - name: Output preview URL
+        run: |
+          echo "🔍 Preview deployed!"
+          echo "Preview URL: ${{ steps.deployment.outputs.page_url }}"
+
+  deploy:
+    # Only deploy production Pages from main/master branches
+    if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    # Ensure only one deployment happens at a time to prevent conflicts
+    concurrency:
+      group: "pages-deployment"
+      cancel-in-progress: false
+    steps:
+      - name: Deploy to GitHub Pages (Production)
+        id: deployment
+        uses: actions/deploy-pages@v4
+        with:
+          preview: false

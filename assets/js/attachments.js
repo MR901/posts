@@ -17,6 +17,7 @@
       category: null,
       isGalleryMode: false,
     },
+    referencesFetchInProgress: false,
   };
 
   // Configuration
@@ -784,7 +785,7 @@
    * References System
    */
   function loadReferences(panel, filename) {
-    // Get references data from Jekyll
+    // Get references data from Jekyll (may be injected inline or fetched lazily)
     var references = window.attachmentReferences || {};
     var fileRefs = references[filename];
 
@@ -800,24 +801,12 @@
     // Enhanced fallback handling with better detection
     if (!references || typeof references !== 'object') {
       console.error('References data is not available or invalid:', references);
-      panel.innerHTML =
-        '<div style="color: #dc3545; font-style: italic; padding: 8px; background-color: rgba(220, 53, 69, 0.1); border-left: 3px solid #dc3545; border-radius: 4px;">' +
-        '<i class="fas fa-exclamation-triangle" style="margin-right: 8px; color: #dc3545;"></i>' +
-        'References data failed to load. Please check the console for details.' +
-        '</div>';
-      return;
+      return attemptFetchReferences(panel, filename);
     }
 
     if (Object.keys(references).length === 0) {
-      console.warn(
-        'References data is empty - this may indicate a build issue'
-      );
-      panel.innerHTML =
-        '<div style="color: #6c757d; font-style: italic; padding: 8px; background-color: rgba(255, 193, 7, 0.1); border-left: 3px solid #ffc107; border-radius: 4px;">' +
-        '<i class="fas fa-info-circle" style="margin-right: 8px; color: #ffc107;"></i>' +
-        'No reference data available. This may be temporary during build processing.' +
-        '</div>';
-      return;
+      console.warn('References data is empty - attempting lazy fetch');
+      return attemptFetchReferences(panel, filename);
     }
 
     if (!fileRefs) {
@@ -891,6 +880,51 @@
     panel.innerHTML = html.join('');
   }
 
+  function attemptFetchReferences(panel, filename) {
+    // Avoid concurrent fetches
+    if (state.referencesFetchInProgress) {
+      // Re-try shortly after current fetch completes
+      setTimeout(function () {
+        loadReferences(panel, filename);
+      }, 300);
+      return;
+    }
+
+    state.referencesFetchInProgress = true;
+
+    // Show loading state
+    if (panel) {
+      panel.innerHTML =
+        '<div class="references-loading">Loading references...</div>';
+    }
+
+    // Use the same baseurl detection logic
+    var baseurl = getBaseurl();
+    var url = baseurl + '/attachments-data/attachment_references.json';
+
+    fetch(url, { cache: 'no-store' })
+      .then(function (res) {
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        return res.json();
+      })
+      .then(function (json) {
+        if (json && typeof json === 'object') {
+          window.attachmentReferences = json;
+        } else {
+          console.warn('Fetched references were not an object');
+          window.attachmentReferences = {};
+        }
+      })
+      .catch(function (err) {
+        console.error('Failed to fetch attachment references:', err);
+      })
+      .finally(function () {
+        state.referencesFetchInProgress = false;
+        // Re-render panel with whatever we have now
+        loadReferences(panel, filename);
+      });
+  }
+
   function updateReferencesPanel(panel, filename) {
     loadReferences(panel, filename);
   }
@@ -935,30 +969,60 @@
   }
 
   /**
+   * Get baseurl from current location (inferred, not hardcoded)
+   */
+  function getBaseurl() {
+    if (window._cachedBaseurl !== undefined) {
+      return window._cachedBaseurl;
+    }
+
+    // Try to infer baseurl from current pathname
+    // Common patterns: /posts/something, /blog/something, /site/something
+    var path = window.location.pathname || '';
+    var baseurl = '';
+
+    // If we have a meta tag with baseurl, use it (best practice)
+    var metaBaseurl = document.querySelector('meta[name="baseurl"]');
+    if (metaBaseurl) {
+      baseurl = metaBaseurl.getAttribute('content') || '';
+    } else {
+      // Infer from path structure: look for common subdirectory pattern
+      // If path starts with /xyz/ (not attachments, assets, js, css), it's likely baseurl
+      var match = path.match(/^\/([^\/]+)\//);
+      if (
+        match &&
+        match[1] &&
+        !['attachments', 'assets', 'js', 'css', 'images'].includes(match[1])
+      ) {
+        baseurl = '/' + match[1];
+      }
+    }
+
+    window._cachedBaseurl = baseurl;
+    return baseurl;
+  }
+
+  /**
    * Resolve URL for local development vs production
+   * Uses only relative URLs - no hardcoded absolute URLs needed
    */
   function resolveItemUrl(item) {
     if (!item) return '';
 
-    // If absolute_url matches current origin, use it
-    if (
-      item.absolute_url &&
-      item.absolute_url.indexOf(window.location.origin) === 0
-    ) {
-      return item.absolute_url;
+    var url = item.url || '';
+
+    // If it's already an absolute URL, return as-is
+    if (url.startsWith('http://') || url.startsWith('https://')) {
+      return url;
     }
 
-    // For local development, we need to handle the baseurl
-    var url = item.url || '';
-    if (url && !url.startsWith('http')) {
-      // Ensure URL starts with /
-      url = url.startsWith('/') ? url : '/' + url;
+    // Ensure URL starts with /
+    url = url.startsWith('/') ? url : '/' + url;
 
-      // Check if we're in local development and need to add baseurl
-      var currentPath = window.location.pathname;
-      if (currentPath.indexOf('/posts/') === 0 && !url.startsWith('/posts/')) {
-        url = '/posts' + url;
-      }
+    // Prepend baseurl if needed and not already present
+    var baseurl = getBaseurl();
+    if (baseurl && !url.startsWith(baseurl + '/')) {
+      url = baseurl + url;
     }
 
     return url;
@@ -1046,16 +1110,7 @@
     if (downloadBtn) {
       downloadBtn.onclick = function () {
         // Use the same URL resolution logic for downloads
-        var downloadUrl = item.url;
-        if (
-          item.absolute_url &&
-          item.absolute_url.indexOf(window.location.origin) === 0
-        ) {
-          downloadUrl = item.absolute_url;
-        } else if (item.url && !item.url.startsWith('http')) {
-          downloadUrl = item.url.startsWith('/') ? item.url : '/' + item.url;
-        }
-        window.open(downloadUrl, '_blank');
+        window.open(resolveItemUrl(item), '_blank');
       };
     }
 

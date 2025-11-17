@@ -10,12 +10,12 @@ comments: false
 math: true
 mermaid: true
 description: "This post covers the advanced formatting capabilities of Jekyll, from typography and text styling to media integration, mathematical equations, and interactive diagrams."
-author: "Mohit Rajput"
 image:
   path: https://jekyllrb.com/img/logo-2x.png
   alt: "Jekyll Advanced Formatting: Typography, Media, and Special Features"
-.. media_subpath: '/assets/images/2025-09-01/'
+allow_edit: false
 ---
+
 
 Jekyll Advanced Formatting: Typography, Media, and Special Features
 ===================================================================
@@ -23,10 +23,10 @@ Jekyll Advanced Formatting: Typography, Media, and Special Features
 This comprehensive guide covers Jekyll's advanced formatting capabilities, from typography and text styling to media integration, mathematical equations, and interactive diagrams. Master these features to create rich, engaging content.
 
 Typography and Text Formatting
-===============================
+==============================
 
 Header Hierarchy
------------------
+----------------
 
 **RST Header Styles:**
 
@@ -48,21 +48,25 @@ Header Hierarchy
     ^^^^^^^^^^^^^
 
 **Best Practices:**
+- **Consistent hierarchy** - Don't skip levels
+- **Descriptive titles** - Clear, scannable headers
+- **Logical organization** - Group related content
+- **SEO-friendly** - Headers help search engines understand structure
 
-* **Consistent hierarchy** - Don't skip levels
-* **Descriptive titles** - Clear, scannable headers
-* **Logical organization** - Group related content
-* **SEO-friendly** - Headers help search engines understand structure
 
 Text Styling Options
 --------------------
 
 **Basic Text Formatting:**
 
-* **Bold text** - ``**bold text**`` or ``**emphasis**``
-* *Italic text* - ``*italic text*`` or ``*emphasis*``
-* ``Inline code`` - ```inline code``` for technical terms
-* **Combined** - ``***bold and italic***``
+- **Bold text** - Use double asterisks: ``**bold text**``
+- *Italic text* - Use single asterisks: ``*italic text*``
+- ``Inline code`` - Use double backticks: ````inline code```` for technical terms
+
+.. note::
+
+   **Combined bold and italic:** RST does not directly support nested inline markup like ``***text***``. To achieve both bold and italic, you typically need to use one style or custom roles. Most Jekyll themes with RST support will convert ``***text***`` correctly if the content is processed through a Markdown-compatible parser.
+
 
 **Special Text Elements:**
 
@@ -86,36 +90,46 @@ List Types
 1. First item
 2. Second item
 3. Third item
-
-   a. Nested sub-item
-   b. Another sub-item
-
+   a) Nested sub-item
+   b) Another sub-item
 4. Fourth item
+
 
 **Unordered Lists:**
 
-* Main point
+- Main point
 
-  * Sub-point
-  * Another sub-point
+  + Sub-point
+  + Another sub-point
 
     * Deeply nested point
 
-* Another main point
+- Another main point
 
-**Task Lists:**
 
-- [x] Completed task
-- [x] Another completed task
-- [ ] Pending task
-- [ ] Future task
+**Definition Lists (Task Status Example):**
+
+Completed task
+    ✓ This task has been completed
+
+Another completed task
+    ✓ This task has also been completed
+
+Pending task
+    ○ This task is still pending
+
+Future task
+    ○ This task is planned for the future
+
 
 **Description Lists:**
 
 Term 1
+
     Definition of the first term
 
 Term 2
+
     Definition of the second term with more detailed explanation
     that spans multiple lines
 
@@ -125,22 +139,20 @@ Complex List Examples
 **Nested Mixed Lists:**
 
 1. **Setup Phase**
-
-   * Install dependencies
-   * Configure environment
-   * Test installation
+   - Install dependencies
+   - Configure environment
+   - Test installation
 
 2. **Development Phase**
-
-   * Write code
-   * Test functionality
-   * Document changes
+   - Write code
+   - Test functionality
+   - Document changes
 
 3. **Deployment Phase**
+   - Build production version
+   - Deploy to server
+   - Monitor performance
 
-   * Build production version
-   * Deploy to server
-   * Monitor performance
 
 Block Elements
 ==============
@@ -170,24 +182,30 @@ Blockquotes
 Prompt Boxes (Theme-Specific)
 -----------------------------
 
-Many Jekyll themes support special prompt boxes for different types of information:
+**Many Jekyll themes support special prompt boxes for different types of information**
 
 **Information Prompts:**
 
 .. note::
+
    This is an informational note that provides helpful context
+
    or additional information about the topic.
 
 **Warning Prompts:**
 
 .. warning::
+
    This is a warning about potential issues or things to be
+
    careful about when following instructions.
 
 **Tip Prompts:**
 
 .. tip::
+
    This is a helpful tip that can make the process easier
+
    or more efficient for readers.
 
 Code and Technical Content
@@ -199,12 +217,12 @@ Inline Code
 Use backticks for inline code: ``variable_name``, ``function()``, ``command --option``
 
 **When to Use Inline Code:**
+- Variable names and values
+- Function and method names
+- Command line commands
+- File and directory names
+- Technical terminology
 
-* Variable names and values
-* Function and method names
-* Command line commands
-* File and directory names
-* Technical terminology
 
 Code Blocks
 -----------
@@ -232,6 +250,7 @@ Code Blocks
        print(f"F({i}) = {fibonacci(i)}")
 
 
+
 .. code-block:: bash
 
    # Bash code block
@@ -244,27 +263,32 @@ Code Blocks
    # Check installation
    gcc --version
 
+
 .. code-block:: javascript
 
    // JavaScript code block
    // Modern JavaScript example with async/await
    async function fetchUserData(userId) {
+
        try {
+
            const response = await fetch(`/api/users/${userId}`);
            const userData = await response.json();
            return userData;
        } catch (error) {
+
            console.error('Error fetching user data:', error);
            throw error;
        }
    }
 
-**Code Block Features:**
 
-* **Syntax highlighting** - Automatic language detection
-* **Line numbers** - Optional line numbering
-* **Copy functionality** - Easy code copying
-* **Filename labels** - Show source file names
+**Code Block Features:**
+- **Syntax highlighting** - Automatic language detection
+- **Line numbers** - Optional line numbering
+- **Copy functionality** - Easy code copying
+- **Filename labels** - Show source file names
+
 
 Tables and Data
 ===============
@@ -291,21 +315,146 @@ Complex Tables
 
 **Tables with Code and Links:**
 
-+------------------+-------------------------+------------------+
-| Tool             | Command                 | Purpose          |
-+==================+=========================+==================+
-| Jekyll           | ``bundle exec jekyll    | Build static     |
-|                  | serve``                 | site             |
-+------------------+-------------------------+------------------+
-| Git              | ``git commit -m         | Version control  |
-|                  | "message"``             |                  |
-+------------------+-------------------------+------------------+
-| NPM              | ``npm install           | Package          |
-|                  | package-name``          | management       |
-+------------------+-------------------------+------------------+
++------------------+----------------------------------+------------------+
+| Tool             | Command                          | Purpose          |
++==================+==================================+==================+
+| Jekyll           | ``bundle exec jekyll serve``     | Build static     |
++------------------+----------------------------------+------------------+
+| Git              | ``git commit -m "message"``      | Version control  |
++------------------+----------------------------------+------------------+
+| NPM              | ``npm install package-name``     | Package manager  |
++------------------+----------------------------------+------------------+
+
+Advanced Table Features
+-----------------------
+
+**Custom Column Widths:**
+
+The ``list-table`` directive supports the ``:widths:`` option to control column proportions. Values are relative ratios that determine how the table width is distributed across columns.
+
+**Example with 20/80 split:**
+
+.. list-table::
+   :widths: 20 80
+   :header-rows: 1
+
+   * - Category
+     - Description
+
+   * - Short label
+     - This is a longer description that will wrap within its column while maintaining the 20/80 width ratio between columns.
+
+
+**Behavior of widths:**
+- ``1 1`` → Equal columns (50/50)
+- ``1 9`` → Left column gets 10%, right gets 90%
+- ``1 99`` → Left column gets ~1%, right gets ~99%
+- Values are normalized to percentages (``2 2`` = ``1 1``)
+
+
+**Multi-Column Tables:**
+
+**For tables with multiple columns, specify the width ratios accordingly:**
+
+.. list-table::
+   :widths: 10 20 40 30
+   :header-rows: 1
+
+   * - Rank
+     - Name
+     - Description
+     - Example
+
+   * - 1
+     - First Item
+     - A detailed description
+     - Sample value
+
+
+**Standard list-table options:**
+- ``:header-rows:`` - Number of rows to use as table headers (default: 0)
+- ``:stub-columns:`` - Number of leftmost columns to use as row headers (default: 0)
+- ``:class:`` - CSS class name(s) for custom styling
+- ``:name:`` - Reference name for the table
+
+
+Custom Table Width (Enhanced Feature)
+--------------------------------------
+
+.. note::
+
+   **Custom Extension:** This site includes an enhanced ``:custom-table-width:`` option for the ``list-table`` directive. This is a custom feature implemented via a Jekyll plugin extension, not part of standard RST.
+
+**Purpose:**
+
+Control the overall table width precisely, enabling horizontal scrolling for wide tables that need more space than the viewport provides. This is especially useful for tables with many columns or detailed content.
+
+**Usage:**
+
+.. code-block:: rst
+
+   .. list-table::
+      :widths: 10 20 40 30
+      :header-rows: 1
+      :custom-table-width: 1100px
+
+      * - Column 1
+        - Column 2
+        - Column 3
+        - Column 4
+
+**Supported Width Units:**
+
+- **Pixels:** ``1200px``, ``960px`` (or bare numbers: ``1200`` defaults to ``px``)
+- **Relative:** ``80%``, ``90%``
+- **Font-based:** ``80ch``, ``40rem``, ``30em``
+- **Viewport:** ``80vw``, ``60vh``
+
+**Behavior:**
+
+**Without** ``:custom-table-width:``:
+  - Table fills its container
+  - Text wraps within cells
+  - Horizontal scroll appears only when content forces it
+
+**With** ``:custom-table-width:``:
+  - Table uses the specified width exactly
+  - If wider than viewport, horizontal scrolling is enabled
+  - Column ratios from ``:widths:`` are still respected
+  - Text still wraps within cells
+
+**Example with Multiple Columns:**
+
+.. list-table::
+   :widths: 3 6 7 10 12 10
+   :header-rows: 1
+   :custom-table-width: 1100px
+
+   * - SNo.
+     - Category
+     - Subcategory
+     - Description
+     - Details
+     - Notes
+
+   * - 1
+     - Example
+     - Test
+     - A detailed description that demonstrates wrapping
+     - Additional information with more context
+     - Final notes
+
+
+**Best Practices:**
+- Use ``:widths:`` alone for most tables
+- Add ``:custom-table-width:`` **only** when you need tables wider than the viewport
+- For narrow viewports, consider responsive widths like ``90vw`` instead of fixed pixels
+- Test on mobile to ensure usability with horizontal scroll
+- Common use case: tables with 5+ columns that need detailed content per cell
+
 
 Mathematics and Equations
-==========================
+=========================
 
 Inline Mathematics
 ------------------
@@ -364,17 +513,20 @@ Mermaid Diagrams
 .. code-block:: mermaid
 
    flowchart TD
+
        A[Start] --> B{Decision}
        B -->|Yes| C[Process A]
        B -->|No| D[Process B]
        C --> E[End]
        D --> E
 
+
 **Sequence Diagrams:**
 
 .. code-block:: mermaid
 
    sequenceDiagram
+
        participant User
        participant Browser
        participant Server
@@ -387,11 +539,13 @@ Mermaid Diagrams
        Server-->>Browser: HTTP Response
        Browser-->>User: Display Page
 
+
 **Gantt Charts:**
 
 .. code-block:: mermaid
 
    gantt
+
        title Project Timeline
        dateFormat YYYY-MM-DD
 
@@ -408,12 +562,18 @@ Mermaid Diagrams
        Production Setup  :c1, after b3, 3d
        Go Live          :c2, after c1, 1d
 
+
 **Class Diagrams:**
 
 .. code-block:: mermaid
+   :width: 800px
+   :height: 300px
+   :scale: 1.2
 
    classDiagram
+
        class Animal {
+
            +String name
            +int age
            +makeSound()
@@ -421,12 +581,14 @@ Mermaid Diagrams
        }
 
        class Dog {
+
            +String breed
            +bark()
            +wagTail()
        }
 
        class Cat {
+
            +String color
            +meow()
            +purr()
@@ -434,6 +596,7 @@ Mermaid Diagrams
 
        Animal <|-- Dog
        Animal <|-- Cat
+
 
 Media Integration
 =================
@@ -451,12 +614,12 @@ Images
 
 **Image with Caption:**
 
-.. figure:: attachments/general/images/screenshot.png
+.. figure:: attachments/general/images/repo_icon.png
    :alt: Application screenshot
    :align: left
-   :width: 600
+   :width: 250
 
-   *From the about section of this website*
+   *<This is the caption for the above image>*
 
 **Responsive Images:**
 
@@ -484,27 +647,27 @@ Internal Links
 --------------
 
 **Link to Other Posts:**
+- `Jekyll Fundamentals Guide </jekyll-fundamentals-setup/>`_
+- `Content Creation Guide </jekyll-content-creation-guide/>`_
 
-* `Jekyll Fundamentals Guide </posts/jekyll-fundamentals-setup/>`_
-* `Content Creation Guide </posts/jekyll-content-creation-guide/>`_
 
 **Link to Sections:**
+- `Typography Section <#typography-and-text-formatting>`_
+- `Code Blocks <#code-blocks>`_
 
-* `Typography Section <#typography-and-text-formatting>`_
-* `Code Blocks <#code-blocks>`_
 
 External Links
 --------------
 
 **Resource Links:**
+- `Jekyll Documentation <https://jekyllrb.com/docs/>`_
+- `Markdown Guide <https://www.markdownguide.org/>`_
+- `reStructuredText Primer <https://docutils.sourceforge.io/docs/user/rst/quickref.html>`_
 
-* `Jekyll Documentation <https://jekyllrb.com/docs/>`_
-* `Markdown Guide <https://www.markdownguide.org/>`_
-* `reStructuredText Primer <https://docutils.sourceforge.io/docs/user/rst/quickref.html>`_
 
 **Reference-Style Links:**
 
-For frequently referenced resources, you can define links at the bottom:
+**For frequently referenced resources, you can define links at the bottom**
 
 .. _Jekyll: https://jekyllrb.com/
 .. _GitHub: https://github.com/
@@ -532,7 +695,7 @@ Advanced Features
 Custom HTML Integration
 -----------------------
 
-When Markdown or RST limitations are reached, custom HTML can be embedded:
+**When Markdown or RST limitations are reached, custom HTML can be embedded**
 
 .. raw:: html
 
@@ -571,39 +734,37 @@ Optimization Guidelines
 -----------------------
 
 **Image Optimization:**
-
-* **Compress images** before uploading
-* **Use appropriate formats** - JPEG for photos, PNG for graphics
-* **Specify dimensions** to prevent layout shift
-* **Add alt text** for accessibility
+- **Compress images** before uploading
+- **Use appropriate formats** - JPEG for photos, PNG for graphics
+- **Specify dimensions** to prevent layout shift
+- **Add alt text** for accessibility
 
 **Content Performance:**
+- **Minimize large code blocks** - Use external files when needed
+- **Optimize tables** - Keep data manageable
+- **Use lazy loading** for images below the fold
 
-* **Minimize large code blocks** - Use external files when needed
-* **Optimize tables** - Keep data manageable
-* **Use lazy loading** for images below the fold
 
 Accessibility Best Practices
------------------------------
+----------------------------
 
 **Text Accessibility:**
-
-* **Sufficient color contrast** for readability
-* **Descriptive link text** - avoid "click here"
-* **Proper heading hierarchy** - don't skip levels
-* **Alt text for images** - describe content and function
+- **Sufficient color contrast** for readability
+- **Descriptive link text** - avoid "click here"
+- **Proper heading hierarchy** - don't skip levels
+- **Alt text for images** - describe content and function
 
 **Navigation Aids:**
+- **Table of contents** for long posts
+- **Skip links** for keyboard navigation
+- **Descriptive page titles** and meta descriptions
 
-* **Table of contents** for long posts
-* **Skip links** for keyboard navigation
-* **Descriptive page titles** and meta descriptions
 
 Formatting Quick Reference
 ==========================
 
 Common Issues - Quick Fixes
-----------------------------
+---------------------------
 
 **Math Not Rendering:**
 
@@ -635,10 +796,10 @@ Common Issues - Quick Fixes
     # Site still builds and works
 
 **Table Formatting Issues:**
-
 - Keep tables simple
 - Use consistent spacing
 - Test with minimal content first
+
 
 **Code Block Problems:**
 
@@ -646,13 +807,17 @@ Common Issues - Quick Fixes
 
     # Wrong
     Here's code::
+
     def function():
+
         return True
+
 
     # Right
     Here's code::
 
         def function():
+
             return True
 
 **Image Not Loading:**
@@ -660,16 +825,15 @@ Common Issues - Quick Fixes
 ::
 
     # Check file exists
-    ls assets/images/your-image.jpg
+    ls attachments/general/images/your-image.jpg
 
     # Use correct path (relative, not absolute)
-    .. image:: assets/images/your-image.jpg
+    .. image:: attachments/general/images/your-image.jpg
 
 Formatting Troubleshooting
-===========================
+==========================
 
 **Quick Debug Process:**
-
 1. **Test with minimal content** - Start simple
 2. **Add complexity gradually** - One feature at a time
 3. **Check build output** - ``bundle exec jekyll build --trace``
@@ -694,7 +858,6 @@ Formatting Troubleshooting
     # Verify syntax in online editors first
 
 **Performance Issues:**
-
 - Keep images under 1MB
 - Use simple tables for complex data
 - Break up very long documents

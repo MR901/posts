@@ -19,28 +19,43 @@ module AttachmentReferences
       @site = site
       @attachment_refs = {}
 
+      # Get attachments directory from config (matches Python script behavior)
+      attachments_dir = site.config['attachments_dir'] || 'attachments'
+      @attachments_path = "/#{attachments_dir}/"
+
+      Jekyll.logger.info "Attachment References:", "Using attachments directory: #{@attachments_path}"
+
       # Get all attachment files
       attachment_files = site.static_files.select do |file|
-        file.path.include?('/assets/attachments/')
+        file.path.include?(@attachments_path)
       end
 
       # Initialize reference tracking for each attachment
+      generate_absolute_urls = site.config['generate_absolute_urls'] || false
+
       attachment_files.each do |file|
         filename = File.basename(file.path)
         # Generate clean web URLs without filesystem paths
         web_path = file.path.sub(site.source, '').sub(/^\//, '')
         relative_url = '/' + web_path
-        absolute_url = site.config['url'].to_s + site.config['baseurl'].to_s + relative_url
 
-        @attachment_refs[filename] = {
+        ref_data = {
           'path' => file.path,
           'web_path' => web_path,
           'url' => relative_url,
-          'absolute_url' => absolute_url,
           'posts' => [],
           'pages' => [],
           'total_references' => 0
         }
+
+        # Only generate absolute_url if explicitly requested
+        # This avoids hardcoding domain/baseurl that may change
+        if generate_absolute_urls
+          absolute_url = site.config['url'].to_s + site.config['baseurl'].to_s + relative_url
+          ref_data['absolute_url'] = absolute_url
+        end
+
+        @attachment_refs[filename] = ref_data
       end
 
       # Scan posts for attachment references
@@ -80,14 +95,18 @@ module AttachmentReferences
       documents.each do |doc|
         next unless doc.content
 
+        # Build patterns dynamically based on configured attachments path
+        # Escape path for use in regex, removing leading/trailing slashes
+        escaped_path = Regexp.escape(@attachments_path.gsub(/^\/|\/$/,''))
+
         # Look for various attachment reference patterns
         patterns = [
-          /!\[.*?\]\(([^)]*\/assets\/attachments\/[^)]+)\)/,  # Markdown images
-          /src=['"]([^'"]*\/assets\/attachments\/[^'"]+)['"]/,  # HTML src attributes
-          /href=['"]([^'"]*\/assets\/attachments\/[^'"]+)['"]/,  # HTML href attributes
-          /url\(['"]?([^'"]*\/assets\/attachments\/[^'"]+)['"]?\)/,  # CSS url()
-          /showImageModal\(['"]([^'"]*assets\/attachments\/[^'"]+)['"]/, # JS modal calls
-          /showPdfModal\(['"]([^'"]*assets\/attachments\/[^'"]+)['"]/ # JS PDF calls
+          /!\[.*?\]\(([^)]*\/#{escaped_path}\/[^)]+)\)/,  # Markdown images
+          /src=['"]([^'"]*\/#{escaped_path}\/[^'"]+)['"]/,  # HTML src attributes
+          /href=['"]([^'"]*\/#{escaped_path}\/[^'"]+)['"]/,  # HTML href attributes
+          /url\(['"]?([^'"]*\/#{escaped_path}\/[^'"]+)['"]?\)/,  # CSS url()
+          /showImageModal\(['"]([^'"]*#{escaped_path}\/[^'"]+)['"]/, # JS modal calls
+          /showPdfModal\(['"]([^'"]*#{escaped_path}\/[^'"]+)['"]/ # JS PDF calls
         ]
 
         # First, scan with path-based patterns
@@ -118,17 +137,20 @@ module AttachmentReferences
 
         # Scan for direct filename mentions with better context
         @attachment_refs.each_key do |filename|
+          # Build patterns dynamically with configured attachments path
+          attachments_pattern = Regexp.escape(@attachments_path.gsub(/^\/|\/$/,''))
+
           # Look for filename in specific contexts that indicate actual usage
           filename_patterns = [
             # Markdown/RST image syntax with asset path
-            Regexp.new("!\\[.*?\\]\\([^)]*assets/attachments[^)]*#{Regexp.escape(filename)}[^)]*\\)", Regexp::IGNORECASE),
-            Regexp.new("\\.\\.\\s+figure::\\s+[^\\n]*assets/attachments[^\\n]*#{Regexp.escape(filename)}", Regexp::IGNORECASE),
-            Regexp.new("\\.\\.\\s+image::\\s+[^\\n]*assets/attachments[^\\n]*#{Regexp.escape(filename)}", Regexp::IGNORECASE),
+            Regexp.new("!\\[.*?\\]\\([^)]*#{attachments_pattern}[^)]*#{Regexp.escape(filename)}[^)]*\\)", Regexp::IGNORECASE),
+            Regexp.new("\\.\\.\\s+figure::\\s+[^\\n]*#{attachments_pattern}[^\\n]*#{Regexp.escape(filename)}", Regexp::IGNORECASE),
+            Regexp.new("\\.\\.\\s+image::\\s+[^\\n]*#{attachments_pattern}[^\\n]*#{Regexp.escape(filename)}", Regexp::IGNORECASE),
             # HTML src/href with asset path
-            Regexp.new("src=['\"][^'\"]*assets/attachments[^'\"]*#{Regexp.escape(filename)}[^'\"]*['\"]", Regexp::IGNORECASE),
-            Regexp.new("href=['\"][^'\"]*assets/attachments[^'\"]*#{Regexp.escape(filename)}[^'\"]*['\"]", Regexp::IGNORECASE),
+            Regexp.new("src=['\"][^'\"]*#{attachments_pattern}[^'\"]*#{Regexp.escape(filename)}[^'\"]*['\"]", Regexp::IGNORECASE),
+            Regexp.new("href=['\"][^'\"]*#{attachments_pattern}[^'\"]*#{Regexp.escape(filename)}[^'\"]*['\"]", Regexp::IGNORECASE),
             # Direct asset path reference
-            Regexp.new("assets/attachments/[^\\s]*#{Regexp.escape(filename)}(?!\\w)", Regexp::IGNORECASE)
+            Regexp.new("#{attachments_pattern}/[^\\s]*#{Regexp.escape(filename)}(?!\\w)", Regexp::IGNORECASE)
           ]
 
           found_reference = false

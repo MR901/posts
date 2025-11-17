@@ -24,6 +24,7 @@ from pygments.formatters import HtmlFormatter
 
 from docutils import nodes
 from docutils.parsers.rst import directives, Directive
+from docutils.parsers.rst.directives.tables import ListTable as DocutilsListTable
 
 from pygments import highlight
 from pygments.lexers import get_lexer_by_name, TextLexer
@@ -34,7 +35,7 @@ class Pygments(Directive):
     required_arguments = 1
     optional_arguments = 0
     final_argument_whitespace = True
-    string_opts = ['title', 'url', 'caption']
+    string_opts = ['title', 'url', 'caption', 'width', 'height', 'scale']
     option_spec = dict([(key, directives.unchanged) for key in string_opts])
     has_content = True
 
@@ -75,7 +76,37 @@ class Pygments(Directive):
         table += '</pre></td><td class="code"><pre><code class="%s">%s</code></pre></td></tr></table></div>' % (lexer_name, lined)
 
         # Add wrapper with optional caption and link
-        code = '<figure class="code">'
+        # Build data attributes for Mermaid sizing options
+        data_attrs = ''
+        if self.options:
+            # Handle Mermaid-specific sizing options
+            if 'width' in self.options:
+                width_val = self.options['width'].strip()
+                # Add 'px' if numeric only (no unit specified)
+                if width_val.isdigit():
+                    width_val = f"{width_val}px"
+                # Validate: allow digits with optional decimal, followed by optional unit
+                # Matches: 10, 10px, 10.5px, 100%, 50vw, etc.
+                if re.match(r'^[0-9]+(\.[0-9]+)?(px|rem|em|%|vw|ch)?$', width_val):
+                    data_attrs += f' data-mermaid-width="{width_val}"'
+
+            if 'height' in self.options:
+                height_val = self.options['height'].strip()
+                # Add 'px' if numeric only (no unit specified)
+                if height_val.isdigit():
+                    height_val = f"{height_val}px"
+                # Validate: allow digits with optional decimal, followed by optional unit
+                # Matches: 200, 200px, 200.5px, 100%, 50vh, etc.
+                if re.match(r'^[0-9]+(\.[0-9]+)?(px|rem|em|%|vh|ch)?$', height_val):
+                    data_attrs += f' data-mermaid-height="{height_val}"'
+
+            if 'scale' in self.options:
+                scale_val = self.options['scale'].strip()
+                # Allow decimal values like 1.5, 0.8, etc.
+                if re.match(r'^[0-9]+(\.[0-9]+)?$', scale_val):
+                    data_attrs += f' data-mermaid-scale="{scale_val}"'
+
+        code = f'<figure class="code"{data_attrs}>'
         if self.options:
             caption = ('<span>%s</span>' % self.options['caption']) if 'caption' in self.options else ''
             title = self.options['title'] if 'title' in self.options else 'link'
@@ -95,3 +126,39 @@ class Pygments(Directive):
 
 directives.register_directive('code-block', Pygments)
 directives.register_directive('sourcecode', Pygments)
+
+
+# Extend the built-in list-table directive to support a custom overall width
+class ListTableWithCustomWidth(DocutilsListTable):
+    option_spec = DocutilsListTable.option_spec.copy()
+    option_spec['custom-table-width'] = directives.unchanged
+
+    def run(self):
+        nodes_list = super().run()
+
+        cw = self.options.get('custom-table-width')
+        if not cw:
+            return nodes_list
+
+        val = cw.strip()
+        # If numeric only, default to px
+        if val.isdigit():
+            val = f"{val}px"
+
+        # Accept common CSS length units and percent
+        if not re.match(r'^[0-9]+(px|rem|em|ch|vw|vh|%)$', val):
+            return nodes_list
+
+        encoded = val.replace('%', 'pct')  # encode % to keep it in class token
+
+        # Attach an identifying class to the produced table nodes
+        for n in nodes_list:
+            for t in n.traverse(nodes.table):
+                classes = t.setdefault('classes', [])
+                classes.append('rst-cw-' + encoded)
+
+        return nodes_list
+
+
+# Override the default directive registration with our extended one
+directives.register_directive('list-table', ListTableWithCustomWidth)

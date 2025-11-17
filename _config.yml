@@ -24,6 +24,7 @@ description: >- # used by seo meta and the atom feed
 # Fill in the protocol & hostname for your site.
 # E.g. 'https://username.github.io', note that it does not end with a '/'.
 url: "https://mr901.github.io"
+# url: "https://mr901.co.in"   # need CNAME file in the root directory but site will be served at root of the domain
 
 # The base URL of your site
 baseurl: "/posts"
@@ -33,6 +34,11 @@ paginate: 20
 # Base directory for attachments (images, articles, research_papers)
 # Can be changed to relocate attachments without code changes elsewhere
 attachments_dir: "attachments"
+
+# Generate absolute URLs in attachment data (default: false)
+# Set to false to avoid hardcoding domain/baseurl in generated files
+# JavaScript will automatically resolve URLs based on current location
+# generate_absolute_urls: false
 
 github:
   username: mr901 # change to your GitHub username
@@ -141,7 +147,7 @@ comments:
 # Self-hosted static assets, optional › https://github.com/cotes2020/chirpy-static-assets
 assets:
   self_host:
-    enabled: # boolean, keep empty means false
+    enabled: true # boolean, keep empty means false
     # specify the Jekyll environment, empty means both
     # only works if `assets.self_host.enabled` is 'true'
     env: # [development | production]
@@ -222,6 +228,7 @@ exclude:
   - "*.config.js"
   - "package*.json"
   - vendor
+  - debug_site
 
 jekyll-archives:
   enabled: [categories, tags]
