@@ -26,8 +26,8 @@ description: >- # used by seo meta and the atom feed
 
 # Fill in the protocol & hostname for your site.
 # E.g. 'https://username.github.io', note that it does not end with a '/'.
-url: "https://mr901.github.io"
-# url: "https://mr901.co.in"   # need CNAME file in the root directory but site will be served at root of the domain
+url: "https://mr901.co.in"
+# url: "https://mr901.github.io"   # Use this if you want GitHub Pages URLs in canonical tags
 
 # The base URL of your site
 baseurl: "/posts"
