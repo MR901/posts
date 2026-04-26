@@ -330,6 +330,11 @@ GitHub Pages runs Jekyll in safe mode and will not execute custom plugins.
 This site ships a custom attachment scanner/generator, so you must pre‑generate
 and commit the data files that power the “Referenced in” panel on the ``Attachments`` tab.
 
+For this repository, configure **Settings → Pages** to use **GitHub Actions** as
+the source. Do not use **Deploy from a branch** for this repo: it contains custom
+build logic, and the checked-in ``.nojekyll`` file would cause GitHub Pages to
+serve files like ``index.html`` as raw source instead of rendering the Jekyll site.
+
 Before pushing to your Pages source branch (e.g., ``main``)::
 
   # Generate `_data/attachment_{galleries,references}.yml`

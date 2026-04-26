@@ -3,6 +3,7 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
+  # Automatic triggers are intentionally disabled for manual-only deployment.
   # push:
   #   branches:
   #     - develop
@@ -169,7 +170,7 @@ jobs:
 
   deploy_branch_preview:
     # Deploy preview for develop/dev/article-* branches
-    if: github.event_name == 'push' && (github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/dev' || startsWith(github.ref, 'refs/heads/article-'))
+    if: (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && (github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/dev' || startsWith(github.ref, 'refs/heads/article-'))
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -192,7 +193,7 @@ jobs:
 
   deploy:
     # Only deploy production Pages from main/master branches
-    if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
+    if: (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
