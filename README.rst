@@ -367,6 +367,137 @@ If you move between a custom domain, GitHub Pages project site, or root deployme
 
 This setup is intentionally designed to avoid hardcoded attachment domains, so most content should continue to work as long as attachment links stay relative.
 
+Custom Domain Routing with Cloudflare Workers
+---------------------------------------------
+
+This repository can be served under a custom domain by placing Cloudflare in front
+of GitHub Pages and using a Worker as a reverse proxy. This makes it possible to
+serve multiple GitHub Pages repositories under one domain while keeping each repo
+independent.
+
+Example routing::
+
+  https://mr901.co.in/posts/      → https://mr901.github.io/posts/
+  https://mr901.co.in/projects/   → https://mr901.github.io/projects/
+  https://mr901.co.in/            → https://mr901.github.io/
+
+Why this setup is useful:
+
+- GitHub Pages stays the hosting platform for each repo
+- Cloudflare Workers handles routing on the free tier for many personal sites
+- Users only see the custom domain, not ``github.io``
+- New sections are easy to add by updating one Worker
+
+How it works
+~~~~~~~~~~~~
+
+1. A request for ``https://mr901.co.in/posts/my-article/`` reaches Cloudflare
+2. The Worker inspects the path and sees it starts with ``/posts``
+3. The Worker fetches ``https://mr901.github.io/posts/my-article/``
+4. The Worker returns that response while preserving the custom domain in the browser
+
+Prerequisites
+~~~~~~~~~~~~~
+
+- A custom domain you control
+- A Cloudflare account on the domain's DNS
+- At least one GitHub Pages site already working, such as ``https://mr901.github.io/posts/``
+- DNS records proxied through Cloudflare, not DNS-only
+
+DNS setup
+~~~~~~~~~
+
+Point the apex domain at GitHub Pages using these four A records and keep them
+proxied in Cloudflare::
+
+  185.199.108.153
+  185.199.109.153
+  185.199.110.153
+  185.199.111.153
+
+Optionally add ``www`` as a proxied CNAME to the apex domain.
+
+Worker setup
+~~~~~~~~~~~~
+
+1. In Cloudflare, open ``Workers & Pages`` and create a new Worker
+2. Replace the default code with a routing Worker
+3. Deploy it
+4. Add a route such as ``mr901.co.in/*`` so all domain traffic passes through the Worker
+
+Use a Worker that forwards requests to the right GitHub Pages path and rewrites
+redirects so browsers stay on the custom domain:
+
+.. code-block:: javascript
+
+   export default {
+     async fetch(request, env, ctx) {
+       const url = new URL(request.url);
+       const path = url.pathname;
+
+       let githubUrl;
+
+       if (path.startsWith('/posts')) {
+         githubUrl = `https://mr901.github.io${path}${url.search}`;
+       } else if (path.startsWith('/resume')) {
+         githubUrl = `https://mr901.github.io${path}${url.search}`;
+       } else if (path.startsWith('/tools/')) {
+         const rewrittenPath = path.replace(/^\/tools/, '');
+         githubUrl = `https://mr901.github.io${rewrittenPath}${url.search}`;
+       } else {
+         githubUrl = `https://mr901.github.io${path}${url.search}`;
+       }
+
+       const response = await fetch(githubUrl, request);
+       const newResponse = new Response(response.body, response);
+
+       const location = newResponse.headers.get('Location');
+       if (location && location.includes('mr901.github.io')) {
+         let newLocation = location.replace('mr901.github.io', 'mr901.co.in');
+         newLocation = newLocation.replace('/paint/', '/tools/paint/');
+         newLocation = newLocation.replace('/paint', '/tools/paint');
+         newResponse.headers.set('Location', newLocation);
+       }
+
+       return newResponse;
+     }
+   };
+
+Why Location header rewriting matters
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+GitHub Pages often redirects paths without a trailing slash. Without rewriting the
+``Location`` header, a request to ``https://mr901.co.in/posts`` may redirect the
+browser to ``https://mr901.github.io/posts/``, exposing the GitHub URL. Rewriting
+the header keeps redirects on the custom domain instead.
+
+Testing
+~~~~~~~
+
+- Test first in a private or incognito window to avoid stale browser cache
+- Check both ``/posts`` and ``/posts/`` behavior
+- Confirm the address bar stays on the custom domain
+- If cached redirects get in the way, clear browser cache and, if needed, purge Cloudflare cache
+
+Command-line checks::
+
+  curl -sI https://mr901.co.in/posts | grep -E "(HTTP|location:)"
+  curl -sI https://mr901.co.in/posts/ | grep -E "(HTTP|location:)"
+  curl -sL -w "Final URL: %{url_effective}\n" -o /dev/null https://mr901.co.in/posts
+
+Scaling the routing
+~~~~~~~~~~~~~~~~~~~
+
+Adding another GitHub Pages repository usually means adding one more route block
+to the Worker, for example::
+
+  else if (path.startsWith('/projects')) {
+    githubUrl = `https://mr901.github.io${path}${url.search}`;
+  }
+
+This keeps the deployment model simple: each repository builds independently on
+GitHub Pages, and Cloudflare provides the shared public domain.
+
 Use in Your Own Jekyll Site
 ---------------------------
 
@@ -422,4 +553,3 @@ Documentation and Links
 
 - Chirpy theme docs: https://github.com/cotes2020/jekyll-theme-chirpy/wiki
 - Jekyll docs: https://jekyllrb.com/docs/
-
