@@ -333,6 +333,7 @@ and commit the data files that power the “Referenced in” panel on the ``Atta
 Before pushing to your Pages source branch (e.g., ``main``)::
 
   # Generate `_data/attachment_{galleries,references}.yml`
+  # and `attachments-data/attachment_{galleries,references}.json`
   make data
 
   # Optionally build locally to verify
@@ -340,6 +341,7 @@ Before pushing to your Pages source branch (e.g., ``main``)::
 
   # Commit the generated data files
   git add _data/attachment_galleries.yml _data/attachment_references.yml
+  git add attachments-data/attachment_galleries.json attachments-data/attachment_references.json
   git commit -m "chore(data): update attachment data for Pages"
   git push origin <pages-source-branch>  # e.g., main
 
@@ -348,8 +350,22 @@ Notes
 
 - ``attachments_dir`` in ``_config.yml`` controls where attachments live (default: ``attachments``)
 - Prefer relative paths like ``attachments/...`` in posts so links work with any ``baseurl``
-- The generator respects ``_config.yml`` ``baseurl`` when composing absolute URLs for data files
+- Generated data is portable by default: attachment entries store relative URLs, not hardcoded domains
+- Set ``generate_absolute_urls: true`` only if you explicitly need absolute links in generated data
+- The browser attachment UI can fall back to ``attachments-data/attachment_references.json`` when inline data is unavailable
 - In CI, run ``python3 scripts/generate_attachment_data.py .`` before ``jekyll build`` and deploy the output
+
+Changing URL or baseurl
+~~~~~~~~~~~~~~~~~~~~~~~
+
+If you move between a custom domain, GitHub Pages project site, or root deployment:
+
+- Update ``url`` and ``baseurl`` in ``_config.yml``
+- Re-run ``make data`` so generated files reflect the current configuration
+- Verify locally with ``make serve`` (configured ``baseurl``) or ``make serve-root`` (root preview)
+- Run ``make test`` to catch broken links before pushing
+
+This setup is intentionally designed to avoid hardcoded attachment domains, so most content should continue to work as long as attachment links stay relative.
 
 Use in Your Own Jekyll Site
 ---------------------------
@@ -406,5 +422,4 @@ Documentation and Links
 
 - Chirpy theme docs: https://github.com/cotes2020/jekyll-theme-chirpy/wiki
 - Jekyll docs: https://jekyllrb.com/docs/
-
 
